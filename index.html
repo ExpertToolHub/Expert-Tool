@@ -193,32 +193,29 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .popup-foot{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:10px;position:sticky;bottom:0;background:var(--card);border-radius:0 0 20px 20px}
 .popup-foot .btn{flex:1;padding:12px}
 
-/* PREVIEW MODAL (nested inside tool modal) */
-.preview-inner{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);z-index:600;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn .2s}
-.preview-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;max-width:600px;width:100%;max-height:92vh;overflow-y:auto;animation:slideUp .3s}
+.preview-inner{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);z-index:600;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn .2s;overflow-y:auto}
+.preview-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;max-width:600px;width:100%;max-height:92vh;overflow-y:auto;animation:slideUp .3s;margin:auto}
 .preview-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg2);z-index:2;border-radius:20px 20px 0 0}
 .preview-head h3{font-size:16px;color:var(--text);display:flex;align-items:center;gap:8px}
 .preview-close-btn{background:var(--danger);border:none;padding:8px 14px;border-radius:10px;color:#fff;font-weight:600;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:4px}
 .preview-content{padding:20px}
-.preview-capture{background:#ffffff;color:#0f172a;padding:28px 24px;border-radius:12px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
-.preview-capture h2{font-size:22px;font-weight:800;text-align:center;color:#0f172a;margin-bottom:6px}
-.preview-capture .subtitle{text-align:center;font-size:12px;color:#64748b;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #e2e8f0}
-.preview-capture .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #e2e8f0;font-size:14px;gap:12px}
-.preview-capture .row:last-child{border-bottom:none}
-.preview-capture .row .lbl{color:#64748b}
-.preview-capture .row .val{font-weight:700;color:#0f172a;text-align:right}
-.preview-capture .row.total{padding-top:14px;font-size:17px;border-top:2px solid #10b981;margin-top:6px}
-.preview-capture .row.total .val{color:#10b981}
-.preview-capture img{max-width:100%;display:block;margin:16px auto;border-radius:8px}
-.preview-capture .footer{margin-top:22px;padding-top:14px;border-top:1px solid #e2e8f0;text-align:center;font-size:11px;color:#64748b}
-.preview-capture .footer strong{color:#0070f3}
+.preview-capture{background:#ffffff;color:#0f172a;padding:30px 26px;border-radius:12px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:200px;display:flex;align-items:center;justify-content:center}
+.preview-data{width:100%}
+.preview-data img{max-width:100%;height:auto;display:block;margin:0 auto}
+.preview-data .result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px;color:#0f172a}
+.preview-data .result-row:last-child{border-bottom:none}
+.preview-data .result-row .lb{color:#64748b}
+.preview-data .result-row .vl{font-weight:700;color:#0f172a;text-align:right;word-break:break-word}
+.preview-data .result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none;margin-top:8px}
+.preview-data .result-row.total .lb{color:#10b981;font-weight:700}
+.preview-data .result-row.total .vl{color:#10b981;font-weight:800}
+.preview-data textarea{width:100%;padding:10px;border:1px solid #e2e8f0;border-radius:8px;font-family:monospace;font-size:12px;background:#f8fafc;color:#0f172a;resize:none}
 .preview-actions{padding:14px 18px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;position:sticky;bottom:0;background:var(--bg2);border-radius:0 0 20px 20px}
 .preview-actions button{flex:1;min-width:90px;padding:12px 8px;font-size:13px;border-radius:12px;border:none;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.2s;font-family:inherit}
 .preview-actions .btn-print{background:var(--card);color:var(--text);border:1px solid var(--border)}
 .preview-actions .btn-pdf{background:var(--card);color:var(--text);border:1px solid var(--border)}
 .preview-actions .btn-img{background:linear-gradient(135deg,#7c3aed,#0070f3);color:#fff}
 .preview-actions button:hover{transform:translateY(-2px)}
-.preview-actions button:active{transform:translateY(0)}
 
 #adminPanel{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);z-index:2500;overflow-y:auto;padding:16px}
 .admin-inner{max-width:1100px;margin:0 auto;background:#fff;color:#0f172a;border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.5)}
@@ -280,7 +277,6 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
   .search-box{padding:14px 50px 14px 20px;font-size:15px}
   .preview-box{max-width:100%;border-radius:16px}
   .preview-capture{padding:20px 16px}
-  .preview-capture h2{font-size:18px}
   .preview-actions{padding:12px 14px;gap:6px}
   .preview-actions button{min-width:calc(33.333% - 4px);padding:10px 4px;font-size:11px}
 }
@@ -708,7 +704,7 @@ function runQR(){
     ctx.imageSmoothingEnabled=false;
     ctx.drawImage(img,0,0,qrSize,qrSize);
     c.toBlob(b=>{
-      res(`<div class="result-box" style="text-align:center"><h4>📱 QR Code (Ultra HD)</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:12px;max-width:280px;image-rendering:crisp-edges"><div class="result-row"><span class="lb">Resolution</span><span class="vl">${qrSize}×${qrSize}px</span></div><div class="result-row total"><span class="lb">Content</span><span class="vl" style="font-size:12px">${t}</span></div></div>`,`QR Code (2000×2000): ${t}`);
+      res(`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:12px;max-width:280px;image-rendering:crisp-edges"></div>`,`QR Code: ${t}`);
       window._lastBlob=b;
       window._lastName='qrcode-ultra-hd.png';
       toast('✅ Ultra HD QR ready!');
@@ -744,7 +740,7 @@ function runBarcode(){
     const yOff=(finalCanvas.height-canvas.height)/2;
     fctx.drawImage(canvas,xOff,yOff);
     finalCanvas.toBlob(b=>{
-      res(`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode (Ultra HD)</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:14px;max-width:100%;image-rendering:crisp-edges"><div class="result-row"><span class="lb">Resolution</span><span class="vl">${finalCanvas.width}×${finalCanvas.height}px</span></div><div class="result-row"><span class="lb">Content</span><span class="vl" style="font-size:12px">${t}</span></div><div class="result-row total"><span class="lb">Format</span><span class="vl">CODE128 (auto)</span></div></div>`,`Barcode (Ultra HD): ${t}`);
+      res(`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:14px;max-width:100%;image-rendering:crisp-edges"></div>`,`Barcode: ${t}`);
       window._lastBlob=b;
       window._lastName='barcode-ultra-hd.png';
       toast('✅ Ultra HD Barcode ready!');
@@ -754,14 +750,13 @@ function runBarcode(){
       const canvas=document.createElement('canvas');
       JsBarcode(canvas,barcodeText,{format:'CODE39',width:3,height:400,displayValue:true,fontSize:50,margin:30,background:'#ffffff',lineColor:'#000000'});
       canvas.toBlob(b=>{
-        res(`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:14px;max-width:100%"><div class="result-row total"><span class="lb">Format</span><span class="vl">CODE39 (auto)</span></div></div>`,`Barcode: ${t}`);
+        res(`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:14px;max-width:100%"></div>`,`Barcode: ${t}`);
         window._lastBlob=b;
         window._lastName='barcode.png';
         toast('✅ Barcode ready!');
       },'image/png');
     }catch(e2){
       toast('❌ '+e2.message,1);
-      res(`<div class="result-box" style="border-color:#ef4444"><h4 style="color:#ef4444">❌ Error</h4><p>${e2.message}</p></div>`,'Error');
     }
   }
 }
@@ -784,14 +779,40 @@ function toggleFavoriteCurrent(){if(!window.__currentTool)return;const now=Favor
 
 window.__calc=function(){if(!window.__currentTool)return;const t=TOOLS.find(x=>x.id===window.__currentTool);if(t&&t.calc)try{t.calc();}catch(e){console.warn(e);}};
 
-/* ============ PREVIEW MODAL (Ultra HD) ============ */
+/* ============ PREVIEW MODAL (SIRF DATA) ============ */
 function openPreview(){
-  const t=TOOLS.find(x=>x.id===window.__currentTool);
-  const title=t?t.n:'Qunvero Tool';
-  const icon=t?t.i:'🛠️';
   const rb=document.getElementById('resultBox');
   if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}
   const resultHTML=rb.innerHTML;
+  const rawText=window._lt||'';
+  const hasImage=resultHTML.indexOf('<img')>-1;
+  let cleanHTML='';
+  if(hasImage){
+    const tempDiv=document.createElement('div');
+    tempDiv.innerHTML=resultHTML;
+    const imgs=tempDiv.querySelectorAll('img');
+    let imgHTML='';
+    imgs.forEach(img=>{imgHTML+=`<img src="${img.src}" style="max-width:100%;display:block;margin:0 auto">`;});
+    cleanHTML=imgHTML;
+  } else {
+    const tempDiv=document.createElement('div');
+    tempDiv.innerHTML=resultHTML;
+    const rows=tempDiv.querySelectorAll('.result-row');
+    if(rows.length){
+      let rowsHTML='';
+      rows.forEach(row=>{
+        const lb=row.querySelector('.lb');
+        const vl=row.querySelector('.vl');
+        const isTotal=row.classList.contains('total');
+        rowsHTML+=`<div class="result-row${isTotal?' total':''}"><span class="lb">${lb?lb.textContent:''}</span><span class="vl">${vl?vl.textContent:''}</span></div>`;
+      });
+      cleanHTML=rowsHTML;
+    } else if(rawText){
+      cleanHTML=`<div style="padding:10px 0;font-size:15px;white-space:pre-wrap;word-break:break-word;color:#0f172a;line-height:1.7">${rawText}</div>`;
+    } else {
+      cleanHTML=`<div style="padding:10px 0;font-size:15px;color:#0f172a;line-height:1.7">${resultHTML}</div>`;
+    }
+  }
   const previewHTML=`
     <div class="preview-inner" id="previewInner">
       <div class="preview-box">
@@ -801,10 +822,7 @@ function openPreview(){
         </div>
         <div class="preview-content">
           <div class="preview-capture" id="previewCapture">
-            <h2>${icon} ${title}</h2>
-            <div class="subtitle">${new Date().toLocaleString('en-IN')}</div>
-            ${resultHTML}
-            <div class="footer">Generated by <strong>Qunvero</strong> • qunvero.vercel.app</div>
+            <div class="preview-data" id="previewData">${cleanHTML}</div>
           </div>
         </div>
         <div class="preview-actions">
@@ -826,7 +844,7 @@ function printPreview(){
   const w=window.open('','_blank');
   if(!w){toast('Popup blocked!',1);return;}
   const html=capture.outerHTML;
-  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero Report</title><style>*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px;background:#fff;color:#0f172a;max-width:800px;margin:0 auto}.preview-capture{background:#fff;padding:28px 24px;border-radius:12px}.preview-capture h2{font-size:22px;font-weight:800;text-align:center;color:#0f172a;margin-bottom:6px}.preview-capture .subtitle{text-align:center;font-size:12px;color:#64748b;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #e2e8f0}.preview-capture .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #e2e8f0;font-size:14px;gap:12px}.preview-capture .row:last-child{border-bottom:none}.preview-capture .row .lbl{color:#64748b}.preview-capture .row .val{font-weight:700;color:#0f172a;text-align:right}.preview-capture .row.total{padding-top:14px;font-size:17px;border-top:2px solid #10b981;margin-top:6px}.preview-capture .row.total .val{color:#10b981}.preview-capture img{max-width:100%;display:block;margin:16px auto;border-radius:8px}.preview-capture .footer{margin-top:22px;padding-top:14px;border-top:1px solid #e2e8f0;text-align:center;font-size:11px;color:#64748b}.preview-capture .footer strong{color:#0070f3}@media print{body{padding:0}}</style></head><body>${html}<script>setTimeout(()=>{window.print();},400);<\/script></body></html>`);
+  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:30px;background:#fff;color:#0f172a;max-width:800px;margin:0 auto}.preview-capture{background:#fff;padding:30px;border-radius:12px}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row:last-child{border-bottom:none}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;color:#0f172a;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none;margin-top:8px}.result-row.total .lb{color:#10b981;font-weight:700}.result-row.total .vl{color:#10b981;font-weight:800}.preview-capture img{max-width:100%;display:block;margin:16px auto}textarea{width:100%;padding:10px;border:1px solid #ccc;font-family:monospace;font-size:12px}@media print{body{padding:0}}</style></head><body><div class="preview-capture">${document.getElementById('previewData').innerHTML}</div><script>setTimeout(()=>{window.print();},400);<\/script></body></html>`);
   w.document.close();
   toast('🖨️ Print ready');
 }
@@ -834,11 +852,10 @@ function printPreview(){
 function downloadPDF(){
   const capture=document.getElementById('previewCapture');
   if(!capture){toast('Preview kholo pehle',1);return;}
-  toast('📄 PDF generate ho raha hai...');
   const w=window.open('','_blank');
   if(!w){toast('Popup blocked!',1);return;}
-  const html=capture.outerHTML;
-  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero Report</title><style>*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px;background:#fff;color:#0f172a;max-width:800px;margin:0 auto}.preview-capture{background:#fff;padding:28px 24px;border-radius:12px}.preview-capture h2{font-size:22px;font-weight:800;text-align:center;color:#0f172a;margin-bottom:6px}.preview-capture .subtitle{text-align:center;font-size:12px;color:#64748b;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #e2e8f0}.preview-capture .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #e2e8f0;font-size:14px;gap:12px}.preview-capture .row:last-child{border-bottom:none}.preview-capture .row .lbl{color:#64748b}.preview-capture .row .val{font-weight:700;color:#0f172a;text-align:right}.preview-capture .row.total{padding-top:14px;font-size:17px;border-top:2px solid #10b981;margin-top:6px}.preview-capture .row.total .val{color:#10b981}.preview-capture img{max-width:100%;display:block;margin:16px auto;border-radius:8px}.preview-capture .footer{margin-top:22px;padding-top:14px;border-top:1px solid #e2e8f0;text-align:center;font-size:11px;color:#64748b}.preview-capture .footer strong{color:#0070f3}</style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
+  const html=`<div class="preview-capture">${document.getElementById('previewData').innerHTML}</div>`;
+  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:30px;background:#fff;color:#0f172a;max-width:800px;margin:0 auto}.preview-capture{background:#fff;padding:30px}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row:last-child{border-bottom:none}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;color:#0f172a;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none;margin-top:8px}.result-row.total .lb{color:#10b981;font-weight:700}.result-row.total .vl{color:#10b981;font-weight:800}.preview-capture img{max-width:100%;display:block;margin:16px auto}textarea{width:100%;padding:10px;border:1px solid #ccc;font-family:monospace;font-size:12px}</style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
   w.document.close();
   toast('📄 PDF dialog khula — Save as PDF');
 }
@@ -846,36 +863,64 @@ function downloadPDF(){
 async function downloadPreviewImage(){
   const capture=document.getElementById('previewCapture');
   if(!capture){toast('Preview kholo pehle',1);return;}
-  toast('📷 Ultra HD image ban raha hai...');
+  toast('📷 HD image ban raha hai...');
+  
+  // Clone and place off-screen at large size
+  const clone=capture.cloneNode(true);
+  clone.style.position='fixed';
+  clone.style.left='-99999px';
+  clone.style.top='0';
+  clone.style.width='1400px';
+  clone.style.maxWidth='none';
+  clone.style.padding='60px';
+  clone.style.background='#ffffff';
+  clone.style.borderRadius='0';
+  clone.style.boxShadow='none';
+  clone.style.color='#0f172a';
+  clone.style.display='block';
+  clone.querySelectorAll('img').forEach(img=>{
+    img.style.maxWidth='100%';
+    img.style.height='auto';
+    img.style.display='block';
+    img.style.margin='20px auto';
+  });
+  document.body.appendChild(clone);
+  
   try{
-    // Use html2canvas with high scale for ultra HD
-    const canvas=await html2canvas(capture,{
-      scale:3,
+    await new Promise(r=>setTimeout(r,400));
+    const canvas=await html2canvas(clone,{
+      scale:2,
       backgroundColor:'#ffffff',
       logging:false,
       useCORS:true,
       allowTaint:true,
-      windowWidth:capture.scrollWidth,
-      windowHeight:capture.scrollHeight
+      imageTimeout:0
     });
     canvas.toBlob(b=>{
-      if(!b){toast('Image failed',1);return;}
-      const t=TOOLS.find(x=>x.id===window.__currentTool);
-      const name=(t?t.n:'qunvero-report').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
-      const url=URL.createObjectURL(b);
-      const a=document.createElement('a');
-      a.href=url;a.download=`${name}-qunvero-hd.png`;
-      document.body.appendChild(a);a.click();document.body.removeChild(a);
-      setTimeout(()=>URL.revokeObjectURL(url),1000);
-      toast('✅ Ultra HD image downloaded!');
+      if(b){
+        const t=TOOLS.find(x=>x.id===window.__currentTool);
+        const name=(t?t.n:'qunvero-report').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+        const url=URL.createObjectURL(b);
+        const a=document.createElement('a');
+        a.href=url;
+        a.download=`${name}-qunvero-hd.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(()=>URL.revokeObjectURL(url),1000);
+        toast('✅ HD image downloaded!');
+      } else {
+        toast('Image failed',1);
+      }
+      if(clone.parentElement) document.body.removeChild(clone);
     },'image/png');
   }catch(e){
     console.error(e);
+    if(clone.parentElement) document.body.removeChild(clone);
     toast('❌ '+e.message,1);
   }
 }
 
-/* ============ DOWNLOAD / COPY / SHARE (fallback for tools) ============ */
 function downloadTool(){const t=TOOLS.find(x=>x.id===window.__currentTool);const name=(t?t.n:'qunvero').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
   if(window._lastBlob){dlBlob(window._lastBlob,window._lastName||(name+'.jpg'));return;}
   const rb=document.getElementById('resultBox');if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}
