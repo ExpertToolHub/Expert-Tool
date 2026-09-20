@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Expert Tool — 200+ Free Tools Ek Hi Jagah</title>
-<meta name="description" content="India ka #1 Free Tools Website. Bijli Bill, Invoice, GST, EMI, PDF, Image, QR Code — 200+ tools free. No signup needed.">
+<title>Qunvero — 200+ Free Tools Ek Hi Jagah</title>
+<meta name="description" content="Qunvero — India ka #1 Free Tools Website. Bijli Bill, Invoice, GST, EMI, PDF, Image, QR Code — 200+ tools free. No signup needed.">
 <meta name="theme-color" content="#0a0a0f">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
@@ -18,67 +18,35 @@
   --grad:linear-gradient(135deg,#0070f3,#7928ca);
 }
 html,body{height:100%}
-body{
-  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.5;
-  -webkit-font-smoothing:antialiased;
-}
-body::before{
-  content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(circle at 15% 15%,rgba(0,112,243,.12),transparent 40%),
-             radial-gradient(circle at 85% 85%,rgba(121,40,202,.12),transparent 40%);
-}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.5;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 15% 15%,rgba(0,112,243,.12),transparent 40%),radial-gradient(circle at 85% 85%,rgba(121,40,202,.12),transparent 40%)}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
-input,select,textarea{
-  width:100%;padding:12px 16px;background:rgba(255,255,255,.05);
-  border:1px solid var(--border);border-radius:12px;color:#fff;outline:none;
-  transition:.2s;font-size:15px;
-}
+input,select,textarea{width:100%;padding:12px 16px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:12px;color:#fff;outline:none;transition:.2s;font-size:15px}
 input:focus,select:focus,textarea:focus{border-color:var(--primary);background:rgba(0,112,243,.08)}
 input::placeholder,textarea::placeholder{color:var(--muted)}
 label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px;font-weight:500}
 img{max-width:100%;display:block}
 canvas{max-width:100%}
 
-/* HEADER */
-header{
-  position:sticky;top:0;z-index:100;background:rgba(10,10,15,.92);
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--border);padding:12px 16px;
-}
+header{position:sticky;top:0;z-index:100;background:rgba(10,10,15,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 16px}
 .hdr{max-width:1300px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
 .logo{font-size:20px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:6px}
 .logo span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hdr-right{display:flex;gap:8px;align-items:center}
-.btn{
-  padding:10px 18px;border:none;border-radius:22px;cursor:pointer;font-weight:600;
-  font-size:14px;transition:.2s;white-space:nowrap;
-}
+.btn{padding:10px 18px;border:none;border-radius:22px;cursor:pointer;font-weight:600;font-size:14px;transition:.2s;white-space:nowrap}
 .btn-p{background:var(--grad);color:#fff}
 .btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,112,243,.4)}
 .btn-g{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--border)}
 .btn-g:hover{background:rgba(255,255,255,.15)}
 .btn-sm{padding:7px 12px;font-size:13px;border-radius:10px}
 
-/* SEARCH */
 .search-wrap{max-width:1300px;margin:14px auto 0;padding:0 16px;position:relative}
-.search-box{
-  width:100%;padding:16px 55px 16px 22px;font-size:16px;border-radius:30px;
-  background:rgba(255,255,255,.06);border:1.5px solid var(--border);
-}
+.search-box{width:100%;padding:16px 55px 16px 22px;font-size:16px;border-radius:30px;background:rgba(255,255,255,.06);border:1.5px solid var(--border)}
 .search-icon{position:absolute;right:32px;top:50%;transform:translateY(-50%);font-size:20px;pointer-events:none}
-.search-results{
-  position:absolute;top:calc(100% + 6px);left:16px;right:16px;
-  background:var(--card);border:1px solid var(--border);border-radius:16px;
-  max-height:400px;overflow-y:auto;z-index:200;display:none;
-  box-shadow:0 20px 60px rgba(0,0,0,.6);
-}
+.search-results{position:absolute;top:calc(100% + 6px);left:16px;right:16px;background:var(--card);border:1px solid var(--border);border-radius:16px;max-height:400px;overflow-y:auto;z-index:200;display:none;box-shadow:0 20px 60px rgba(0,0,0,.6)}
 .search-results.on{display:block}
-.sr-item{
-  padding:14px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;
-  border-bottom:1px solid var(--border);transition:.15s;
-}
+.sr-item{padding:14px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);transition:.15s}
 .sr-item:last-child{border-bottom:none}
 .sr-item:hover{background:rgba(0,112,243,.12)}
 .sr-item .ic{font-size:22px}
@@ -87,79 +55,47 @@ header{
 .sr-item .ct{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
 .sr-empty{padding:30px;text-align:center;color:var(--muted);font-size:14px}
 
-/* HERO */
 .hero{text-align:center;padding:36px 16px 20px;max-width:900px;margin:0 auto}
 .hero h1{font-size:clamp(26px,4.5vw,44px);font-weight:800;line-height:1.15;margin-bottom:10px}
 .hero h1 span{background:linear-gradient(90deg,#0070f3,#7928ca,#ff6b35);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hero p{color:var(--muted);font-size:15px;margin-bottom:6px}
 
-/* STATS */
 .stats{display:flex;justify-content:center;gap:28px;padding:20px 16px;flex-wrap:wrap;max-width:800px;margin:0 auto}
 .stat{text-align:center;min-width:80px}
 .stat-n{font-size:22px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .stat-l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
 
-/* QUICK */
 .quick{max-width:1300px;margin:10px auto;padding:0 16px}
 .quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
-.q-card{
-  background:linear-gradient(135deg,rgba(0,112,243,.14),rgba(121,40,202,.14));
-  border:1px solid var(--border);padding:14px 8px;border-radius:14px;text-align:center;
-  cursor:pointer;transition:.25s;
-}
+.q-card{background:linear-gradient(135deg,rgba(0,112,243,.14),rgba(121,40,202,.14));border:1px solid var(--border);padding:14px 8px;border-radius:14px;text-align:center;cursor:pointer;transition:.25s}
 .q-card:hover{transform:translateY(-4px);border-color:var(--primary)}
 .q-card .e{font-size:26px;display:block;margin-bottom:5px}
 .q-card .nm{font-size:12px;font-weight:600}
 
-/* SECTIONS */
 .sec{max-width:1300px;margin:30px auto;padding:0 16px}
 .sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:10px}
 .sec-head h2{font-size:20px;font-weight:700;display:flex;align-items:center;gap:8px}
 .sec-head h2 .emo{font-size:22px}
 .sec-head .cnt{font-size:12px;color:var(--muted);background:rgba(255,255,255,.06);padding:3px 10px;border-radius:20px;margin-left:8px}
 .tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px}
-.tool{
-  background:var(--card);border:1px solid var(--border);padding:16px 12px;border-radius:14px;
-  cursor:pointer;transition:.25s;text-align:center;position:relative;
-}
+.tool{background:var(--card);border:1px solid var(--border);padding:16px 12px;border-radius:14px;cursor:pointer;transition:.25s;text-align:center;position:relative}
 .tool:hover{transform:translateY(-4px);border-color:var(--primary);background:rgba(0,112,243,.08)}
 .tool .ic{font-size:30px;display:block;margin-bottom:8px}
 .tool .nm{font-size:13px;font-weight:600;line-height:1.3}
 
-/* MODAL */
-.modal{
-  position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.85);
-  backdrop-filter:blur(6px);display:none;overflow-y:auto;padding:16px;
-}
+.modal{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);display:none;overflow-y:auto;padding:16px}
 .modal.on{display:block}
-.modal-inner{
-  background:var(--bg2);max-width:900px;margin:20px auto;border-radius:20px;
-  border:1px solid var(--border);overflow:hidden;animation:slideUp .3s;
-}
+.modal-inner{background:var(--bg2);max-width:900px;margin:20px auto;border-radius:20px;border:1px solid var(--border);overflow:hidden;animation:slideUp .3s}
 @keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-head{
-  padding:16px 20px;border-bottom:1px solid var(--border);
-  display:flex;justify-content:space-between;align-items:center;gap:12px;
-  background:rgba(0,0,0,.2);position:sticky;top:0;z-index:10;
-}
+.modal-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(0,0,0,.2);position:sticky;top:0;z-index:10}
 .modal-head h3{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
-.modal-close{
-  background:rgba(255,255,255,.1);border:none;width:36px;height:36px;border-radius:50%;
-  cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#fff;
-}
+.modal-close{background:rgba(255,255,255,.1);border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:#fff}
 .modal-close:hover{background:var(--danger)}
 .modal-body{padding:20px}
-.modal-actions{
-  display:flex;gap:8px;flex-wrap:wrap;padding:16px 20px;border-top:1px solid var(--border);
-  background:rgba(0,0,0,.2);
-}
+.modal-actions{display:flex;gap:8px;flex-wrap:wrap;padding:16px 20px;border-top:1px solid var(--border);background:rgba(0,0,0,.2)}
 .modal-actions .btn{flex:1;min-width:110px;padding:11px 14px;font-size:13px;border-radius:12px}
 
-/* RESULT */
-.result-box{
-  background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(0,112,243,.12));
-  border:1px solid rgba(16,185,129,.3);padding:20px;border-radius:14px;margin-top:16px;
-}
+.result-box{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(0,112,243,.12));border:1px solid rgba(16,185,129,.3);padding:20px;border-radius:14px;margin-top:16px}
 .result-box h4{color:var(--success);font-size:13px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
 .result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.08);font-size:14px}
 .result-row:last-child{border-bottom:none}
@@ -168,136 +104,61 @@ header{
 .result-row.total{padding-top:14px;font-size:17px;border-top:2px solid var(--success)}
 .result-row.total .vl{color:var(--success)}
 
-/* FORMS */
 .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .btn-row .btn{flex:1;min-width:130px}
 
-/* TABLE */
 .tbl{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px}
 .tbl th,.tbl td{padding:9px 8px;text-align:left;border-bottom:1px solid var(--border)}
 .tbl th{background:rgba(0,112,243,.15);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
 .tbl input{padding:6px 8px;font-size:13px;border-radius:6px}
 .tbl td.amt{font-weight:700;color:var(--success);white-space:nowrap}
 
-/* TOAST */
-.toast{
-  position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(100px);
-  background:var(--success);color:#fff;padding:12px 22px;border-radius:30px;
-  font-weight:600;font-size:14px;z-index:1000;opacity:0;transition:.35s;
-  box-shadow:0 10px 30px rgba(0,0,0,.5);pointer-events:none;
-}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--success);color:#fff;padding:12px 22px;border-radius:30px;font-weight:600;font-size:14px;z-index:1000;opacity:0;transition:.35s;box-shadow:0 10px 30px rgba(0,0,0,.5);pointer-events:none}
 .toast.on{transform:translateX(-50%) translateY(0);opacity:1}
 .toast.err{background:var(--danger)}
 
-/* BOTTOM NAV */
-.bnav{
-  position:fixed;bottom:0;left:0;right:0;z-index:99;
-  background:rgba(10,10,15,.96);backdrop-filter:blur(20px);
-  border-top:1px solid var(--border);display:none;justify-content:space-around;
-  padding:8px 0 calc(8px + env(safe-area-inset-bottom));
-}
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:99;background:rgba(10,10,15,.96);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:none;justify-content:space-around;padding:8px 0 calc(8px + env(safe-area-inset-bottom))}
 .bnav a{text-align:center;color:var(--muted);font-size:10px;padding:4px 12px;transition:.2s}
 .bnav a.on,.bnav a:hover{color:var(--primary)}
 .bnav .i{font-size:20px;display:block;margin-bottom:1px}
 
-/* FOOTER */
-footer{
-  max-width:1300px;margin:60px auto 100px;padding:30px 16px;text-align:center;
-  border-top:1px solid var(--border);color:var(--muted);font-size:13px;
-}
+footer{max-width:1300px;margin:60px auto 100px;padding:30px 16px;text-align:center;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
 footer .fl{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px}
 footer .fl a{color:var(--primary);cursor:pointer}
-footer .contact-btn{
-  background:linear-gradient(135deg,rgba(0,112,243,.15),rgba(121,40,202,.15));
-  border:1px solid var(--border);padding:10px 20px;border-radius:30px;
-  cursor:pointer;color:#fff;font-weight:600;font-size:13px;margin:12px 0;transition:.2s;
-}
+footer .contact-btn{background:linear-gradient(135deg,rgba(0,112,243,.15),rgba(121,40,202,.15));border:1px solid var(--border);padding:10px 20px;border-radius:30px;cursor:pointer;color:#fff;font-weight:600;font-size:13px;margin:12px 0;transition:.2s}
 footer .contact-btn:hover{border-color:var(--primary);background:rgba(0,112,243,.15)}
 
-/* FEEDBACK BUTTON */
-#feedbackBtn{
-  position:fixed;bottom:100px;left:20px;width:56px;height:56px;border-radius:50%;
-  border:none;background:linear-gradient(135deg,#10b981,#0070f3);color:white;
-  font-size:24px;cursor:pointer;
-  box-shadow:0 10px 30px rgba(16,185,129,.4);
-  z-index:150;transition:.3s;
-}
+#feedbackBtn{position:fixed;bottom:100px;left:20px;width:56px;height:56px;border-radius:50%;border:none;background:linear-gradient(135deg,#10b981,#0070f3);color:white;font-size:24px;cursor:pointer;box-shadow:0 10px 30px rgba(16,185,129,.4);z-index:150;transition:.3s}
 #feedbackBtn:hover{transform:scale(1.15) rotate(10deg)}
 
-/* FEEDBACK MODAL */
-#feedbackModal{
-  position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);
-  z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;
-  animation:fbFade .3s;
-}
+#feedbackModal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;animation:fbFade .3s}
 @keyframes fbFade{from{opacity:0}to{opacity:1}}
-.fb-content{
-  background:#1a1a24;border:1px solid var(--border);border-radius:20px;
-  max-width:500px;width:100%;max-height:90vh;overflow-y:auto;
-  animation:fbSlide .3s;
-}
+.fb-content{background:#1a1a24;border:1px solid var(--border);border-radius:20px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;animation:fbSlide .3s}
 @keyframes fbSlide{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
-.fb-header{
-  padding:18px 22px;border-bottom:1px solid var(--border);
-  display:flex;justify-content:space-between;align-items:center;
-  position:sticky;top:0;background:#1a1a24;z-index:2;
-}
+.fb-header{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#1a1a24;z-index:2}
 .fb-header h3{font-size:18px;color:#fff}
 .fb-close{background:rgba(255,255,255,.1);border:none;width:34px;height:34px;border-radius:50%;color:#fff;cursor:pointer;font-size:16px}
 .fb-close:hover{background:var(--danger)}
 .fb-body{padding:22px}
 .fb-body label{display:block;font-size:13px;color:var(--muted);margin:14px 0 6px;font-weight:500}
-.fb-body input,.fb-body textarea,.fb-body select{
-  width:100%;padding:12px 14px;background:rgba(255,255,255,.05);
-  border:1px solid var(--border);border-radius:10px;color:#fff;font-size:14px;
-  outline:none;transition:.2s;font-family:inherit;
-}
-.fb-body input:focus,.fb-body textarea:focus,.fb-body select:focus{
-  border-color:var(--primary);background:rgba(0,112,243,.08);
-}
-.fb-footer{
-  padding:16px 22px;border-top:1px solid var(--border);
-  display:flex;gap:10px;position:sticky;bottom:0;background:#1a1a24;
-}
-.fb-cancel,.fb-submit{
-  flex:1;padding:12px;border-radius:12px;border:none;font-weight:600;
-  cursor:pointer;font-size:14px;transition:.2s;
-}
+.fb-body input,.fb-body textarea,.fb-body select{width:100%;padding:12px 14px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;color:#fff;font-size:14px;outline:none;transition:.2s;font-family:inherit}
+.fb-body input:focus,.fb-body textarea:focus,.fb-body select:focus{border-color:var(--primary);background:rgba(0,112,243,.08)}
+.fb-footer{padding:16px 22px;border-top:1px solid var(--border);display:flex;gap:10px;position:sticky;bottom:0;background:#1a1a24}
+.fb-cancel,.fb-submit{flex:1;padding:12px;border-radius:12px;border:none;font-weight:600;cursor:pointer;font-size:14px;transition:.2s}
 .fb-cancel{background:rgba(255,255,255,.1);color:#fff}
 .fb-cancel:hover{background:rgba(255,255,255,.2)}
 .fb-submit{background:linear-gradient(135deg,#0070f3,#7928ca);color:#fff}
 .fb-submit:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,112,243,.4)}
 
-/* THANK YOU */
-.thank-you{
-  position:fixed;inset:0;background:rgba(0,0,0,.9);display:flex;
-  align-items:center;justify-content:center;z-index:2000;padding:16px;
-  animation:fbFade .3s;
-}
-.ty-content{
-  background:#1a1a24;padding:40px 30px;border-radius:20px;max-width:400px;
-  text-align:center;border:1px solid rgba(16,185,129,.3);animation:fbSlide .4s;
-}
+.thank-you{position:fixed;inset:0;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;z-index:2000;padding:16px;animation:fbFade .3s}
+.ty-content{background:#1a1a24;padding:40px 30px;border-radius:20px;max-width:400px;text-align:center;border:1px solid rgba(16,185,129,.3);animation:fbSlide .4s}
 
-/* ADMIN PANEL */
-#adminPanel{
-  position:fixed;inset:0;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);
-  z-index:1500;overflow-y:auto;padding:20px;animation:fbFade .3s;
-}
-.admin-inner{
-  max-width:1100px;margin:0 auto;background:#0a0a0f;
-  border:1px solid var(--border);border-radius:20px;overflow:hidden;
-}
-.admin-header{
-  padding:20px 24px;background:linear-gradient(135deg,#0070f3,#7928ca);
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
-}
+#adminPanel{position:fixed;inset:0;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);z-index:1500;overflow-y:auto;padding:20px;animation:fbFade .3s}
+.admin-inner{max-width:1100px;margin:0 auto;background:#0a0a0f;border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.admin-header{padding:20px 24px;background:linear-gradient(135deg,#0070f3,#7928ca);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
 .admin-header h2{font-size:22px;color:#fff}
-.admin-btn{
-  padding:8px 16px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2);
-  border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;
-}
+.admin-btn{padding:8px 16px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:10px;cursor:pointer;font-size:13px;font-weight:600}
 .admin-btn:hover{background:rgba(255,255,255,.25)}
 .admin-btn.danger{background:rgba(239,68,68,.9);border-color:#ef4444}
 .admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;padding:20px}
@@ -305,17 +166,10 @@ footer .contact-btn:hover{border-color:var(--primary);background:rgba(0,112,243,
 .admin-stat-val{font-size:26px;font-weight:800;margin-bottom:4px}
 .admin-stat-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
 .admin-tabs{display:flex;gap:6px;padding:0 20px 12px;overflow-x:auto;flex-wrap:nowrap}
-.admin-tab{
-  padding:8px 14px;background:var(--card);border:1px solid var(--border);
-  border-radius:10px;color:var(--muted);cursor:pointer;font-size:12px;
-  white-space:nowrap;font-weight:600;
-}
+.admin-tab{padding:8px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;color:var(--muted);cursor:pointer;font-size:12px;white-space:nowrap;font-weight:600}
 .admin-tab.on{background:var(--grad);color:#fff;border-color:transparent}
 .admin-list{padding:0 20px 20px;max-height:60vh;overflow-y:auto}
-.admin-fb{
-  background:var(--card);border:1px solid var(--border);
-  padding:16px;border-radius:14px;margin-bottom:12px;
-}
+.admin-fb{background:var(--card);border:1px solid var(--border);padding:16px;border-radius:14px;margin-bottom:12px}
 .admin-fb.unread{border-left:3px solid #ef4444;background:rgba(239,68,68,.04)}
 .admin-fb-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px}
 .admin-fb-cat{font-size:12px;font-weight:700;text-transform:uppercase;color:#0070f3;letter-spacing:.5px}
@@ -324,15 +178,11 @@ footer .contact-btn:hover{border-color:var(--primary);background:rgba(0,112,243,
 .admin-fb-msg{font-size:14px;line-height:1.6;padding:10px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);word-break:break-word}
 .admin-fb-meta{font-size:11px;color:var(--muted);margin:8px 0;display:flex;gap:12px;flex-wrap:wrap}
 .admin-fb-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.admin-fb-actions button{
-  padding:6px 12px;background:rgba(255,255,255,.08);border:1px solid var(--border);
-  color:#fff;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;
-}
+.admin-fb-actions button{padding:6px 12px;background:rgba(255,255,255,.08);border:1px solid var(--border);color:#fff;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600}
 .admin-fb-actions button:hover{background:rgba(0,112,243,.2)}
 .admin-fb-actions button.danger:hover{background:rgba(239,68,68,.3)}
 .admin-footer{padding:16px 20px;border-top:1px solid var(--border);text-align:center;font-size:12px;color:var(--muted)}
 
-/* MOBILE */
 @media(max-width:768px){
   .bnav{display:flex}
   body{padding-bottom:70px}
@@ -348,9 +198,7 @@ footer .contact-btn:hover{border-color:var(--primary);background:rgba(0,112,243,
   #feedbackBtn{bottom:90px;left:15px;width:50px;height:50px;font-size:20px}
   .admin-list{max-height:none}
 }
-@media(max-width:380px){
-  .tools-grid{grid-template-columns:repeat(2,1fr)}
-}
+@media(max-width:380px){.tools-grid{grid-template-columns:repeat(2,1fr)}}
 @media print{
   body{background:#fff;color:#000}
   header,.bnav,.modal-actions,.modal-close,footer,#feedbackBtn,.no-print{display:none!important}
@@ -366,7 +214,7 @@ footer .contact-btn:hover{border-color:var(--primary);background:rgba(0,112,243,
 
 <header>
   <div class="hdr">
-    <div class="logo" onclick="goHome()">⚡ <span>Expert Tool</span></div>
+    <div class="logo" onclick="goHome()">⚡ <span>Qunvero</span></div>
     <div class="hdr-right">
       <button class="btn btn-g" onclick="openStatic('about')">About</button>
     </div>
@@ -405,7 +253,7 @@ footer .contact-btn:hover{border-color:var(--primary);background:rgba(0,112,243,
     <a onclick="openStatic('terms')">Terms</a>
   </div>
   <button class="contact-btn" onclick="feedbackSystem.openForm()">📬 Contact / Feedback</button>
-  <p>Made with ❤️ in India • © 2025 Expert Tool</p>
+  <p>Made with ❤️ in India • © 2025 Qunvero</p>
 </footer>
 
 <nav class="bnav">
@@ -447,12 +295,11 @@ footer .contact-btn:hover{border-color:var(--primary);background:rgba(0,112,243,
 
 <script>
 /* ============ CONFIG ============ */
-/* Endpoint obfuscated (base64). User ko kabhi dikhega nahi. */
 const _e = ['aHR0cHM6Ly9mb3Jtc3ByZWUuaW8vZi94eWV6a3d3dw=='];
 const FORMSPREE_ENDPOINT = atob(_e[0]);
 
-/* Admin secret key - sirf aapko pata */
-const ADMIN_KEY = "rakesh2025expert";
+/* Admin secret key */
+const ADMIN_KEY = "qunvero2025";
 
 /* ============ TOAST ============ */
 function toast(msg, err){
@@ -463,421 +310,191 @@ function toast(msg, err){
 
 /* ============ LIVE USERS ============ */
 class LiveUsers {
-  constructor() {
-    this.tabId = this.getTabId();
-    this.channel = null;
-    this.init();
-  }
-  getTabId() {
-    let id = sessionStorage.getItem('et_tab');
-    if (!id) { id = 'tab_' + Math.random().toString(36).slice(2); sessionStorage.setItem('et_tab', id); }
-    return id;
-  }
-  init() {
-    this.activeUsers = JSON.parse(localStorage.getItem('et_active') || '{}');
-    this.activeUsers[this.tabId] = Date.now();
+  constructor(){this.tabId=this.getTabId();this.channel=null;this.init();}
+  getTabId(){let id=sessionStorage.getItem('et_tab');if(!id){id='tab_'+Math.random().toString(36).slice(2);sessionStorage.setItem('et_tab',id);}return id;}
+  init(){
+    this.activeUsers=JSON.parse(localStorage.getItem('et_active')||'{}');
+    this.activeUsers[this.tabId]=Date.now();
     this.save();
-    if ('BroadcastChannel' in window) {
-      this.channel = new BroadcastChannel('et_live');
-      this.channel.onmessage = (e) => {
-        if (e.data.type === 'ping' || e.data.type === 'join') {
-          this.activeUsers[e.data.id] = Date.now();
-          this.save();
-        } else if (e.data.type === 'leave') {
-          delete this.activeUsers[e.data.id];
-          this.save();
-        }
-      };
+    if('BroadcastChannel' in window){
+      this.channel=new BroadcastChannel('et_live');
+      this.channel.onmessage=(e)=>{if(e.data.type==='ping'||e.data.type==='join'){this.activeUsers[e.data.id]=Date.now();this.save();}else if(e.data.type==='leave'){delete this.activeUsers[e.data.id];this.save();}};
       this.announce('join');
-      setInterval(() => this.announce('ping'), 5000);
-      window.addEventListener('beforeunload', () => this.announce('leave'));
+      setInterval(()=>this.announce('ping'),5000);
+      window.addEventListener('beforeunload',()=>this.announce('leave'));
     }
-    setInterval(() => { this.cleanup(); this.update(); }, 3000);
+    setInterval(()=>{this.cleanup();this.update();},3000);
     this.update();
   }
-  announce(type) { if (this.channel) this.channel.postMessage({ type, id: this.tabId }); }
-  cleanup() {
-    const now = Date.now(); const fresh = {};
-    Object.keys(this.activeUsers).forEach(id => {
-      if (now - this.activeUsers[id] < 30000) fresh[id] = this.activeUsers[id];
-    });
-    this.activeUsers = fresh; this.save();
-  }
-  save() { localStorage.setItem('et_active', JSON.stringify(this.activeUsers)); }
-  getCount() {
-    this.cleanup();
-    const real = Object.keys(this.activeUsers).length;
-    const hour = new Date().getHours();
-    let factor = (hour >= 9 && hour <= 22) ? 1.5 : (hour >= 0 && hour <= 6) ? 0.3 : 1;
-    const base = Math.floor(8 * factor) + Math.floor(Math.random() * 5);
-    return base + real;
-  }
-  update() {
-    document.querySelectorAll('[data-live-users]').forEach(el => {
-      el.textContent = this.getCount().toLocaleString('en-IN');
-    });
-  }
+  announce(type){if(this.channel)this.channel.postMessage({type,id:this.tabId});}
+  cleanup(){const now=Date.now();const fresh={};Object.keys(this.activeUsers).forEach(id=>{if(now-this.activeUsers[id]<30000)fresh[id]=this.activeUsers[id];});this.activeUsers=fresh;this.save();}
+  save(){localStorage.setItem('et_active',JSON.stringify(this.activeUsers));}
+  getCount(){this.cleanup();const real=Object.keys(this.activeUsers).length;const hour=new Date().getHours();let factor=(hour>=9&&hour<=22)?1.5:(hour>=0&&hour<=6)?0.3:1;const base=Math.floor(8*factor)+Math.floor(Math.random()*5);return base+real;}
+  update(){document.querySelectorAll('[data-live-users]').forEach(el=>{el.textContent=this.getCount().toLocaleString('en-IN');});}
 }
 const liveUsers = new LiveUsers();
 
-/* ============ FEEDBACK SYSTEM ============ */
+/* ============ FEEDBACK ============ */
 const feedbackSystem = {
   currentRating: 0,
-  
-  openForm() {
-    if (document.getElementById('feedbackModal')) return;
-    this.currentRating = 0;
-    const modal = document.createElement('div');
-    modal.id = 'feedbackModal';
-    modal.innerHTML = `
-      <div class="fb-content" onclick="event.stopPropagation()">
-        <div class="fb-header">
-          <h3>💬 Send Feedback</h3>
-          <button class="fb-close" onclick="feedbackSystem.closeForm()">✕</button>
-        </div>
-        <div class="fb-body">
-          <p style="font-size:13px;color:#8a8a9a;margin-bottom:8px;line-height:1.6">
-            Aapki suggestion, problem, ya idea — sab welcome hai. Aapka message seedha admin tak pahunchega.
-          </p>
-          <label>Name (optional)</label>
-          <input type="text" id="fbName" placeholder="Aapka naam">
-          <label>Email (optional)</label>
-          <input type="email" id="fbEmail" placeholder="aap@example.com">
-          <label>Rating</label>
-          <div id="fbStars" style="display:flex;gap:6px;font-size:26px;cursor:pointer;user-select:none">
-            ${[1,2,3,4,5].map(v=>`<span data-v="${v}" style="filter:grayscale(1) brightness(.5);transition:.2s">⭐</span>`).join('')}
-          </div>
-          <label>Category</label>
-          <select id="fbCat">
-            <option value="general">💬 General Feedback</option>
-            <option value="bug">🐛 Bug Report</option>
-            <option value="suggestion">💡 Tool Suggestion</option>
-            <option value="problem">⚠️ Problem</option>
-            <option value="praise">🎉 Praise</option>
-          </select>
-          <label>Message *</label>
-          <textarea id="fbMsg" rows="5" placeholder="Kya improve karna chahiye? Koi problem? Koi naya tool chahiye?"></textarea>
-        </div>
-        <div class="fb-footer">
-          <button class="fb-cancel" onclick="feedbackSystem.closeForm()">Cancel</button>
-          <button class="fb-submit" onclick="feedbackSystem.submit()">📤 Submit</button>
-        </div>
+  openForm(){
+    if(document.getElementById('feedbackModal'))return;
+    this.currentRating=0;
+    const modal=document.createElement('div');
+    modal.id='feedbackModal';
+    modal.innerHTML=`<div class="fb-content" onclick="event.stopPropagation()">
+      <div class="fb-header"><h3>💬 Send Feedback</h3><button class="fb-close" onclick="feedbackSystem.closeForm()">✕</button></div>
+      <div class="fb-body">
+        <p style="font-size:13px;color:#8a8a9a;margin-bottom:8px;line-height:1.6">Aapki suggestion, problem, ya idea — sab welcome hai. Aapka message seedha admin tak pahunchega.</p>
+        <label>Name (optional)</label><input type="text" id="fbName" placeholder="Aapka naam">
+        <label>Email (optional)</label><input type="email" id="fbEmail" placeholder="aap@example.com">
+        <label>Rating</label>
+        <div id="fbStars" style="display:flex;gap:6px;font-size:26px;cursor:pointer;user-select:none">${[1,2,3,4,5].map(v=>`<span data-v="${v}" style="filter:grayscale(1) brightness(.5);transition:.2s">⭐</span>`).join('')}</div>
+        <label>Category</label>
+        <select id="fbCat">
+          <option value="general">💬 General Feedback</option>
+          <option value="bug">🐛 Bug Report</option>
+          <option value="suggestion">💡 Tool Suggestion</option>
+          <option value="problem">⚠️ Problem</option>
+          <option value="praise">🎉 Praise</option>
+        </select>
+        <label>Message *</label><textarea id="fbMsg" rows="5" placeholder="Kya improve karna chahiye? Koi problem? Koi naya tool chahiye?"></textarea>
       </div>
-    `;
+      <div class="fb-footer">
+        <button class="fb-cancel" onclick="feedbackSystem.closeForm()">Cancel</button>
+        <button class="fb-submit" onclick="feedbackSystem.submit()">📤 Submit</button>
+      </div>
+    </div>`;
     document.body.appendChild(modal);
-    modal.onclick = (e) => { if (e.target === modal) this.closeForm(); };
-    
-    const stars = modal.querySelectorAll('#fbStars span');
-    stars.forEach(s => {
-      s.onclick = () => {
-        this.currentRating = +s.dataset.v;
-        stars.forEach(x => {
-          const on = +x.dataset.v <= this.currentRating;
-          x.style.filter = on ? 'none' : 'grayscale(1) brightness(.5)';
-          x.style.transform = on ? 'scale(1.1)' : '';
-        });
-      };
-    });
+    modal.onclick=(e)=>{if(e.target===modal)this.closeForm();};
+    const stars=modal.querySelectorAll('#fbStars span');
+    stars.forEach(s=>{s.onclick=()=>{this.currentRating=+s.dataset.v;stars.forEach(x=>{const on=+x.dataset.v<=this.currentRating;x.style.filter=on?'none':'grayscale(1) brightness(.5)';x.style.transform=on?'scale(1.1)':'';});};});
   },
-  
-  closeForm() {
-    const m = document.getElementById('feedbackModal');
-    if (m) m.remove();
-  },
-  
-  async submit() {
-    const name = document.getElementById('fbName').value.trim();
-    const email = document.getElementById('fbEmail').value.trim();
-    const msg = document.getElementById('fbMsg').value.trim();
-    const cat = document.getElementById('fbCat').value;
-    const rating = this.currentRating;
-    
-    if (!msg || msg.length < 3) { toast('❌ Message likho (min 3 chars)', 1); return; }
-    
-    const btn = document.querySelector('.fb-submit');
-    btn.textContent = '⏳ Sending...';
-    btn.disabled = true;
-    
-    const feedback = {
-      id: 'fb_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
-      name: name || 'Anonymous',
-      email: email || 'no-email',
-      message: msg,
-      category: cat,
-      rating: rating,
-      time: Date.now(),
-      page: window.location.href,
-      screenSize: window.innerWidth + 'x' + window.innerHeight,
-      read: false
-    };
-    
-    // Save locally for admin panel
+  closeForm(){const m=document.getElementById('feedbackModal');if(m)m.remove();},
+  async submit(){
+    const name=document.getElementById('fbName').value.trim();
+    const email=document.getElementById('fbEmail').value.trim();
+    const msg=document.getElementById('fbMsg').value.trim();
+    const cat=document.getElementById('fbCat').value;
+    const rating=this.currentRating;
+    if(!msg||msg.length<3){toast('❌ Message likho (min 3 chars)',1);return;}
+    const btn=document.querySelector('.fb-submit');
+    btn.textContent='⏳ Sending...';btn.disabled=true;
+    const feedback={id:'fb_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),name:name||'Anonymous',email:email||'no-email',message:msg,category:cat,rating:rating,time:Date.now(),page:window.location.href,screenSize:window.innerWidth+'x'+window.innerHeight,read:false};
     this.saveLocal(feedback);
-    
-    // Send via Formspree
-    try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          _subject: `💬 Expert Tool Feedback: ${cat.toUpperCase()}`,
-          Name: feedback.name,
-          Email: feedback.email,
-          Rating: rating ? '⭐'.repeat(rating) : 'No rating',
-          Category: cat,
-          Message: msg,
-          Page: feedback.page,
-          Time: new Date().toLocaleString('en-IN'),
-          Device: feedback.screenSize,
-          ID: feedback.id
-        })
-      });
-      if (!res.ok) throw new Error('Send failed');
-    } catch (e) {
-      console.warn('Email send error:', e);
-      // Continue anyway - local save hua hai
-    }
-    
+    try{
+      const res=await fetch(FORMSPREE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:`💬 Qunvero Feedback: ${cat.toUpperCase()}`,Name:feedback.name,Email:feedback.email,Rating:rating?'⭐'.repeat(rating):'No rating',Category:cat,Message:msg,Page:feedback.page,Time:new Date().toLocaleString('en-IN'),Device:feedback.screenSize,ID:feedback.id})});
+      if(!res.ok)throw new Error('Send failed');
+    }catch(e){console.warn('Email send error:',e);}
     this.closeForm();
     this.showThanks();
   },
-  
-  saveLocal(fb) {
-    const all = JSON.parse(localStorage.getItem('et_feedback') || '[]');
-    all.unshift(fb);
-    localStorage.setItem('et_feedback', JSON.stringify(all.slice(0, 500)));
-  },
-  
-  showThanks() {
-    const t = document.createElement('div');
-    t.className = 'thank-you';
-    t.innerHTML = `
-      <div class="ty-content">
-        <div style="font-size:60px;margin-bottom:15px">✅</div>
-        <h3 style="color:#10b981;margin-bottom:10px;font-size:22px">Thank You!</h3>
-        <p style="color:#8a8a9a;font-size:14px;line-height:1.6">
-          Aapka feedback successfully submit ho gaya.<br>
-          Hum jaldi hi aapki suggestion pe kaam karenge.
-        </p>
-        <button onclick="this.parentElement.parentElement.remove()" 
-          style="margin-top:20px;padding:12px 30px;background:linear-gradient(135deg,#0070f3,#7928ca);color:white;
-          border:none;border-radius:25px;cursor:pointer;font-weight:600;font-size:14px">
-          OK, Thanks!
-        </button>
-      </div>
-    `;
+  saveLocal(fb){const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');all.unshift(fb);localStorage.setItem('et_feedback',JSON.stringify(all.slice(0,500)));},
+  showThanks(){
+    const t=document.createElement('div');
+    t.className='thank-you';
+    t.innerHTML=`<div class="ty-content">
+      <div style="font-size:60px;margin-bottom:15px">✅</div>
+      <h3 style="color:#10b981;margin-bottom:10px;font-size:22px">Thank You!</h3>
+      <p style="color:#8a8a9a;font-size:14px;line-height:1.6">Aapka feedback successfully submit ho gaya.<br>Hum jaldi hi aapki suggestion pe kaam karenge.</p>
+      <button onclick="this.parentElement.parentElement.remove()" style="margin-top:20px;padding:12px 30px;background:linear-gradient(135deg,#0070f3,#7928ca);color:white;border:none;border-radius:25px;cursor:pointer;font-weight:600;font-size:14px">OK, Thanks!</button>
+    </div>`;
     document.body.appendChild(t);
-    setTimeout(() => t.remove(), 5000);
+    setTimeout(()=>t.remove(),5000);
   },
-  
-  openAdmin() {
-    if (document.getElementById('adminPanel')) return;
-    const all = JSON.parse(localStorage.getItem('et_feedback') || '[]');
-    const unread = all.filter(f => !f.read).length;
-    const avg = all.filter(f=>f.rating).length 
-      ? (all.reduce((s,f)=>s+(f.rating||0),0) / all.filter(f=>f.rating).length).toFixed(1)
-      : '0';
-    
-    const panel = document.createElement('div');
-    panel.id = 'adminPanel';
-    panel.innerHTML = `
-      <div class="admin-inner">
-        <div class="admin-header">
-          <div>
-            <h2>👑 Admin Panel</h2>
-            <p style="font-size:12px;color:rgba(255,255,255,.8);margin-top:4px">
-              ${new Date().toLocaleString('en-IN')}
-            </p>
-          </div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button class="admin-btn" onclick="feedbackSystem.exportCSV()">📥 Export</button>
-            <button class="admin-btn danger" onclick="feedbackSystem.closeAdmin()">✕ Close</button>
-          </div>
-        </div>
-        <div class="admin-stats">
-          <div class="admin-stat">
-            <div class="admin-stat-val" style="color:#10b981" data-live-users>0</div>
-            <div class="admin-stat-lbl">🟢 Live Users</div>
-          </div>
-          <div class="admin-stat">
-            <div class="admin-stat-val" style="color:#0070f3">${all.length}</div>
-            <div class="admin-stat-lbl">📬 Total Feedback</div>
-          </div>
-          <div class="admin-stat">
-            <div class="admin-stat-val" style="color:#ef4444">${unread}</div>
-            <div class="admin-stat-lbl">🔴 Unread</div>
-          </div>
-          <div class="admin-stat">
-            <div class="admin-stat-val" style="color:#ffd700">${avg}★</div>
-            <div class="admin-stat-lbl">⭐ Avg Rating</div>
-          </div>
-        </div>
-        <div class="admin-tabs">
-          <button class="admin-tab on" data-tab="all" onclick="feedbackSystem.switchTab(this,'all')">📋 All (${all.length})</button>
-          <button class="admin-tab" data-tab="unread" onclick="feedbackSystem.switchTab(this,'unread')">🔴 Unread (${unread})</button>
-          <button class="admin-tab" data-tab="bug" onclick="feedbackSystem.switchTab(this,'bug')">🐛 Bugs</button>
-          <button class="admin-tab" data-tab="suggestion" onclick="feedbackSystem.switchTab(this,'suggestion')">💡 Ideas</button>
-          <button class="admin-tab" data-tab="praise" onclick="feedbackSystem.switchTab(this,'praise')">🎉 Praise</button>
-        </div>
-        <div class="admin-list" id="adminList"></div>
-        <div class="admin-footer">
-          💡 Tip: Email me bhi feedback aayega • Admin URL: <code style="background:#000;padding:2px 6px;border-radius:4px">?admin=${ADMIN_KEY}</code>
+  openAdmin(){
+    if(document.getElementById('adminPanel'))return;
+    const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');
+    const unread=all.filter(f=>!f.read).length;
+    const avg=all.filter(f=>f.rating).length?(all.reduce((s,f)=>s+(f.rating||0),0)/all.filter(f=>f.rating).length).toFixed(1):'0';
+    const panel=document.createElement('div');
+    panel.id='adminPanel';
+    panel.innerHTML=`<div class="admin-inner">
+      <div class="admin-header">
+        <div><h2>👑 Admin Panel — Qunvero</h2><p style="font-size:12px;color:rgba(255,255,255,.8);margin-top:4px">${new Date().toLocaleString('en-IN')}</p></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="admin-btn" onclick="feedbackSystem.exportCSV()">📥 Export</button>
+          <button class="admin-btn danger" onclick="feedbackSystem.closeAdmin()">✕ Close</button>
         </div>
       </div>
-    `;
+      <div class="admin-stats">
+        <div class="admin-stat"><div class="admin-stat-val" style="color:#10b981" data-live-users>0</div><div class="admin-stat-lbl">🟢 Live Users</div></div>
+        <div class="admin-stat"><div class="admin-stat-val" style="color:#0070f3">${all.length}</div><div class="admin-stat-lbl">📬 Total Feedback</div></div>
+        <div class="admin-stat"><div class="admin-stat-val" style="color:#ef4444">${unread}</div><div class="admin-stat-lbl">🔴 Unread</div></div>
+        <div class="admin-stat"><div class="admin-stat-val" style="color:#ffd700">${avg}★</div><div class="admin-stat-lbl">⭐ Avg Rating</div></div>
+      </div>
+      <div class="admin-tabs">
+        <button class="admin-tab on" data-tab="all" onclick="feedbackSystem.switchTab(this,'all')">📋 All (${all.length})</button>
+        <button class="admin-tab" data-tab="unread" onclick="feedbackSystem.switchTab(this,'unread')">🔴 Unread (${unread})</button>
+        <button class="admin-tab" data-tab="bug" onclick="feedbackSystem.switchTab(this,'bug')">🐛 Bugs</button>
+        <button class="admin-tab" data-tab="suggestion" onclick="feedbackSystem.switchTab(this,'suggestion')">💡 Ideas</button>
+        <button class="admin-tab" data-tab="praise" onclick="feedbackSystem.switchTab(this,'praise')">🎉 Praise</button>
+      </div>
+      <div class="admin-list" id="adminList"></div>
+      <div class="admin-footer">💡 Email me bhi feedback aayega • Admin URL: <code style="background:#000;padding:2px 6px;border-radius:4px">?admin=${ADMIN_KEY}</code></div>
+    </div>`;
     document.body.appendChild(panel);
-    document.body.style.overflow = 'hidden';
-    this.currentTab = 'all';
+    document.body.style.overflow='hidden';
+    this.currentTab='all';
     this.renderList();
     liveUsers.update();
   },
-  
-  switchTab(btn, tab) {
-    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('on'));
-    btn.classList.add('on');
-    this.currentTab = tab;
-    this.renderList();
-  },
-  
-  renderList() {
-    const list = document.getElementById('adminList');
-    if (!list) return;
-    const all = JSON.parse(localStorage.getItem('et_feedback') || '[]');
-    let filtered = all;
-    if (this.currentTab === 'unread') filtered = all.filter(f => !f.read);
-    else if (this.currentTab !== 'all') filtered = all.filter(f => f.category === this.currentTab);
-    
-    if (!filtered.length) {
-      list.innerHTML = `
-        <div style="text-align:center;padding:60px 20px;color:#8a8a9a">
-          <div style="font-size:50px;margin-bottom:15px">📭</div>
-          <p>Koi feedback nahi hai is category me</p>
-          <p style="font-size:12px;margin-top:8px">Users jab feedback denge, yahan dikhega</p>
-        </div>`;
-      return;
-    }
-    
-    const catEmoji = { general:'💬', bug:'🐛', suggestion:'💡', problem:'⚠️', praise:'🎉' };
-    list.innerHTML = filtered.map(f => `
-      <div class="admin-fb ${f.read?'':'unread'}">
-        <div class="admin-fb-head">
-          <div>
-            <span class="admin-fb-cat">${catEmoji[f.category]||'💬'} ${f.category}</span>
-            ${!f.read ? '<span class="admin-fb-new">NEW</span>' : ''}
-            ${f.rating ? '<span style="color:#ffd700;margin-left:8px">' + '⭐'.repeat(f.rating) + '</span>' : ''}
-          </div>
-          <div style="font-size:11px;color:#8a8a9a">${new Date(f.time).toLocaleString('en-IN')}</div>
-        </div>
-        <div class="admin-fb-user">
-          <b>👤 ${f.name}</b>
-          ${f.email !== 'no-email' ? `<span style="color:#0070f3">📧 ${f.email}</span>` : ''}
-        </div>
-        <div class="admin-fb-msg">${this.esc(f.message).replace(/\n/g,'<br>')}</div>
-        <div class="admin-fb-meta">
-          <span>🌐 ${f.screenSize}</span>
-          <span>🆔 ${f.id.slice(-6)}</span>
-        </div>
-        <div class="admin-fb-actions">
-          ${!f.read ? `<button onclick="feedbackSystem.markRead('${f.id}')">✅ Mark Read</button>` : ''}
-          ${f.email !== 'no-email' ? `<button onclick="feedbackSystem.reply('${f.id}')">📧 Reply</button>` : ''}
-          <button onclick="feedbackSystem.copyFb('${f.id}')">📋 Copy</button>
-          <button class="danger" onclick="feedbackSystem.del('${f.id}')">🗑️ Delete</button>
-        </div>
+  switchTab(btn,tab){document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');this.currentTab=tab;this.renderList();},
+  renderList(){
+    const list=document.getElementById('adminList');if(!list)return;
+    const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');
+    let filtered=all;
+    if(this.currentTab==='unread')filtered=all.filter(f=>!f.read);
+    else if(this.currentTab!=='all')filtered=all.filter(f=>f.category===this.currentTab);
+    if(!filtered.length){list.innerHTML=`<div style="text-align:center;padding:60px 20px;color:#8a8a9a"><div style="font-size:50px;margin-bottom:15px">📭</div><p>Koi feedback nahi hai is category me</p><p style="font-size:12px;margin-top:8px">Users jab feedback denge, yahan dikhega</p></div>`;return;}
+    const catEmoji={general:'💬',bug:'🐛',suggestion:'💡',problem:'⚠️',praise:'🎉'};
+    list.innerHTML=filtered.map(f=>`<div class="admin-fb ${f.read?'':'unread'}">
+      <div class="admin-fb-head">
+        <div><span class="admin-fb-cat">${catEmoji[f.category]||'💬'} ${f.category}</span>${!f.read?'<span class="admin-fb-new">NEW</span>':''}${f.rating?'<span style="color:#ffd700;margin-left:8px">'+'⭐'.repeat(f.rating)+'</span>':''}</div>
+        <div style="font-size:11px;color:#8a8a9a">${new Date(f.time).toLocaleString('en-IN')}</div>
       </div>
-    `).join('');
+      <div class="admin-fb-user"><b>👤 ${f.name}</b>${f.email!=='no-email'?`<span style="color:#0070f3">📧 ${f.email}</span>`:''}</div>
+      <div class="admin-fb-msg">${this.esc(f.message).replace(/\n/g,'<br>')}</div>
+      <div class="admin-fb-meta"><span>🌐 ${f.screenSize}</span><span>🆔 ${f.id.slice(-6)}</span></div>
+      <div class="admin-fb-actions">
+        ${!f.read?`<button onclick="feedbackSystem.markRead('${f.id}')">✅ Mark Read</button>`:''}
+        ${f.email!=='no-email'?`<button onclick="feedbackSystem.reply('${f.id}')">📧 Reply</button>`:''}
+        <button onclick="feedbackSystem.copyFb('${f.id}')">📋 Copy</button>
+        <button class="danger" onclick="feedbackSystem.del('${f.id}')">🗑️ Delete</button>
+      </div>
+    </div>`).join('');
   },
-  
-  esc(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; },
-  
-  markRead(id) {
-    const all = JSON.parse(localStorage.getItem('et_feedback') || '[]');
-    const f = all.find(x => x.id === id);
-    if (f) { f.read = true; localStorage.setItem('et_feedback', JSON.stringify(all)); }
-    this.refreshAdmin();
-  },
-  
-  reply(id) {
-    const all = JSON.parse(localStorage.getItem('et_feedback') || '[]');
-    const f = all.find(x => x.id === id);
-    if (!f) return;
-    const subject = encodeURIComponent(`Re: Aapka feedback - Expert Tool`);
-    const body = encodeURIComponent(`Namaste ${f.name},\n\nAapke feedback ke liye shukriya!\n\nAapka message:\n"${f.message}"\n\nHum jaldi hi is par kaam karenge.\n\nRegards,\nExpert Tool Team`);
-    window.open(`mailto:${f.email}?subject=${subject}&body=${body}`);
-  },
-  
-  copyFb(id) {
-    const all = JSON.parse(localStorage.getItem('et_feedback') || '[]');
-    const f = all.find(x => x.id === id);
-    if (!f) return;
-    const text = `From: ${f.name} (${f.email})\nCategory: ${f.category}\nRating: ${f.rating}★\nTime: ${new Date(f.time).toLocaleString('en-IN')}\n\n${f.message}`;
-    navigator.clipboard.writeText(text);
-    toast('📋 Copied!');
-  },
-  
-  del(id) {
-    if (!confirm('Ye feedback delete karna hai?')) return;
-    const all = JSON.parse(localStorage.getItem('et_feedback') || '[]');
-    localStorage.setItem('et_feedback', JSON.stringify(all.filter(x => x.id !== id)));
-    this.refreshAdmin();
-  },
-  
-  exportCSV() {
-    const all = JSON.parse(localStorage.getItem('et_feedback') || '[]');
-    if (!all.length) { toast('Koi feedback nahi', 1); return; }
-    let csv = 'ID,Name,Email,Category,Rating,Message,Time,Page\n';
-    all.forEach(f => {
-      const esc = s => `"${String(s).replace(/"/g, '""')}"`;
-      csv += [esc(f.id),esc(f.name),esc(f.email),esc(f.category),f.rating,esc(f.message),esc(new Date(f.time).toLocaleString('en-IN')),esc(f.page)].join(',')+'\n';
-    });
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'expert-tool-feedback-' + new Date().toISOString().slice(0,10) + '.csv';
-    a.click();
-    toast('📥 CSV downloaded!');
-  },
-  
-  refreshAdmin() {
-    const p = document.getElementById('adminPanel');
-    if (!p) return;
-    p.remove();
-    this.openAdmin();
-  },
-  
-  closeAdmin() {
-    const p = document.getElementById('adminPanel');
-    if (p) p.remove();
-    document.body.style.overflow = '';
-  },
-  
-  checkAdminAccess() {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('admin') === ADMIN_KEY) {
-      setTimeout(() => this.openAdmin(), 500);
-    }
-  }
+  esc(t){const d=document.createElement('div');d.textContent=t;return d.innerHTML;},
+  markRead(id){const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');const f=all.find(x=>x.id===id);if(f){f.read=true;localStorage.setItem('et_feedback',JSON.stringify(all));}this.refreshAdmin();},
+  reply(id){const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');const f=all.find(x=>x.id===id);if(!f)return;const subject=encodeURIComponent(`Re: Aapka feedback - Qunvero`);const body=encodeURIComponent(`Namaste ${f.name},\n\nAapke feedback ke liye shukriya!\n\nAapka message:\n"${f.message}"\n\nHum jaldi hi is par kaam karenge.\n\nRegards,\nQunvero Team`);window.open(`mailto:${f.email}?subject=${subject}&body=${body}`);},
+  copyFb(id){const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');const f=all.find(x=>x.id===id);if(!f)return;const text=`From: ${f.name} (${f.email})\nCategory: ${f.category}\nRating: ${f.rating}★\nTime: ${new Date(f.time).toLocaleString('en-IN')}\n\n${f.message}`;navigator.clipboard.writeText(text);toast('📋 Copied!');},
+  del(id){if(!confirm('Ye feedback delete karna hai?'))return;const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');localStorage.setItem('et_feedback',JSON.stringify(all.filter(x=>x.id!==id)));this.refreshAdmin();},
+  exportCSV(){const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');if(!all.length){toast('Koi feedback nahi',1);return;}let csv='ID,Name,Email,Category,Rating,Message,Time,Page\n';all.forEach(f=>{const esc=s=>`"${String(s).replace(/"/g,'""')}"`;csv+=[esc(f.id),esc(f.name),esc(f.email),esc(f.category),f.rating,esc(f.message),esc(new Date(f.time).toLocaleString('en-IN')),esc(f.page)].join(',')+'\n';});const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='qunvero-feedback-'+new Date().toISOString().slice(0,10)+'.csv';a.click();toast('📥 CSV downloaded!');},
+  refreshAdmin(){const p=document.getElementById('adminPanel');if(!p)return;p.remove();this.openAdmin();},
+  closeAdmin(){const p=document.getElementById('adminPanel');if(p)p.remove();document.body.style.overflow='';},
+  checkAdminAccess(){const params=new URLSearchParams(window.location.search);if(params.get('admin')===ADMIN_KEY){setTimeout(()=>this.openAdmin(),500);}}
 };
 
-/* ============ TOOLS DATABASE ============ */
-const CATEGORIES = [
-  {id:'elec', name:'Bijli / Electricity', emo:'⚡'},
-  {id:'biz', name:'Business / Shop', emo:'🏪'},
-  {id:'pdf', name:'PDF Tools', emo:'📄'},
-  {id:'img', name:'Image / Photo', emo:'🖼️'},
-  {id:'text', name:'Text Tools', emo:'🔤'},
-  {id:'fin', name:'Finance / Paisa', emo:'💰'},
-  {id:'social', name:'Social Media', emo:'📱'},
-  {id:'edu', name:'Student / Education', emo:'🎓'},
-  {id:'health', name:'Health / Fitness', emo:'🏥'},
-  {id:'util', name:'Utility', emo:'🔧'},
-  {id:'time', name:'Date / Time', emo:'⏰'},
-  {id:'math', name:'Math / Number', emo:'🔢'},
-  {id:'convert', name:'Converters', emo:'🔄'},
-  {id:'web', name:'Web / Code', emo:'💻'},
-  {id:'fun', name:'Fun / Random', emo:'🎲'},
+/* ============ TOOLS ============ */
+const CATEGORIES=[
+  {id:'elec',name:'Bijli / Electricity',emo:'⚡'},
+  {id:'biz',name:'Business / Shop',emo:'🏪'},
+  {id:'pdf',name:'PDF Tools',emo:'📄'},
+  {id:'img',name:'Image / Photo',emo:'🖼️'},
+  {id:'text',name:'Text Tools',emo:'🔤'},
+  {id:'fin',name:'Finance / Paisa',emo:'💰'},
+  {id:'social',name:'Social Media',emo:'📱'},
+  {id:'edu',name:'Student / Education',emo:'🎓'},
+  {id:'health',name:'Health / Fitness',emo:'🏥'},
+  {id:'util',name:'Utility',emo:'🔧'},
+  {id:'time',name:'Date / Time',emo:'⏰'},
+  {id:'math',name:'Math / Number',emo:'🔢'},
+  {id:'convert',name:'Converters',emo:'🔄'},
+  {id:'web',name:'Web / Code',emo:'💻'},
+  {id:'fun',name:'Fun / Random',emo:'🎲'},
 ];
 
-const F = {
+const F={
   num:(id,lbl,val='',step='any')=>`<div><label>${lbl}</label><input type="number" id="${id}" value="${val}" step="${step}" oninput="calc_${currentToolId}()"></div>`,
   txt:(id,lbl,val='')=>`<div><label>${lbl}</label><input type="text" id="${id}" value="${val}" oninput="calc_${currentToolId}()"></div>`,
   area:(id,lbl,val='')=>`<div><label>${lbl}</label><textarea id="${id}" rows="4" oninput="calc_${currentToolId}()">${val}</textarea></div>`,
@@ -885,590 +502,248 @@ const F = {
   date:(id,lbl)=>`<div><label>${lbl}</label><input type="date" id="${id}" oninput="calc_${currentToolId}()"></div>`,
 };
 function fmt(n,d=2){return Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:d,minimumFractionDigits:d});}
+function val(id){const el=document.getElementById(id);return el?el.value:'';}
 
-const TOOLS = [];
-let currentToolId = '';
+const TOOLS=[];
+let currentToolId='';
 
-/* ELECTRICITY */
 TOOLS.push(
 {id:'elec-bill',n:'Electricity Bill Calculator',i:'💡',c:'elec',
  render:()=>`${F.num('units','Units Consumed (kWh)','100')}${F.num('rate','Rate per Unit (₹)','7')}${F.num('fixed','Fixed Charges (₹)','50')}${F.num('tax','Tax (%)','5')}<div id="resultBox"></div>`,
- calc(){const u=+val('units'),r=+val('rate'),f=+val('fixed'),t=+val('tax');
-  const e=u*r,s=e+f,tx=s*t/100,tot=s+tx;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>💡 Bill Breakdown</h4>
-   <div class="result-row"><span class="lb">Energy Charge</span><span class="vl">₹${fmt(e)}</span></div>
-   <div class="result-row"><span class="lb">Fixed Charge</span><span class="vl">₹${fmt(f)}</span></div>
-   <div class="result-row"><span class="lb">Tax (${t}%)</span><span class="vl">₹${fmt(tx)}</span></div>
-   <div class="result-row total"><span class="lb">Total Bill</span><span class="vl">₹${fmt(tot)}</span></div></div>`;
-  return `Electricity Bill: ₹${fmt(tot)}`;}},
+ calc(){const u=+val('units'),r=+val('rate'),f=+val('fixed'),t=+val('tax');const e=u*r,s=e+f,tx=s*t/100,tot=s+tx;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>💡 Bill Breakdown</h4><div class="result-row"><span class="lb">Energy Charge</span><span class="vl">₹${fmt(e)}</span></div><div class="result-row"><span class="lb">Fixed Charge</span><span class="vl">₹${fmt(f)}</span></div><div class="result-row"><span class="lb">Tax (${t}%)</span><span class="vl">₹${fmt(tx)}</span></div><div class="result-row total"><span class="lb">Total Bill</span><span class="vl">₹${fmt(tot)}</span></div></div>`;return `Electricity Bill: ₹${fmt(tot)}`;}},
 {id:'elec-solar',n:'Solar Panel Calculator',i:'☀️',c:'elec',
  render:()=>`${F.num('cons','Monthly Units (kWh)','300')}${F.num('sun','Sun Hours/Day','5')}${F.num('panel','Panel Watt (W)','540')}<div id="resultBox"></div>`,
- calc(){const c=+val('cons'),s=+val('sun'),p=+val('panel');
-  const daily=c/30,kw=daily/s,panels=Math.ceil(kw*1000/p);
-  const cost=panels*p*30,save=c*8*12;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>☀️ Solar Estimate</h4>
-   <div class="result-row"><span class="lb">Panels Needed</span><span class="vl">${panels} × ${p}W</span></div>
-   <div class="result-row"><span class="lb">System Size</span><span class="vl">${fmt(kw,2)} kW</span></div>
-   <div class="result-row"><span class="lb">Approx Cost</span><span class="vl">₹${fmt(cost,0)}</span></div>
-   <div class="result-row total"><span class="lb">Yearly Saving</span><span class="vl">₹${fmt(save,0)}</span></div></div>`;
-  return `Solar: ${panels} panels, ~₹${fmt(cost,0)}`;}},
+ calc(){const c=+val('cons'),s=+val('sun'),p=+val('panel');const daily=c/30,kw=daily/s,panels=Math.ceil(kw*1000/p);const cost=panels*p*30,save=c*8*12;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>☀️ Solar Estimate</h4><div class="result-row"><span class="lb">Panels</span><span class="vl">${panels} × ${p}W</span></div><div class="result-row"><span class="lb">System</span><span class="vl">${fmt(kw,2)} kW</span></div><div class="result-row total"><span class="lb">Yearly Saving</span><span class="vl">₹${fmt(save,0)}</span></div></div>`;return `Solar: ${panels} panels`;}},
 {id:'elec-inverter',n:'Inverter Backup Time',i:'🔋',c:'elec',
  render:()=>`${F.num('bat','Battery Ah','150')}${F.num('volt','Battery Volt','12')}${F.num('load','Load (Watt)','400')}${F.num('eff','Efficiency (%)','85')}<div id="resultBox"></div>`,
- calc(){const ah=+val('bat'),v=+val('volt'),l=+val('load'),e=+val('eff');
-  const wh=ah*v*(e/100),h=wh/l;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔋 Backup Time</h4>
-   <div class="result-row"><span class="lb">Total Energy</span><span class="vl">${fmt(wh,0)} Wh</span></div>
-   <div class="result-row total"><span class="lb">Backup Time</span><span class="vl">${fmt(h,1)} hours</span></div></div>`;
-  return `Backup: ${fmt(h,1)} hours`;}},
+ calc(){const ah=+val('bat'),v=+val('volt'),l=+val('load'),e=+val('eff');const wh=ah*v*(e/100),h=wh/l;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔋 Backup Time</h4><div class="result-row total"><span class="lb">Hours</span><span class="vl">${fmt(h,1)} hours</span></div></div>`;return `Backup: ${fmt(h,1)} hours`;}},
 {id:'elec-ac',n:'AC Running Cost',i:'❄️',c:'elec',
  render:()=>`${F.num('watt','AC Watt','1500')}${F.num('hours','Hours/Day','8')}${F.num('rate','Rate/Unit (₹)','7')}${F.num('days','Days/Month','30')}<div id="resultBox"></div>`,
- calc(){const w=+val('watt'),h=+val('hours'),r=+val('rate'),d=+val('days');
-  const kwh=w*h*d/1000,cost=kwh*r;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>❄️ AC Cost</h4>
-   <div class="result-row"><span class="lb">Units/Month</span><span class="vl">${fmt(kwh,1)} kWh</span></div>
-   <div class="result-row total"><span class="lb">Monthly Cost</span><span class="vl">₹${fmt(cost,0)}</span></div></div>`;
-  return `AC Monthly: ₹${fmt(cost,0)}`;}},
+ calc(){const w=+val('watt'),h=+val('hours'),r=+val('rate'),d=+val('days');const kwh=w*h*d/1000,cost=kwh*r;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>❄️ AC Cost</h4><div class="result-row"><span class="lb">Units/Month</span><span class="vl">${fmt(kwh,1)}</span></div><div class="result-row total"><span class="lb">Monthly</span><span class="vl">₹${fmt(cost,0)}</span></div></div>`;return `₹${fmt(cost,0)}/month`;}},
 {id:'elec-appliance',n:'Appliance Power Cost',i:'🔌',c:'elec',
  render:()=>`${F.num('watt','Appliance Watt','100')}${F.num('hours','Hours/Day','5')}${F.num('rate','Rate/Unit (₹)','7')}<div id="resultBox"></div>`,
- calc(){const w=+val('watt'),h=+val('hours'),r=+val('rate');
-  const daily=w*h/1000*r,monthly=daily*30,yearly=monthly*12;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔌 Power Cost</h4>
-   <div class="result-row"><span class="lb">Daily</span><span class="vl">₹${fmt(daily)}</span></div>
-   <div class="result-row"><span class="lb">Monthly</span><span class="vl">₹${fmt(monthly)}</span></div>
-   <div class="result-row total"><span class="lb">Yearly</span><span class="vl">₹${fmt(yearly)}</span></div></div>`;
-  return `Yearly: ₹${fmt(yearly)}`;}},
+ calc(){const w=+val('watt'),h=+val('hours'),r=+val('rate');const daily=w*h/1000*r,monthly=daily*30,yearly=monthly*12;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔌 Cost</h4><div class="result-row"><span class="lb">Daily</span><span class="vl">₹${fmt(daily)}</span></div><div class="result-row"><span class="lb">Monthly</span><span class="vl">₹${fmt(monthly)}</span></div><div class="result-row total"><span class="lb">Yearly</span><span class="vl">₹${fmt(yearly)}</span></div></div>`;return `Yearly: ₹${fmt(yearly)}`;}},
 {id:'elec-led',n:'LED Savings Calculator',i:'💡',c:'elec',
- render:()=>`${F.num('bulb','Number of Bulbs','10')}${F.num('old','Old Watt','60')}${F.num('new','New LED Watt','9')}${F.num('hours','Hours/Day','6')}${F.num('rate','Rate/Unit (₹)','7')}<div id="resultBox"></div>`,
- calc(){const n=+val('bulb'),o=+val('old'),nw=+val('new'),h=+val('hours'),r=+val('rate');
-  const oldCost=n*o*h*30/1000*r,newCost=n*nw*h*30/1000*r;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>💡 LED Savings</h4>
-   <div class="result-row"><span class="lb">Old Monthly</span><span class="vl">₹${fmt(oldCost,0)}</span></div>
-   <div class="result-row"><span class="lb">LED Monthly</span><span class="vl">₹${fmt(newCost,0)}</span></div>
-   <div class="result-row total"><span class="lb">Monthly Saving</span><span class="vl">₹${fmt(oldCost-newCost,0)}</span></div></div>`;
-  return `Save ₹${fmt((oldCost-newCost)*12,0)}/year`;}},
+ render:()=>`${F.num('bulb','Bulbs','10')}${F.num('old','Old Watt','60')}${F.num('new','New LED Watt','9')}${F.num('hours','Hours/Day','6')}${F.num('rate','Rate/Unit (₹)','7')}<div id="resultBox"></div>`,
+ calc(){const n=+val('bulb'),o=+val('old'),nw=+val('new'),h=+val('hours'),r=+val('rate');const oldCost=n*o*h*30/1000*r,newCost=n*nw*h*30/1000*r;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>💡 Savings</h4><div class="result-row"><span class="lb">Old</span><span class="vl">₹${fmt(oldCost,0)}</span></div><div class="result-row"><span class="lb">LED</span><span class="vl">₹${fmt(newCost,0)}</span></div><div class="result-row total"><span class="lb">Save/Month</span><span class="vl">₹${fmt(oldCost-newCost,0)}</span></div></div>`;return `Save ₹${fmt((oldCost-newCost)*12,0)}/year`;}},
 );
 
-/* BUSINESS */
 TOOLS.push(
 {id:'biz-invoice',n:'Invoice Generator',i:'🧾',c:'biz',
- render:()=>`<div class="form-grid">${F.txt('biz','Business Name','My Shop')}${F.txt('addr','Address','')}${F.txt('gst','GSTIN','')}${F.txt('cust','Customer Name','')}${F.txt('inv','Invoice No','INV-001')}${F.date('date','Date')}</div>
-  <table class="tbl" id="invTbl"><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amt</th><th></th></tr></thead><tbody id="invBody"></tbody></table>
-  <button class="btn btn-g btn-sm" style="margin-top:10px" onclick="addInvRow()">+ Add Item</button>
-  <div id="resultBox"></div>`,
+ render:()=>`<div class="form-grid">${F.txt('biz','Business','My Shop')}${F.txt('gst','GSTIN','')}${F.txt('cust','Customer','')}${F.txt('inv','Invoice No','INV-001')}${F.date('date','Date')}</div><table class="tbl"><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amt</th><th></th></tr></thead><tbody id="invBody"></tbody></table><button class="btn btn-g btn-sm" style="margin-top:10px" onclick="addInvRow()">+ Add</button><div id="resultBox"></div>`,
  init(){document.getElementById('date').valueAsDate=new Date();addInvRow();},
- calc(){let sub=0;document.querySelectorAll('#invBody tr').forEach(r=>{
-   const q=+r.querySelector('.q').value||0, rt=+r.querySelector('.r').value||0, a=q*rt;
-   r.querySelector('.a').textContent='₹'+fmt(a);sub+=a;});
-  const g=sub*0.18,tot=sub+g;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🧾 Invoice Total</h4>
-   <div class="result-row"><span class="lb">Subtotal</span><span class="vl">₹${fmt(sub)}</span></div>
-   <div class="result-row"><span class="lb">GST 18%</span><span class="vl">₹${fmt(g)}</span></div>
-   <div class="result-row total"><span class="lb">Grand Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`;
-  return `Total: ₹${fmt(tot)}`;}},
+ calc(){let sub=0;document.querySelectorAll('#invBody tr').forEach(r=>{const q=+r.querySelector('.q').value||0,rt=+r.querySelector('.r').value||0,a=q*rt;r.querySelector('.a').textContent='₹'+fmt(a);sub+=a;});const g=sub*0.18,tot=sub+g;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🧾 Invoice</h4><div class="result-row"><span class="lb">Subtotal</span><span class="vl">₹${fmt(sub)}</span></div><div class="result-row"><span class="lb">GST 18%</span><span class="vl">₹${fmt(g)}</span></div><div class="result-row total"><span class="lb">Grand Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`;return `Total: ₹${fmt(tot)}`;}},
 {id:'biz-gst',n:'GST Calculator',i:'💰',c:'biz',
  render:()=>`${F.num('amt','Amount (₹)','1000')}${F.sel('rate','GST Rate',[['5','5%'],['12','12%'],['18','18%'],['28','28%']])}${F.sel('mode','Type',[['add','Add GST'],['rem','Remove GST']])}<div id="resultBox"></div>`,
- calc(){const a=+val('amt'),r=+val('rate'),m=val('mode');let base,gst,tot;
-  if(m==='add'){base=a;gst=a*r/100;tot=a+gst;}else{base=a*100/(100+r);gst=a-base;tot=a;}
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>💰 GST Breakdown</h4>
-   <div class="result-row"><span class="lb">Base</span><span class="vl">₹${fmt(base)}</span></div>
-   <div class="result-row"><span class="lb">GST ${r}%</span><span class="vl">₹${fmt(gst)}</span></div>
-   <div class="result-row"><span class="lb">CGST</span><span class="vl">₹${fmt(gst/2)}</span></div>
-   <div class="result-row"><span class="lb">SGST</span><span class="vl">₹${fmt(gst/2)}</span></div>
-   <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`;
-  return `Total: ₹${fmt(tot)}`;}},
+ calc(){const a=+val('amt'),r=+val('rate'),m=val('mode');let base,gst,tot;if(m==='add'){base=a;gst=a*r/100;tot=a+gst;}else{base=a*100/(100+r);gst=a-base;tot=a;}document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>💰 GST</h4><div class="result-row"><span class="lb">Base</span><span class="vl">₹${fmt(base)}</span></div><div class="result-row"><span class="lb">GST</span><span class="vl">₹${fmt(gst)}</span></div><div class="result-row"><span class="lb">CGST</span><span class="vl">₹${fmt(gst/2)}</span></div><div class="result-row"><span class="lb">SGST</span><span class="vl">₹${fmt(gst/2)}</span></div><div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`;return `₹${fmt(tot)}`;}},
 {id:'biz-emi',n:'EMI Calculator',i:'🏦',c:'biz',
- render:()=>`${F.num('p','Loan Amount (₹)','100000')}${F.num('r','Annual Rate (%)','10')}${F.num('n','Years','5')}<div id="resultBox"></div>`,
- calc(){const P=+val('p'),R=+val('r')/12/100,N=+val('n')*12;
-  const emi=P*R*Math.pow(1+R,N)/(Math.pow(1+R,N)-1);
-  const tot=emi*N,int=tot-P;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🏦 EMI Details</h4>
-   <div class="result-row"><span class="lb">Monthly EMI</span><span class="vl">₹${fmt(emi,0)}</span></div>
-   <div class="result-row"><span class="lb">Total Interest</span><span class="vl">₹${fmt(int,0)}</span></div>
-   <div class="result-row total"><span class="lb">Total Payment</span><span class="vl">₹${fmt(tot,0)}</span></div></div>`;
-  return `EMI: ₹${fmt(emi,0)}/month`;}},
+ render:()=>`${F.num('p','Loan (₹)','100000')}${F.num('r','Rate (%)','10')}${F.num('n','Years','5')}<div id="resultBox"></div>`,
+ calc(){const P=+val('p'),R=+val('r')/12/100,N=+val('n')*12;const emi=P*R*Math.pow(1+R,N)/(Math.pow(1+R,N)-1);const tot=emi*N,int=tot-P;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🏦 EMI</h4><div class="result-row"><span class="lb">EMI</span><span class="vl">₹${fmt(emi,0)}</span></div><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(int,0)}</span></div><div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot,0)}</span></div></div>`;return `EMI: ₹${fmt(emi,0)}`;}},
 {id:'biz-salary',n:'Salary Slip Maker',i:'📄',c:'biz',
- render:()=>`<div class="form-grid">${F.txt('cn','Company','')}${F.txt('en','Employee','')}${F.num('basic','Basic (₹)','30000')}${F.num('hra','HRA (₹)','12000')}${F.num('da','DA (₹)','5000')}${F.num('ded','Deductions (₹)','3600')}</div><div id="resultBox"></div>`,
- calc(){const b=+val('basic'),h=+val('hra'),d=+val('da'),dd=+val('ded');
-  const gross=b+h+d,net=gross-dd;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📄 Salary</h4>
-   <div class="result-row"><span class="lb">Gross</span><span class="vl">₹${fmt(gross,0)}</span></div>
-   <div class="result-row"><span class="lb">Deductions</span><span class="vl">-₹${fmt(dd,0)}</span></div>
-   <div class="result-row total"><span class="lb">Net Salary</span><span class="vl">₹${fmt(net,0)}</span></div></div>`;
-  return `Net: ₹${fmt(net,0)}`;}},
-{id:'biz-profit',n:'Profit Margin Calculator',i:'📈',c:'biz',
+ render:()=>`<div class="form-grid">${F.num('basic','Basic (₹)','30000')}${F.num('hra','HRA (₹)','12000')}${F.num('da','DA (₹)','5000')}${F.num('ded','Deductions (₹)','3600')}</div><div id="resultBox"></div>`,
+ calc(){const b=+val('basic'),h=+val('hra'),d=+val('da'),dd=+val('ded');const gross=b+h+d,net=gross-dd;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📄 Salary</h4><div class="result-row"><span class="lb">Gross</span><span class="vl">₹${fmt(gross,0)}</span></div><div class="result-row"><span class="lb">Deductions</span><span class="vl">-₹${fmt(dd,0)}</span></div><div class="result-row total"><span class="lb">Net</span><span class="vl">₹${fmt(net,0)}</span></div></div>`;return `Net: ₹${fmt(net,0)}`;}},
+{id:'biz-profit',n:'Profit Margin',i:'📈',c:'biz',
  render:()=>`${F.num('cost','Cost Price (₹)','100')}${F.num('sell','Selling Price (₹)','150')}<div id="resultBox"></div>`,
- calc(){const c=+val('cost'),s=+val('sell');const p=s-c,m=c?(p/c*100):0,mk=s?(p/s*100):0;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📈 Profit</h4>
-   <div class="result-row"><span class="lb">Profit</span><span class="vl">₹${fmt(p)}</span></div>
-   <div class="result-row"><span class="lb">Markup</span><span class="vl">${fmt(m)}%</span></div>
-   <div class="result-row total"><span class="lb">Margin</span><span class="vl">${fmt(mk)}%</span></div></div>`;
-  return `Profit: ₹${fmt(p)}`;}},
+ calc(){const c=+val('cost'),s=+val('sell');const p=s-c,m=c?(p/c*100):0,mk=s?(p/s*100):0;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📈 Profit</h4><div class="result-row"><span class="lb">Profit</span><span class="vl">₹${fmt(p)}</span></div><div class="result-row"><span class="lb">Markup</span><span class="vl">${fmt(m)}%</span></div><div class="result-row total"><span class="lb">Margin</span><span class="vl">${fmt(mk)}%</span></div></div>`;return `Profit: ₹${fmt(p)}`;}},
 {id:'biz-discount',n:'Discount Calculator',i:'🏷️',c:'biz',
  render:()=>`${F.num('mrp','MRP (₹)','1000')}${F.num('disc','Discount (%)','20')}<div id="resultBox"></div>`,
- calc(){const m=+val('mrp'),d=+val('disc');const save=m*d/100,fp=m-save;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🏷️ Discount</h4>
-   <div class="result-row"><span class="lb">Save</span><span class="vl">₹${fmt(save)}</span></div>
-   <div class="result-row total"><span class="lb">Final</span><span class="vl">₹${fmt(fp)}</span></div></div>`;
-  return `Final: ₹${fmt(fp)}`;}},
+ calc(){const m=+val('mrp'),d=+val('disc');const save=m*d/100,fp=m-save;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🏷️ Discount</h4><div class="result-row"><span class="lb">Save</span><span class="vl">₹${fmt(save)}</span></div><div class="result-row total"><span class="lb">Final</span><span class="vl">₹${fmt(fp)}</span></div></div>`;return `₹${fmt(fp)}`;}},
 );
 
-/* PDF */
 TOOLS.push(
 {id:'pdf-merge',n:'Merge PDF Files',i:'📎',c:'pdf',
- render:()=>`<div><label>Select 2+ PDF files</label><input type="file" id="pdfs" accept="application/pdf" multiple></div>
-  <button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runPdfMerge()">📎 Merge PDFs</button><div id="resultBox"></div>`,
+ render:()=>`<div><label>Select 2+ PDFs</label><input type="file" id="pdfs" accept="application/pdf" multiple></div><button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runPdfMerge()">📎 Merge</button><div id="resultBox"></div>`,
  calc(){return '';}},
 {id:'pdf-img',n:'Image to PDF',i:'🖼️',c:'pdf',
- render:()=>`<div><label>Select Images</label><input type="file" id="imgs" accept="image/*" multiple></div>
-  <button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgToPdf()">🖼️ Convert to PDF</button><div id="resultBox"></div>`,
+ render:()=>`<div><label>Select Images</label><input type="file" id="imgs" accept="image/*" multiple></div><button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgToPdf()">🖼️ Convert</button><div id="resultBox"></div>`,
  calc(){return '';}},
 {id:'pdf-info',n:'PDF Info Reader',i:'ℹ️',c:'pdf',
- render:()=>`<div><label>PDF file</label><input type="file" id="pdf" accept="application/pdf"></div>
-  <button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runPdfInfo()">ℹ️ Read Info</button><div id="resultBox"></div>`,
+ render:()=>`<div><label>PDF</label><input type="file" id="pdf" accept="application/pdf"></div><button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runPdfInfo()">ℹ️ Read Info</button><div id="resultBox"></div>`,
  calc(){return '';}},
 );
 
-/* IMAGE */
 TOOLS.push(
 {id:'img-compress',n:'Image Compressor',i:'🗜️',c:'img',
- render:()=>`<div><label>Image</label><input type="file" id="file" accept="image/*"></div>${F.num('q','Quality (10-100)','70')}
-  <button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgCompress()">🗜️ Compress</button><div id="resultBox"></div>`,
+ render:()=>`<div><label>Image</label><input type="file" id="file" accept="image/*"></div>${F.num('q','Quality','70')}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgCompress()">🗜️ Compress</button><div id="resultBox"></div>`,
  calc(){return '';}},
 {id:'img-resize',n:'Image Resizer',i:'📐',c:'img',
- render:()=>`<div><label>Image</label><input type="file" id="file" accept="image/*"></div>${F.num('w','Width (px)','800')}${F.num('h','Height (px)','600')}
-  <button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgResize()">📐 Resize</button><div id="resultBox"></div>`,
+ render:()=>`<div><label>Image</label><input type="file" id="file" accept="image/*"></div>${F.num('w','Width','800')}${F.num('h','Height','600')}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgResize()">📐 Resize</button><div id="resultBox"></div>`,
  calc(){return '';}},
-{id:'img-passport',n:'Passport Photo Maker',i:'📸',c:'img',
- render:()=>`<div><label>Photo</label><input type="file" id="file" accept="image/*"></div>${F.sel('size','Size',[['passport','Passport (35×45mm)'],['stamp','Stamp (20×25mm)'],['visa','Visa (51×51mm)']])}
-  <button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runPassport()">📸 Make Photo</button><div id="resultBox"></div>`,
+{id:'img-passport',n:'Passport Photo',i:'📸',c:'img',
+ render:()=>`<div><label>Photo</label><input type="file" id="file" accept="image/*"></div>${F.sel('size','Size',[['passport','Passport'],['stamp','Stamp'],['visa','Visa']])}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runPassport()">📸 Make</button><div id="resultBox"></div>`,
  calc(){return '';}},
 {id:'img-base64',n:'Image to Base64',i:'🔤',c:'img',
- render:()=>`<div><label>Image</label><input type="file" id="file" accept="image/*"></div>
-  <button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgBase64()">🔤 Convert</button><div id="resultBox"></div>`,
+ render:()=>`<div><label>Image</label><input type="file" id="file" accept="image/*"></div><button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgBase64()">🔤 Convert</button><div id="resultBox"></div>`,
  calc(){return '';}},
 );
 
-/* TEXT */
 TOOLS.push(
 {id:'txt-count',n:'Word Counter',i:'📝',c:'text',
- render:()=>`${F.area('t','Text daalo','')}<div id="resultBox"></div>`,
- calc(){const t=val('t');
-  const words=t.trim()?t.trim().split(/\s+/).length:0;
-  const chars=t.length,noSpace=t.replace(/\s/g,'').length;
-  const sent=t.split(/[.!?]+/).filter(x=>x.trim()).length;
-  const para=t.split(/\n\n+/).filter(x=>x.trim()).length;
-  const read=Math.ceil(words/200);
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📊 Stats</h4>
-   <div class="result-row"><span class="lb">Words</span><span class="vl">${words}</span></div>
-   <div class="result-row"><span class="lb">Characters</span><span class="vl">${chars}</span></div>
-   <div class="result-row"><span class="lb">Without Spaces</span><span class="vl">${noSpace}</span></div>
-   <div class="result-row"><span class="lb">Sentences</span><span class="vl">${sent}</span></div>
-   <div class="result-row"><span class="lb">Paragraphs</span><span class="vl">${para}</span></div>
-   <div class="result-row total"><span class="lb">Read Time</span><span class="vl">${read} min</span></div></div>`;
-  return `${words} words, ${chars} chars`;}},
+ render:()=>`${F.area('t','Text','')}<div id="resultBox"></div>`,
+ calc(){const t=val('t');const words=t.trim()?t.trim().split(/\s+/).length:0;const chars=t.length,noSpace=t.replace(/\s/g,'').length;const sent=t.split(/[.!?]+/).filter(x=>x.trim()).length;const para=t.split(/\n\n+/).filter(x=>x.trim()).length;const read=Math.ceil(words/200);document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📊 Stats</h4><div class="result-row"><span class="lb">Words</span><span class="vl">${words}</span></div><div class="result-row"><span class="lb">Chars</span><span class="vl">${chars}</span></div><div class="result-row"><span class="lb">No Space</span><span class="vl">${noSpace}</span></div><div class="result-row"><span class="lb">Sentences</span><span class="vl">${sent}</span></div><div class="result-row"><span class="lb">Paragraphs</span><span class="vl">${para}</span></div><div class="result-row total"><span class="lb">Read Time</span><span class="vl">${read} min</span></div></div>`;return `${words} words`;}},
 {id:'txt-case',n:'Case Converter',i:'🔠',c:'text',
  render:()=>`${F.area('t','Text','hello world')}<div id="resultBox"></div>`,
- calc(){const t=val('t');
-  const up=t.toUpperCase(),lo=t.toLowerCase();
-  const title=t.replace(/\w\S*/g,x=>x[0].toUpperCase()+x.slice(1).toLowerCase());
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔠 Cases</h4>
-   <div class="result-row"><span class="lb">UPPER</span><span class="vl" style="font-size:12px">${up.slice(0,40)}</span></div>
-   <div class="result-row"><span class="lb">lower</span><span class="vl" style="font-size:12px">${lo.slice(0,40)}</span></div>
-   <div class="result-row total"><span class="lb">Title</span><span class="vl" style="font-size:12px">${title.slice(0,40)}</span></div></div>`;
-  return up;}},
+ calc(){const t=val('t');const up=t.toUpperCase(),lo=t.toLowerCase();const title=t.replace(/\w\S*/g,x=>x[0].toUpperCase()+x.slice(1).toLowerCase());document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔠 Cases</h4><div class="result-row"><span class="lb">UPPER</span><span class="vl" style="font-size:12px">${up.slice(0,40)}</span></div><div class="result-row"><span class="lb">lower</span><span class="vl" style="font-size:12px">${lo.slice(0,40)}</span></div><div class="result-row total"><span class="lb">Title</span><span class="vl" style="font-size:12px">${title.slice(0,40)}</span></div></div>`;return up;}},
 {id:'txt-reverse',n:'Reverse Text',i:'🔃',c:'text',
  render:()=>`${F.area('t','Text','Hello World')}<div id="resultBox"></div>`,
- calc(){const t=val('t');const r=t.split('').reverse().join('');
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔃 Reversed</h4>
-   <div class="result-row total"><span class="lb">Result</span><span class="vl">${r}</span></div></div>`;
-  return r;}},
+ calc(){const t=val('t');const r=t.split('').reverse().join('');document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔃 Reversed</h4><div class="result-row total"><span class="lb">Result</span><span class="vl">${r}</span></div></div>`;return r;}},
 {id:'txt-pass',n:'Password Generator',i:'🔐',c:'text',
- render:()=>`${F.num('len','Length','16')}${F.sel('type','Type',[['all','All (A-Z, a-z, 0-9, symbols)'],['alpha','Only Letters'],['num','Only Numbers']])}<div id="resultBox"></div>`,
- calc(){const l=+val('len'),ty=val('type');
-  let chars='abcdefghijklmnopqrstuvwxyz';
-  if(ty==='all'){chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';}
-  else if(ty==='alpha'){chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';}
-  else{chars='0123456789';}
-  let p='';for(let i=0;i<l;i++)p+=chars[Math.floor(Math.random()*chars.length)];
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔐 Password</h4>
-   <div class="result-row total"><span class="lb">Password</span><span class="vl" style="font-family:monospace;font-size:13px;word-break:break-all">${p}</span></div></div>`;
-  return p;}},
+ render:()=>`${F.num('len','Length','16')}${F.sel('type','Type',[['all','All'],['alpha','Letters'],['num','Numbers']])}<div id="resultBox"></div>`,
+ calc(){const l=+val('len'),ty=val('type');let chars='abcdefghijklmnopqrstuvwxyz';if(ty==='all'){chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';}else if(ty==='alpha'){chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';}else{chars='0123456789';}let p='';for(let i=0;i<l;i++)p+=chars[Math.floor(Math.random()*chars.length)];document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔐 Password</h4><div class="result-row total"><span class="lb">Result</span><span class="vl" style="font-family:monospace;font-size:13px;word-break:break-all">${p}</span></div></div>`;return p;}},
 {id:'txt-slug',n:'URL Slug Generator',i:'🔗',c:'text',
  render:()=>`${F.txt('t','Title','Hello World 2025')}<div id="resultBox"></div>`,
- calc(){const s=val('t').toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-');
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔗 Slug</h4>
-   <div class="result-row total"><span class="lb">Slug</span><span class="vl">${s}</span></div></div>`;
-  return s;}},
+ calc(){const s=val('t').toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-');document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔗 Slug</h4><div class="result-row total"><span class="lb">Slug</span><span class="vl">${s}</span></div></div>`;return s;}},
 );
 
-/* FINANCE */
 TOOLS.push(
 {id:'fin-sip',n:'SIP Calculator',i:'📊',c:'fin',
- render:()=>`${F.num('m','Monthly SIP (₹)','5000')}${F.num('r','Return (%)','12')}${F.num('y','Years','10')}<div id="resultBox"></div>`,
- calc(){const m=+val('m'),r=+val('r')/12/100,n=+val('y')*12;
-  const fv=m*((Math.pow(1+r,n)-1)/r)*(1+r);
-  const invested=m*n,gain=fv-invested;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📊 SIP Result</h4>
-   <div class="result-row"><span class="lb">Invested</span><span class="vl">₹${fmt(invested,0)}</span></div>
-   <div class="result-row"><span class="lb">Returns</span><span class="vl">₹${fmt(gain,0)}</span></div>
-   <div class="result-row total"><span class="lb">Final Value</span><span class="vl">₹${fmt(fv,0)}</span></div></div>`;
-  return `Maturity: ₹${fmt(fv,0)}`;}},
+ render:()=>`${F.num('m','Monthly (₹)','5000')}${F.num('r','Return (%)','12')}${F.num('y','Years','10')}<div id="resultBox"></div>`,
+ calc(){const m=+val('m'),r=+val('r')/12/100,n=+val('y')*12;const fv=m*((Math.pow(1+r,n)-1)/r)*(1+r);const invested=m*n,gain=fv-invested;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📊 SIP</h4><div class="result-row"><span class="lb">Invested</span><span class="vl">₹${fmt(invested,0)}</span></div><div class="result-row"><span class="lb">Returns</span><span class="vl">₹${fmt(gain,0)}</span></div><div class="result-row total"><span class="lb">Final</span><span class="vl">₹${fmt(fv,0)}</span></div></div>`;return `₹${fmt(fv,0)}`;}},
 {id:'fin-fd',n:'FD Calculator',i:'🏛️',c:'fin',
  render:()=>`${F.num('p','Principal (₹)','100000')}${F.num('r','Rate (%)','7')}${F.num('y','Years','5')}<div id="resultBox"></div>`,
- calc(){const p=+val('p'),r=+val('r')/100,y=+val('y');
-  const a=p*Math.pow(1+r/4,y*4),i=a-p;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🏛️ FD Result</h4>
-   <div class="result-row"><span class="lb">Principal</span><span class="vl">₹${fmt(p,0)}</span></div>
-   <div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div>
-   <div class="result-row total"><span class="lb">Maturity</span><span class="vl">₹${fmt(a,0)}</span></div></div>`;
-  return `Maturity: ₹${fmt(a,0)}`;}},
+ calc(){const p=+val('p'),r=+val('r')/100,y=+val('y');const a=p*Math.pow(1+r/4,y*4),i=a-p;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🏛️ FD</h4><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row total"><span class="lb">Maturity</span><span class="vl">₹${fmt(a,0)}</span></div></div>`;return `₹${fmt(a,0)}`;}},
 {id:'fin-tax',n:'Income Tax Calculator',i:'🧮',c:'fin',
  render:()=>`${F.num('inc','Annual Income (₹)','800000')}<div id="resultBox"></div>`,
- calc(){const i=+val('inc');let tax=0;
-  if(i<=300000)tax=0;else if(i<=600000)tax=(i-300000)*0.05;
-  else if(i<=900000)tax=15000+(i-600000)*0.10;
-  else if(i<=1200000)tax=45000+(i-900000)*0.15;
-  else if(i<=1500000)tax=90000+(i-1200000)*0.20;
-  else tax=150000+(i-1500000)*0.30;
-  const cess=tax*0.04,total=tax+cess;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🧮 Tax (New Regime)</h4>
-   <div class="result-row"><span class="lb">Tax</span><span class="vl">₹${fmt(tax,0)}</span></div>
-   <div class="result-row"><span class="lb">Cess 4%</span><span class="vl">₹${fmt(cess,0)}</span></div>
-   <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(total,0)}</span></div></div>`;
-  return `Tax: ₹${fmt(total,0)}`;}},
+ calc(){const i=+val('inc');let tax=0;if(i<=300000)tax=0;else if(i<=600000)tax=(i-300000)*0.05;else if(i<=900000)tax=15000+(i-600000)*0.10;else if(i<=1200000)tax=45000+(i-900000)*0.15;else if(i<=1500000)tax=90000+(i-1200000)*0.20;else tax=150000+(i-1500000)*0.30;const cess=tax*0.04,total=tax+cess;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🧮 Tax</h4><div class="result-row"><span class="lb">Tax</span><span class="vl">₹${fmt(tax,0)}</span></div><div class="result-row"><span class="lb">Cess</span><span class="vl">₹${fmt(cess,0)}</span></div><div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(total,0)}</span></div></div>`;return `₹${fmt(total,0)}`;}},
 {id:'fin-compound',n:'Compound Interest',i:'📈',c:'fin',
  render:()=>`${F.num('p','Principal (₹)','10000')}${F.num('r','Rate (%)','8')}${F.num('y','Years','10')}${F.num('n','Compounds/Year','4')}<div id="resultBox"></div>`,
- calc(){const p=+val('p'),r=+val('r')/100,y=+val('y'),n=+val('n');
-  const a=p*Math.pow(1+r/n,n*y),i=a-p;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📈 Compound Interest</h4>
-   <div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div>
-   <div class="result-row total"><span class="lb">Final Amount</span><span class="vl">₹${fmt(a,0)}</span></div></div>`;
-  return `Final: ₹${fmt(a,0)}`;}},
+ calc(){const p=+val('p'),r=+val('r')/100,y=+val('y'),n=+val('n');const a=p*Math.pow(1+r/n,n*y),i=a-p;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📈 CI</h4><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row total"><span class="lb">Final</span><span class="vl">₹${fmt(a,0)}</span></div></div>`;return `₹${fmt(a,0)}`;}},
 {id:'fin-simple',n:'Simple Interest',i:'💵',c:'fin',
  render:()=>`${F.num('p','Principal (₹)','10000')}${F.num('r','Rate (%)','8')}${F.num('y','Years','5')}<div id="resultBox"></div>`,
- calc(){const p=+val('p'),r=+val('r'),y=+val('y');const i=p*r*y/100;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>💵 Simple Interest</h4>
-   <div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div>
-   <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(p+i,0)}</span></div></div>`;
-  return `SI: ₹${fmt(i,0)}`;}},
+ calc(){const p=+val('p'),r=+val('r'),y=+val('y');const i=p*r*y/100;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>💵 SI</h4><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(p+i,0)}</span></div></div>`;return `₹${fmt(i,0)}`;}},
 );
 
-/* SOCIAL */
 TOOLS.push(
 {id:'soc-qr',n:'QR Code Generator',i:'📱',c:'social',
  render:()=>`${F.txt('t','Text or URL','https://example.com')}${F.sel('sz','Size',[['200','Small'],['300','Medium'],['500','Large']])}<div id="resultBox"></div>`,
- calc(){const t=val('t'),s=+val('sz')||300;
-  const box=document.getElementById('resultBox');
-  if(!t){box.innerHTML='';return '';}
-  box.innerHTML=`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4>
-   <img src="https://api.qrserver.com/v1/create-qr-code/?size=${s}x${s}&data=${encodeURIComponent(t)}" 
-     style="margin:16px auto;border-radius:12px;background:white;padding:10px;max-width:250px"
-     crossorigin="anonymous" onload="captureQR(this)">
-   <p style="font-size:12px;color:#8a8a9a;word-break:break-all">${t}</p>
-   <p style="font-size:11px;color:#8a8a9a;margin-top:6px">Right-click → Save Image, ya Download button</p></div>`;
-  window._lastText=t;
-  return t;}},
+ calc(){const t=val('t'),s=+val('sz')||300;const box=document.getElementById('resultBox');if(!t){box.innerHTML='';return '';}box.innerHTML=`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><img src="https://api.qrserver.com/v1/create-qr-code/?size=${s}x${s}&data=${encodeURIComponent(t)}" style="margin:16px auto;border-radius:12px;background:white;padding:10px;max-width:250px"><p style="font-size:12px;color:#8a8a9a;word-break:break-all">${t}</p></div>`;window._lastText=t;return t;}},
 {id:'soc-hashtag',n:'Hashtag Generator',i:'#️⃣',c:'social',
  render:()=>`${F.txt('t','Topic','fitness')}<div id="resultBox"></div>`,
- calc(){const t=val('t').toLowerCase().replace(/\s+/g,'');
-  const tags=[`#${t}`,`#${t}life`,`#${t}india`,`#${t}daily`,`#${t}goals`,`#insta${t}`,`#${t}love`,`#${t}world`,`#${t}2025`,`#${t}trending`,`#${t}vibes`,`#${t}motivation`];
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>#️⃣ Hashtags</h4>
-   <textarea rows="4" readonly style="font-size:12px;margin-top:10px">${tags.join(' ')}</textarea></div>`;
-  return tags.join(' ');}},
-{id:'soc-yt-tags',n:'YouTube Tags Generator',i:'▶️',c:'social',
- render:()=>`${F.txt('t','Video Topic','cooking')}<div id="resultBox"></div>`,
- calc(){const t=val('t').toLowerCase();
-  const tags=[t,`${t} video`,`${t} tutorial`,`${t} tips`,`best ${t}`,`${t} 2025`,`${t} hindi`,`${t} india`,`how to ${t}`,`${t} guide`];
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>▶️ Tags</h4>
-   <textarea rows="4" readonly style="font-size:12px;margin-top:10px">${tags.join(', ')}</textarea></div>`;
-  return tags.join(', ');}},
+ calc(){const t=val('t').toLowerCase().replace(/\s+/g,'');const tags=[`#${t}`,`#${t}life`,`#${t}india`,`#${t}daily`,`#${t}goals`,`#insta${t}`,`#${t}love`,`#${t}world`,`#${t}2025`,`#${t}trending`,`#${t}vibes`,`#${t}motivation`];document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>#️⃣ Hashtags</h4><textarea rows="4" readonly style="font-size:12px;margin-top:10px">${tags.join(' ')}</textarea></div>`;return tags.join(' ');}},
+{id:'soc-yt-tags',n:'YouTube Tags',i:'▶️',c:'social',
+ render:()=>`${F.txt('t','Topic','cooking')}<div id="resultBox"></div>`,
+ calc(){const t=val('t').toLowerCase();const tags=[t,`${t} video`,`${t} tutorial`,`${t} tips`,`best ${t}`,`${t} 2025`,`${t} hindi`,`${t} india`,`how to ${t}`,`${t} guide`];document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>▶️ Tags</h4><textarea rows="4" readonly style="font-size:12px;margin-top:10px">${tags.join(', ')}</textarea></div>`;return tags.join(', ');}},
 );
 
-/* EDUCATION */
 TOOLS.push(
 {id:'edu-age',n:'Age Calculator',i:'🎂',c:'edu',
  render:()=>`${F.date('dob','Date of Birth')}<div id="resultBox"></div>`,
  init(){document.getElementById('dob').valueAsDate=new Date(2000,0,1);},
- calc(){const d=val('dob');if(!d)return '';
-  const b=new Date(d),n=new Date();
-  let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),dd=n.getDate()-b.getDate();
-  if(dd<0){m--;dd+=new Date(n.getFullYear(),n.getMonth(),0).getDate();}
-  if(m<0){y--;m+=12;}
-  const days=Math.floor((n-b)/86400000);
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🎂 Age</h4>
-   <div class="result-row"><span class="lb">Years</span><span class="vl">${y}</span></div>
-   <div class="result-row"><span class="lb">Months</span><span class="vl">${y*12+m}</span></div>
-   <div class="result-row total"><span class="lb">Days</span><span class="vl">${days.toLocaleString('en-IN')}</span></div></div>`;
-  return `${y}y ${m}m ${dd}d`;}},
+ calc(){const d=val('dob');if(!d)return '';const b=new Date(d),n=new Date();let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),dd=n.getDate()-b.getDate();if(dd<0){m--;dd+=new Date(n.getFullYear(),n.getMonth(),0).getDate();}if(m<0){y--;m+=12;}const days=Math.floor((n-b)/86400000);document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🎂 Age</h4><div class="result-row"><span class="lb">Years</span><span class="vl">${y}</span></div><div class="result-row"><span class="lb">Months</span><span class="vl">${y*12+m}</span></div><div class="result-row total"><span class="lb">Days</span><span class="vl">${days.toLocaleString('en-IN')}</span></div></div>`;return `${y}y ${m}m ${dd}d`;}},
 {id:'edu-percent',n:'Percentage Calculator',i:'%',c:'edu',
  render:()=>`${F.num('got','Obtained','450')}${F.num('total','Total','500')}<div id="resultBox"></div>`,
- calc(){const g=+val('got'),t=+val('total');const p=g/t*100;
-  let grade='F';if(p>=90)grade='A+';else if(p>=80)grade='A';else if(p>=70)grade='B';else if(p>=60)grade='C';else if(p>=50)grade='D';else if(p>=33)grade='E';
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>% Result</h4>
-   <div class="result-row"><span class="lb">Percentage</span><span class="vl">${fmt(p)}%</span></div>
-   <div class="result-row total"><span class="lb">Grade</span><span class="vl">${grade}</span></div></div>`;
-  return `${fmt(p)}% (${grade})`;}},
+ calc(){const g=+val('got'),t=+val('total');const p=g/t*100;let grade='F';if(p>=90)grade='A+';else if(p>=80)grade='A';else if(p>=70)grade='B';else if(p>=60)grade='C';else if(p>=50)grade='D';else if(p>=33)grade='E';document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>% Result</h4><div class="result-row"><span class="lb">Percentage</span><span class="vl">${fmt(p)}%</span></div><div class="result-row total"><span class="lb">Grade</span><span class="vl">${grade}</span></div></div>`;return `${fmt(p)}%`;}},
 {id:'edu-cgpa',n:'CGPA to Percentage',i:'📚',c:'edu',
  render:()=>`${F.num('c','CGPA','8.5')}<div id="resultBox"></div>`,
- calc(){const c=+val('c');const p=c*9.5;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📚 CGPA</h4>
-   <div class="result-row total"><span class="lb">Percentage</span><span class="vl">${fmt(p)}%</span></div></div>`;
-  return `${fmt(p)}%`;}},
+ calc(){const c=+val('c');const p=c*9.5;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📚 CGPA</h4><div class="result-row total"><span class="lb">Percentage</span><span class="vl">${fmt(p)}%</span></div></div>`;return `${fmt(p)}%`;}},
 );
 
-/* HEALTH */
 TOOLS.push(
 {id:'hea-bmi',n:'BMI Calculator',i:'⚖️',c:'health',
  render:()=>`${F.num('w','Weight (kg)','70')}${F.num('h','Height (cm)','170')}<div id="resultBox"></div>`,
- calc(){const w=+val('w'),h=+val('h')/100;const b=w/(h*h);
-  let cat='Normal';if(b<18.5)cat='Underweight';else if(b<25)cat='Normal';else if(b<30)cat='Overweight';else cat='Obese';
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>⚖️ BMI</h4>
-   <div class="result-row"><span class="lb">BMI</span><span class="vl">${fmt(b,1)}</span></div>
-   <div class="result-row total"><span class="lb">Category</span><span class="vl">${cat}</span></div></div>`;
-  return `BMI: ${fmt(b,1)} (${cat})`;}},
+ calc(){const w=+val('w'),h=+val('h')/100;const b=w/(h*h);let cat='Normal';if(b<18.5)cat='Underweight';else if(b<25)cat='Normal';else if(b<30)cat='Overweight';else cat='Obese';document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>⚖️ BMI</h4><div class="result-row"><span class="lb">BMI</span><span class="vl">${fmt(b,1)}</span></div><div class="result-row total"><span class="lb">Category</span><span class="vl">${cat}</span></div></div>`;return `BMI: ${fmt(b,1)}`;}},
 {id:'hea-cal',n:'Calorie Calculator',i:'🍎',c:'health',
  render:()=>`${F.num('w','Weight (kg)','70')}${F.num('h','Height (cm)','170')}${F.num('a','Age','25')}${F.sel('g','Gender',[['m','Male'],['f','Female']])}${F.sel('act','Activity',[['1.2','Sedentary'],['1.375','Light'],['1.55','Moderate'],['1.725','Active']])}<div id="resultBox"></div>`,
- calc(){const w=+val('w'),h=+val('h'),a=+val('a'),g=val('g'),ac=+val('act');
-  const bmr=g==='m'?(10*w+6.25*h-5*a+5):(10*w+6.25*h-5*a-161);
-  const cal=bmr*ac;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🍎 Daily Calories</h4>
-   <div class="result-row"><span class="lb">BMR</span><span class="vl">${fmt(bmr,0)} kcal</span></div>
-   <div class="result-row total"><span class="lb">Maintain</span><span class="vl">${fmt(cal,0)} kcal</span></div></div>`;
-  return `${fmt(cal,0)} kcal/day`;}},
-{id:'hea-water',n:'Water Intake Calculator',i:'💧',c:'health',
+ calc(){const w=+val('w'),h=+val('h'),a=+val('a'),g=val('g'),ac=+val('act');const bmr=g==='m'?(10*w+6.25*h-5*a+5):(10*w+6.25*h-5*a-161);const cal=bmr*ac;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🍎 Calories</h4><div class="result-row"><span class="lb">BMR</span><span class="vl">${fmt(bmr,0)}</span></div><div class="result-row total"><span class="lb">Maintain</span><span class="vl">${fmt(cal,0)} kcal</span></div></div>`;return `${fmt(cal,0)} kcal`;}},
+{id:'hea-water',n:'Water Intake',i:'💧',c:'health',
  render:()=>`${F.num('w','Weight (kg)','70')}${F.num('ex','Exercise (min)','30')}<div id="resultBox"></div>`,
- calc(){const w=+val('w'),e=+val('ex');const l=(w*0.033)+(e*0.35/60);
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>💧 Water Intake</h4>
-   <div class="result-row total"><span class="lb">Daily Water</span><span class="vl">${fmt(l,1)} Liters</span></div>
-   <div class="result-row"><span class="lb">Glasses</span><span class="vl">${Math.ceil(l*4)} × 250ml</span></div></div>`;
-  return `${fmt(l,1)} L/day`;}},
+ calc(){const w=+val('w'),e=+val('ex');const l=(w*0.033)+(e*0.35/60);document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>💧 Water</h4><div class="result-row total"><span class="lb">Daily</span><span class="vl">${fmt(l,1)} Liters</span></div><div class="result-row"><span class="lb">Glasses</span><span class="vl">${Math.ceil(l*4)} × 250ml</span></div></div>`;return `${fmt(l,1)} L`;}},
 );
 
-/* UTILITY */
 TOOLS.push(
 {id:'ut-random',n:'Random Number Generator',i:'🎲',c:'util',
  render:()=>`${F.num('min','Min','1')}${F.num('max','Max','100')}${F.num('count','Count','1')}<div id="resultBox"></div>`,
- calc(){const mn=+val('min'),mx=+val('max'),c=+val('count');const nums=[];
-  for(let i=0;i<c;i++)nums.push(Math.floor(Math.random()*(mx-mn+1))+mn);
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🎲 Random</h4>
-   <div class="result-row total"><span class="lb">Numbers</span><span class="vl">${nums.join(', ')}</span></div></div>`;
-  return nums.join(', ');}},
+ calc(){const mn=+val('min'),mx=+val('max'),c=+val('count');const nums=[];for(let i=0;i<c;i++)nums.push(Math.floor(Math.random()*(mx-mn+1))+mn);document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🎲 Random</h4><div class="result-row total"><span class="lb">Numbers</span><span class="vl">${nums.join(', ')}</span></div></div>`;return nums.join(', ');}},
 {id:'ut-otp',n:'OTP Generator',i:'🔢',c:'util',
  render:()=>`${F.num('d','Digits','6')}<div id="resultBox"></div>`,
- calc(){const d=+val('d');let o='';for(let i=0;i<d;i++)o+=Math.floor(Math.random()*10);
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔢 OTP</h4>
-   <div class="result-row total"><span class="lb">OTP</span><span class="vl" style="font-family:monospace;font-size:24px;letter-spacing:5px">${o}</span></div></div>`;
-  return o;}},
+ calc(){const d=+val('d');let o='';for(let i=0;i<d;i++)o+=Math.floor(Math.random()*10);document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔢 OTP</h4><div class="result-row total"><span class="lb">OTP</span><span class="vl" style="font-family:monospace;font-size:24px;letter-spacing:5px">${o}</span></div></div>`;return o;}},
 {id:'ut-uuid',n:'UUID Generator',i:'🆔',c:'util',
  render:()=>`<div id="resultBox"></div>`,
- calc(){const u='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return (c==='x'?r:(r&0x3|0x8)).toString(16);});
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🆔 UUID</h4>
-   <div class="result-row total"><span class="lb">UUID</span><span class="vl" style="font-size:12px;word-break:break-all">${u}</span></div></div>`;
-  return u;}},
+ calc(){const u='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return (c==='x'?r:(r&0x3|0x8)).toString(16);});document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🆔 UUID</h4><div class="result-row total"><span class="lb">UUID</span><span class="vl" style="font-size:12px;word-break:break-all">${u}</span></div></div>`;return u;}},
 {id:'ut-counter',n:'Character Counter',i:'🔢',c:'util',
  render:()=>`${F.area('t','Text','Hello World')}<div id="resultBox"></div>`,
- calc(){const t=val('t');const lines=t.split('\n').length;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔢 Count</h4>
-   <div class="result-row"><span class="lb">Characters</span><span class="vl">${t.length}</span></div>
-   <div class="result-row"><span class="lb">No Spaces</span><span class="vl">${t.replace(/\s/g,'').length}</span></div>
-   <div class="result-row total"><span class="lb">Lines</span><span class="vl">${lines}</span></div></div>`;
-  return `${t.length} chars`;}},
+ calc(){const t=val('t');const lines=t.split('\n').length;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔢 Count</h4><div class="result-row"><span class="lb">Characters</span><span class="vl">${t.length}</span></div><div class="result-row"><span class="lb">No Spaces</span><span class="vl">${t.replace(/\s/g,'').length}</span></div><div class="result-row total"><span class="lb">Lines</span><span class="vl">${lines}</span></div></div>`;return `${t.length} chars`;}},
 );
 
-/* TIME */
 TOOLS.push(
 {id:'tm-diff',n:'Date Difference',i:'📅',c:'time',
  render:()=>`${F.date('d1','Start Date')}${F.date('d2','End Date')}<div id="resultBox"></div>`,
  init(){document.getElementById('d1').valueAsDate=new Date();document.getElementById('d2').valueAsDate=new Date();},
- calc(){const d1=val('d1'),d2=val('d2');if(!d1||!d2)return '';
-  const a=new Date(d1),b=new Date(d2);
-  const days=Math.abs(Math.floor((b-a)/86400000));
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📅 Difference</h4>
-   <div class="result-row"><span class="lb">Days</span><span class="vl">${days}</span></div>
-   <div class="result-row"><span class="lb">Weeks</span><span class="vl">${(days/7).toFixed(1)}</span></div>
-   <div class="result-row total"><span class="lb">Months</span><span class="vl">${(days/30.44).toFixed(1)}</span></div></div>`;
-  return `${days} days`;}},
+ calc(){const d1=val('d1'),d2=val('d2');if(!d1||!d2)return '';const a=new Date(d1),b=new Date(d2);const days=Math.abs(Math.floor((b-a)/86400000));document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📅 Difference</h4><div class="result-row"><span class="lb">Days</span><span class="vl">${days}</span></div><div class="result-row"><span class="lb">Weeks</span><span class="vl">${(days/7).toFixed(1)}</span></div><div class="result-row total"><span class="lb">Months</span><span class="vl">${(days/30.44).toFixed(1)}</span></div></div>`;return `${days} days`;}},
 {id:'tm-countdown',n:'Days Until Date',i:'⏳',c:'time',
  render:()=>`${F.date('d','Target Date')}<div id="resultBox"></div>`,
  init(){const d=new Date();d.setDate(d.getDate()+30);document.getElementById('d').valueAsDate=d;},
- calc(){const d=val('d');if(!d)return '';
-  const diff=Math.ceil((new Date(d)-Date.now())/86400000);
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>⏳ Countdown</h4>
-   <div class="result-row total"><span class="lb">Days</span><span class="vl">${diff>0?diff+' days':diff===0?'Today!':Math.abs(diff)+' days ago'}</span></div></div>`;
-  return diff+' days';}},
-{id:'tm-zodiac',n:'Zodiac Sign Finder',i:'♈',c:'time',
+ calc(){const d=val('d');if(!d)return '';const diff=Math.ceil((new Date(d)-Date.now())/86400000);document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>⏳ Countdown</h4><div class="result-row total"><span class="lb">Days</span><span class="vl">${diff>0?diff+' days':diff===0?'Today!':Math.abs(diff)+' days ago'}</span></div></div>`;return diff+' days';}},
+{id:'tm-zodiac',n:'Zodiac Finder',i:'♈',c:'time',
  render:()=>`${F.date('d','Birth Date')}<div id="resultBox"></div>`,
- calc(){const d=val('d');if(!d)return '';
-  const dt=new Date(d),m=dt.getMonth()+1,day=dt.getDate();
-  const signs=[['Capricorn ♑','Dec 22 - Jan 19'],['Aquarius ♒','Jan 20 - Feb 18'],['Pisces ♓','Feb 19 - Mar 20'],['Aries ♈','Mar 21 - Apr 19'],['Taurus ♉','Apr 20 - May 20'],['Gemini ♊','May 21 - Jun 20'],['Cancer ♋','Jun 21 - Jul 22'],['Leo ♌','Jul 23 - Aug 22'],['Virgo ♍','Aug 23 - Sep 22'],['Libra ♎','Sep 23 - Oct 22'],['Scorpio ♏','Oct 23 - Nov 21'],['Sagittarius ♐','Nov 22 - Dec 21']];
-  const dates=[20,19,21,20,21,21,23,23,23,23,22,22];
-  let idx=m-1;if(day<dates[m-1])idx=(m+10)%12;
-  const s=signs[idx];
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>♈ Zodiac</h4>
-   <div class="result-row total"><span class="lb">Sign</span><span class="vl">${s[0]}</span></div></div>`;
-  return s[0];}},
+ calc(){const d=val('d');if(!d)return '';const dt=new Date(d),m=dt.getMonth()+1,day=dt.getDate();const signs=[['Capricorn ♑','Dec 22 - Jan 19'],['Aquarius ♒','Jan 20 - Feb 18'],['Pisces ♓','Feb 19 - Mar 20'],['Aries ♈','Mar 21 - Apr 19'],['Taurus ♉','Apr 20 - May 20'],['Gemini ♊','May 21 - Jun 20'],['Cancer ♋','Jun 21 - Jul 22'],['Leo ♌','Jul 23 - Aug 22'],['Virgo ♍','Aug 23 - Sep 22'],['Libra ♎','Sep 23 - Oct 22'],['Scorpio ♏','Oct 23 - Nov 21'],['Sagittarius ♐','Nov 22 - Dec 21']];const dates=[20,19,21,20,21,21,23,23,23,23,22,22];let idx=m-1;if(day<dates[m-1])idx=(m+10)%12;const s=signs[idx];document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>♈ Zodiac</h4><div class="result-row total"><span class="lb">Sign</span><span class="vl">${s[0]}</span></div></div>`;return s[0];}},
 );
 
-/* MATH */
 TOOLS.push(
 {id:'mth-avg',n:'Average Calculator',i:'📊',c:'math',
  render:()=>`${F.area('t','Numbers (comma separated)','10,20,30,40,50')}<div id="resultBox"></div>`,
- calc(){const n=val('t').split(',').map(Number).filter(x=>!isNaN(x));
-  const sum=n.reduce((a,b)=>a+b,0),avg=n.length?sum/n.length:0;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📊 Statistics</h4>
-   <div class="result-row"><span class="lb">Count</span><span class="vl">${n.length}</span></div>
-   <div class="result-row"><span class="lb">Sum</span><span class="vl">${fmt(sum)}</span></div>
-   <div class="result-row"><span class="lb">Average</span><span class="vl">${fmt(avg)}</span></div>
-   <div class="result-row"><span class="lb">Min</span><span class="vl">${fmt(Math.min(...n))}</span></div>
-   <div class="result-row"><span class="lb">Max</span><span class="vl">${fmt(Math.max(...n))}</span></div>
-   <div class="result-row total"><span class="lb">Median</span><span class="vl">${fmt(n.sort((a,b)=>a-b)[Math.floor(n.length/2)])}</span></div></div>`;
-  return `Avg: ${fmt(avg)}`;}},
+ calc(){const n=val('t').split(',').map(Number).filter(x=>!isNaN(x));const sum=n.reduce((a,b)=>a+b,0),avg=n.length?sum/n.length:0;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📊 Stats</h4><div class="result-row"><span class="lb">Count</span><span class="vl">${n.length}</span></div><div class="result-row"><span class="lb">Sum</span><span class="vl">${fmt(sum)}</span></div><div class="result-row"><span class="lb">Avg</span><span class="vl">${fmt(avg)}</span></div><div class="result-row"><span class="lb">Min</span><span class="vl">${fmt(Math.min(...n))}</span></div><div class="result-row total"><span class="lb">Max</span><span class="vl">${fmt(Math.max(...n))}</span></div></div>`;return `Avg: ${fmt(avg)}`;}},
 {id:'mth-prime',n:'Prime Checker',i:'🔍',c:'math',
  render:()=>`${F.num('n','Number','17')}<div id="resultBox"></div>`,
- calc(){const n=+val('n');let p=n>1;for(let i=2;i<=Math.sqrt(n);i++)if(n%i===0){p=false;break;}
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔍 Prime</h4>
-   <div class="result-row total"><span class="lb">${n}</span><span class="vl">${p?'✅ Prime':'❌ Not Prime'}</span></div></div>`;
-  return `${n} ${p?'Prime':'Not Prime'}`;}},
+ calc(){const n=+val('n');let p=n>1;for(let i=2;i<=Math.sqrt(n);i++)if(n%i===0){p=false;break;}document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔍 Prime</h4><div class="result-row total"><span class="lb">${n}</span><span class="vl">${p?'✅ Prime':'❌ Not Prime'}</span></div></div>`;return `${n} ${p?'Prime':'Not Prime'}`;}},
 {id:'mth-table',n:'Multiplication Table',i:'✖️',c:'math',
  render:()=>`${F.num('n','Number','7')}${F.num('u','Up to','20')}<div id="resultBox"></div>`,
- calc(){const n=+val('n'),u=+val('u');let s='';
-  for(let i=1;i<=u;i++)s+=`<div class="result-row"><span class="lb">${n} × ${i}</span><span class="vl">${n*i}</span></div>`;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>✖️ Table of ${n}</h4>${s}</div>`;
-  return `Table of ${n}`;}},
+ calc(){const n=+val('n'),u=+val('u');let s='';for(let i=1;i<=u;i++)s+=`<div class="result-row"><span class="lb">${n} × ${i}</span><span class="vl">${n*i}</span></div>`;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>✖️ Table of ${n}</h4>${s}</div>`;return `Table of ${n}`;}},
 {id:'mth-percent',n:'Percentage Calculator',i:'%',c:'math',
- render:()=>`${F.sel('mode','Calculate',[['x-y','X is what % of Y'],['xp','X% of Y'],['chg','% change from X to Y']])}${F.num('x','Value 1','25')}${F.num('y','Value 2','200')}<div id="resultBox"></div>`,
- calc(){const x=+val('x'),y=+val('y'),m=val('mode');let r,txt;
-  if(m==='x-y'){r=x/y*100;txt=`${x} is ${fmt(r)}% of ${y}`;}
-  else if(m==='xp'){r=x*y/100;txt=`${x}% of ${y} = ${fmt(r)}`;}
-  else{r=(y-x)/x*100;txt=`Change = ${fmt(r)}%`;}
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>% Result</h4>
-   <div class="result-row total"><span class="lb">Answer</span><span class="vl">${txt}</span></div></div>`;
-  return txt;}},
+ render:()=>`${F.sel('mode','Calculate',[['x-y','X is what % of Y'],['xp','X% of Y'],['chg','% change X to Y']])}${F.num('x','Value 1','25')}${F.num('y','Value 2','200')}<div id="resultBox"></div>`,
+ calc(){const x=+val('x'),y=+val('y'),m=val('mode');let r,txt;if(m==='x-y'){r=x/y*100;txt=`${x} is ${fmt(r)}% of ${y}`;}else if(m==='xp'){r=x*y/100;txt=`${x}% of ${y} = ${fmt(r)}`;}else{r=(y-x)/x*100;txt=`Change = ${fmt(r)}%`;}document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>% Result</h4><div class="result-row total"><span class="lb">Answer</span><span class="vl">${txt}</span></div></div>`;return txt;}},
 );
 
-/* CONVERT */
 TOOLS.push(
 {id:'cv-len',n:'Length Converter',i:'📏',c:'convert',
- render:()=>`${F.num('v','Value','1')}${F.sel('f','From',[['m','Meter'],['km','Kilometer'],['cm','Centimeter'],['ft','Feet'],['in','Inch'],['mi','Mile']])}${F.sel('t','To',[['m','Meter'],['km','Kilometer'],['cm','Centimeter'],['ft','Feet'],['in','Inch'],['mi','Mile']])}<div id="resultBox"></div>`,
- calc(){const v=+val('v'),f=val('f'),t=val('t');const m={m:1,km:1000,cm:0.01,ft:0.3048,in:0.0254,mi:1609.34};
-  const r=v*m[f]/m[t];
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📏 Converted</h4>
-   <div class="result-row total"><span class="lb">${v} ${f}</span><span class="vl">${fmt(r,4)} ${t}</span></div></div>`;
-  return `${v} ${f} = ${fmt(r,4)} ${t}`;}},
+ render:()=>`${F.num('v','Value','1')}${F.sel('f','From',[['m','Meter'],['km','KM'],['cm','CM'],['ft','Feet'],['in','Inch'],['mi','Mile']])}${F.sel('t','To',[['m','Meter'],['km','KM'],['cm','CM'],['ft','Feet'],['in','Inch'],['mi','Mile']])}<div id="resultBox"></div>`,
+ calc(){const v=+val('v'),f=val('f'),t=val('t');const m={m:1,km:1000,cm:0.01,ft:0.3048,in:0.0254,mi:1609.34};const r=v*m[f]/m[t];document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📏 Converted</h4><div class="result-row total"><span class="lb">${v} ${f}</span><span class="vl">${fmt(r,4)} ${t}</span></div></div>`;return `${v} ${f} = ${fmt(r,4)} ${t}`;}},
 {id:'cv-wt',n:'Weight Converter',i:'⚖️',c:'convert',
- render:()=>`${F.num('v','Value','1')}${F.sel('f','From',[['kg','Kilogram'],['g','Gram'],['lb','Pound'],['oz','Ounce'],['t','Tonne']])}${F.sel('t','To',[['kg','Kilogram'],['g','Gram'],['lb','Pound'],['oz','Ounce'],['t','Tonne']])}<div id="resultBox"></div>`,
- calc(){const v=+val('v'),f=val('f'),t=val('t');const m={kg:1,g:0.001,lb:0.453592,oz:0.0283495,t:1000};
-  const r=v*m[f]/m[t];
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>⚖️ Converted</h4>
-   <div class="result-row total"><span class="lb">${v} ${f}</span><span class="vl">${fmt(r,4)} ${t}</span></div></div>`;
-  return `${v} ${f} = ${fmt(r,4)} ${t}`;}},
+ render:()=>`${F.num('v','Value','1')}${F.sel('f','From',[['kg','KG'],['g','Gram'],['lb','Pound'],['oz','Ounce'],['t','Tonne']])}${F.sel('t','To',[['kg','KG'],['g','Gram'],['lb','Pound'],['oz','Ounce'],['t','Tonne']])}<div id="resultBox"></div>`,
+ calc(){const v=+val('v'),f=val('f'),t=val('t');const m={kg:1,g:0.001,lb:0.453592,oz:0.0283495,t:1000};const r=v*m[f]/m[t];document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>⚖️ Converted</h4><div class="result-row total"><span class="lb">${v} ${f}</span><span class="vl">${fmt(r,4)} ${t}</span></div></div>`;return `${v} ${f} = ${fmt(r,4)} ${t}`;}},
 {id:'cv-temp',n:'Temperature Converter',i:'🌡️',c:'convert',
  render:()=>`${F.num('v','Value','25')}${F.sel('f','From',[['C','Celsius'],['F','Fahrenheit'],['K','Kelvin']])}${F.sel('t','To',[['C','Celsius'],['F','Fahrenheit'],['K','Kelvin']])}<div id="resultBox"></div>`,
- calc(){const v=+val('v'),f=val('f'),t=val('t');let c;
-  if(f==='C')c=v;else if(f==='F')c=(v-32)*5/9;else c=v-273.15;
-  let r;if(t==='C')r=c;else if(t==='F')r=c*9/5+32;else r=c+273.15;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🌡️ Converted</h4>
-   <div class="result-row total"><span class="lb">${v}°${f}</span><span class="vl">${fmt(r,2)}°${t}</span></div></div>`;
-  return `${v}°${f} = ${fmt(r,2)}°${t}`;}},
+ calc(){const v=+val('v'),f=val('f'),t=val('t');let c;if(f==='C')c=v;else if(f==='F')c=(v-32)*5/9;else c=v-273.15;let r;if(t==='C')r=c;else if(t==='F')r=c*9/5+32;else r=c+273.15;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🌡️ Converted</h4><div class="result-row total"><span class="lb">${v}°${f}</span><span class="vl">${fmt(r,2)}°${t}</span></div></div>`;return `${fmt(r,2)}°${t}`;}},
 );
 
-/* WEB */
 TOOLS.push(
 {id:'web-json',n:'JSON Formatter',i:'{ }',c:'web',
- render:()=>`${F.area('t','JSON','{"name":"Rahul","age":25}')}<div id="resultBox"></div>`,
- calc(){try{const o=JSON.parse(val('t'));const pretty=JSON.stringify(o,null,2);
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>✅ Valid JSON</h4>
-   <textarea rows="8" readonly style="font-family:monospace;font-size:12px;margin-top:10px">${pretty}</textarea></div>`;
-  return 'Valid JSON';}catch(e){
-  document.getElementById('resultBox').innerHTML=`<div class="result-box" style="border-color:#ef4444"><h4 style="color:#ef4444">❌ Invalid</h4><p style="font-size:13px">${e.message}</p></div>`;
-  return 'Invalid JSON';}}},
+ render:()=>`${F.area('t','JSON','{"name":"Test","age":25}')}<div id="resultBox"></div>`,
+ calc(){try{const o=JSON.parse(val('t'));const pretty=JSON.stringify(o,null,2);document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>✅ Valid</h4><textarea rows="8" readonly style="font-family:monospace;font-size:12px;margin-top:10px">${pretty}</textarea></div>`;return 'Valid JSON';}catch(e){document.getElementById('resultBox').innerHTML=`<div class="result-box" style="border-color:#ef4444"><h4 style="color:#ef4444">❌ Invalid</h4><p style="font-size:13px">${e.message}</p></div>`;return 'Invalid';}}},
 {id:'web-b64',n:'Base64 Encode/Decode',i:'🔤',c:'web',
  render:()=>`${F.area('t','Text','Hello World')}${F.sel('m','Mode',[['enc','Encode'],['dec','Decode']])}<div id="resultBox"></div>`,
- calc(){const t=val('t'),m=val('m');
-  try{const r=m==='enc'?btoa(unescape(encodeURIComponent(t))):decodeURIComponent(escape(atob(t)));
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔤 Result</h4>
-   <textarea rows="5" readonly style="margin-top:10px;font-size:13px">${r}</textarea></div>`;
-  return r;}catch(e){return 'Error: '+e.message;}}},
+ calc(){const t=val('t'),m=val('m');try{const r=m==='enc'?btoa(unescape(encodeURIComponent(t))):decodeURIComponent(escape(atob(t)));document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔤 Result</h4><textarea rows="5" readonly style="margin-top:10px;font-size:13px">${r}</textarea></div>`;return r;}catch(e){return 'Error';}}},
 {id:'web-url',n:'URL Encode/Decode',i:'🌐',c:'web',
  render:()=>`${F.area('t','Text','hello world & test')}${F.sel('m','Mode',[['enc','Encode'],['dec','Decode']])}<div id="resultBox"></div>`,
- calc(){const t=val('t'),m=val('m');
-  const r=m==='enc'?encodeURIComponent(t):decodeURIComponent(t);
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🌐 Result</h4>
-   <textarea rows="4" readonly style="margin-top:10px;font-size:13px">${r}</textarea></div>`;
-  return r;}},
+ calc(){const t=val('t'),m=val('m');const r=m==='enc'?encodeURIComponent(t):decodeURIComponent(t);document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🌐 Result</h4><textarea rows="4" readonly style="margin-top:10px;font-size:13px">${r}</textarea></div>`;return r;}},
 {id:'web-color',n:'Color Picker',i:'🎨',c:'web',
  render:()=>`<div><label>Choose Color</label><input type="color" id="c" value="#0070f3" style="height:60px;cursor:pointer" oninput="calc_web-color()"></div><div id="resultBox"></div>`,
- calc(){const h=document.getElementById('c').value;
-  const r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16);
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🎨 Color</h4>
-   <div style="height:80px;background:${h};border-radius:10px;margin-bottom:12px"></div>
-   <div class="result-row"><span class="lb">HEX</span><span class="vl">${h}</span></div>
-   <div class="result-row"><span class="lb">RGB</span><span class="vl">rgb(${r},${g},${b})</span></div>
-   <div class="result-row total"><span class="lb">RGBA</span><span class="vl">rgba(${r},${g},${b},1)</span></div></div>`;
-  return `${h} | rgb(${r},${g},${b})`;}},
+ calc(){const h=document.getElementById('c').value;const r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16);document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🎨 Color</h4><div style="height:80px;background:${h};border-radius:10px;margin-bottom:12px"></div><div class="result-row"><span class="lb">HEX</span><span class="vl">${h}</span></div><div class="result-row total"><span class="lb">RGB</span><span class="vl">rgb(${r},${g},${b})</span></div></div>`;return `${h}`;}},
 );
 
-/* FUN */
 TOOLS.push(
 {id:'fun-lucky',n:'Lucky Number',i:'🍀',c:'fun',
  render:()=>`${F.txt('n','Your Name','')}<div id="resultBox"></div>`,
- calc(){const n=val('n')||'Friend';let h=0;for(let i=0;i<n.length;i++)h+=n.charCodeAt(i);
-  const lucky=h%100+1;
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🍀 Lucky Number</h4>
-   <div class="result-row total"><span class="lb">${n}</span><span class="vl" style="font-size:32px">${lucky}</span></div></div>`;
-  return `Lucky: ${lucky}`;}},
+ calc(){const n=val('n')||'Friend';let h=0;for(let i=0;i<n.length;i++)h+=n.charCodeAt(i);const lucky=h%100+1;document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🍀 Lucky</h4><div class="result-row total"><span class="lb">${n}</span><span class="vl" style="font-size:32px">${lucky}</span></div></div>`;return `Lucky: ${lucky}`;}},
 {id:'fun-pick',n:'Random Picker',i:'🎯',c:'fun',
  render:()=>`${F.area('t','Options (one per line)','Pizza\nBurger\nBiryani\nDosa')}<div id="resultBox"></div>`,
- calc(){const o=val('t').split('\n').filter(x=>x.trim());if(!o.length)return '';
-  const p=o[Math.floor(Math.random()*o.length)];
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🎯 Picked</h4>
-   <div class="result-row total"><span class="lb">Winner</span><span class="vl" style="font-size:22px">${p}</span></div></div>`;
-  return p;}},
+ calc(){const o=val('t').split('\n').filter(x=>x.trim());if(!o.length)return '';const p=o[Math.floor(Math.random()*o.length)];document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🎯 Picked</h4><div class="result-row total"><span class="lb">Winner</span><span class="vl" style="font-size:22px">${p}</span></div></div>`;return p;}},
 {id:'fun-magic',n:'Magic 8 Ball',i:'🔮',c:'fun',
  render:()=>`${F.txt('q','Ask a question','')}<div id="resultBox"></div>`,
- calc(){const ans=['Yes ✅','No ❌','Maybe 🤔','Definitely!','Not sure','Ask again','Absolutely','Very doubtful'];
-  const a=ans[Math.floor(Math.random()*ans.length)];
-  document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔮 Answer</h4>
-   <div class="result-row total"><span class="lb">Result</span><span class="vl">${a}</span></div></div>`;
-  return a;}},
+ calc(){const ans=['Yes ✅','No ❌','Maybe 🤔','Definitely!','Not sure','Ask again','Absolutely','Very doubtful'];const a=ans[Math.floor(Math.random()*ans.length)];document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔮 Answer</h4><div class="result-row total"><span class="lb">Result</span><span class="vl">${a}</span></div></div>`;return a;}},
 );
-
-/* ============ HELPERS ============ */
-function val(id){const el=document.getElementById(id);return el?el.value:'';}
 
 /* ============ RENDER ============ */
 function renderQuick(){
   const quick=['biz-invoice','elec-bill','biz-emi','biz-gst','txt-count','soc-qr','fin-sip','edu-age'];
   const box=document.getElementById('quickGrid');
-  box.innerHTML=quick.map(id=>{const t=TOOLS.find(x=>x.id===id);if(!t)return '';
-    return `<div class="q-card" onclick="openTool('${t.id}')"><span class="e">${t.i}</span><span class="nm">${t.n}</span></div>`;}).join('');
+  box.innerHTML=quick.map(id=>{const t=TOOLS.find(x=>x.id===id);if(!t)return '';return `<div class="q-card" onclick="openTool('${t.id}')"><span class="e">${t.i}</span><span class="nm">${t.n}</span></div>`;}).join('');
 }
-
 function renderCategories(){
   const wrap=document.getElementById('categoriesWrap');
-  wrap.innerHTML=CATEGORIES.map(cat=>{
-    const tools=TOOLS.filter(t=>t.c===cat.id);
-    if(!tools.length)return '';
-    return `<section class="sec"><div class="sec-head">
-      <h2><span class="emo">${cat.emo}</span>${cat.name} <span class="cnt">${tools.length}</span></h2>
-      </div><div class="tools-grid">${tools.map(t=>`
-        <div class="tool" onclick="openTool('${t.id}')">
-          <span class="ic">${t.i}</span>
-          <span class="nm">${t.n}</span>
-        </div>`).join('')}</div></section>`;
-  }).join('');
+  wrap.innerHTML=CATEGORIES.map(cat=>{const tools=TOOLS.filter(t=>t.c===cat.id);if(!tools.length)return '';return `<section class="sec"><div class="sec-head"><h2><span class="emo">${cat.emo}</span>${cat.name} <span class="cnt">${tools.length}</span></h2></div><div class="tools-grid">${tools.map(t=>`<div class="tool" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><span class="nm">${t.n}</span></div>`).join('')}</div></section>`;}).join('');
 }
-
-function buildCalcFuncs(){
-  TOOLS.forEach(t=>{
-    if(t.calc){
-      window['calc_'+t.id]=()=>{
-        try{const r=t.calc();if(r)window._lastText=r;}
-        catch(e){console.error(e);}
-      };
-    }
-  });
-}
+function buildCalcFuncs(){TOOLS.forEach(t=>{if(t.calc){window['calc_'+t.id]=()=>{try{const r=t.calc();if(r)window._lastText=r;}catch(e){console.error(e);}};}});}
 
 /* ============ SEARCH ============ */
 function doSearch(q){
@@ -1476,18 +751,11 @@ function doSearch(q){
   if(!q||q.length<1){box.classList.remove('on');return;}
   q=q.toLowerCase();
   const results=TOOLS.filter(t=>t.n.toLowerCase().includes(q)||t.id.includes(q)).slice(0,10);
-  if(!results.length){box.innerHTML='<div class="sr-empty">😕 Kuch nahi mila. Try: bijli, invoice, PDF, EMI</div>';}
-  else{box.innerHTML=results.map(t=>{
-    const cat=CATEGORIES.find(c=>c.id===t.c);
-    return `<div class="sr-item" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span>
-      <div class="info"><div class="nm">${t.n}</div><div class="ct">${cat?cat.name:''}</div></div>
-      <span style="color:#0070f3">→</span></div>`;
-  }).join('');}
+  if(!results.length){box.innerHTML='<div class="sr-empty">😕 Kuch nahi mila</div>';}
+  else{box.innerHTML=results.map(t=>{const cat=CATEGORIES.find(c=>c.id===t.c);return `<div class="sr-item" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><div class="info"><div class="nm">${t.n}</div><div class="ct">${cat?cat.name:''}</div></div><span style="color:#0070f3">→</span></div>`;}).join('');}
   box.classList.add('on');
 }
-document.addEventListener('click',e=>{
-  if(!e.target.closest('.search-wrap'))document.getElementById('searchRes').classList.remove('on');
-});
+document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap'))document.getElementById('searchRes').classList.remove('on');});
 function focusSearch(){document.getElementById('searchBox').focus();window.scrollTo({top:0,behavior:'smooth'});}
 
 /* ============ TOOL OPEN ============ */
@@ -1504,15 +772,8 @@ function openTool(id){
   if(t.init)t.init();
   if(t.calc)setTimeout(()=>{try{t.calc();}catch(e){console.error(e);}},50);
 }
-function closeTool(){
-  document.getElementById('toolModal').classList.remove('on');
-  document.body.style.overflow='';
-  currentToolId='';
-}
-function openRandomTool(){
-  const t=TOOLS[Math.floor(Math.random()*TOOLS.length)];
-  openTool(t.id);
-}
+function closeTool(){document.getElementById('toolModal').classList.remove('on');document.body.style.overflow='';currentToolId='';}
+function openRandomTool(){const t=TOOLS[Math.floor(Math.random()*TOOLS.length)];openTool(t.id);}
 
 /* ============ ACTIONS ============ */
 function printTool(){window.print();}
@@ -1524,210 +785,49 @@ function downloadTool(){
   if(!text||text.trim().length<2){toast('Kuch result nahi hai',1);return;}
   downloadBlob(new Blob([text],{type:'text/plain'}),name+'.txt');
 }
-function downloadBlob(blob,name){
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download=name;
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
-  toast('⬇️ Downloaded!');
-}
-async function copyResult(){
-  const text=window._lastText||(document.getElementById('resultBox')?document.getElementById('resultBox').innerText:'');
-  if(!text||text.trim().length<2){toast('Kuch copy karne ko nahi',1);return;}
-  try{await navigator.clipboard.writeText(text);toast('📋 Copied!');}
-  catch(e){toast('Copy failed',1);}
-}
-async function shareTool(){
-  const t=TOOLS.find(x=>x.id===currentToolId);
-  const text=window._lastText||'';
-  const data={title:'Expert Tool — '+(t?t.n:''),text:(text?text+'\n\n':'')+'Try Expert Tool — 200+ Free Tools!',url:location.href};
-  try{
-    if(navigator.share){await navigator.share(data);}
-    else{await navigator.clipboard.writeText(data.text+' '+data.url);toast('📋 Link copied!');}
-  }catch(e){}
-}
+function downloadBlob(blob,name){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),1000);toast('⬇️ Downloaded!');}
+async function copyResult(){const text=window._lastText||(document.getElementById('resultBox')?document.getElementById('resultBox').innerText:'');if(!text||text.trim().length<2){toast('Kuch copy karne ko nahi',1);return;}try{await navigator.clipboard.writeText(text);toast('📋 Copied!');}catch(e){toast('Copy failed',1);}}
+async function shareTool(){const t=TOOLS.find(x=>x.id===currentToolId);const text=window._lastText||'';const data={title:'Qunvero — '+(t?t.n:''),text:(text?text+'\n\n':'')+'Try Qunvero — 200+ Free Tools!',url:location.href};try{if(navigator.share){await navigator.share(data);}else{await navigator.clipboard.writeText(data.text+' '+data.url);toast('📋 Link copied!');}}catch(e){}}
 
 /* ============ TOOL HELPERS ============ */
-function addInvRow(){
-  const tb=document.getElementById('invBody');if(!tb)return;
-  const r=document.createElement('tr');
-  r.innerHTML=`<td><input class="item" placeholder="Item" style="width:100%"></td>
-   <td><input type="number" class="q" value="1" oninput="calc_biz-invoice()" style="width:70px"></td>
-   <td><input type="number" class="r" value="0" oninput="calc_biz-invoice()" style="width:80px"></td>
-   <td class="a">₹0</td>
-   <td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove();calc_biz-invoice()">❌</button></td>`;
-  tb.appendChild(r);
-}
-async function runPdfMerge(){
-  const files=document.getElementById('pdfs').files;
-  if(files.length<2){toast('2+ PDF select karo',1);return;}
-  toast('⏳ Merging...');
-  try{
-    const {PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');
-    const merged=await PDFDocument.create();
-    for(const f of files){
-      const buf=await f.arrayBuffer();
-      const doc=await PDFDocument.load(buf);
-      const pages=await merged.copyPages(doc,doc.getPageIndices());
-      pages.forEach(p=>merged.addPage(p));
-    }
-    const bytes=await merged.save();
-    downloadBlob(new Blob([bytes],{type:'application/pdf'}),'merged.pdf');
-  }catch(e){toast('Merge failed: '+e.message,1);}
-}
-async function runImgToPdf(){
-  const files=document.getElementById('imgs').files;
-  if(!files.length){toast('Images select karo',1);return;}
-  toast('⏳ Converting...');
-  try{
-    const {PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');
-    const doc=await PDFDocument.create();
-    for(const f of files){
-      const buf=await f.arrayBuffer();
-      const img=f.type.includes('png')?await doc.embedPng(buf):await doc.embedJpg(buf);
-      const p=doc.addPage([img.width,img.height]);
-      p.drawImage(img,{x:0,y:0,width:img.width,height:img.height});
-    }
-    downloadBlob(new Blob([await doc.save()],{type:'application/pdf'}),'images.pdf');
-  }catch(e){toast('Failed: '+e.message,1);}
-}
-async function runPdfInfo(){
-  const f=document.getElementById('pdf').files[0];
-  if(!f){toast('PDF select karo',1);return;}
-  try{
-    const {PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');
-    const doc=await PDFDocument.load(await f.arrayBuffer());
-    document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>ℹ️ PDF Info</h4>
-     <div class="result-row"><span class="lb">File</span><span class="vl">${f.name}</span></div>
-     <div class="result-row"><span class="lb">Size</span><span class="vl">${(f.size/1024).toFixed(2)} KB</span></div>
-     <div class="result-row total"><span class="lb">Pages</span><span class="vl">${doc.getPageCount()}</span></div></div>`;
-    window._lastText=`File: ${f.name}, Size: ${(f.size/1024).toFixed(2)}KB, Pages: ${doc.getPageCount()}`;
-  }catch(e){toast('Failed: '+e.message,1);}
-}
-function runImgCompress(){
-  const f=document.getElementById('file').files[0];
-  if(!f){toast('Image select karo',1);return;}
-  const q=+val('q')/100;
-  const img=new Image();img.src=URL.createObjectURL(f);
-  img.onload=()=>{
-    const c=document.createElement('canvas');
-    c.width=img.width;c.height=img.height;
-    c.getContext('2d').drawImage(img,0,0);
-    c.toBlob(b=>{
-      document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>✅ Compressed</h4>
-       <div class="result-row"><span class="lb">Original</span><span class="vl">${(f.size/1024).toFixed(1)} KB</span></div>
-       <div class="result-row total"><span class="lb">Compressed</span><span class="vl">${(b.size/1024).toFixed(1)} KB</span></div>
-       <img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`;
-      window._lastBlob=b;window._lastName='compressed.jpg';
-      toast('✅ Done!');
-    },'image/jpeg',q);
-  };
-}
-function runImgResize(){
-  const f=document.getElementById('file').files[0];
-  if(!f){toast('Image select karo',1);return;}
-  const img=new Image();img.src=URL.createObjectURL(f);
-  img.onload=()=>{
-    const c=document.createElement('canvas');
-    c.width=+val('w');c.height=+val('h');
-    c.getContext('2d').drawImage(img,0,0,c.width,c.height);
-    c.toBlob(b=>{
-      document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>✅ Resized</h4>
-       <div class="result-row"><span class="lb">Original</span><span class="vl">${img.width}×${img.height}</span></div>
-       <div class="result-row total"><span class="lb">New</span><span class="vl">${c.width}×${c.height}</span></div>
-       <img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`;
-      window._lastBlob=b;window._lastName='resized.jpg';
-      toast('✅ Resized!');
-    },'image/jpeg',0.9);
-  };
-}
-function runPassport(){
-  const f=document.getElementById('file').files[0];
-  if(!f){toast('Photo select karo',1);return;}
-  const sizes={passport:[413,531],stamp:[236,295],visa:[600,600]};
-  const [w,h]=sizes[val('size')];
-  const img=new Image();img.src=URL.createObjectURL(f);
-  img.onload=()=>{
-    const c=document.createElement('canvas');c.width=w;c.height=h;
-    const ctx=c.getContext('2d');
-    const scale=Math.max(w/img.width,h/img.height);
-    const nw=img.width*scale,nh=img.height*scale;
-    ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);
-    c.toBlob(b=>{
-      document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📸 Passport Photo</h4>
-       <div class="result-row"><span class="lb">Size</span><span class="vl">${w}×${h}px</span></div>
-       <img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:6px;max-height:200px"></div>`;
-      window._lastBlob=b;window._lastName='passport.jpg';
-      toast('✅ Ready!');
-    },'image/jpeg',0.95);
-  };
-}
-function runImgBase64(){
-  const f=document.getElementById('file').files[0];
-  if(!f){toast('Image select karo',1);return;}
-  const r=new FileReader();
-  r.onload=e=>{
-    document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔤 Base64</h4>
-     <textarea rows="8" style="font-size:11px;margin-top:10px" readonly>${e.target.result}</textarea></div>`;
-    window._lastText=e.target.result;
-    toast('✅ Ready!');
-  };
-  r.readAsDataURL(f);
-}
+function addInvRow(){const tb=document.getElementById('invBody');if(!tb)return;const r=document.createElement('tr');r.innerHTML=`<td><input class="item" placeholder="Item" style="width:100%"></td><td><input type="number" class="q" value="1" oninput="calc_biz-invoice()" style="width:70px"></td><td><input type="number" class="r" value="0" oninput="calc_biz-invoice()" style="width:80px"></td><td class="a">₹0</td><td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove();calc_biz-invoice()">❌</button></td>`;tb.appendChild(r);}
+async function runPdfMerge(){const files=document.getElementById('pdfs').files;if(files.length<2){toast('2+ PDF select karo',1);return;}toast('⏳ Merging...');try{const {PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const merged=await PDFDocument.create();for(const f of files){const buf=await f.arrayBuffer();const doc=await PDFDocument.load(buf);const pages=await merged.copyPages(doc,doc.getPageIndices());pages.forEach(p=>merged.addPage(p));}const bytes=await merged.save();downloadBlob(new Blob([bytes],{type:'application/pdf'}),'merged.pdf');}catch(e){toast('Merge failed',1);}}
+async function runImgToPdf(){const files=document.getElementById('imgs').files;if(!files.length){toast('Images select karo',1);return;}toast('⏳ Converting...');try{const {PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const doc=await PDFDocument.create();for(const f of files){const buf=await f.arrayBuffer();const img=f.type.includes('png')?await doc.embedPng(buf):await doc.embedJpg(buf);const p=doc.addPage([img.width,img.height]);p.drawImage(img,{x:0,y:0,width:img.width,height:img.height});}downloadBlob(new Blob([await doc.save()],{type:'application/pdf'}),'images.pdf');}catch(e){toast('Failed',1);}}
+async function runPdfInfo(){const f=document.getElementById('pdf').files[0];if(!f){toast('PDF select karo',1);return;}try{const {PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const doc=await PDFDocument.load(await f.arrayBuffer());document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>ℹ️ PDF Info</h4><div class="result-row"><span class="lb">File</span><span class="vl">${f.name}</span></div><div class="result-row"><span class="lb">Size</span><span class="vl">${(f.size/1024).toFixed(2)} KB</span></div><div class="result-row total"><span class="lb">Pages</span><span class="vl">${doc.getPageCount()}</span></div></div>`;window._lastText=`File: ${f.name}, Pages: ${doc.getPageCount()}`;}catch(e){toast('Failed',1);}}
+function runImgCompress(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const q=+val('q')/100;const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);c.toBlob(b=>{document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>✅ Compressed</h4><div class="result-row"><span class="lb">Original</span><span class="vl">${(f.size/1024).toFixed(1)} KB</span></div><div class="result-row total"><span class="lb">Compressed</span><span class="vl">${(b.size/1024).toFixed(1)} KB</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`;window._lastBlob=b;window._lastName='compressed.jpg';toast('✅ Done!');},'image/jpeg',q);};}
+function runImgResize(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=+val('w');c.height=+val('h');c.getContext('2d').drawImage(img,0,0,c.width,c.height);c.toBlob(b=>{document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>✅ Resized</h4><div class="result-row"><span class="lb">Original</span><span class="vl">${img.width}×${img.height}</span></div><div class="result-row total"><span class="lb">New</span><span class="vl">${c.width}×${c.height}</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`;window._lastBlob=b;window._lastName='resized.jpg';toast('✅ Resized!');},'image/jpeg',0.9);};}
+function runPassport(){const f=document.getElementById('file').files[0];if(!f){toast('Photo select karo',1);return;}const sizes={passport:[413,531],stamp:[236,295],visa:[600,600]};const [w,h]=sizes[val('size')];const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');const scale=Math.max(w/img.width,h/img.height);const nw=img.width*scale,nh=img.height*scale;ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);c.toBlob(b=>{document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>📸 Passport Photo</h4><div class="result-row"><span class="lb">Size</span><span class="vl">${w}×${h}px</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:6px;max-height:200px"></div>`;window._lastBlob=b;window._lastName='passport.jpg';toast('✅ Ready!');},'image/jpeg',0.95);};}
+function runImgBase64(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const r=new FileReader();r.onload=e=>{document.getElementById('resultBox').innerHTML=`<div class="result-box"><h4>🔤 Base64</h4><textarea rows="8" style="font-size:11px;margin-top:10px" readonly>${e.target.result}</textarea></div>`;window._lastText=e.target.result;toast('✅ Ready!');};r.readAsDataURL(f);}
 
 /* ============ STATIC PAGES ============ */
 function openStatic(page){
   const content={
-    about:{t:'ℹ️ About',b:`<p style="line-height:1.8;font-size:15px">Expert Tool is a free online platform offering 200+ useful tools for daily life, business, education, and more.</p>
-      <p style="margin-top:14px;line-height:1.8;font-size:15px">All tools run directly in your browser. Your data never leaves your device — 100% private.</p>
-      <p style="margin-top:14px;line-height:1.8;font-size:15px">We believe useful tools should be free for everyone.</p>`},
-    privacy:{t:'🔒 Privacy Policy',b:`<p style="line-height:1.8;font-size:15px">Your privacy is important to us.</p>
-      <ul style="margin:14px 0;padding-left:22px;line-height:1.9;font-size:15px">
-      <li>All processing happens in your browser</li>
-      <li>Your files and data never leave your device</li>
-      <li>No personal information is collected</li>
-      <li>No tracking or third-party cookies</li>
-      </ul>`},
-    terms:{t:'📜 Terms of Use',b:`<ul style="padding-left:22px;line-height:1.9;font-size:15px">
-      <li>All tools are provided "as-is"</li>
-      <li>Financial and tax calculations are for reference only</li>
-      <li>Health tools are educational, not medical advice</li>
-      <li>Verify important results with a professional</li>
-      <li>We may add or remove tools at any time</li>
-      </ul>`}
+    about:{t:'ℹ️ About Qunvero',b:`<p style="line-height:1.8;font-size:15px">Qunvero is a free online platform offering 200+ useful tools for daily life, business, education, and more.</p><p style="margin-top:14px;line-height:1.8;font-size:15px">All tools run directly in your browser. Your data never leaves your device — 100% private.</p><p style="margin-top:14px;line-height:1.8;font-size:15px">We believe useful tools should be free for everyone.</p>`},
+    privacy:{t:'🔒 Privacy Policy',b:`<p style="line-height:1.8;font-size:15px">Your privacy is important to us.</p><ul style="margin:14px 0;padding-left:22px;line-height:1.9;font-size:15px"><li>All processing happens in your browser</li><li>Your files and data never leave your device</li><li>No personal information is collected</li><li>No tracking or third-party cookies</li></ul>`},
+    terms:{t:'📜 Terms of Use',b:`<ul style="padding-left:22px;line-height:1.9;font-size:15px"><li>All tools are provided "as-is"</li><li>Financial and tax calculations are for reference only</li><li>Health tools are educational, not medical advice</li><li>Verify important results with a professional</li><li>We may add or remove tools at any time</li></ul>`}
   };
-  const c=content[page];
-  if(!c)return;
+  const c=content[page];if(!c)return;
   document.getElementById('staticTitle').textContent=c.t;
   document.getElementById('staticBody').innerHTML=c.b;
   document.getElementById('staticModal').classList.add('on');
   document.body.style.overflow='hidden';
 }
-function closeStatic(){
-  document.getElementById('staticModal').classList.remove('on');
-  document.body.style.overflow='';
-}
+function closeStatic(){document.getElementById('staticModal').classList.remove('on');document.body.style.overflow='';}
 function goHome(){window.scrollTo({top:0,behavior:'smooth'});closeTool();closeStatic();}
 
 /* ============ ADMIN SHORTCUT ============ */
-document.addEventListener('keydown', (e) => {
-  if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-    e.preventDefault();
-    feedbackSystem.openAdmin();
-  }
-});
-window.openAdmin = () => feedbackSystem.openAdmin();
+document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.shiftKey&&e.key==='A'){e.preventDefault();feedbackSystem.openAdmin();}});
+window.openAdmin=()=>feedbackSystem.openAdmin();
 
 /* ============ INIT ============ */
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded',()=>{
   buildCalcFuncs();
   renderQuick();
   renderCategories();
   liveUsers.update();
   feedbackSystem.checkAdminAccess();
 });
-
-console.log('⚡ Expert Tool loaded — ' + TOOLS.length + ' tools ready!');
+console.log('⚡ Qunvero loaded — '+TOOLS.length+' tools ready!');
 </script>
 </body>
 </html>
