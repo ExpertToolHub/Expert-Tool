@@ -142,12 +142,11 @@ body.dark header{background:rgba(10,10,15,.85)}
 
 .age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px 20px;text-align:center;margin-top:8px;position:relative;overflow:hidden}
 .age-celebration::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.4),transparent 50%);pointer-events:none}
-.age-celebration .age-name{font-size:22px;font-weight:800;color:#0f172a;margin-bottom:8px;position:relative;z-index:1}
-.age-celebration .age-big{font-size:48px;font-weight:900;background:linear-gradient(135deg,#7c3aed,#0070f3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin:8px 0;position:relative;z-index:1}
+.age-celebration .age-big{font-size:52px;font-weight:900;background:linear-gradient(135deg,#7c3aed,#0070f3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin:8px 0;position:relative;z-index:1}
 .age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase;letter-spacing:1px;position:relative;z-index:1}
-.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap;position:relative;z-index:1}
-.age-celebration .age-chip{background:rgba(255,255,255,.7);padding:8px 14px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}
-.age-celebration .age-chip b{display:block;font-size:18px;color:#7c3aed;margin-bottom:2px}
+.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:16px;flex-wrap:wrap;position:relative;z-index:1}
+.age-celebration .age-chip{background:rgba(255,255,255,.8);padding:10px 18px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}
+.age-celebration .age-chip b{display:block;font-size:22px;color:#7c3aed;margin-bottom:2px}
 .age-celebration .confetti{position:absolute;font-size:24px;animation:float 3s ease-in-out infinite}
 .age-celebration .confetti.c1{top:10px;left:12px;animation-delay:0s}
 .age-celebration .confetti.c2{top:16px;right:16px;animation-delay:.5s}
@@ -224,7 +223,6 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .preview-data .result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none;margin-top:8px}
 .preview-data .result-row.total .lb{color:#10b981;font-weight:700}
 .preview-data .result-row.total .vl{color:#10b981;font-weight:800}
-.preview-data textarea{width:100%;padding:10px;border:1px solid #e2e8f0;border-radius:8px;font-family:monospace;font-size:12px;background:#f8fafc;color:#0f172a;resize:none}
 .preview-actions{padding:14px 18px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;position:sticky;bottom:0;background:var(--bg2);border-radius:0 0 20px 20px}
 .preview-actions button{flex:1;min-width:90px;padding:12px 8px;font-size:13px;border-radius:12px;border:none;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.2s;font-family:inherit}
 .preview-actions .btn-print{background:var(--card);color:var(--text);border:1px solid var(--border)}
@@ -232,54 +230,23 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .preview-actions .btn-img{background:linear-gradient(135deg,#7c3aed,#0070f3);color:#fff}
 .preview-actions button:hover{transform:translateY(-2px)}
 
-.photo-copy-wrap{display:grid;grid-template-columns:1fr;gap:16px}
+/* PHOTO COPY */
 .photo-upload-box{border:2px dashed var(--border);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:.2s;background:var(--bg2)}
 .photo-upload-box:hover{border-color:var(--primary);background:rgba(0,112,243,.04)}
 .photo-upload-box .up-icon{font-size:40px;margin-bottom:8px}
 .photo-upload-box .up-text{font-size:14px;font-weight:600;color:var(--text)}
 .photo-upload-box .up-sub{font-size:12px;color:var(--muted);margin-top:4px}
-.photo-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-top:14px}
+.photo-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin-top:14px}
 .photo-preview-item{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:var(--bg);border:1px solid var(--border)}
 .photo-preview-item img{width:100%;height:100%;object-fit:cover}
 .photo-preview-item .del-btn{position:absolute;top:4px;right:4px;background:var(--danger);color:#fff;border:none;width:22px;height:22px;border-radius:50%;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700}
 .photo-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:14px}
-.photo-a4-preview{background:#fff;color:#000;padding:20px;border-radius:8px;margin-top:16px;overflow-x:auto}
-.photo-a4-page{background:#fff;width:100%;max-width:595px;aspect-ratio:210/297;margin:0 auto;display:grid;gap:4px;padding:8px;border:1px solid #e2e8f0;box-shadow:0 2px 10px rgba(0,0,0,.1)}
-.photo-a4-page .a4-photo{background:#f1f5f9;aspect-ratio:35/45;border:1px solid #cbd5e1;display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:10px;color:#94a3b8}
+.photo-a4-preview{background:#e5e7eb;padding:20px 10px;border-radius:12px;margin-top:16px}
+.photo-a4-page{background:#fff;width:100%;max-width:595px;aspect-ratio:210/297;margin:0 auto;display:grid;gap:6px;padding:14px;border:1px solid #cbd5e1;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.photo-a4-page .a4-photo{background:#fff;border:1px solid #cbd5e1;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .photo-a4-page .a4-photo img{width:100%;height:100%;object-fit:cover}
-
-#adminPanel{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);z-index:2500;overflow-y:auto;padding:16px}
-.admin-inner{max-width:1100px;margin:0 auto;background:#fff;color:#0f172a;border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.5)}
-.admin-header{padding:18px 22px;background:var(--grad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;color:#fff}
-.admin-header h2{font-size:20px;color:#fff}
-.admin-btn{padding:8px 14px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:10px;cursor:pointer;font-size:12px;font-weight:600}
-.admin-btn.danger{background:rgba(239,68,68,.9);border-color:#ef4444}
-.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;padding:18px}
-.admin-stat{background:#f8fafc;border:1px solid #e2e8f0;padding:14px;border-radius:12px;text-align:center}
-.admin-stat-val{font-size:24px;font-weight:800;margin-bottom:4px}
-.admin-stat-lbl{font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
-.admin-tabs{display:flex;gap:6px;padding:0 18px 12px;overflow-x:auto;scrollbar-width:none}
-.admin-tabs::-webkit-scrollbar{display:none}
-.admin-tab{padding:8px 14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;color:#64748b;cursor:pointer;font-size:12px;white-space:nowrap;font-weight:600}
-.admin-tab.on{background:var(--grad);color:#fff;border-color:transparent}
-.admin-list{padding:0 18px 18px;max-height:60vh;overflow-y:auto}
-.admin-fb{background:#f8fafc;border:1px solid #e2e8f0;padding:14px;border-radius:12px;margin-bottom:10px;color:#0f172a}
-.admin-fb.unread{border-left:3px solid #ef4444;background:#fef2f2}
-.admin-fb-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:6px}
-.admin-fb-cat{font-size:11px;font-weight:700;text-transform:uppercase;color:#0070f3}
-.admin-fb-new{background:#ef4444;color:#fff;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:700;margin-left:6px}
-.admin-fb-user{font-size:12px;color:#0070f3;margin-bottom:6px}
-.admin-fb-msg{font-size:13px;line-height:1.6;padding:8px 0;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;word-break:break-word}
-.admin-fb-meta{font-size:10px;color:#64748b;margin:6px 0;display:flex;gap:10px;flex-wrap:wrap}
-.admin-fb-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.admin-fb-actions button{padding:6px 10px;background:#fff;border:1px solid #e2e8f0;color:#0f172a;border-radius:8px;cursor:pointer;font-size:11px;font-weight:600}
-.admin-fb-actions button.danger:hover{background:#fef2f2;border-color:#ef4444;color:#ef4444}
-.admin-footer{padding:14px 18px;border-top:1px solid #e2e8f0;text-align:center;font-size:11px;color:#64748b}
-.admin-footer code{background:#f1f5f9;padding:2px 6px;border-radius:4px;color:#0070f3;font-size:10px}
-
-.static-content{font-size:15px;line-height:1.8;color:var(--text)}
-.static-content p{margin-bottom:12px}
-.static-content ul{padding-left:22px;margin:12px 0;line-height:1.9}
+.photo-info-box{background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-top:12px;font-size:13px;text-align:center}
+.photo-info-box b{color:var(--primary)}
 
 @media(max-width:768px){
   body{padding-bottom:70px}
@@ -310,8 +277,8 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
   .preview-capture{padding:20px 16px}
   .preview-actions{padding:12px 14px;gap:6px}
   .preview-actions button{min-width:calc(33.333% - 4px);padding:10px 4px;font-size:11px}
-  .age-celebration .age-big{font-size:38px}
-  .photo-a4-page{padding:6px;gap:3px}
+  .age-celebration .age-big{font-size:40px}
+  .photo-a4-page{padding:10px;gap:4px}
 }
 
 @media print{
@@ -321,7 +288,8 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
   .modal-inner{border:none;box-shadow:none;margin:0;border-radius:0;max-width:100%}
   .modal-head{background:#fff;border-bottom:2px solid #000;position:static}
   .result-box{background:#f5f5f5;border:2px solid #000;color:#000}
-  .photo-a4-page{border:none;box-shadow:none}
+  .photo-a4-page{border:none;box-shadow:none;max-width:100%;padding:0;gap:0}
+  .photo-a4-page .a4-photo{border:1px dashed #999}
 }
 </style>
 </head>
@@ -620,6 +588,7 @@ TOOLS.push(
  calc(){return '';}}
 );
 
+/* PHOTO COPY — SIMPLIFIED */
 TOOLS.push(
 {id:'photoCopy',n:'Photo Copy (A4 Print)',i:'📸',c:'copy',
  render:()=>`
@@ -627,21 +596,19 @@ TOOLS.push(
   <div class="photo-upload-box" onclick="document.getElementById('photoCopyFiles').click()">
     <div class="up-icon">📤</div>
     <div class="up-text">Photo Upload Karo</div>
-    <div class="up-sub">1 ya usse zyada photos select karo (JPG, PNG)</div>
+    <div class="up-sub">1 ya usse zyada photos (JPG, PNG)</div>
   </div>
   <input type="file" id="photoCopyFiles" accept="image/*" multiple style="display:none" onchange="handlePhotoCopyUpload(event)">
   <div class="photo-preview-grid" id="photoCopyGrid"></div>
   <div class="photo-controls">
     ${F.sel('photoSize','Photo Size',[['passport','Passport (35×45mm)'],['stamp','Stamp (20×25mm)'],['visa','Visa (51×51mm)'],['custom','Custom (35×35mm)']])}
-    ${F.sel('photoQty','Kitni Photos Chahiye?',[['6','6 Photos'],['8','8 Photos'],['12','12 Photos'],['16','16 Photos'],['20','20 Photos'],['24','24 Photos'],['30','30 Photos'],['40','40 Photos']])}
-    ${F.sel('photoBorder','Border',[['none','No Border'],['thin','Thin White Border'],['cut','Cutting Line']])}
+    ${F.num('photoQty','Kitni Photos Chahiye? (custom)')}
+    ${F.sel('photoBorder','Border',[['none','No Border'],['thin','White Border'],['cut','Cutting Line']])}
   </div>
-  <div class="calc-btn-row"><button class="calc-btn" onclick="generatePhotoA4()">📄 Generate A4 Print Sheet</button></div>
+  <div class="calc-btn-row"><button class="calc-btn" onclick="generatePhotoA4()">📄 Generate A4 Sheet</button></div>
+  <div class="calc-btn-row" style="margin-top:10px"><button class="btn btn-p" onclick="printPhotoA4()" style="width:100%;padding:14px;font-size:16px;font-weight:700;border-radius:14px">🖨️ Print A4</button></div>
   <div id="resultBox"></div>
-  <div class="photo-a4-preview" id="photoA4PreviewWrap" style="display:none">
-    <div style="font-size:12px;color:#64748b;text-align:center;margin-bottom:10px;font-weight:600">A4 Print Preview (210×297mm)</div>
-    <div class="photo-a4-page" id="photoA4Page"></div>
-  </div>
+  <div id="photoA4PreviewWrap" style="display:none"></div>
 `, calc(){return '';}}
 );
 
@@ -687,29 +654,19 @@ TOOLS.push(
   if(dd<0){m--;dd+=new Date(n.getFullYear(),n.getMonth(),0).getDate();}
   if(m<0){y--;m+=12;}
   const totalDays=Math.floor((n-b)/86400000);
-  const totalMonths=y*12+m;
-  const totalHours=totalDays*24;
-  const totalMinutes=totalHours*60;
-  const totalSeconds=totalMinutes*60;
-  const weeks=Math.floor(totalDays/7);
-  const yearsBig=name?`${name} ki Age`:'Your Age';
+  const nameLine=name?`<div class="age-label" style="font-size:14px;margin-bottom:6px">${name}</div>`:'';
   res(`<div class="age-celebration">
     <span class="confetti c1">🎉</span>
     <span class="confetti c2">🎊</span>
     <span class="confetti c3">⭐</span>
     <span class="confetti c4">✨</span>
-    <div class="age-label">${yearsBig}</div>
+    ${nameLine}
+    <div class="age-label">🎂 Aapki Age</div>
     <div class="age-big">${y} Years</div>
-    <div class="age-label">🎂 ${y} saal, ${m} mahine, ${dd} din</div>
     <div class="age-detail">
-      <div class="age-chip"><b>${totalMonths}</b>Mahine</div>
-      <div class="age-chip"><b>${weeks}</b>Hafte</div>
-      <div class="age-chip"><b>${totalDays.toLocaleString('en-IN')}</b>Din</div>
-    </div>
-    <div class="age-detail" style="margin-top:10px">
-      <div class="age-chip"><b>${totalHours.toLocaleString('en-IN')}</b>Ghante</div>
-      <div class="age-chip"><b>${totalMinutes.toLocaleString('en-IN')}</b>Minute</div>
-      <div class="age-chip"><b>${totalSeconds.toLocaleString('en-IN')}</b>Second</div>
+      <div class="age-chip"><b>${y}</b>Saal</div>
+      <div class="age-chip"><b>${m}</b>Mahine</div>
+      <div class="age-chip"><b>${dd}</b>Din</div>
     </div>
   </div>`,`${name?name+' ki age: ':''}${y} years, ${m} months, ${dd} days`);}},
 {id:'eduPercent',n:'Percentage Calculator',i:'%',c:'edu',
@@ -772,7 +729,7 @@ function toggleTask(i){const list=JSON.parse(localStorage.getItem('qn_todos')||'
 function delTask(i){const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');list.splice(i,1);localStorage.setItem('qn_todos',JSON.stringify(list));renderTodoList();}
 function renderTodoList(){const el=document.getElementById('todoListBox');if(!el)return;const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');if(!list.length){el.innerHTML='<p style="text-align:center;color:var(--muted);font-size:13px;padding:20px">Koi task nahi hai</p>';return;}const pending=list.filter(x=>!x.done).length;el.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:13px;color:var(--muted);text-transform:uppercase">📋 Tasks (${pending} pending)</h4></div>${list.map((t,i)=>`<div style="background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-bottom:8px;display:flex;align-items:center;gap:10px"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${i})" style="width:auto;flex-shrink:0"><span style="flex:1;font-size:14px;${t.done?'text-decoration:line-through;color:var(--muted)':''}">${t.task}</span><button onclick="delTask(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:14px;flex-shrink:0">🗑️</button></div>`).join('')}`;}
 
-/* PHOTO COPY */
+/* ============ PHOTO COPY HELPERS ============ */
 let photoCopyImages=[];
 function handlePhotoCopyUpload(e){
   const files=Array.from(e.target.files||[]);
@@ -790,6 +747,7 @@ function renderPhotoCopyGrid(){
   grid.innerHTML=photoCopyImages.map((p,i)=>`<div class="photo-preview-item"><img src="${p.src}" alt="photo"><button class="del-btn" onclick="removePhotoCopy(${i})">✕</button></div>`).join('');
 }
 function removePhotoCopy(i){photoCopyImages.splice(i,1);renderPhotoCopyGrid();}
+
 function generatePhotoA4(){
   if(!photoCopyImages.length){toast('Photo upload karo pehle',1);return;}
   const qty=+v('photoQty')||6;
@@ -797,45 +755,72 @@ function generatePhotoA4(){
   const border=v('photoBorder')||'none';
   const sizeMap={passport:[35,45],stamp:[20,25],visa:[51,51],custom:[35,35]};
   const [wMM,hMM]=sizeMap[size];
-  const page=document.getElementById('photoA4Page');
-  const wrap=document.getElementById('photoA4PreviewWrap');
-  if(!page||!wrap)return;
-  const A4_W=210,A4_H=297,paddingMM=8;
+  
+  const A4_W=210,A4_H=297,paddingMM=10;
   const usableW=A4_W-paddingMM*2,usableH=A4_H-paddingMM*2;
   const gapMM=2;
   const cols=Math.floor((usableW+gapMM)/(wMM+gapMM));
   const rows=Math.floor((usableH+gapMM)/(hMM+gapMM));
   const perPage=cols*rows;
-  const pages=Math.ceil(qty/perPage);
+  
+  // Single page only — maximum photos
+  const maxPhotos = Math.min(qty, perPage);
+  
   let html='';
-  for(let p=0;p<pages;p++){
-    const startIdx=p*perPage;
-    const endIdx=Math.min(startIdx+perPage,qty);
-    html+=`<div class="photo-a4-page" style="grid-template-columns:repeat(${cols},1fr);grid-template-rows:repeat(${rows},1fr);margin-bottom:12px">`;
-    for(let i=startIdx;i<endIdx;i++){
-      const img=photoCopyImages[i%photoCopyImages.length];
+  let count=0;
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      if(count>=maxPhotos)break;
+      const img=photoCopyImages[count%photoCopyImages.length];
       let borderStyle='border:1px solid #cbd5e1';
       if(border==='thin')borderStyle='border:2px solid #ffffff;box-shadow:inset 0 0 0 1px #cbd5e1';
       else if(border==='cut')borderStyle='border:1px dashed #94a3b8';
       html+=`<div class="a4-photo" style="${borderStyle}"><img src="${img.src}" alt="photo"></div>`;
+      count++;
     }
-    for(let i=endIdx;i<startIdx+perPage;i++){html+=`<div class="a4-photo" style="background:#f8fafc;border:1px dashed #e2e8f0"></div>`;}
-    html+=`</div>`;
+    if(count>=maxPhotos)break;
   }
+  
   const wrapHTML=`<div class="photo-a4-preview" id="photoA4PreviewWrap">
-    <div style="font-size:12px;color:#64748b;text-align:center;margin-bottom:10px;font-weight:600">A4 Print Preview (210×297mm)</div>
-    <div id="photoA4PagesContainer">${html}</div>
+    <div style="font-size:13px;color:#475569;text-align:center;margin-bottom:12px;font-weight:700">📄 A4 Print Preview (210×297mm)</div>
+    <div class="photo-a4-page" id="photoA4Page" style="grid-template-columns:repeat(${cols},1fr);grid-auto-rows:1fr">${html}</div>
+    <div class="photo-info-box" style="background:#fff;color:#0f172a;border:1px solid #e2e8f0">
+      <b>${maxPhotos}</b> photos • <b>${wMM}×${hMM}mm</b> each • <b>${cols}×${rows}</b> grid
+    </div>
   </div>`;
+  
   const existing=document.getElementById('photoA4PreviewWrap');
-  if(existing){existing.outerHTML=wrapHTML;} else {
-    const newWrap=document.createElement('div');
-    newWrap.innerHTML=wrapHTML;
-    document.getElementById('toolBody').appendChild(newWrap.firstElementChild);
+  if(existing){
+    existing.outerHTML=wrapHTML;
+  } else {
+    const toolBody=document.getElementById('toolBody');
+    const temp=document.createElement('div');
+    temp.innerHTML=wrapHTML;
+    toolBody.appendChild(temp.firstElementChild);
   }
-  document.getElementById('photoA4PreviewWrap').style.display='block';
-  res(`<div class="result-box"><h4>📸 Photo Copy Sheet Ready</h4><div class="result-row"><span class="lb">Photos Needed</span><span class="vl">${qty}</span></div><div class="result-row"><span class="lb">Photo Size</span><span class="vl">${wMM}×${hMM}mm</span></div><div class="result-row"><span class="lb">Per A4 Page</span><span class="vl">${perPage} photos</span></div><div class="result-row"><span class="lb">Pages Required</span><span class="vl">${pages}</span></div><div class="result-row total"><span class="lb">Total Photos</span><span class="vl">${qty}</span></div></div>`,`${qty} photos → ${pages} A4 page(s)`);
-  toast('✅ A4 sheet ready! Print dabao');
-  window._lastText=`Photo Copy: ${qty} photos of ${wMM}×${hMM}mm on ${pages} A4 page(s)`;
+  
+  res(`<div class="result-box"><h4>📸 A4 Sheet Ready</h4><div class="result-row"><span class="lb">Photos</span><span class="vl">${maxPhotos}</span></div><div class="result-row"><span class="lb">Size</span><span class="vl">${wMM}×${hMM}mm</span></div><div class="result-row"><span class="lb">Grid</span><span class="vl">${cols} × ${rows}</span></div><div class="result-row total"><span class="lb">Print Ready</span><span class="vl">1 A4 Page</span></div></div>`,`${maxPhotos} photos on 1 A4 page`);
+  toast('✅ A4 sheet ready! Ab Print dabao');
+  window._lastText=`Photo Copy: ${maxPhotos} photos of ${wMM}×${hMM}mm on 1 A4 page`;
+}
+
+function printPhotoA4(){
+  if(!photoCopyImages.length){toast('Pehle Generate A4 dabao',1);return;}
+  const page=document.getElementById('photoA4Page');
+  if(!page){toast('Pehle Generate A4 dabao',1);return;}
+  const w=window.open('','_blank');
+  if(!w){toast('Popup blocked!',1);return;}
+  const html=page.outerHTML;
+  w.document.write(`<!DOCTYPE html><html><head><title>A4 Photo Print - Qunvero</title><style>
+    @page{size:A4;margin:0}
+    body{margin:0;padding:0;background:#fff;font-family:Arial}
+    .photo-a4-page{background:#fff;width:210mm;height:297mm;display:grid;gap:2mm;padding:10mm;box-sizing:border-box;margin:0}
+    .photo-a4-page .a4-photo{background:#fff;border:1px dashed #999;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .photo-a4-page .a4-photo img{width:100%;height:100%;object-fit:cover;display:block}
+    @media print{body{padding:0}.photo-a4-page{page-break-after:always}}
+  </style></head><body>${html}<script>setTimeout(()=>{window.print();},500);<\/script></body></html>`);
+  w.document.close();
+  toast('🖨️ Print dialog khula');
 }
 
 async function runImgToPdf(){const files=document.getElementById('imgs').files;if(!files.length){toast('Images select karo',1);return;}toast('⏳ Converting...');try{const{PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const doc=await PDFDocument.create();for(const f of files){const buf=await f.arrayBuffer();const img=f.type.includes('png')?await doc.embedPng(buf):await doc.embedJpg(buf);const p=doc.addPage([img.width,img.height]);p.drawImage(img,{x:0,y:0,width:img.width,height:img.height});}const bytes=await doc.save();window._lastBlob=new Blob([bytes],{type:'application/pdf'});window._lastName='images.pdf';res(`<div class="result-box"><h4>✅ PDF Ready!</h4><div class="result-row total"><span class="lb">Images</span><span class="vl">${files.length}</span></div></div>`,`${files.length} images → PDF`);toast('✅ Ready! Download dabao');}catch(e){toast('Failed: '+e.message,1);}}
@@ -969,7 +954,7 @@ function printPreview(){
   const w=window.open('','_blank');
   if(!w){toast('Popup blocked!',1);return;}
   const html=capture.outerHTML;
-  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>body{font-family:Arial;padding:30px;background:#fff;color:#0f172a}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none}.result-row.total .lb,.result-row.total .vl{color:#10b981;font-weight:800}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.7);padding:8px 14px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:18px;color:#7c3aed}img{max-width:100%}</style></head><body>${html}<script>setTimeout(()=>{window.print();},400);<\/script></body></html>`);
+  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>body{font-family:Arial;padding:30px;background:#fff;color:#0f172a}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none}.result-row.total .lb,.result-row.total .vl{color:#10b981;font-weight:800}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.8);padding:10px 18px;border-radius:12px;font-size:13px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:22px;color:#7c3aed}img{max-width:100%}</style></head><body>${html}<script>setTimeout(()=>{window.print();},400);<\/script></body></html>`);
   w.document.close();
   toast('🖨️ Print ready');
 }
@@ -980,21 +965,19 @@ function downloadPDF(){
   const w=window.open('','_blank');
   if(!w){toast('Popup blocked!',1);return;}
   const html=`<div style="padding:30px;background:#fff;font-family:Arial">${document.getElementById('previewData').innerHTML}</div>`;
-  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>body{font-family:Arial;padding:30px;background:#fff;color:#0f172a}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none}.result-row.total .lb,.result-row.total .vl{color:#10b981;font-weight:800}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.7);padding:8px 14px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:18px;color:#7c3aed}img{max-width:100%}</style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
+  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>body{font-family:Arial;padding:30px;background:#fff;color:#0f172a}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none}.result-row.total .lb,.result-row.total .vl{color:#10b981;font-weight:800}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.8);padding:10px 18px;border-radius:12px;font-size:13px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:22px;color:#7c3aed}img{max-width:100%}</style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
   w.document.close();
   toast('📄 PDF dialog khula');
 }
 
-/* ============ FINAL FIX — DOWNLOAD IMAGE (EXACT CONTENT SIZE) ============ */
+/* DOWNLOAD IMAGE — EXACT CONTENT SIZE */
 async function downloadPreviewImage(){
   const capture=document.getElementById('previewCapture');
   if(!capture){toast('Preview kholo pehle',1);return;}
   toast('📷 HD image ban raha hai...');
   
-  // Fixed width 700px, height auto
   const finalWidth = 700;
   
-  // Clone
   const clone = capture.cloneNode(true);
   clone.style.position = 'fixed';
   clone.style.left = '-99999px';
