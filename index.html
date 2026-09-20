@@ -148,7 +148,7 @@ body.dark header{background:rgba(10,10,15,.85)}
 .age-celebration .age-chip{background:rgba(255,255,255,.8);padding:10px 18px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}
 .age-celebration .age-chip b{display:block;font-size:22px;color:#7c3aed;margin-bottom:2px}
 .age-celebration .confetti{position:absolute;font-size:24px;animation:float 3s ease-in-out infinite}
-.age-celebration .confetti.c1{top:10px;left:12px;animation-delay:0s}
+.age-celebration .confetti.c1{top:10px;left:12px}
 .age-celebration .confetti.c2{top:16px;right:16px;animation-delay:.5s}
 .age-celebration .confetti.c3{bottom:14px;left:20px;animation-delay:1s}
 .age-celebration .confetti.c4{bottom:10px;right:14px;animation-delay:1.5s}
@@ -230,21 +230,21 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .preview-actions .btn-img{background:linear-gradient(135deg,#7c3aed,#0070f3);color:#fff}
 .preview-actions button:hover{transform:translateY(-2px)}
 
-/* PHOTO COPY */
+/* PHOTO COPY — PROFESSIONAL */
 .photo-upload-box{border:2px dashed var(--border);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:.2s;background:var(--bg2)}
 .photo-upload-box:hover{border-color:var(--primary);background:rgba(0,112,243,.04)}
 .photo-upload-box .up-icon{font-size:40px;margin-bottom:8px}
 .photo-upload-box .up-text{font-size:14px;font-weight:600;color:var(--text)}
 .photo-upload-box .up-sub{font-size:12px;color:var(--muted);margin-top:4px}
 .photo-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin-top:14px}
-.photo-preview-item{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:var(--bg);border:1px solid var(--border)}
+.photo-preview-item{position:relative;aspect-ratio:35/45;border-radius:10px;overflow:hidden;background:var(--bg);border:1px solid var(--border)}
 .photo-preview-item img{width:100%;height:100%;object-fit:cover}
-.photo-preview-item .del-btn{position:absolute;top:4px;right:4px;background:var(--danger);color:#fff;border:none;width:22px;height:22px;border-radius:50%;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700}
+.photo-preview-item .del-btn{position:absolute;top:4px;right:4px;background:var(--danger);color:#fff;border:none;width:22px;height:22px;border-radius:50%;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;z-index:2}
 .photo-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:14px}
 .photo-a4-preview{background:#e5e7eb;padding:20px 10px;border-radius:12px;margin-top:16px}
-.photo-a4-page{background:#fff;width:100%;max-width:595px;aspect-ratio:210/297;margin:0 auto;display:grid;gap:6px;padding:14px;border:1px solid #cbd5e1;box-shadow:0 4px 20px rgba(0,0,0,.15)}
-.photo-a4-page .a4-photo{background:#fff;border:1px solid #cbd5e1;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.photo-a4-page .a4-photo img{width:100%;height:100%;object-fit:cover}
+.photo-a4-page{background:#fff;width:100%;max-width:595px;aspect-ratio:210/297;margin:0 auto;display:grid;gap:8px;padding:16px;border:1px solid #cbd5e1;box-shadow:0 4px 20px rgba(0,0,0,.15);box-sizing:border-box}
+.photo-a4-page .a4-photo{background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;aspect-ratio:35/45}
+.photo-a4-page .a4-photo img{width:100%;height:100%;object-fit:cover;display:block}
 .photo-info-box{background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-top:12px;font-size:13px;text-align:center}
 .photo-info-box b{color:var(--primary)}
 
@@ -278,7 +278,7 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
   .preview-actions{padding:12px 14px;gap:6px}
   .preview-actions button{min-width:calc(33.333% - 4px);padding:10px 4px;font-size:11px}
   .age-celebration .age-big{font-size:40px}
-  .photo-a4-page{padding:10px;gap:4px}
+  .photo-a4-page{padding:10px;gap:5px}
 }
 
 @media print{
@@ -288,8 +288,6 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
   .modal-inner{border:none;box-shadow:none;margin:0;border-radius:0;max-width:100%}
   .modal-head{background:#fff;border-bottom:2px solid #000;position:static}
   .result-box{background:#f5f5f5;border:2px solid #000;color:#000}
-  .photo-a4-page{border:none;box-shadow:none;max-width:100%;padding:0;gap:0}
-  .photo-a4-page .a4-photo{border:1px dashed #999}
 }
 </style>
 </head>
@@ -536,6 +534,35 @@ const F={
 };
 function calcBtn(label){return`<div class="calc-btn-row"><button class="calc-btn" onclick="__calc()">${label||'🔢 Calculate'}</button></div>`;}
 
+/* PHOTO COPY — PROFESSIONAL VERSION */
+TOOLS.push(
+{id:'photoCopy',n:'Photo Copy (A4 Print)',i:'📸',c:'copy',
+ render:()=>`
+  <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">📸 Photo copy wale dukano ke liye — Photo upload karo, auto crop hoke A4 page pe multiple copies print karo.</p>
+  <div class="photo-upload-box" onclick="document.getElementById('photoCopyFiles').click()">
+    <div class="up-icon">📤</div>
+    <div class="up-text">Photo Upload Karo</div>
+    <div class="up-sub">1 ya usse zyada photos (JPG, PNG)</div>
+  </div>
+  <input type="file" id="photoCopyFiles" accept="image/*" multiple style="display:none" onchange="handlePhotoCopyUpload(event)">
+  <div class="photo-preview-grid" id="photoCopyGrid"></div>
+  <div class="photo-controls">
+    ${F.sel('photoSize','Photo Size',[['passport','Passport (35×45mm)'],['stamp','Stamp (20×25mm)'],['visa','Visa (51×51mm)']])}
+    ${F.sel('photoCropMode','Photo Fit Mode',[['auto','✂️ Auto Crop (Face Center)'],['full','🖼️ Full Photo (No Crop)']])}
+    ${F.sel('photoBorder','Border Style',[['none','🚫 None'],['thin-white','⚪ Thin White'],['thin-black','⚫ Thin Black'],['cut','✂️ Cutting Line'],['block-color','🎨 Block Color']])}
+    ${F.sel('photoBorderColor','Block Color (if selected)',[['white','⚪ White'],['black','⚫ Black'],['blue','🔵 Blue'],['red','🔴 Red'],['green','🟢 Green']])}
+  </div>
+  <div class="photo-controls">
+    ${F.num('photoQty','Kitni Photos Chahiye? (Manual)')}
+  </div>
+  <div class="calc-btn-row"><button class="calc-btn" onclick="generatePhotoA4()">📄 Generate A4 Sheet</button></div>
+  <div class="calc-btn-row" style="margin-top:10px"><button class="btn btn-p" onclick="printPhotoA4()" style="width:100%;padding:14px;font-size:16px;font-weight:700;border-radius:14px">🖨️ Print A4 Sheet</button></div>
+  <div class="calc-btn-row" style="margin-top:10px"><button class="btn btn-g" onclick="downloadPhotoA4()" style="width:100%;padding:14px;font-size:16px;font-weight:700;border-radius:14px">⬇️ Download A4 Image</button></div>
+  <div id="resultBox"></div>
+  <div id="photoA4PreviewWrap" style="display:none"></div>
+`, calc(){return '';}}
+);
+
 TOOLS.push(
 {id:'elecBill',n:'Electricity Bill Calculator',i:'💡',c:'elec',
  render:()=>`${F.num('units','Units Consumed (kWh)')}${F.num('rate','Rate per Unit (₹)')}${F.num('fixed','Fixed Charges (₹)')}${F.num('tax','Tax (%)')}${calcBtn('💡 Calculate Bill')}<div id="resultBox"></div>`,
@@ -588,30 +615,6 @@ TOOLS.push(
  calc(){return '';}}
 );
 
-/* PHOTO COPY — SIMPLIFIED */
-TOOLS.push(
-{id:'photoCopy',n:'Photo Copy (A4 Print)',i:'📸',c:'copy',
- render:()=>`
-  <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">📸 Photo copy wale dukano ke liye — Photo upload karo, A4 page pe multiple copies print karo.</p>
-  <div class="photo-upload-box" onclick="document.getElementById('photoCopyFiles').click()">
-    <div class="up-icon">📤</div>
-    <div class="up-text">Photo Upload Karo</div>
-    <div class="up-sub">1 ya usse zyada photos (JPG, PNG)</div>
-  </div>
-  <input type="file" id="photoCopyFiles" accept="image/*" multiple style="display:none" onchange="handlePhotoCopyUpload(event)">
-  <div class="photo-preview-grid" id="photoCopyGrid"></div>
-  <div class="photo-controls">
-    ${F.sel('photoSize','Photo Size',[['passport','Passport (35×45mm)'],['stamp','Stamp (20×25mm)'],['visa','Visa (51×51mm)'],['custom','Custom (35×35mm)']])}
-    ${F.num('photoQty','Kitni Photos Chahiye? (custom)')}
-    ${F.sel('photoBorder','Border',[['none','No Border'],['thin','White Border'],['cut','Cutting Line']])}
-  </div>
-  <div class="calc-btn-row"><button class="calc-btn" onclick="generatePhotoA4()">📄 Generate A4 Sheet</button></div>
-  <div class="calc-btn-row" style="margin-top:10px"><button class="btn btn-p" onclick="printPhotoA4()" style="width:100%;padding:14px;font-size:16px;font-weight:700;border-radius:14px">🖨️ Print A4</button></div>
-  <div id="resultBox"></div>
-  <div id="photoA4PreviewWrap" style="display:none"></div>
-`, calc(){return '';}}
-);
-
 TOOLS.push(
 {id:'splitter',n:'Split Bill / Expense',i:'💸',c:'split',
  render:()=>`${F.txt('expName','Expense Ka Naam (kya cheez hai?)')}${F.num('total','Total Amount (₹)')}${F.num('people','Kitne Log Me Split?')}${calcBtn('💸 Calculate Split')}<div id="resultBox"></div>`,
@@ -653,7 +656,6 @@ TOOLS.push(
   let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),dd=n.getDate()-b.getDate();
   if(dd<0){m--;dd+=new Date(n.getFullYear(),n.getMonth(),0).getDate();}
   if(m<0){y--;m+=12;}
-  const totalDays=Math.floor((n-b)/86400000);
   const nameLine=name?`<div class="age-label" style="font-size:14px;margin-bottom:6px">${name}</div>`:'';
   res(`<div class="age-celebration">
     <span class="confetti c1">🎉</span>
@@ -729,13 +731,46 @@ function toggleTask(i){const list=JSON.parse(localStorage.getItem('qn_todos')||'
 function delTask(i){const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');list.splice(i,1);localStorage.setItem('qn_todos',JSON.stringify(list));renderTodoList();}
 function renderTodoList(){const el=document.getElementById('todoListBox');if(!el)return;const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');if(!list.length){el.innerHTML='<p style="text-align:center;color:var(--muted);font-size:13px;padding:20px">Koi task nahi hai</p>';return;}const pending=list.filter(x=>!x.done).length;el.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:13px;color:var(--muted);text-transform:uppercase">📋 Tasks (${pending} pending)</h4></div>${list.map((t,i)=>`<div style="background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-bottom:8px;display:flex;align-items:center;gap:10px"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${i})" style="width:auto;flex-shrink:0"><span style="flex:1;font-size:14px;${t.done?'text-decoration:line-through;color:var(--muted)':''}">${t.task}</span><button onclick="delTask(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:14px;flex-shrink:0">🗑️</button></div>`).join('')}`;}
 
-/* ============ PHOTO COPY HELPERS ============ */
+/* ============ PHOTO COPY — PROFESSIONAL HELPERS ============ */
 let photoCopyImages=[];
 function handlePhotoCopyUpload(e){
   const files=Array.from(e.target.files||[]);
   files.forEach(file=>{
     const reader=new FileReader();
-    reader.onload=ev=>{photoCopyImages.push({src:ev.target.result,name:file.name});renderPhotoCopyGrid();};
+    reader.onload=ev=>{
+      // Process image for auto crop
+      const img=new Image();
+      img.onload=()=>{
+        // Auto crop to passport aspect ratio (35:45)
+        const targetAspect=35/45;
+        const imgAspect=img.width/img.height;
+        let sx=0,sy=0,sw=img.width,sh=img.height;
+        
+        if(imgAspect>targetAspect){
+          // Image wider — crop sides
+          sw=img.height*targetAspect;
+          sx=(img.width-sw)/2;
+        } else {
+          // Image taller — crop top/bottom (focus on face - upper-center)
+          sh=img.width/targetAspect;
+          sy=(img.height-sh)*0.4; // 40% from top (face area)
+        }
+        
+        // Create cropped canvas
+        const canvas=document.createElement('canvas');
+        canvas.width=413;canvas.height=531; // Passport size pixels
+        const ctx=canvas.getContext('2d');
+        ctx.drawImage(img,sx,sy,sw,sh,0,0,canvas.width,canvas.height);
+        
+        photoCopyImages.push({
+          src:ev.target.result,           // Original for full mode
+          croppedSrc:canvas.toDataURL('image/jpeg',0.95), // Cropped for auto mode
+          name:file.name
+        });
+        renderPhotoCopyGrid();
+      };
+      img.src=ev.target.result;
+    };
     reader.readAsDataURL(file);
   });
   e.target.value='';
@@ -744,16 +779,21 @@ function renderPhotoCopyGrid(){
   const grid=document.getElementById('photoCopyGrid');
   if(!grid)return;
   if(!photoCopyImages.length){grid.innerHTML='';return;}
-  grid.innerHTML=photoCopyImages.map((p,i)=>`<div class="photo-preview-item"><img src="${p.src}" alt="photo"><button class="del-btn" onclick="removePhotoCopy(${i})">✕</button></div>`).join('');
+  grid.innerHTML=photoCopyImages.map((p,i)=>`<div class="photo-preview-item"><img src="${p.croppedSrc||p.src}" alt="photo"><button class="del-btn" onclick="removePhotoCopy(${i})">✕</button></div>`).join('');
 }
 function removePhotoCopy(i){photoCopyImages.splice(i,1);renderPhotoCopyGrid();}
 
 function generatePhotoA4(){
   if(!photoCopyImages.length){toast('Photo upload karo pehle',1);return;}
-  const qty=+v('photoQty')||6;
+  
+  const qtyRaw=v('photoQty');
+  const qty=qtyRaw?parseInt(qtyRaw):null;
   const size=v('photoSize')||'passport';
+  const cropMode=v('photoCropMode')||'auto';
   const border=v('photoBorder')||'none';
-  const sizeMap={passport:[35,45],stamp:[20,25],visa:[51,51],custom:[35,35]};
+  const borderColor=v('photoBorderColor')||'white';
+  
+  const sizeMap={passport:[35,45],stamp:[20,25],visa:[51,51]};
   const [wMM,hMM]=sizeMap[size];
   
   const A4_W=210,A4_H=297,paddingMM=10;
@@ -761,31 +801,35 @@ function generatePhotoA4(){
   const gapMM=2;
   const cols=Math.floor((usableW+gapMM)/(wMM+gapMM));
   const rows=Math.floor((usableH+gapMM)/(hMM+gapMM));
-  const perPage=cols*rows;
-  
-  // Single page only — maximum photos
-  const maxPhotos = Math.min(qty, perPage);
+  const maxOnPage=cols*rows;
+  const totalPhotos=qty?(qty<=maxOnPage?qty:maxOnPage):maxOnPage;
   
   let html='';
-  let count=0;
-  for(let r=0;r<rows;r++){
-    for(let c=0;c<cols;c++){
-      if(count>=maxPhotos)break;
-      const img=photoCopyImages[count%photoCopyImages.length];
-      let borderStyle='border:1px solid #cbd5e1';
-      if(border==='thin')borderStyle='border:2px solid #ffffff;box-shadow:inset 0 0 0 1px #cbd5e1';
-      else if(border==='cut')borderStyle='border:1px dashed #94a3b8';
-      html+=`<div class="a4-photo" style="${borderStyle}"><img src="${img.src}" alt="photo"></div>`;
-      count++;
+  for(let i=0;i<totalPhotos;i++){
+    const img=photoCopyImages[i%photoCopyImages.length];
+    const src=cropMode==='auto'?(img.croppedSrc||img.src):img.src;
+    
+    let borderStyle='';
+    let borderColorHex='#cbd5e1';
+    if(border==='thin-white')borderStyle='border:2px solid #ffffff;box-shadow:inset 0 0 0 1px #e2e8f0';
+    else if(border==='thin-black')borderStyle='border:1px solid #000000';
+    else if(border==='cut')borderStyle='border:1px dashed #94a3b8';
+    else if(border==='block-color'){
+      const colorMap={white:'#ffffff',black:'#000000',blue:'#0070f3',red:'#ef4444',green:'#10b981'};
+      borderColorHex=colorMap[borderColor]||'#ffffff';
+      borderStyle=`border:3px solid ${borderColorHex}`;
+    } else {
+      borderStyle='border:none';
     }
-    if(count>=maxPhotos)break;
+    
+    html+=`<div class="a4-photo" style="${borderStyle};background:#fff"><img src="${src}" alt="photo" style="width:100%;height:100%;object-fit:cover;display:block"></div>`;
   }
   
   const wrapHTML=`<div class="photo-a4-preview" id="photoA4PreviewWrap">
     <div style="font-size:13px;color:#475569;text-align:center;margin-bottom:12px;font-weight:700">📄 A4 Print Preview (210×297mm)</div>
     <div class="photo-a4-page" id="photoA4Page" style="grid-template-columns:repeat(${cols},1fr);grid-auto-rows:1fr">${html}</div>
     <div class="photo-info-box" style="background:#fff;color:#0f172a;border:1px solid #e2e8f0">
-      <b>${maxPhotos}</b> photos • <b>${wMM}×${hMM}mm</b> each • <b>${cols}×${rows}</b> grid
+      <b>${totalPhotos}</b> photos • <b>${wMM}×${hMM}mm</b> • <b>${cols}×${rows}</b> grid • ${cropMode==='auto'?'✂️ Auto Crop':'🖼️ Full Photo'}
     </div>
   </div>`;
   
@@ -799,9 +843,9 @@ function generatePhotoA4(){
     toolBody.appendChild(temp.firstElementChild);
   }
   
-  res(`<div class="result-box"><h4>📸 A4 Sheet Ready</h4><div class="result-row"><span class="lb">Photos</span><span class="vl">${maxPhotos}</span></div><div class="result-row"><span class="lb">Size</span><span class="vl">${wMM}×${hMM}mm</span></div><div class="result-row"><span class="lb">Grid</span><span class="vl">${cols} × ${rows}</span></div><div class="result-row total"><span class="lb">Print Ready</span><span class="vl">1 A4 Page</span></div></div>`,`${maxPhotos} photos on 1 A4 page`);
+  res(`<div class="result-box"><h4>📸 A4 Sheet Ready</h4><div class="result-row"><span class="lb">Photos</span><span class="vl">${totalPhotos}</span></div><div class="result-row"><span class="lb">Size</span><span class="vl">${wMM}×${hMM}mm</span></div><div class="result-row"><span class="lb">Mode</span><span class="vl">${cropMode==='auto'?'Auto Crop':'Full Photo'}</span></div><div class="result-row"><span class="lb">Grid</span><span class="vl">${cols} × ${rows}</span></div><div class="result-row total"><span class="lb">Print Ready</span><span class="vl">1 A4 Page</span></div></div>`,`${totalPhotos} photos on 1 A4 page`);
   toast('✅ A4 sheet ready! Ab Print dabao');
-  window._lastText=`Photo Copy: ${maxPhotos} photos of ${wMM}×${hMM}mm on 1 A4 page`;
+  window._lastText=`Photo Copy: ${totalPhotos} photos of ${wMM}×${hMM}mm on 1 A4 page`;
 }
 
 function printPhotoA4(){
@@ -813,16 +857,65 @@ function printPhotoA4(){
   const html=page.outerHTML;
   w.document.write(`<!DOCTYPE html><html><head><title>A4 Photo Print - Qunvero</title><style>
     @page{size:A4;margin:0}
-    body{margin:0;padding:0;background:#fff;font-family:Arial}
+    html,body{margin:0;padding:0;background:#fff;font-family:Arial}
     .photo-a4-page{background:#fff;width:210mm;height:297mm;display:grid;gap:2mm;padding:10mm;box-sizing:border-box;margin:0}
-    .photo-a4-page .a4-photo{background:#fff;border:1px dashed #999;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .photo-a4-page .a4-photo{background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;box-sizing:border-box}
     .photo-a4-page .a4-photo img{width:100%;height:100%;object-fit:cover;display:block}
-    @media print{body{padding:0}.photo-a4-page{page-break-after:always}}
-  </style></head><body>${html}<script>setTimeout(()=>{window.print();},500);<\/script></body></html>`);
+    @media print{body{padding:0}.photo-a4-page{page-break-after:always;page-break-inside:avoid}}
+  </style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
   w.document.close();
   toast('🖨️ Print dialog khula');
 }
 
+function downloadPhotoA4(){
+  if(!photoCopyImages.length){toast('Pehle Generate A4 dabao',1);return;}
+  const page=document.getElementById('photoA4Page');
+  if(!page){toast('Pehle Generate A4 dabao',1);return;}
+  toast('📷 HD image ban raha hai...');
+  
+  const clone=page.cloneNode(true);
+  clone.style.position='fixed';
+  clone.style.left='-99999px';
+  clone.style.top='0';
+  clone.style.width='595px';
+  clone.style.height='842px';
+  clone.style.background='#fff';
+  clone.style.padding='24px';
+  clone.style.boxSizing='border-box';
+  clone.style.display='grid';
+  clone.style.gap='6px';
+  
+  document.body.appendChild(clone);
+  
+  setTimeout(()=>{
+    html2canvas(clone,{
+      scale:3,
+      backgroundColor:'#ffffff',
+      logging:false,
+      useCORS:true,
+      width:595,
+      height:842
+    }).then(canvas=>{
+      canvas.toBlob(b=>{
+        if(b){
+          const url=URL.createObjectURL(b);
+          const a=document.createElement('a');
+          a.href=url;
+          a.download='photo-copy-a4-qunvero-hd.png';
+          document.body.appendChild(a);a.click();document.body.removeChild(a);
+          setTimeout(()=>URL.revokeObjectURL(url),1000);
+          toast('✅ A4 image downloaded!');
+        }
+        if(clone.parentElement) document.body.removeChild(clone);
+      },'image/png');
+    }).catch(e=>{
+      if(clone.parentElement) document.body.removeChild(clone);
+      toast('❌ '+e.message,1);
+    });
+  },500);
+}
+
+/* ============ RUNNERS ============ */
 async function runImgToPdf(){const files=document.getElementById('imgs').files;if(!files.length){toast('Images select karo',1);return;}toast('⏳ Converting...');try{const{PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const doc=await PDFDocument.create();for(const f of files){const buf=await f.arrayBuffer();const img=f.type.includes('png')?await doc.embedPng(buf):await doc.embedJpg(buf);const p=doc.addPage([img.width,img.height]);p.drawImage(img,{x:0,y:0,width:img.width,height:img.height});}const bytes=await doc.save();window._lastBlob=new Blob([bytes],{type:'application/pdf'});window._lastName='images.pdf';res(`<div class="result-box"><h4>✅ PDF Ready!</h4><div class="result-row total"><span class="lb">Images</span><span class="vl">${files.length}</span></div></div>`,`${files.length} images → PDF`);toast('✅ Ready! Download dabao');}catch(e){toast('Failed: '+e.message,1);}}
 function runImgCompress(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const q=(+v('q')||70)/100;const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);c.toBlob(b=>{res(`<div class="result-box"><h4>✅ Compressed</h4><div class="result-row"><span class="lb">Original</span><span class="vl">${(f.size/1024).toFixed(1)} KB</span></div><div class="result-row total"><span class="lb">Compressed</span><span class="vl">${(b.size/1024).toFixed(1)} KB</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,`Compressed!`);window._lastBlob=b;window._lastName='compressed.jpg';toast('✅ Done!');},'image/jpeg',q);};}
 function runPassport(){const f=document.getElementById('file').files[0];if(!f){toast('Photo select karo',1);return;}const sizes={passport:[413,531],stamp:[236,295],visa:[600,600]};const[w,h]=sizes[v('size')]||[413,531];const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');const scale=Math.max(w/img.width,h/img.height);const nw=img.width*scale,nh=img.height*scale;ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);c.toBlob(b=>{res(`<div class="result-box"><h4>📸 Passport Photo</h4><div class="result-row"><span class="lb">Size</span><span class="vl">${w}×${h} px</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:6px;max-height:200px"></div>`,`Passport ready!`);window._lastBlob=b;window._lastName='passport.jpg';toast('✅ Ready!');},'image/jpeg',0.95);};}
@@ -970,14 +1063,11 @@ function downloadPDF(){
   toast('📄 PDF dialog khula');
 }
 
-/* DOWNLOAD IMAGE — EXACT CONTENT SIZE */
 async function downloadPreviewImage(){
   const capture=document.getElementById('previewCapture');
   if(!capture){toast('Preview kholo pehle',1);return;}
   toast('📷 HD image ban raha hai...');
-  
   const finalWidth = 700;
-  
   const clone = capture.cloneNode(true);
   clone.style.position = 'fixed';
   clone.style.left = '-99999px';
@@ -995,61 +1085,29 @@ async function downloadPreviewImage(){
   clone.style.height = 'auto';
   clone.style.minHeight = '0';
   clone.style.maxHeight = 'none';
-  
-  clone.querySelectorAll('*').forEach(el => {
-    el.style.boxSizing = 'border-box';
-    el.style.marginLeft = '0';
-    el.style.marginRight = '0';
-  });
-  
-  clone.querySelectorAll('img').forEach(img => {
-    img.style.maxWidth = '100%';
-    img.style.height = 'auto';
-    img.style.display = 'block';
-    img.style.margin = '20px auto';
-  });
-  
+  clone.querySelectorAll('*').forEach(el => {el.style.boxSizing = 'border-box';el.style.marginLeft = '0';el.style.marginRight = '0';});
+  clone.querySelectorAll('img').forEach(img => {img.style.maxWidth = '100%';img.style.height = 'auto';img.style.display = 'block';img.style.margin = '20px auto';});
   document.body.appendChild(clone);
-  
   try {
     await new Promise(r => setTimeout(r, 500));
-    
     const actualWidth = clone.offsetWidth;
     const actualHeight = clone.offsetHeight;
-    
     const canvas = await html2canvas(clone, {
-      scale: 3,
-      backgroundColor: '#ffffff',
-      logging: false,
-      useCORS: true,
-      allowTaint: true,
-      imageTimeout: 0,
-      width: actualWidth,
-      height: actualHeight,
-      windowWidth: actualWidth,
-      windowHeight: actualHeight,
-      x: 0,
-      y: 0,
-      scrollX: 0,
-      scrollY: 0
+      scale: 3, backgroundColor: '#ffffff', logging: false, useCORS: true, allowTaint: true,
+      imageTimeout: 0, width: actualWidth, height: actualHeight,
+      windowWidth: actualWidth, windowHeight: actualHeight, x: 0, y: 0, scrollX: 0, scrollY: 0
     });
-    
     canvas.toBlob(b => {
       if(b){
         const t = TOOLS.find(x => x.id === window.__currentTool);
         const name = (t ? t.n : 'qunvero-report').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
         const url = URL.createObjectURL(b);
         const a = document.createElement('a');
-        a.href = url;
-        a.download = `${name}-qunvero-hd.png`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
+        a.href = url; a.download = `${name}-qunvero-hd.png`;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
         setTimeout(() => URL.revokeObjectURL(url), 1000);
         toast('✅ HD image downloaded!');
-      } else {
-        toast('Image failed', 1);
-      }
+      } else { toast('Image failed', 1); }
       if(clone.parentElement) document.body.removeChild(clone);
     }, 'image/png');
   } catch(e) {
