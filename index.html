@@ -8,6 +8,7 @@
 <meta name="theme-color" content="#0070f3">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{--bg:#f8fafc;--bg2:#fff;--card:#fff;--border:#e2e8f0;--text:#0f172a;--muted:#64748b;--primary:#0070f3;--accent:#7928ca;--success:#10b981;--danger:#ef4444;--warning:#f59e0b;--grad:linear-gradient(135deg,#0070f3,#7928ca);--shadow:0 4px 20px rgba(0,0,0,.06);--shadow-h:0 12px 40px rgba(0,112,243,.18)}
@@ -192,6 +193,33 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .popup-foot{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:10px;position:sticky;bottom:0;background:var(--card);border-radius:0 0 20px 20px}
 .popup-foot .btn{flex:1;padding:12px}
 
+/* PREVIEW MODAL (nested inside tool modal) */
+.preview-inner{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);z-index:600;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn .2s}
+.preview-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;max-width:600px;width:100%;max-height:92vh;overflow-y:auto;animation:slideUp .3s}
+.preview-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg2);z-index:2;border-radius:20px 20px 0 0}
+.preview-head h3{font-size:16px;color:var(--text);display:flex;align-items:center;gap:8px}
+.preview-close-btn{background:var(--danger);border:none;padding:8px 14px;border-radius:10px;color:#fff;font-weight:600;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:4px}
+.preview-content{padding:20px}
+.preview-capture{background:#ffffff;color:#0f172a;padding:28px 24px;border-radius:12px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.preview-capture h2{font-size:22px;font-weight:800;text-align:center;color:#0f172a;margin-bottom:6px}
+.preview-capture .subtitle{text-align:center;font-size:12px;color:#64748b;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #e2e8f0}
+.preview-capture .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #e2e8f0;font-size:14px;gap:12px}
+.preview-capture .row:last-child{border-bottom:none}
+.preview-capture .row .lbl{color:#64748b}
+.preview-capture .row .val{font-weight:700;color:#0f172a;text-align:right}
+.preview-capture .row.total{padding-top:14px;font-size:17px;border-top:2px solid #10b981;margin-top:6px}
+.preview-capture .row.total .val{color:#10b981}
+.preview-capture img{max-width:100%;display:block;margin:16px auto;border-radius:8px}
+.preview-capture .footer{margin-top:22px;padding-top:14px;border-top:1px solid #e2e8f0;text-align:center;font-size:11px;color:#64748b}
+.preview-capture .footer strong{color:#0070f3}
+.preview-actions{padding:14px 18px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;position:sticky;bottom:0;background:var(--bg2);border-radius:0 0 20px 20px}
+.preview-actions button{flex:1;min-width:90px;padding:12px 8px;font-size:13px;border-radius:12px;border:none;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.2s;font-family:inherit}
+.preview-actions .btn-print{background:var(--card);color:var(--text);border:1px solid var(--border)}
+.preview-actions .btn-pdf{background:var(--card);color:var(--text);border:1px solid var(--border)}
+.preview-actions .btn-img{background:linear-gradient(135deg,#7c3aed,#0070f3);color:#fff}
+.preview-actions button:hover{transform:translateY(-2px)}
+.preview-actions button:active{transform:translateY(0)}
+
 #adminPanel{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);z-index:2500;overflow-y:auto;padding:16px}
 .admin-inner{max-width:1100px;margin:0 auto;background:#fff;color:#0f172a;border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.5)}
 .admin-header{padding:18px 22px;background:var(--grad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;color:#fff}
@@ -250,6 +278,11 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
   .popup-box{border-radius:16px}
   .datetime .date{display:none}
   .search-box{padding:14px 50px 14px 20px;font-size:15px}
+  .preview-box{max-width:100%;border-radius:16px}
+  .preview-capture{padding:20px 16px}
+  .preview-capture h2{font-size:18px}
+  .preview-actions{padding:12px 14px;gap:6px}
+  .preview-actions button{min-width:calc(33.333% - 4px);padding:10px 4px;font-size:11px}
 }
 
 @media print{
@@ -366,8 +399,7 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
     </div>
     <div class="modal-body" id="toolBody"></div>
     <div class="modal-actions no-print">
-      <button class="btn btn-g" onclick="previewTool()">👁️ Preview</button>
-      <button class="btn btn-g" onclick="printTool()">🖨️ Print</button>
+      <button class="btn btn-g" onclick="openPreview()">👁️ Preview</button>
       <button class="btn btn-g" onclick="downloadTool()">⬇️ Download</button>
       <button class="btn btn-g" onclick="copyResult()">📋 Copy</button>
       <button class="btn btn-p" onclick="shareTool()">📤 Share</button>
@@ -752,20 +784,98 @@ function toggleFavoriteCurrent(){if(!window.__currentTool)return;const now=Favor
 
 window.__calc=function(){if(!window.__currentTool)return;const t=TOOLS.find(x=>x.id===window.__currentTool);if(t&&t.calc)try{t.calc();}catch(e){console.warn(e);}};
 
-function getContent(){const t=TOOLS.find(x=>x.id===window.__currentTool);const title=t?t.n:'Qunvero Tool';const rb=document.getElementById('resultBox');const html=rb?rb.innerHTML:'';return{title,html,icon:t?t.i:'⚡'};}
-function previewTool(){const{title,html,icon}=getContent();if(!html||html.trim().length<10){toast('Pehle Calculate dabao',1);return;}const w=window.open('','_blank');if(!w){toast('Popup blocked!',1);return;}w.document.write(`<!DOCTYPE html><html><head><title>${title} — Qunvero</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{box-sizing:border-box}body{font-family:-apple-system,sans-serif;padding:20px;background:#f8fafc;color:#0f172a;max-width:800px;margin:0 auto}.hdr{background:linear-gradient(135deg,#0070f3,#7928ca);color:#fff;padding:22px;border-radius:16px;margin-bottom:18px}.hdr h1{margin:0;font-size:20px}.hdr p{margin:4px 0 0;font-size:12px;opacity:.9}.card{background:#fff;padding:22px;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08)}.card h2{margin:0 0 6px;font-size:22px}.sub{color:#6b7280;font-size:12px;margin-bottom:18px}.result-box{background:#f0fdf4;border:1px solid #10b981;padding:18px;border-radius:12px}.result-box h4{color:#10b981;font-size:13px;text-transform:uppercase;margin:0 0 12px}.result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #d1d5db;font-size:14px;gap:12px}.result-row:last-child{border-bottom:none}.result-row .lb{color:#6b7280}.result-row .vl{font-weight:700;text-align:right;word-break:break-word}.result-row.total{padding-top:14px;font-size:17px;border-top:2px solid #10b981}.result-row.total .vl{color:#10b981}textarea{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-family:monospace;font-size:12px}img{max-width:100%;border-radius:12px}.ft{text-align:center;padding:18px;font-size:12px;color:#6b7280;margin-top:20px}</style></head><body><div class="hdr"><h1>⚡ Qunvero</h1><p>29+ Free Tools • qunvero.vercel.app</p></div><div class="card"><h2>${icon} ${title}</h2><div class="sub">${new Date().toLocaleString('en-IN')}</div>${html}</div><div class="ft">Generated by Qunvero — https://qunvero.vercel.app</div></body></html>`);w.document.close();toast('👁️ Preview khula');}
-function printTool(){const{title,html,icon}=getContent();if(!html||html.trim().length<10){toast('Pehle Calculate dabao',1);return;}const w=window.open('','_blank');if(!w){toast('Popup blocked!',1);return;}
-  const hasImage=html.indexOf('<img')>-1;
-  if(hasImage){
-    const tempDiv=document.createElement('div');tempDiv.innerHTML=html;
-    const imgs=tempDiv.querySelectorAll('img');
-    let imgHTML='';
-    imgs.forEach(img=>{imgHTML+=`<div style="text-align:center;margin:20px 0"><img src="${img.src}" style="max-width:100%;max-height:90vh"></div>`;});
-    w.document.write(`<!DOCTYPE html><html><head><title>${title} — Qunvero</title><style>body{margin:0;padding:20px;text-align:center}h2{font-family:Arial;font-size:16px;margin-bottom:14px}img{max-width:100%;max-height:90vh}</style></head><body><h2>${icon} ${title}</h2>${imgHTML}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
-  } else {
-    w.document.write(`<!DOCTYPE html><html><head><title>${title} — Qunvero</title><style>body{font-family:Arial;padding:30px;color:#000;max-width:800px;margin:0 auto}h1{font-size:22px}h2{font-size:16px;color:#666;font-weight:400}.result-box{background:#f5f5f5;border:2px solid #000;padding:20px;border-radius:10px;margin-top:16px}.result-box h4{font-size:14px;text-transform:uppercase;margin-bottom:12px}.result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #ccc;font-size:14px;gap:12px}.result-row .lb{color:#666}.result-row .vl{font-weight:700}.result-row.total{padding-top:14px;font-size:16px;border-top:2px solid #000}.ft{margin-top:30px;padding-top:16px;border-top:1px solid #ccc;font-size:12px;color:#666;text-align:center}textarea{width:100%;padding:10px;border:1px solid #ccc;font-family:monospace;font-size:12px}</style></head><body><h1>⚡ Qunvero</h1><h2>${icon} ${title}</h2>${html}<div class="ft">Generated by Qunvero<br>${new Date().toLocaleString('en-IN')}</div><script>setTimeout(()=>{window.print();},500);<\/script></body></html>`);
+/* ============ PREVIEW MODAL (Ultra HD) ============ */
+function openPreview(){
+  const t=TOOLS.find(x=>x.id===window.__currentTool);
+  const title=t?t.n:'Qunvero Tool';
+  const icon=t?t.i:'🛠️';
+  const rb=document.getElementById('resultBox');
+  if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}
+  const resultHTML=rb.innerHTML;
+  const previewHTML=`
+    <div class="preview-inner" id="previewInner">
+      <div class="preview-box">
+        <div class="preview-head">
+          <h3>👁️ Preview</h3>
+          <button class="preview-close-btn" onclick="closePreview()">✕ Close</button>
+        </div>
+        <div class="preview-content">
+          <div class="preview-capture" id="previewCapture">
+            <h2>${icon} ${title}</h2>
+            <div class="subtitle">${new Date().toLocaleString('en-IN')}</div>
+            ${resultHTML}
+            <div class="footer">Generated by <strong>Qunvero</strong> • qunvero.vercel.app</div>
+          </div>
+        </div>
+        <div class="preview-actions">
+          <button class="btn-print" onclick="printPreview()">🖨️ Print</button>
+          <button class="btn-pdf" onclick="downloadPDF()">📄 PDF</button>
+          <button class="btn-img" onclick="downloadPreviewImage()">📷 Download Image</button>
+        </div>
+      </div>
+    </div>`;
+  const wrap=document.createElement('div');
+  wrap.innerHTML=previewHTML;
+  document.body.appendChild(wrap.firstElementChild);
+}
+function closePreview(){const p=document.getElementById('previewInner');if(p)p.remove();}
+
+function printPreview(){
+  const capture=document.getElementById('previewCapture');
+  if(!capture){toast('Preview kholo pehle',1);return;}
+  const w=window.open('','_blank');
+  if(!w){toast('Popup blocked!',1);return;}
+  const html=capture.outerHTML;
+  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero Report</title><style>*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px;background:#fff;color:#0f172a;max-width:800px;margin:0 auto}.preview-capture{background:#fff;padding:28px 24px;border-radius:12px}.preview-capture h2{font-size:22px;font-weight:800;text-align:center;color:#0f172a;margin-bottom:6px}.preview-capture .subtitle{text-align:center;font-size:12px;color:#64748b;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #e2e8f0}.preview-capture .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #e2e8f0;font-size:14px;gap:12px}.preview-capture .row:last-child{border-bottom:none}.preview-capture .row .lbl{color:#64748b}.preview-capture .row .val{font-weight:700;color:#0f172a;text-align:right}.preview-capture .row.total{padding-top:14px;font-size:17px;border-top:2px solid #10b981;margin-top:6px}.preview-capture .row.total .val{color:#10b981}.preview-capture img{max-width:100%;display:block;margin:16px auto;border-radius:8px}.preview-capture .footer{margin-top:22px;padding-top:14px;border-top:1px solid #e2e8f0;text-align:center;font-size:11px;color:#64748b}.preview-capture .footer strong{color:#0070f3}@media print{body{padding:0}}</style></head><body>${html}<script>setTimeout(()=>{window.print();},400);<\/script></body></html>`);
+  w.document.close();
+  toast('🖨️ Print ready');
+}
+
+function downloadPDF(){
+  const capture=document.getElementById('previewCapture');
+  if(!capture){toast('Preview kholo pehle',1);return;}
+  toast('📄 PDF generate ho raha hai...');
+  const w=window.open('','_blank');
+  if(!w){toast('Popup blocked!',1);return;}
+  const html=capture.outerHTML;
+  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero Report</title><style>*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px;background:#fff;color:#0f172a;max-width:800px;margin:0 auto}.preview-capture{background:#fff;padding:28px 24px;border-radius:12px}.preview-capture h2{font-size:22px;font-weight:800;text-align:center;color:#0f172a;margin-bottom:6px}.preview-capture .subtitle{text-align:center;font-size:12px;color:#64748b;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid #e2e8f0}.preview-capture .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #e2e8f0;font-size:14px;gap:12px}.preview-capture .row:last-child{border-bottom:none}.preview-capture .row .lbl{color:#64748b}.preview-capture .row .val{font-weight:700;color:#0f172a;text-align:right}.preview-capture .row.total{padding-top:14px;font-size:17px;border-top:2px solid #10b981;margin-top:6px}.preview-capture .row.total .val{color:#10b981}.preview-capture img{max-width:100%;display:block;margin:16px auto;border-radius:8px}.preview-capture .footer{margin-top:22px;padding-top:14px;border-top:1px solid #e2e8f0;text-align:center;font-size:11px;color:#64748b}.preview-capture .footer strong{color:#0070f3}</style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
+  w.document.close();
+  toast('📄 PDF dialog khula — Save as PDF');
+}
+
+async function downloadPreviewImage(){
+  const capture=document.getElementById('previewCapture');
+  if(!capture){toast('Preview kholo pehle',1);return;}
+  toast('📷 Ultra HD image ban raha hai...');
+  try{
+    // Use html2canvas with high scale for ultra HD
+    const canvas=await html2canvas(capture,{
+      scale:3,
+      backgroundColor:'#ffffff',
+      logging:false,
+      useCORS:true,
+      allowTaint:true,
+      windowWidth:capture.scrollWidth,
+      windowHeight:capture.scrollHeight
+    });
+    canvas.toBlob(b=>{
+      if(!b){toast('Image failed',1);return;}
+      const t=TOOLS.find(x=>x.id===window.__currentTool);
+      const name=(t?t.n:'qunvero-report').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+      const url=URL.createObjectURL(b);
+      const a=document.createElement('a');
+      a.href=url;a.download=`${name}-qunvero-hd.png`;
+      document.body.appendChild(a);a.click();document.body.removeChild(a);
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+      toast('✅ Ultra HD image downloaded!');
+    },'image/png');
+  }catch(e){
+    console.error(e);
+    toast('❌ '+e.message,1);
   }
-  w.document.close();toast('🖨️ Print dialog khula');}
+}
+
+/* ============ DOWNLOAD / COPY / SHARE (fallback for tools) ============ */
 function downloadTool(){const t=TOOLS.find(x=>x.id===window.__currentTool);const name=(t?t.n:'qunvero').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
   if(window._lastBlob){dlBlob(window._lastBlob,window._lastName||(name+'.jpg'));return;}
   const rb=document.getElementById('resultBox');if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}
