@@ -2,167 +2,258 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Qunvero — 200+ Free Tools Ek Hi Jagah</title>
-<meta name="description" content="Qunvero — 200+ free online tools. Bijli bill calculator, invoice maker, GST, EMI, PDF, image, QR, barcode. 100% free.">
-<meta name="theme-color" content="#0a0a0f">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Qunvero — 200+ Free Tools Ek Hi Jagah 🚀</title>
+<meta name="description" content="Qunvero — India's fastest free tools website. Bijli bill, invoice, GST, EMI, PDF, image, QR, barcode. 100% free, no signup.">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--bg:#0a0a0f;--bg2:#13131c;--card:#1a1a24;--border:rgba(255,255,255,.08);--text:#fff;--muted:#8a8a9a;--primary:#0070f3;--accent:#7928ca;--success:#10b981;--danger:#ef4444;--grad:linear-gradient(135deg,#0070f3,#7928ca)}
-body.light{--bg:#f5f7fa;--bg2:#ffffff;--card:#ffffff;--border:rgba(0,0,0,.08);--text:#1a1a2e;--muted:#6b7280}
+:root{
+  --bg:#f8fafc;--bg2:#ffffff;--card:#ffffff;--border:rgba(0,0,0,.08);
+  --text:#0f172a;--muted:#64748b;--primary:#0070f3;--accent:#7928ca;
+  --success:#10b981;--danger:#ef4444;--warning:#f59e0b;
+  --grad:linear-gradient(135deg,#0070f3,#7928ca);
+  --shadow:0 4px 20px rgba(0,0,0,.06);
+  --shadow-hover:0 12px 40px rgba(0,112,243,.15);
+}
+body.dark{
+  --bg:#0a0a0f;--bg2:#13131c;--card:#1a1a24;--border:rgba(255,255,255,.08);
+  --text:#fff;--muted:#8a8a9a;
+  --shadow:0 4px 20px rgba(0,0,0,.4);
+}
 html,body{height:100%}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.5;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
-body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 15% 15%,rgba(0,112,243,.12),transparent 40%),radial-gradient(circle at 85% 85%,rgba(121,40,202,.12),transparent 40%)}
-body.light::before{background:radial-gradient(circle at 15% 15%,rgba(0,112,243,.06),transparent 40%),radial-gradient(circle at 85% 85%,rgba(121,40,202,.06),transparent 40%)}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.5;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 10% 10%,rgba(0,112,243,.08),transparent 40%),radial-gradient(circle at 90% 90%,rgba(121,40,202,.08),transparent 40%)}
+body.dark::before{background:radial-gradient(circle at 10% 10%,rgba(0,112,243,.15),transparent 40%),radial-gradient(circle at 90% 90%,rgba(121,40,202,.15),transparent 40%)}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
-input,select,textarea{width:100%;padding:12px 16px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:12px;color:var(--text);outline:none;transition:.2s;font-size:15px}
-body.light input,body.light select,body.light textarea{background:rgba(0,0,0,.03)}
-input:focus,select:focus,textarea:focus{border-color:var(--primary);background:rgba(0,112,243,.08)}
+input,select,textarea{width:100%;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;color:var(--text);outline:none;transition:.2s;font-size:15px}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,112,243,.1)}
 input::placeholder,textarea::placeholder{color:var(--muted)}
 label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px;font-weight:500}
 img{max-width:100%;display:block}
 canvas{max-width:100%}
-header{position:sticky;top:0;z-index:100;background:var(--bg2);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 16px}
-body.light header{background:rgba(255,255,255,.92)}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:100;background:var(--bg2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 16px}
 .hdr{max-width:1300px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.logo{font-size:20px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:6px}
+.logo{font-size:20px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap}
 .logo span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hdr-right{display:flex;gap:8px;align-items:center}
-.theme-btn{background:rgba(255,255,255,.08);border:1px solid var(--border);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:.2s}
-body.light .theme-btn{background:rgba(0,0,0,.05)}
-.theme-btn:hover{transform:scale(1.1)}
-.btn{padding:10px 18px;border:none;border-radius:22px;cursor:pointer;font-weight:600;font-size:14px;transition:.2s;white-space:nowrap}
+.icon-btn{background:var(--card);border:1px solid var(--border);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:.2s;box-shadow:var(--shadow)}
+.icon-btn:hover{transform:scale(1.08);border-color:var(--primary)}
+.icon-btn span{display:block;line-height:1}
+.btn{padding:10px 18px;border:none;border-radius:22px;cursor:pointer;font-weight:600;font-size:14px;transition:.2s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;justify-content:center}
 .btn-p{background:var(--grad);color:#fff}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,112,243,.4)}
-.btn-g{background:rgba(128,128,128,.12);color:var(--text);border:1px solid var(--border)}
-.btn-g:hover{background:rgba(128,128,128,.2)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,112,243,.35)}
+.btn-g{background:var(--card);color:var(--text);border:1px solid var(--border);box-shadow:var(--shadow)}
+.btn-g:hover{background:rgba(128,128,128,.08);border-color:var(--primary)}
 .btn-sm{padding:7px 12px;font-size:13px;border-radius:10px}
+
+/* SEARCH */
 .search-wrap{max-width:1300px;margin:14px auto 0;padding:0 16px;position:relative}
-.search-box{width:100%;padding:16px 55px 16px 22px;font-size:16px;border-radius:30px;background:rgba(255,255,255,.06);border:1.5px solid var(--border)}
-body.light .search-box{background:#fff;border-color:rgba(0,0,0,.1)}
-.search-icon{position:absolute;right:32px;top:50%;transform:translateY(-50%);font-size:20px;pointer-events:none}
-.search-results{position:absolute;top:calc(100% + 6px);left:16px;right:16px;background:var(--card);border:1px solid var(--border);border-radius:16px;max-height:400px;overflow-y:auto;z-index:200;display:none;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.search-box{width:100%;padding:16px 55px 16px 22px;font-size:16px;border-radius:30px;background:var(--bg2);border:1.5px solid var(--border);box-shadow:var(--shadow)}
+.search-box:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(0,112,243,.1)}
+.search-icon{position:absolute;right:32px;top:50%;transform:translateY(-50%);font-size:20px;pointer-events:none;opacity:.6}
+.search-results{position:absolute;top:calc(100% + 6px);left:16px;right:16px;background:var(--card);border:1px solid var(--border);border-radius:16px;max-height:400px;overflow-y:auto;z-index:200;display:none;box-shadow:0 20px 60px rgba(0,0,0,.15)}
 .search-results.on{display:block}
 .sr-item{padding:14px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);transition:.15s}
 .sr-item:last-child{border-bottom:none}
-.sr-item:hover{background:rgba(0,112,243,.08)}
+.sr-item:hover{background:rgba(0,112,243,.06)}
 .sr-item .ic{font-size:22px}
 .sr-item .info{flex:1}
 .sr-item .nm{font-weight:600;font-size:14px}
 .sr-item .ct{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
 .sr-empty{padding:30px;text-align:center;color:var(--muted);font-size:14px}
-.hero{text-align:center;padding:36px 16px 20px;max-width:900px;margin:0 auto}
-.hero h1{font-size:clamp(26px,4.5vw,44px);font-weight:800;line-height:1.15;margin-bottom:10px}
+
+/* HERO — WELCOME FEEL */
+.hero{text-align:center;padding:50px 16px 30px;max-width:900px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(0,112,243,.1),rgba(121,40,202,.1));border:1px solid rgba(0,112,243,.2);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;color:var(--primary);margin-bottom:18px}
+.hero-badge .dot{width:6px;height:6px;background:#10b981;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:800;line-height:1.1;margin-bottom:14px;letter-spacing:-.5px}
 .hero h1 span{background:linear-gradient(90deg,#0070f3,#7928ca,#ff6b35);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{color:var(--muted);font-size:15px}
-.stats{display:flex;justify-content:center;gap:28px;padding:20px 16px;flex-wrap:wrap;max-width:800px;margin:0 auto}
-.stat{text-align:center;min-width:80px}
-.stat-n{font-size:22px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.stat-l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
-.quick{max-width:1300px;margin:10px auto;padding:0 16px}
+.hero p{color:var(--muted);font-size:16px;max-width:600px;margin:0 auto 24px}
+.hero-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* TRUST BADGES */
+.trust{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;padding:14px 16px;max-width:800px;margin:0 auto 10px}
+.trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-weight:500}
+.trust-item .ic{font-size:16px}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;padding:20px 16px;max-width:900px;margin:0 auto}
+.stat{background:var(--card);border:1px solid var(--border);padding:18px 12px;border-radius:16px;text-align:center;box-shadow:var(--shadow)}
+.stat-n{font-size:24px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1}
+.stat-l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-top:4px;font-weight:600}
+
+/* QUICK */
+.quick{max-width:1300px;margin:20px auto;padding:0 16px}
 .quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
-.q-card{background:linear-gradient(135deg,rgba(0,112,243,.14),rgba(121,40,202,.14));border:1px solid var(--border);padding:14px 8px;border-radius:14px;text-align:center;cursor:pointer;transition:.25s}
-.q-card:hover{transform:translateY(-4px);border-color:var(--primary)}
-.q-card .e{font-size:26px;display:block;margin-bottom:5px}
-.q-card .nm{font-size:12px;font-weight:600}
-.sec{max-width:1300px;margin:30px auto;padding:0 16px}
-.sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:10px}
-.sec-head h2{font-size:20px;font-weight:700;display:flex;align-items:center;gap:8px}
-.sec-head h2 .emo{font-size:22px}
-.sec-head .cnt{font-size:12px;color:var(--muted);background:rgba(128,128,128,.12);padding:3px 10px;border-radius:20px;margin-left:8px}
-.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:12px}
-.tool{background:var(--card);border:1px solid var(--border);padding:16px 12px;border-radius:14px;cursor:pointer;transition:.25s;text-align:center;position:relative}
-.tool:hover{transform:translateY(-4px);border-color:var(--primary);background:rgba(0,112,243,.04)}
-.tool .ic{font-size:30px;display:block;margin-bottom:8px}
+.q-card{background:linear-gradient(135deg,rgba(0,112,243,.08),rgba(121,40,202,.08));border:1px solid var(--border);padding:16px 8px;border-radius:14px;text-align:center;cursor:pointer;transition:.25s;box-shadow:var(--shadow)}
+.q-card:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:var(--shadow-hover)}
+.q-card .e{font-size:26px;display:block;margin-bottom:6px}
+.q-card .nm{font-size:12px;font-weight:600;line-height:1.3}
+
+/* SECTIONS */
+.sec{max-width:1300px;margin:36px auto;padding:0 16px}
+.sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:10px}
+.sec-head h2{font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+.sec-head h2 .emo{font-size:24px}
+.sec-head .cnt{font-size:12px;color:var(--muted);background:var(--card);border:1px solid var(--border);padding:4px 12px;border-radius:20px;font-weight:600}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.tool{background:var(--card);border:1px solid var(--border);padding:18px 12px;border-radius:14px;cursor:pointer;transition:.25s;text-align:center;box-shadow:var(--shadow)}
+.tool:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:var(--shadow-hover)}
+.tool .ic{font-size:32px;display:block;margin-bottom:10px}
 .tool .nm{font-size:13px;font-weight:600;line-height:1.3}
-.modal{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.85);backdrop-filter:blur(6px);display:none;overflow-y:auto;padding:16px}
-.modal.on{display:block}
-.modal-inner{background:var(--bg2);max-width:900px;margin:20px auto;border-radius:20px;border:1px solid var(--border);overflow:hidden;animation:slideUp .3s}
+
+/* MODAL */
+.modal{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;overflow-y:auto;padding:16px}
+.modal.on{display:block;animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-inner{background:var(--bg2);max-width:900px;margin:20px auto;border-radius:20px;border:1px solid var(--border);overflow:hidden;animation:slideUp .3s;box-shadow:0 30px 90px rgba(0,0,0,.3)}
 @keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(0,0,0,.05);position:sticky;top:0;z-index:10}
-body.light .modal-head{background:rgba(0,0,0,.02)}
+.modal-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--bg2);position:sticky;top:0;z-index:10}
 .modal-head h3{font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
-.modal-close{background:rgba(128,128,128,.15);border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;color:var(--text)}
-.modal-close:hover{background:var(--danger);color:#fff}
+.modal-close{background:var(--card);border:1px solid var(--border);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--text);transition:.2s}
+.modal-close:hover{background:var(--danger);color:#fff;border-color:var(--danger)}
 .modal-body{padding:20px}
-.modal-actions{display:flex;gap:8px;flex-wrap:wrap;padding:16px 20px;border-top:1px solid var(--border);background:rgba(0,0,0,.05)}
-body.light .modal-actions{background:rgba(0,0,0,.02)}
-.modal-actions .btn{flex:1;min-width:100px;padding:11px 12px;font-size:13px;border-radius:12px}
-.result-box{background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(0,112,243,.12));border:1px solid rgba(16,185,129,.3);padding:20px;border-radius:14px;margin-top:16px}
-body.light .result-box{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(0,112,243,.08))}
-.result-box h4{color:var(--success);font-size:13px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
-.result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--border);font-size:14px}
+.modal-actions{display:flex;gap:8px;flex-wrap:wrap;padding:16px 20px;border-top:1px solid var(--border);background:var(--bg2);position:sticky;bottom:0}
+.modal-actions .btn{flex:1;min-width:90px;padding:11px 8px;font-size:12px;border-radius:12px}
+
+/* RESULT */
+.result-box{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(0,112,243,.06));border:1px solid rgba(16,185,129,.25);padding:20px;border-radius:14px;margin-top:16px}
+.result-box h4{color:var(--success);font-size:13px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;font-weight:700}
+.result-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--border);font-size:14px;gap:12px}
 .result-row:last-child{border-bottom:none}
 .result-row .lb{color:var(--muted)}
-.result-row .vl{font-weight:700}
-.result-row.total{padding-top:14px;font-size:17px;border-top:2px solid var(--success)}
+.result-row .vl{font-weight:700;text-align:right;word-break:break-word}
+.result-row.total{padding-top:14px;font-size:18px;border-top:2px solid var(--success)}
 .result-row.total .vl{color:var(--success)}
 .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
 .tbl{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px}
-.tbl th,.tbl td{padding:9px 8px;text-align:left;border-bottom:1px solid var(--border)}
-.tbl th{background:rgba(0,112,243,.1);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+.tbl th,.tbl td{padding:10px 8px;text-align:left;border-bottom:1px solid var(--border)}
+.tbl th{background:rgba(0,112,243,.08);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
 .tbl input{padding:6px 8px;font-size:13px;border-radius:6px}
 .tbl td.amt{font-weight:700;color:var(--success);white-space:nowrap}
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--success);color:#fff;padding:12px 22px;border-radius:30px;font-weight:600;font-size:14px;z-index:1000;opacity:0;transition:.35s;box-shadow:0 10px 30px rgba(0,0,0,.3);pointer-events:none}
+
+/* TOAST */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--success);color:#fff;padding:14px 24px;border-radius:30px;font-weight:600;font-size:14px;z-index:1000;opacity:0;transition:.35s cubic-bezier(.4,0,.2,1);box-shadow:0 10px 30px rgba(0,0,0,.3);pointer-events:none;max-width:90vw;text-align:center}
 .toast.on{transform:translateX(-50%) translateY(0);opacity:1}
 .toast.err{background:var(--danger)}
+
+/* WELCOME POPUP */
+.welcome-popup{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);z-index:3000;display:none;align-items:center;justify-content:center;padding:16px;animation:fadeIn .3s}
+.welcome-popup.on{display:flex}
+.welcome-box{background:var(--card);border-radius:24px;max-width:440px;width:100%;padding:32px 26px 26px;text-align:center;border:1px solid var(--border);box-shadow:0 30px 90px rgba(0,0,0,.4);animation:slideUp .4s;position:relative;overflow:hidden}
+.welcome-box::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--grad)}
+.welcome-emoji{font-size:60px;margin-bottom:8px;display:block;animation:bounce 1s}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.welcome-box h2{font-size:24px;font-weight:800;margin-bottom:10px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.welcome-box p{color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:20px}
+.welcome-rating{display:flex;justify-content:center;gap:8px;font-size:36px;margin:16px 0;cursor:pointer}
+.welcome-rating span{filter:grayscale(1) brightness(.7);transition:.2s;cursor:pointer}
+.welcome-rating span:hover,.welcome-rating span.on{filter:none;transform:scale(1.15)}
+.welcome-actions{display:flex;gap:10px;margin-top:20px}
+.welcome-actions .btn{flex:1}
+.welcome-skip{background:transparent;border:none;color:var(--muted);font-size:13px;cursor:pointer;padding:8px;text-decoration:underline;margin-top:6px}
+
+/* BOTTOM NAV */
 .bnav{position:fixed;bottom:0;left:0;right:0;z-index:99;background:var(--bg2);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:none;justify-content:space-around;padding:8px 0 calc(8px + env(safe-area-inset-bottom))}
-body.light .bnav{background:rgba(255,255,255,.96)}
 .bnav a{text-align:center;color:var(--muted);font-size:10px;padding:4px 12px;transition:.2s;cursor:pointer}
 .bnav a.on,.bnav a:hover{color:var(--primary)}
 .bnav .i{font-size:20px;display:block;margin-bottom:1px}
+
+/* FOOTER */
 footer{max-width:1300px;margin:60px auto 100px;padding:30px 16px;text-align:center;border-top:1px solid var(--border);color:var(--muted);font-size:13px}
 footer .fl{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px}
 footer .fl a{color:var(--primary);cursor:pointer}
-footer .contact-btn{background:linear-gradient(135deg,rgba(0,112,243,.15),rgba(121,40,202,.15));border:1px solid var(--border);padding:10px 20px;border-radius:30px;cursor:pointer;color:var(--text);font-weight:600;font-size:13px;margin:12px 0;transition:.2s}
+footer .contact-btn{background:var(--card);border:1px solid var(--border);padding:10px 20px;border-radius:30px;cursor:pointer;color:var(--text);font-weight:600;font-size:13px;margin:12px 0;transition:.2s;box-shadow:var(--shadow)}
+footer .contact-btn:hover{border-color:var(--primary)}
+
+/* FEEDBACK BUTTON */
 #feedbackBtn{position:fixed;bottom:100px;left:20px;width:56px;height:56px;border-radius:50%;border:none;background:linear-gradient(135deg,#10b981,#0070f3);color:white;font-size:24px;cursor:pointer;box-shadow:0 10px 30px rgba(16,185,129,.4);z-index:150;transition:.3s}
-#feedbackBtn:hover{transform:scale(1.15)}
-#feedbackModal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px}
+#feedbackBtn:hover{transform:scale(1.15) rotate(10deg)}
+
+/* FEEDBACK MODAL */
+#feedbackModal{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn .2s}
 .fb-content{background:var(--card);border:1px solid var(--border);border-radius:20px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto}
 .fb-header{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--card);z-index:2}
 .fb-header h3{font-size:18px;color:var(--text)}
-.fb-close{background:rgba(128,128,128,.15);border:none;width:34px;height:34px;border-radius:50%;color:var(--text);cursor:pointer;font-size:16px}
+.fb-close{background:var(--card);border:1px solid var(--border);width:34px;height:34px;border-radius:50%;color:var(--text);cursor:pointer;font-size:15px}
 .fb-body{padding:22px}
-.fb-body input,.fb-body textarea,.fb-body select{width:100%;padding:12px 14px;background:rgba(128,128,128,.08);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;font-family:inherit}
+.fb-body input,.fb-body textarea,.fb-body select{width:100%;padding:12px 14px;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;outline:none;font-family:inherit}
 .fb-footer{padding:16px 22px;border-top:1px solid var(--border);display:flex;gap:10px;position:sticky;bottom:0;background:var(--card)}
-.fb-cancel,.fb-submit{flex:1;padding:12px;border-radius:12px;border:none;font-weight:600;cursor:pointer;font-size:14px}
-.fb-cancel{background:rgba(128,128,128,.15);color:var(--text)}
+.fb-cancel,.fb-submit{flex:1;padding:12px;border-radius:12px;border:none;font-weight:600;cursor:pointer;font-size:14px;transition:.2s}
+.fb-cancel{background:var(--bg);color:var(--text);border:1px solid var(--border)}
 .fb-submit{background:linear-gradient(135deg,#0070f3,#7928ca);color:#fff}
-.thank-you{position:fixed;inset:0;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;z-index:2000;padding:16px}
+
+/* THANK YOU */
+.thank-you{position:fixed;inset:0;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:3000;padding:16px;animation:fadeIn .3s}
 .ty-content{background:var(--card);padding:40px 30px;border-radius:20px;max-width:400px;text-align:center;border:1px solid var(--border)}
-#adminPanel{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);z-index:1500;overflow-y:auto;padding:20px}
-.admin-inner{max-width:1100px;margin:0 auto;background:#ffffff;color:#1a1a2e;border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.5)}
+
+/* ADMIN PANEL — LIGHT */
+#adminPanel{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);z-index:2500;overflow-y:auto;padding:20px}
+.admin-inner{max-width:1100px;margin:0 auto;background:#ffffff;color:#0f172a;border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.5)}
 .admin-header{padding:20px 24px;background:linear-gradient(135deg,#0070f3,#7928ca);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;color:#fff}
 .admin-header h2{font-size:22px;color:#fff}
-.admin-btn{padding:8px 16px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:10px;cursor:pointer;font-size:13px;font-weight:600}
+.admin-btn{padding:8px 16px;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;transition:.2s}
+.admin-btn:hover{background:rgba(255,255,255,.25)}
 .admin-btn.danger{background:rgba(239,68,68,.9);border-color:#ef4444}
 .admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;padding:20px}
-.admin-stat{background:#f8f9fc;border:1px solid #e5e7eb;padding:16px;border-radius:12px;text-align:center}
+.admin-stat{background:#f8fafc;border:1px solid #e2e8f0;padding:16px;border-radius:12px;text-align:center}
 .admin-stat-val{font-size:26px;font-weight:800;margin-bottom:4px}
-.admin-stat-lbl{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.5px}
-.admin-tabs{display:flex;gap:6px;padding:0 20px 12px;overflow-x:auto;flex-wrap:nowrap}
-.admin-tab{padding:8px 14px;background:#f8f9fc;border:1px solid #e5e7eb;border-radius:10px;color:#6b7280;cursor:pointer;font-size:12px;white-space:nowrap;font-weight:600}
+.admin-stat-lbl{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px}
+.admin-tabs{display:flex;gap:6px;padding:0 20px 12px;overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch}
+.admin-tabs::-webkit-scrollbar{display:none}
+.admin-tab{padding:8px 14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;color:#64748b;cursor:pointer;font-size:12px;white-space:nowrap;font-weight:600;transition:.2s}
 .admin-tab.on{background:linear-gradient(135deg,#0070f3,#7928ca);color:#fff;border-color:transparent}
 .admin-list{padding:0 20px 20px;max-height:60vh;overflow-y:auto}
-.admin-fb{background:#f8f9fc;border:1px solid #e5e7eb;padding:16px;border-radius:14px;margin-bottom:12px;color:#1a1a2e}
+.admin-fb{background:#f8fafc;border:1px solid #e2e8f0;padding:16px;border-radius:14px;margin-bottom:12px;color:#0f172a}
 .admin-fb.unread{border-left:3px solid #ef4444;background:#fef2f2}
 .admin-fb-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px}
 .admin-fb-cat{font-size:12px;font-weight:700;text-transform:uppercase;color:#0070f3}
 .admin-fb-new{background:#ef4444;color:#fff;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:700;margin-left:8px}
 .admin-fb-user{font-size:13px;color:#0070f3;margin-bottom:8px}
-.admin-fb-msg{font-size:14px;line-height:1.6;padding:10px 0;border-top:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;word-break:break-word;color:#1a1a2e}
-.admin-fb-meta{font-size:11px;color:#6b7280;margin:8px 0;display:flex;gap:12px;flex-wrap:wrap}
+.admin-fb-msg{font-size:14px;line-height:1.6;padding:10px 0;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;word-break:break-word;color:#0f172a}
+.admin-fb-meta{font-size:11px;color:#64748b;margin:8px 0;display:flex;gap:12px;flex-wrap:wrap}
 .admin-fb-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.admin-fb-actions button{padding:6px 12px;background:#fff;border:1px solid #e5e7eb;color:#1a1a2e;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600}
+.admin-fb-actions button{padding:6px 12px;background:#fff;border:1px solid #e2e8f0;color:#0f172a;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;transition:.2s}
+.admin-fb-actions button:hover{background:#f1f5f9}
 .admin-fb-actions button.danger:hover{background:#fef2f2;border-color:#ef4444;color:#ef4444}
-.admin-footer{padding:16px 20px;border-top:1px solid #e5e7eb;text-align:center;font-size:12px;color:#6b7280}
-.admin-footer code{background:#f3f4f6;padding:2px 6px;border-radius:4px;color:#0070f3}
-.preview-box{background:#fff;color:#000;padding:20px;border-radius:12px;margin-top:16px}
-@media(max-width:768px){.bnav{display:flex}body{padding-bottom:70px}.hero{padding:26px 14px 10px}.tools-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:9px}.tool{padding:13px 8px}.tool .ic{font-size:24px}.tool .nm{font-size:12px}#feedbackBtn{bottom:90px;left:15px;width:50px;height:50px;font-size:20px}.modal-actions .btn{min-width:calc(50% - 4px)}}
-@media print{body{background:#fff;color:#000}header,.bnav,.modal-actions,.modal-close,footer,#feedbackBtn,.no-print{display:none!important}.modal{position:static;background:#fff;padding:0}.modal-inner{border:none;box-shadow:none;margin:0;border-radius:0}.modal-head{background:#fff;border-bottom:2px solid #000;position:static}.result-box{background:#f5f5f5;border:2px solid #000;color:#000}.tbl th{background:#e0e0e0!important;color:#000}}
+.admin-footer{padding:16px 20px;border-top:1px solid #e2e8f0;text-align:center;font-size:12px;color:#64748b}
+.admin-footer code{background:#f1f5f9;padding:2px 6px;border-radius:4px;color:#0070f3}
+
+@media(max-width:768px){
+  .bnav{display:flex}body{padding-bottom:70px}
+  .hero{padding:30px 14px 20px}
+  .hero h1{font-size:28px}
+  .hero p{font-size:14px}
+  .stats{grid-template-columns:repeat(2,1fr);gap:10px}
+  .stat{padding:14px 8px}
+  .stat-n{font-size:20px}
+  .tools-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:9px}
+  .tool{padding:14px 8px}
+  .tool .ic{font-size:26px}
+  .tool .nm{font-size:12px}
+  #feedbackBtn{bottom:90px;left:15px;width:50px;height:50px;font-size:20px}
+  .modal-actions .btn{min-width:calc(50% - 4px)}
+  .welcome-box{padding:26px 20px}
+  .welcome-emoji{font-size:50px}
+  .welcome-box h2{font-size:20px}
+}
+@media(max-width:380px){.tools-grid{grid-template-columns:repeat(2,1fr)}}
+@media print{
+  body{background:#fff;color:#000}
+  header,.bnav,.modal-actions,.modal-close,footer,#feedbackBtn,.no-print,.trust,.hero-cta{display:none!important}
+  .modal{position:static;background:#fff;padding:0}
+  .modal-inner{border:none;box-shadow:none;margin:0;border-radius:0}
+  .modal-head{background:#fff;border-bottom:2px solid #000;position:static}
+  .result-box{background:#f5f5f5;border:2px solid #000;color:#000}
+  .tbl th{background:#e0e0e0!important;color:#000}
+}
 </style>
 </head>
 <body>
@@ -171,8 +262,8 @@ footer .contact-btn{background:linear-gradient(135deg,rgba(0,112,243,.15),rgba(1
   <div class="hdr">
     <div class="logo" onclick="goHome()">⚡ <span>Qunvero</span></div>
     <div class="hdr-right">
-      <button class="theme-btn" onclick="toggleTheme()" title="Dark/Light mode" id="themeBtn">🌙</button>
-      <button class="btn btn-g" onclick="openStatic('about')">About</button>
+      <button class="icon-btn" onclick="toggleTheme()" title="Dark/Light mode" id="themeBtn">🌙</button>
+      <button class="btn btn-g" onclick="openStatic('about')">ℹ️</button>
     </div>
   </div>
   <div class="search-wrap">
@@ -183,15 +274,27 @@ footer .contact-btn{background:linear-gradient(135deg,rgba(0,112,243,.15),rgba(1
 </header>
 
 <section class="hero">
+  <div class="hero-badge"><span class="dot"></span>Live • 200+ Tools Working</div>
   <h1>Har Kaam Ka <span>Free Tool</span> — Ek Hi Jagah 🚀</h1>
-  <p>200+ Tools • 100% Free • Instant Result • No Signup</p>
+  <p>Bijli bill se lekar invoice, PDF, photo, finance — sab kuch free me. No signup, no ads, 100% private.</p>
+  <div class="hero-cta">
+    <button class="btn btn-p" onclick="focusSearch()">🔍 Tool Dhundho</button>
+    <button class="btn btn-g" onclick="openRandomTool()">🎲 Random Tool</button>
+  </div>
 </section>
 
+<div class="trust">
+  <div class="trust-item"><span class="ic">🔒</span> 100% Private</div>
+  <div class="trust-item"><span class="ic">⚡</span> Instant Result</div>
+  <div class="trust-item"><span class="ic">💯</span> Forever Free</div>
+  <div class="trust-item"><span class="ic">📱</span> Mobile Friendly</div>
+</div>
+
 <div class="stats">
-  <div class="stat"><div class="stat-n" data-live-users>0</div><div class="stat-l">Live Users</div></div>
-  <div class="stat"><div class="stat-n">200+</div><div class="stat-l">Free Tools</div></div>
-  <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Private</div></div>
-  <div class="stat"><div class="stat-n">0₹</div><div class="stat-l">Forever</div></div>
+  <div class="stat"><div class="stat-n" data-live-users>0</div><div class="stat-l">🟢 Live Users</div></div>
+  <div class="stat"><div class="stat-n" id="toolCount">200+</div><div class="stat-l">🛠️ Free Tools</div></div>
+  <div class="stat"><div class="stat-n">0₹</div><div class="stat-l">💰 Forever</div></div>
+  <div class="stat"><div class="stat-n">100%</div><div class="stat-l">🔒 Private</div></div>
 </div>
 
 <section class="quick">
@@ -209,7 +312,7 @@ footer .contact-btn{background:linear-gradient(135deg,rgba(0,112,243,.15),rgba(1
     <a onclick="openStatic('terms')">Terms</a>
   </div>
   <button class="contact-btn" onclick="feedbackSystem.openForm()">📬 Contact / Feedback</button>
-  <p>Made with ❤️ in India • © 2025 Qunvero</p>
+  <p style="margin-top:10px">Made with ❤️ in India • © 2025 Qunvero</p>
 </footer>
 
 <nav class="bnav">
@@ -248,6 +351,23 @@ footer .contact-btn{background:linear-gradient(135deg,rgba(0,112,243,.15),rgba(1
   </div>
 </div>
 
+<div class="welcome-popup" id="welcomePopup">
+  <div class="welcome-box">
+    <span class="welcome-emoji">👋</span>
+    <h2>Qunvero Me Aapka Swagat!</h2>
+    <p>200+ free tools — bijli bill se lekar PDF, photo, finance tak. Sab kuch 100% free aur private.</p>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Website kaisi lagi? Rating do:</div>
+    <div class="welcome-rating" id="welcomeRating">
+      <span data-v="1">⭐</span><span data-v="2">⭐</span><span data-v="3">⭐</span><span data-v="4">⭐</span><span data-v="5">⭐</span>
+    </div>
+    <div class="welcome-actions">
+      <button class="btn btn-g" onclick="closeWelcome()">Baad Me</button>
+      <button class="btn btn-p" onclick="submitWelcomeRating()">⭐ Rate & Explore</button>
+    </div>
+    <button class="welcome-skip" onclick="closeWelcome()">Skip karо</button>
+  </div>
+</div>
+
 <div class="toast" id="toast">Done!</div>
 
 <script>
@@ -257,20 +377,41 @@ const FORMSPREE_ENDPOINT=atob(_e[0]);
 const ADMIN_KEY="qunvero2025";
 
 /* ============ THEME ============ */
-function toggleTheme(){const isLight=document.body.classList.toggle('light');localStorage.setItem('qn_theme',isLight?'light':'dark');document.getElementById('themeBtn').textContent=isLight?'☀️':'🌙';}
-(function initTheme(){const t=localStorage.getItem('qn_theme');if(t==='light'){document.body.classList.add('light');document.addEventListener('DOMContentLoaded',()=>{document.getElementById('themeBtn').textContent='☀️';});}})();
+function toggleTheme(){const isDark=document.body.classList.toggle('dark');localStorage.setItem('qn_theme',isDark?'dark':'light');document.getElementById('themeBtn').textContent=isDark?'☀️':'🌙';}
+(function initTheme(){const t=localStorage.getItem('qn_theme');if(t==='dark'){document.body.classList.add('dark');document.addEventListener('DOMContentLoaded',()=>{document.getElementById('themeBtn').textContent='☀️';});}})();
 
 function toast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.className='toast on'+(err?' err':'');clearTimeout(t._t);t._t=setTimeout(()=>t.className='toast',2400);}
+
+/* ============ WELCOME POPUP ============ */
+let welcomeRating=0;
+function showWelcome(){
+  if(localStorage.getItem('qn_welcomed')==='yes')return;
+  setTimeout(()=>{document.getElementById('welcomePopup').classList.add('on');},1200);
+  const stars=document.querySelectorAll('#welcomeRating span');
+  stars.forEach(s=>{s.onclick=()=>{welcomeRating=+s.dataset.v;stars.forEach(x=>{const on=+x.dataset.v<=welcomeRating;x.classList.toggle('on',on);});};});
+}
+function closeWelcome(){document.getElementById('welcomePopup').classList.remove('on');localStorage.setItem('qn_welcomed','yes');}
+function submitWelcomeRating(){
+  if(!welcomeRating){toast('⭐ Rating do pehle',1);return;}
+  const fb={id:'fb_welcome_'+Date.now(),name:'Anonymous Visitor',email:'no-email',message:`⭐ Rating: ${'⭐'.repeat(welcomeRating)} (${welcomeRating}/5) — Welcome popup se`,category:welcomeRating>=4?'praise':'general',rating:welcomeRating,time:Date.now(),page:window.location.href,screenSize:window.innerWidth+'x'+window.innerHeight,read:false};
+  try{const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');all.unshift(fb);localStorage.setItem('et_feedback',JSON.stringify(all.slice(0,500)));}catch(e){}
+  try{fetch(FORMSPREE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:`⭐ Welcome Rating: ${welcomeRating}/5`,Rating:`${'⭐'.repeat(welcomeRating)} (${welcomeRating}/5)`,Name:'Welcome Visitor',Time:new Date().toLocaleString('en-IN'),Device:window.innerWidth+'x'+window.innerHeight})});}catch(e){}
+  closeWelcome();
+  toast(`🎉 Shukriya! ${welcomeRating}★ rating ke liye`);
+  setTimeout(()=>{if(welcomeRating>=4){document.getElementById('feedbackBtn').style.animation='pulse 1s 3';}},500);
+}
 
 /* ============ LIVE USERS ============ */
 class LiveUsers{
   constructor(){this.tabId=this.getTabId();this.channel=null;this.init();}
   getTabId(){let id=sessionStorage.getItem('et_tab');if(!id){id='tab_'+Math.random().toString(36).slice(2);sessionStorage.setItem('et_tab',id);}return id;}
-  init(){this.activeUsers=JSON.parse(localStorage.getItem('et_active')||'{}');this.activeUsers[this.tabId]=Date.now();this.save();if('BroadcastChannel' in window){this.channel=new BroadcastChannel('et_live');this.channel.onmessage=(e)=>{if(e.data.type==='ping'||e.data.type==='join'){this.activeUsers[e.data.id]=Date.now();this.save();}else if(e.data.type==='leave'){delete this.activeUsers[e.data.id];this.save();}};this.announce('join');setInterval(()=>this.announce('ping'),5000);window.addEventListener('beforeunload',()=>this.announce('leave'));}setInterval(()=>{this.cleanup();this.update();},3000);this.update();}
+  init(){this.activeUsers=JSON.parse(localStorage.getItem('et_active')||'{}');this.activeUsers[this.tabId]=Date.now();this.save();
+    if('BroadcastChannel' in window){this.channel=new BroadcastChannel('et_live');this.channel.onmessage=(e)=>{if(e.data.type==='ping'||e.data.type==='join'){this.activeUsers[e.data.id]=Date.now();this.save();}else if(e.data.type==='leave'){delete this.activeUsers[e.data.id];this.save();}};this.announce('join');setInterval(()=>this.announce('ping'),5000);window.addEventListener('beforeunload',()=>this.announce('leave'));}
+    setInterval(()=>{this.cleanup();this.update();},3000);this.update();}
   announce(t){if(this.channel)this.channel.postMessage({type:t,id:this.tabId});}
   cleanup(){const now=Date.now();const fresh={};Object.keys(this.activeUsers).forEach(id=>{if(now-this.activeUsers[id]<30000)fresh[id]=this.activeUsers[id];});this.activeUsers=fresh;this.save();}
   save(){localStorage.setItem('et_active',JSON.stringify(this.activeUsers));}
-  getCount(){this.cleanup();const real=Object.keys(this.activeUsers).length;const hour=new Date().getHours();let factor=(hour>=9&&hour<=22)?1.5:(hour>=0&&hour<=6)?0.3:1;const base=Math.floor(8*factor)+Math.floor(Math.random()*5);return base+real;}
+  getCount(){this.cleanup();const real=Object.keys(this.activeUsers).length;const hour=new Date().getHours();let base=(hour>=9&&hour<=22)?3:(hour>=0&&hour<=6)?1:2;return base+real;}
   update(){document.querySelectorAll('[data-live-users]').forEach(el=>{el.textContent=this.getCount().toLocaleString('en-IN');});}
 }
 const liveUsers=new LiveUsers();
@@ -280,9 +421,9 @@ const feedbackSystem={
   currentRating:0,
   openForm(){if(document.getElementById('feedbackModal'))return;this.currentRating=0;
     const modal=document.createElement('div');modal.id='feedbackModal';
-    modal.innerHTML=`<div class="fb-content" onclick="event.stopPropagation()"><div class="fb-header"><h3>💬 Send Feedback</h3><button class="fb-close" onclick="feedbackSystem.closeForm()">✕</button></div><div class="fb-body"><p style="font-size:13px;color:#8a8a9a;margin-bottom:8px">Aapki suggestion, problem, ya idea — sab welcome hai.</p><label>Name (optional)</label><input type="text" id="fbName" placeholder="Aapka naam"><label>Email (optional)</label><input type="email" id="fbEmail" placeholder="aap@example.com"><label>Rating</label><div id="fbStars" style="display:flex;gap:6px;font-size:26px;cursor:pointer;user-select:none">${[1,2,3,4,5].map(v=>`<span data-v="${v}" style="filter:grayscale(1) brightness(.5);transition:.2s">⭐</span>`).join('')}</div><label>Category</label><select id="fbCat"><option value="general">💬 General</option><option value="bug">🐛 Bug</option><option value="suggestion">💡 Suggestion</option><option value="problem">⚠️ Problem</option><option value="praise">🎉 Praise</option></select><label>Message *</label><textarea id="fbMsg" rows="5" placeholder="Aapka message..."></textarea></div><div class="fb-footer"><button class="fb-cancel" onclick="feedbackSystem.closeForm()">Cancel</button><button class="fb-submit" onclick="feedbackSystem.submit()">📤 Submit</button></div></div>`;
+    modal.innerHTML=`<div class="fb-content" onclick="event.stopPropagation()"><div class="fb-header"><h3>💬 Send Feedback</h3><button class="fb-close" onclick="feedbackSystem.closeForm()">✕</button></div><div class="fb-body"><p style="font-size:13px;color:var(--muted);margin-bottom:8px">Aapki suggestion, problem, ya idea — sab welcome hai. Message seedha admin tak pahunchega.</p><label>Name (optional)</label><input type="text" id="fbName" placeholder="Aapka naam"><label>Email (optional)</label><input type="email" id="fbEmail" placeholder="aap@example.com"><label>Rating</label><div id="fbStars" style="display:flex;gap:6px;font-size:26px;cursor:pointer;user-select:none">${[1,2,3,4,5].map(v=>`<span data-v="${v}" style="filter:grayscale(1) brightness(.7);transition:.2s">⭐</span>`).join('')}</div><label>Category</label><select id="fbCat"><option value="general">💬 General</option><option value="bug">🐛 Bug</option><option value="suggestion">💡 Suggestion</option><option value="problem">⚠️ Problem</option><option value="praise">🎉 Praise</option></select><label>Message *</label><textarea id="fbMsg" rows="5" placeholder="Aapka message..."></textarea></div><div class="fb-footer"><button class="fb-cancel" onclick="feedbackSystem.closeForm()">Cancel</button><button class="fb-submit" onclick="feedbackSystem.submit()">📤 Submit</button></div></div>`;
     document.body.appendChild(modal);modal.onclick=(e)=>{if(e.target===modal)this.closeForm();};
-    const stars=modal.querySelectorAll('#fbStars span');stars.forEach(s=>{s.onclick=()=>{this.currentRating=+s.dataset.v;stars.forEach(x=>{const on=+x.dataset.v<=this.currentRating;x.style.filter=on?'none':'grayscale(1) brightness(.5)';});};});},
+    const stars=modal.querySelectorAll('#fbStars span');stars.forEach(s=>{s.onclick=()=>{this.currentRating=+s.dataset.v;stars.forEach(x=>{const on=+x.dataset.v<=this.currentRating;x.style.filter=on?'none':'grayscale(1) brightness(.7)';});};});},
   closeForm(){const m=document.getElementById('feedbackModal');if(m)m.remove();},
   async submit(){const name=document.getElementById('fbName').value.trim();const email=document.getElementById('fbEmail').value.trim();const msg=document.getElementById('fbMsg').value.trim();const cat=document.getElementById('fbCat').value;const rating=this.currentRating;
     if(!msg||msg.length<3){toast('❌ Message likho (min 3 chars)',1);return;}
@@ -292,13 +433,13 @@ const feedbackSystem={
     try{await fetch(FORMSPREE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:`💬 Qunvero Feedback: ${cat.toUpperCase()}`,Name:fb.name,Email:fb.email,Rating:rating?'⭐'.repeat(rating):'No rating',Category:cat,Message:msg,Page:fb.page,Time:new Date().toLocaleString('en-IN'),Device:fb.screenSize,ID:fb.id})});}catch(e){}
     this.closeForm();this.showThanks();},
   saveLocal(fb){const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');all.unshift(fb);localStorage.setItem('et_feedback',JSON.stringify(all.slice(0,500)));},
-  showThanks(){const t=document.createElement('div');t.className='thank-you';t.innerHTML=`<div class="ty-content"><div style="font-size:60px;margin-bottom:15px">✅</div><h3 style="color:#10b981;margin-bottom:10px;font-size:22px">Thank You!</h3><p style="color:#8a8a9a;font-size:14px">Aapka feedback mil gaya.</p><button onclick="this.parentElement.parentElement.remove()" style="margin-top:20px;padding:12px 30px;background:linear-gradient(135deg,#0070f3,#7928ca);color:white;border:none;border-radius:25px;cursor:pointer;font-weight:600">OK</button></div>`;document.body.appendChild(t);setTimeout(()=>t.remove(),5000);},
+  showThanks(){const t=document.createElement('div');t.className='thank-you';t.innerHTML=`<div class="ty-content"><div style="font-size:60px;margin-bottom:15px">✅</div><h3 style="color:#10b981;margin-bottom:10px;font-size:22px">Thank You!</h3><p style="color:var(--muted);font-size:14px">Aapka feedback mil gaya.</p><button onclick="this.parentElement.parentElement.remove()" style="margin-top:20px;padding:12px 30px;background:linear-gradient(135deg,#0070f3,#7928ca);color:white;border:none;border-radius:25px;cursor:pointer;font-weight:600">OK</button></div>`;document.body.appendChild(t);setTimeout(()=>t.remove(),5000);},
   openAdmin(){if(document.getElementById('adminPanel'))return;const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');const unread=all.filter(f=>!f.read).length;const avg=all.filter(f=>f.rating).length?(all.reduce((s,f)=>s+(f.rating||0),0)/all.filter(f=>f.rating).length).toFixed(1):'0';
     const panel=document.createElement('div');panel.id='adminPanel';
     panel.innerHTML=`<div class="admin-inner"><div class="admin-header"><div><h2>👑 Admin Panel — Qunvero</h2><p style="font-size:12px;opacity:.9;margin-top:4px">${new Date().toLocaleString('en-IN')}</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="admin-btn" onclick="feedbackSystem.exportCSV()">📥 Export</button><button class="admin-btn danger" onclick="feedbackSystem.closeAdmin()">✕ Close</button></div></div><div class="admin-stats"><div class="admin-stat"><div class="admin-stat-val" style="color:#10b981" data-live-users>0</div><div class="admin-stat-lbl">🟢 Live Users</div></div><div class="admin-stat"><div class="admin-stat-val" style="color:#0070f3">${all.length}</div><div class="admin-stat-lbl">📬 Total</div></div><div class="admin-stat"><div class="admin-stat-val" style="color:#ef4444">${unread}</div><div class="admin-stat-lbl">🔴 Unread</div></div><div class="admin-stat"><div class="admin-stat-val" style="color:#f59e0b">${avg}★</div><div class="admin-stat-lbl">⭐ Avg</div></div></div><div class="admin-tabs"><button class="admin-tab on" onclick="feedbackSystem.switchTab(this,'all')">📋 All (${all.length})</button><button class="admin-tab" onclick="feedbackSystem.switchTab(this,'unread')">🔴 Unread (${unread})</button><button class="admin-tab" onclick="feedbackSystem.switchTab(this,'bug')">🐛 Bugs</button><button class="admin-tab" onclick="feedbackSystem.switchTab(this,'suggestion')">💡 Ideas</button><button class="admin-tab" onclick="feedbackSystem.switchTab(this,'praise')">🎉 Praise</button></div><div class="admin-list" id="adminList"></div><div class="admin-footer">💡 Admin URL: <code>?admin=${ADMIN_KEY}</code></div></div>`;
     document.body.appendChild(panel);document.body.style.overflow='hidden';this.currentTab='all';this.renderList();liveUsers.update();},
   switchTab(btn,tab){document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');this.currentTab=tab;this.renderList();},
-  renderList(){const list=document.getElementById('adminList');if(!list)return;const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');let filtered=all;if(this.currentTab==='unread')filtered=all.filter(f=>!f.read);else if(this.currentTab!=='all')filtered=all.filter(f=>f.category===this.currentTab);if(!filtered.length){list.innerHTML=`<div style="text-align:center;padding:60px 20px;color:#6b7280"><div style="font-size:50px;margin-bottom:15px">📭</div><p>Koi feedback nahi hai</p></div>`;return;}const ce={general:'💬',bug:'🐛',suggestion:'💡',problem:'⚠️',praise:'🎉'};list.innerHTML=filtered.map(f=>`<div class="admin-fb ${f.read?'':'unread'}"><div class="admin-fb-head"><div><span class="admin-fb-cat">${ce[f.category]||'💬'} ${f.category}</span>${!f.read?'<span class="admin-fb-new">NEW</span>':''}${f.rating?'<span style="color:#f59e0b;margin-left:8px">'+'⭐'.repeat(f.rating)+'</span>':''}</div><div style="font-size:11px;color:#6b7280">${new Date(f.time).toLocaleString('en-IN')}</div></div><div class="admin-fb-user"><b>👤 ${f.name}</b>${f.email!=='no-email'?` • 📧 ${f.email}`:''}</div><div class="admin-fb-msg">${this.esc(f.message).replace(/\n/g,'<br>')}</div><div class="admin-fb-meta"><span>🌐 ${f.screenSize}</span><span>🆔 ${f.id.slice(-6)}</span></div><div class="admin-fb-actions">${!f.read?`<button onclick="feedbackSystem.markRead('${f.id}')">✅ Mark Read</button>`:''}${f.email!=='no-email'?`<button onclick="feedbackSystem.reply('${f.id}')">📧 Reply</button>`:''}<button onclick="feedbackSystem.copyFb('${f.id}')">📋 Copy</button><button class="danger" onclick="feedbackSystem.del('${f.id}')">🗑️ Delete</button></div></div>`).join('');},
+  renderList(){const list=document.getElementById('adminList');if(!list)return;const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');let filtered=all;if(this.currentTab==='unread')filtered=all.filter(f=>!f.read);else if(this.currentTab!=='all')filtered=all.filter(f=>f.category===this.currentTab);if(!filtered.length){list.innerHTML=`<div style="text-align:center;padding:60px 20px;color:#64748b"><div style="font-size:50px;margin-bottom:15px">📭</div><p>Koi feedback nahi hai</p></div>`;return;}const ce={general:'💬',bug:'🐛',suggestion:'💡',problem:'⚠️',praise:'🎉'};list.innerHTML=filtered.map(f=>`<div class="admin-fb ${f.read?'':'unread'}"><div class="admin-fb-head"><div><span class="admin-fb-cat">${ce[f.category]||'💬'} ${f.category}</span>${!f.read?'<span class="admin-fb-new">NEW</span>':''}${f.rating?'<span style="color:#f59e0b;margin-left:8px">'+'⭐'.repeat(f.rating)+'</span>':''}</div><div style="font-size:11px;color:#64748b">${new Date(f.time).toLocaleString('en-IN')}</div></div><div class="admin-fb-user"><b>👤 ${f.name}</b>${f.email!=='no-email'?` • 📧 ${f.email}`:''}</div><div class="admin-fb-msg">${this.esc(f.message).replace(/\n/g,'<br>')}</div><div class="admin-fb-meta"><span>🌐 ${f.screenSize}</span><span>🆔 ${f.id.slice(-6)}</span></div><div class="admin-fb-actions">${!f.read?`<button onclick="feedbackSystem.markRead('${f.id}')">✅ Mark Read</button>`:''}${f.email!=='no-email'?`<button onclick="feedbackSystem.reply('${f.id}')">📧 Reply</button>`:''}<button onclick="feedbackSystem.copyFb('${f.id}')">📋 Copy</button><button class="danger" onclick="feedbackSystem.del('${f.id}')">🗑️ Delete</button></div></div>`).join('');},
   esc(t){const d=document.createElement('div');d.textContent=t;return d.innerHTML;},
   markRead(id){const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');const f=all.find(x=>x.id===id);if(f){f.read=true;localStorage.setItem('et_feedback',JSON.stringify(all));}this.refreshAdmin();},
   reply(id){const all=JSON.parse(localStorage.getItem('et_feedback')||'[]');const f=all.find(x=>x.id===id);if(!f)return;const s=encodeURIComponent('Re: Aapka feedback - Qunvero');const b=encodeURIComponent(`Namaste ${f.name},\n\nAapke feedback ke liye shukriya!\n\nAapka message:\n"${f.message}"\n\nRegards,\nQunvero Team`);window.open(`mailto:${f.email}?subject=${s}&body=${b}`);},
@@ -310,7 +451,7 @@ const feedbackSystem={
   checkAdminAccess(){const params=new URLSearchParams(window.location.search);if(params.get('admin')===ADMIN_KEY){setTimeout(()=>this.openAdmin(),500);}}
 };
 
-/* ============ TOOLS ============ */
+/* ============ TOOLS DATABASE ============ */
 const CATEGORIES=[
   {id:'elec',name:'Bijli / Electricity',emo:'⚡'},
   {id:'biz',name:'Business / Shop',emo:'🏪'},
@@ -343,52 +484,52 @@ function setResult(html,text){const rb=document.getElementById('resultBox');if(r
 const TOOLS=[];
 let currentToolId='';
 
-/* ELECTRICITY */
+/* ---------- ELECTRICITY ---------- */
 TOOLS.push(
 {id:'elec-bill',n:'Electricity Bill Calculator',i:'💡',c:'elec',
  render:()=>`${F.num('units','Units Consumed (kWh)','100')}${F.num('rate','Rate per Unit (₹)','7')}${F.num('fixed','Fixed Charges (₹)','50')}${F.num('tax','Tax (%)','5')}<div id="resultBox"></div>`,
- calc(){const u=+val('units'),r=+val('rate'),f=+val('fixed'),t=+val('tax');const e=u*r,s=e+f,tx=s*t/100,tot=s+tx;setResult(`<div class="result-box"><h4>💡 Bill Breakdown</h4><div class="result-row"><span class="lb">Units</span><span class="vl">${u} kWh</span></div><div class="result-row"><span class="lb">Energy Charge (${u} × ₹${r})</span><span class="vl">₹${fmt(e)}</span></div><div class="result-row"><span class="lb">Fixed Charge</span><span class="vl">₹${fmt(f)}</span></div><div class="result-row"><span class="lb">Tax (${t}%)</span><span class="vl">₹${fmt(tx)}</span></div><div class="result-row total"><span class="lb">Total Bill</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`Electricity Bill: ₹${fmt(tot)} (${u} units × ₹${r})`);}},
+ calc(){const u=+val('units'),r=+val('rate'),f=+val('fixed'),t=+val('tax');const e=u*r,s=e+f,tx=s*t/100,tot=s+tx;setResult(`<div class="result-box"><h4>💡 Bill Breakdown</h4><div class="result-row"><span class="lb">Units</span><span class="vl">${u} kWh</span></div><div class="result-row"><span class="lb">Energy Charge (${u} × ₹${r})</span><span class="vl">₹${fmt(e)}</span></div><div class="result-row"><span class="lb">Fixed Charge</span><span class="vl">₹${fmt(f)}</span></div><div class="result-row"><span class="lb">Tax (${t}%)</span><span class="vl">₹${fmt(tx)}</span></div><div class="result-row total"><span class="lb">Total Bill</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`Electricity Bill: ₹${fmt(tot)} (${u} units × ₹${r} + ₹${fmt(f)} fixed + ${t}% tax)`);}},
 {id:'elec-solar',n:'Solar Panel Calculator',i:'☀️',c:'elec',
  render:()=>`${F.num('cons','Monthly Units (kWh)','300')}${F.num('sun','Sun Hours/Day','5')}${F.num('panel','Panel Watt (W)','540')}<div id="resultBox"></div>`,
- calc(){const c=+val('cons'),s=+val('sun'),p=+val('panel');const daily=c/30,kw=daily/s,panels=Math.ceil(kw*1000/p);const cost=panels*p*30,save=c*8*12;setResult(`<div class="result-box"><h4>☀️ Solar Estimate</h4><div class="result-row"><span class="lb">Panels Needed</span><span class="vl">${panels} × ${p}W</span></div><div class="result-row"><span class="lb">System Size</span><span class="vl">${fmt(kw,2)} kW</span></div><div class="result-row"><span class="lb">Approx Cost</span><span class="vl">₹${fmt(cost,0)}</span></div><div class="result-row total"><span class="lb">Yearly Saving</span><span class="vl">₹${fmt(save,0)}</span></div></div>`,`Solar: ${panels} panels of ${p}W, Yearly saving ₹${fmt(save,0)}`);}},
+ calc(){const c=+val('cons'),s=+val('sun'),p=+val('panel');const daily=c/30,kw=daily/s,panels=Math.ceil(kw*1000/p);const cost=panels*p*30,save=c*8*12;setResult(`<div class="result-box"><h4>☀️ Solar Estimate</h4><div class="result-row"><span class="lb">Panels Needed</span><span class="vl">${panels} × ${p}W</span></div><div class="result-row"><span class="lb">System Size</span><span class="vl">${fmt(kw,2)} kW</span></div><div class="result-row"><span class="lb">Approx Cost</span><span class="vl">₹${fmt(cost,0)}</span></div><div class="result-row total"><span class="lb">Yearly Saving</span><span class="vl">₹${fmt(save,0)}</span></div></div>`,`Solar: ${panels} panels of ${p}W, System ${fmt(kw,2)}kW, Yearly saving ₹${fmt(save,0)}`);}},
 {id:'elec-inverter',n:'Inverter Backup Time',i:'🔋',c:'elec',
  render:()=>`${F.num('bat','Battery Ah','150')}${F.num('volt','Battery Volt','12')}${F.num('load','Load (Watt)','400')}${F.num('eff','Efficiency (%)','85')}<div id="resultBox"></div>`,
  calc(){const ah=+val('bat'),v=+val('volt'),l=+val('load'),e=+val('eff');const wh=ah*v*(e/100),h=wh/l;setResult(`<div class="result-box"><h4>🔋 Backup Time</h4><div class="result-row"><span class="lb">Total Energy</span><span class="vl">${fmt(wh,0)} Wh</span></div><div class="result-row total"><span class="lb">Backup Time</span><span class="vl">${fmt(h,1)} hours</span></div></div>`,`Backup: ${fmt(h,1)} hours at ${l}W load`);}},
 {id:'elec-ac',n:'AC Running Cost',i:'❄️',c:'elec',
  render:()=>`${F.num('watt','AC Watt','1500')}${F.num('hours','Hours/Day','8')}${F.num('rate','Rate/Unit (₹)','7')}${F.num('days','Days/Month','30')}<div id="resultBox"></div>`,
- calc(){const w=+val('watt'),h=+val('hours'),r=+val('rate'),d=+val('days');const kwh=w*h*d/1000,cost=kwh*r;setResult(`<div class="result-box"><h4>❄️ AC Cost</h4><div class="result-row"><span class="lb">Units/Month</span><span class="vl">${fmt(kwh,1)} kWh</span></div><div class="result-row total"><span class="lb">Monthly Cost</span><span class="vl">₹${fmt(cost,0)}</span></div></div>`,`AC Monthly: ₹${fmt(cost,0)}`);}},
+ calc(){const w=+val('watt'),h=+val('hours'),r=+val('rate'),d=+val('days');const kwh=w*h*d/1000,cost=kwh*r;setResult(`<div class="result-box"><h4>❄️ AC Cost</h4><div class="result-row"><span class="lb">Units/Month</span><span class="vl">${fmt(kwh,1)} kWh</span></div><div class="result-row total"><span class="lb">Monthly Cost</span><span class="vl">₹${fmt(cost,0)}</span></div></div>`,`AC Monthly: ₹${fmt(cost,0)} (${fmt(kwh,1)} units)`);}},
 {id:'elec-appliance',n:'Appliance Power Cost',i:'🔌',c:'elec',
  render:()=>`${F.num('watt','Appliance Watt','100')}${F.num('hours','Hours/Day','5')}${F.num('rate','Rate/Unit (₹)','7')}<div id="resultBox"></div>`,
- calc(){const w=+val('watt'),h=+val('hours'),r=+val('rate');const daily=w*h/1000*r,monthly=daily*30,yearly=monthly*12;setResult(`<div class="result-box"><h4>🔌 Power Cost</h4><div class="result-row"><span class="lb">Daily</span><span class="vl">₹${fmt(daily)}</span></div><div class="result-row"><span class="lb">Monthly</span><span class="vl">₹${fmt(monthly)}</span></div><div class="result-row total"><span class="lb">Yearly</span><span class="vl">₹${fmt(yearly)}</span></div></div>`,`Yearly: ₹${fmt(yearly)}`);}},
+ calc(){const w=+val('watt'),h=+val('hours'),r=+val('rate');const daily=w*h/1000*r,monthly=daily*30,yearly=monthly*12;setResult(`<div class="result-box"><h4>🔌 Power Cost</h4><div class="result-row"><span class="lb">Daily</span><span class="vl">₹${fmt(daily)}</span></div><div class="result-row"><span class="lb">Monthly</span><span class="vl">₹${fmt(monthly)}</span></div><div class="result-row total"><span class="lb">Yearly</span><span class="vl">₹${fmt(yearly)}</span></div></div>`,`Daily ₹${fmt(daily)}, Monthly ₹${fmt(monthly)}, Yearly ₹${fmt(yearly)}`);}},
 {id:'elec-led',n:'LED Savings Calculator',i:'💡',c:'elec',
  render:()=>`${F.num('bulb','Bulbs','10')}${F.num('old','Old Watt','60')}${F.num('new','New LED Watt','9')}${F.num('hours','Hours/Day','6')}${F.num('rate','Rate/Unit (₹)','7')}<div id="resultBox"></div>`,
- calc(){const n=+val('bulb'),o=+val('old'),nw=+val('new'),h=+val('hours'),r=+val('rate');const oldCost=n*o*h*30/1000*r,newCost=n*nw*h*30/1000*r;setResult(`<div class="result-box"><h4>💡 LED Savings</h4><div class="result-row"><span class="lb">Old Monthly</span><span class="vl">₹${fmt(oldCost,0)}</span></div><div class="result-row"><span class="lb">LED Monthly</span><span class="vl">₹${fmt(newCost,0)}</span></div><div class="result-row total"><span class="lb">Monthly Saving</span><span class="vl">₹${fmt(oldCost-newCost,0)}</span></div></div>`,`Save ₹${fmt((oldCost-newCost)*12,0)}/year`);}},
+ calc(){const n=+val('bulb'),o=+val('old'),nw=+val('new'),h=+val('hours'),r=+val('rate');const oldCost=n*o*h*30/1000*r,newCost=n*nw*h*30/1000*r;setResult(`<div class="result-box"><h4>💡 LED Savings</h4><div class="result-row"><span class="lb">Old Monthly</span><span class="vl">₹${fmt(oldCost,0)}</span></div><div class="result-row"><span class="lb">LED Monthly</span><span class="vl">₹${fmt(newCost,0)}</span></div><div class="result-row total"><span class="lb">Monthly Saving</span><span class="vl">₹${fmt(oldCost-newCost,0)}</span></div></div>`,`Monthly saving ₹${fmt(oldCost-newCost,0)}, Yearly ₹${fmt((oldCost-newCost)*12,0)}`);}},
 );
 
-/* BUSINESS */
+/* ---------- BUSINESS ---------- */
 TOOLS.push(
 {id:'biz-invoice',n:'Invoice Generator',i:'🧾',c:'biz',
  render:()=>`<div class="form-grid">${F.txt('biz','Business','My Shop')}${F.txt('gst','GSTIN','')}${F.txt('cust','Customer','')}${F.txt('inv','Invoice No','INV-001')}${F.date('date','Date')}</div><table class="tbl"><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amt</th><th></th></tr></thead><tbody id="invBody"></tbody></table><button class="btn btn-g btn-sm" style="margin-top:10px" onclick="addInvRow()">+ Add Item</button><div id="resultBox"></div>`,
  init(){document.getElementById('date').valueAsDate=new Date();addInvRow();},
- calc(){let sub=0;document.querySelectorAll('#invBody tr').forEach(r=>{const q=+r.querySelector('.q').value||0,rt=+r.querySelector('.r').value||0,a=q*rt;r.querySelector('.a').textContent='₹'+fmt(a);sub+=a;});const g=sub*0.18,tot=sub+g;setResult(`<div class="result-box"><h4>🧾 Invoice Total</h4><div class="result-row"><span class="lb">Subtotal</span><span class="vl">₹${fmt(sub)}</span></div><div class="result-row"><span class="lb">GST 18%</span><span class="vl">₹${fmt(g)}</span></div><div class="result-row total"><span class="lb">Grand Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`Invoice Total: ₹${fmt(tot)} (Subtotal ₹${fmt(sub)} + GST ₹${fmt(g)})`);}},
+ calc(){let sub=0;document.querySelectorAll('#invBody tr').forEach(r=>{const q=+r.querySelector('.q').value||0,rt=+r.querySelector('.r').value||0,a=q*rt;r.querySelector('.a').textContent='₹'+fmt(a);sub+=a;});const g=sub*0.18,tot=sub+g;setResult(`<div class="result-box"><h4>🧾 Invoice Total</h4><div class="result-row"><span class="lb">Business</span><span class="vl">${val('biz')||'-'}</span></div><div class="result-row"><span class="lb">Customer</span><span class="vl">${val('cust')||'-'}</span></div><div class="result-row"><span class="lb">Subtotal</span><span class="vl">₹${fmt(sub)}</span></div><div class="result-row"><span class="lb">GST 18%</span><span class="vl">₹${fmt(g)}</span></div><div class="result-row total"><span class="lb">Grand Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`Invoice ${val('inv')} Total: ₹${fmt(tot)} (Subtotal ₹${fmt(sub)} + GST ₹${fmt(g)})`);}},
 {id:'biz-gst',n:'GST Calculator',i:'💰',c:'biz',
  render:()=>`${F.num('amt','Amount (₹)','1000')}${F.sel('rate','GST Rate',[['5','5%'],['12','12%'],['18','18%'],['28','28%']])}${F.sel('mode','Type',[['add','Add GST'],['rem','Remove GST']])}<div id="resultBox"></div>`,
- calc(){const a=+val('amt'),r=+val('rate'),m=val('mode');let base,gst,tot;if(m==='add'){base=a;gst=a*r/100;tot=a+gst;}else{base=a*100/(100+r);gst=a-base;tot=a;}setResult(`<div class="result-box"><h4>💰 GST Breakdown</h4><div class="result-row"><span class="lb">Base Amount</span><span class="vl">₹${fmt(base)}</span></div><div class="result-row"><span class="lb">GST ${r}%</span><span class="vl">₹${fmt(gst)}</span></div><div class="result-row"><span class="lb">CGST (${r/2}%)</span><span class="vl">₹${fmt(gst/2)}</span></div><div class="result-row"><span class="lb">SGST (${r/2}%)</span><span class="vl">₹${fmt(gst/2)}</span></div><div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`GST Total: ₹${fmt(tot)}, GST ₹${fmt(gst)}`);}},
+ calc(){const a=+val('amt'),r=+val('rate'),m=val('mode');let base,gst,tot;if(m==='add'){base=a;gst=a*r/100;tot=a+gst;}else{base=a*100/(100+r);gst=a-base;tot=a;}setResult(`<div class="result-box"><h4>💰 GST Breakdown</h4><div class="result-row"><span class="lb">Base Amount</span><span class="vl">₹${fmt(base)}</span></div><div class="result-row"><span class="lb">GST ${r}%</span><span class="vl">₹${fmt(gst)}</span></div><div class="result-row"><span class="lb">CGST (${r/2}%)</span><span class="vl">₹${fmt(gst/2)}</span></div><div class="result-row"><span class="lb">SGST (${r/2}%)</span><span class="vl">₹${fmt(gst/2)}</span></div><div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`GST ${r}%: Base ₹${fmt(base)}, GST ₹${fmt(gst)}, Total ₹${fmt(tot)}`);}},
 {id:'biz-emi',n:'EMI Calculator',i:'🏦',c:'biz',
  render:()=>`${F.num('p','Loan Amount (₹)','100000')}${F.num('r','Annual Rate (%)','10')}${F.num('n','Years','5')}<div id="resultBox"></div>`,
- calc(){const P=+val('p'),R=+val('r')/12/100,N=+val('n')*12;const emi=P*R*Math.pow(1+R,N)/(Math.pow(1+R,N)-1);const tot=emi*N,int=tot-P;setResult(`<div class="result-box"><h4>🏦 EMI Details</h4><div class="result-row"><span class="lb">Loan Amount</span><span class="vl">₹${fmt(P,0)}</span></div><div class="result-row"><span class="lb">Monthly EMI</span><span class="vl">₹${fmt(emi,0)}</span></div><div class="result-row"><span class="lb">Total Interest</span><span class="vl">₹${fmt(int,0)}</span></div><div class="result-row total"><span class="lb">Total Payment</span><span class="vl">₹${fmt(tot,0)}</span></div></div>`,`EMI: ₹${fmt(emi,0)}/month, Total ₹${fmt(tot,0)}`);}},
+ calc(){const P=+val('p'),R=+val('r')/12/100,N=+val('n')*12;const emi=P*R*Math.pow(1+R,N)/(Math.pow(1+R,N)-1);const tot=emi*N,int=tot-P;setResult(`<div class="result-box"><h4>🏦 EMI Details</h4><div class="result-row"><span class="lb">Loan Amount</span><span class="vl">₹${fmt(P,0)}</span></div><div class="result-row"><span class="lb">Rate/Years</span><span class="vl">${val('r')}% / ${val('n')}y</span></div><div class="result-row"><span class="lb">Monthly EMI</span><span class="vl">₹${fmt(emi,0)}</span></div><div class="result-row"><span class="lb">Total Interest</span><span class="vl">₹${fmt(int,0)}</span></div><div class="result-row total"><span class="lb">Total Payment</span><span class="vl">₹${fmt(tot,0)}</span></div></div>`,`EMI ₹${fmt(emi,0)}/month, Total ₹${fmt(tot,0)}, Interest ₹${fmt(int,0)}`);}},
 {id:'biz-salary',n:'Salary Slip Maker',i:'📄',c:'biz',
  render:()=>`<div class="form-grid">${F.txt('cn','Company','')}${F.txt('en','Employee','')}${F.num('basic','Basic (₹)','30000')}${F.num('hra','HRA (₹)','12000')}${F.num('da','DA (₹)','5000')}${F.num('ded','Deductions (₹)','3600')}</div><div id="resultBox"></div>`,
- calc(){const b=+val('basic'),h=+val('hra'),d=+val('da'),dd=+val('ded');const gross=b+h+d,net=gross-dd;setResult(`<div class="result-box"><h4>📄 Salary Slip</h4><div class="result-row"><span class="lb">Basic</span><span class="vl">₹${fmt(b,0)}</span></div><div class="result-row"><span class="lb">HRA</span><span class="vl">₹${fmt(h,0)}</span></div><div class="result-row"><span class="lb">DA</span><span class="vl">₹${fmt(d,0)}</span></div><div class="result-row"><span class="lb">Gross Salary</span><span class="vl">₹${fmt(gross,0)}</span></div><div class="result-row"><span class="lb">Deductions</span><span class="vl">-₹${fmt(dd,0)}</span></div><div class="result-row total"><span class="lb">Net Salary</span><span class="vl">₹${fmt(net,0)}</span></div></div>`,`Net Salary: ₹${fmt(net,0)} (Gross ₹${fmt(gross,0)} - Ded ₹${fmt(dd,0)})`);}},
+ calc(){const b=+val('basic'),h=+val('hra'),d=+val('da'),dd=+val('ded');const gross=b+h+d,net=gross-dd;setResult(`<div class="result-box"><h4>📄 Salary Slip</h4><div class="result-row"><span class="lb">Employee</span><span class="vl">${val('en')||'-'}</span></div><div class="result-row"><span class="lb">Basic</span><span class="vl">₹${fmt(b,0)}</span></div><div class="result-row"><span class="lb">HRA</span><span class="vl">₹${fmt(h,0)}</span></div><div class="result-row"><span class="lb">DA</span><span class="vl">₹${fmt(d,0)}</span></div><div class="result-row"><span class="lb">Gross Salary</span><span class="vl">₹${fmt(gross,0)}</span></div><div class="result-row"><span class="lb">Deductions</span><span class="vl">-₹${fmt(dd,0)}</span></div><div class="result-row total"><span class="lb">Net Salary</span><span class="vl">₹${fmt(net,0)}</span></div></div>`,`Net Salary: ₹${fmt(net,0)} (Gross ₹${fmt(gross,0)} - Deductions ₹${fmt(dd,0)})`);}},
 {id:'biz-profit',n:'Profit Margin Calculator',i:'📈',c:'biz',
  render:()=>`${F.num('cost','Cost Price (₹)','100')}${F.num('sell','Selling Price (₹)','150')}<div id="resultBox"></div>`,
- calc(){const c=+val('cost'),s=+val('sell');const p=s-c,m=c?(p/c*100):0,mk=s?(p/s*100):0;setResult(`<div class="result-box"><h4>📈 Profit</h4><div class="result-row"><span class="lb">Cost Price</span><span class="vl">₹${fmt(c)}</span></div><div class="result-row"><span class="lb">Selling Price</span><span class="vl">₹${fmt(s)}</span></div><div class="result-row"><span class="lb">Profit</span><span class="vl">₹${fmt(p)}</span></div><div class="result-row"><span class="lb">Markup %</span><span class="vl">${fmt(m)}%</span></div><div class="result-row total"><span class="lb">Margin %</span><span class="vl">${fmt(mk)}%</span></div></div>`,`Profit: ₹${fmt(p)}, Margin: ${fmt(mk)}%`);}},
+ calc(){const c=+val('cost'),s=+val('sell');const p=s-c,m=c?(p/c*100):0,mk=s?(p/s*100):0;setResult(`<div class="result-box"><h4>📈 Profit Analysis</h4><div class="result-row"><span class="lb">Cost Price</span><span class="vl">₹${fmt(c)}</span></div><div class="result-row"><span class="lb">Selling Price</span><span class="vl">₹${fmt(s)}</span></div><div class="result-row"><span class="lb">Profit</span><span class="vl">₹${fmt(p)}</span></div><div class="result-row"><span class="lb">Markup %</span><span class="vl">${fmt(m)}%</span></div><div class="result-row total"><span class="lb">Margin %</span><span class="vl">${fmt(mk)}%</span></div></div>`,`Profit ₹${fmt(p)}, Markup ${fmt(m)}%, Margin ${fmt(mk)}%`);}},
 {id:'biz-discount',n:'Discount Calculator',i:'🏷️',c:'biz',
  render:()=>`${F.num('mrp','MRP (₹)','1000')}${F.num('disc','Discount (%)','20')}<div id="resultBox"></div>`,
- calc(){const m=+val('mrp'),d=+val('disc');const save=m*d/100,fp=m-save;setResult(`<div class="result-box"><h4>🏷️ Discount</h4><div class="result-row"><span class="lb">MRP</span><span class="vl">₹${fmt(m)}</span></div><div class="result-row"><span class="lb">Discount ${d}%</span><span class="vl">-₹${fmt(save)}</span></div><div class="result-row total"><span class="lb">Final Price</span><span class="vl">₹${fmt(fp)}</span></div></div>`,`Final Price: ₹${fmt(fp)} (Save ₹${fmt(save)})`);}},
+ calc(){const m=+val('mrp'),d=+val('disc');const save=m*d/100,fp=m-save;setResult(`<div class="result-box"><h4>🏷️ Discount</h4><div class="result-row"><span class="lb">MRP</span><span class="vl">₹${fmt(m)}</span></div><div class="result-row"><span class="lb">Discount ${d}%</span><span class="vl">-₹${fmt(save)}</span></div><div class="result-row total"><span class="lb">Final Price</span><span class="vl">₹${fmt(fp)}</span></div></div>`,`Final Price ₹${fmt(fp)} (Saved ₹${fmt(save)})`);}},
 );
 
-/* PDF */
+/* ---------- PDF ---------- */
 TOOLS.push(
 {id:'pdf-merge',n:'Merge PDF Files',i:'📎',c:'pdf',
  render:()=>`<div><label>Select 2+ PDF files</label><input type="file" id="pdfs" accept="application/pdf" multiple></div><button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runPdfMerge()">📎 Merge PDFs</button><div id="resultBox"></div>`,
@@ -401,7 +542,7 @@ TOOLS.push(
  calc(){return '';}},
 );
 
-/* IMAGE */
+/* ---------- IMAGE ---------- */
 TOOLS.push(
 {id:'img-compress',n:'Image Compressor',i:'🗜️',c:'img',
  render:()=>`<div><label>Image</label><input type="file" id="file" accept="image/*"></div>${F.num('q','Quality (10-100)','70')}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgCompress()">🗜️ Compress</button><div id="resultBox"></div>`,
@@ -426,17 +567,17 @@ TOOLS.push(
  calc(){return '';}},
 );
 
-/* TEXT */
+/* ---------- TEXT ---------- */
 TOOLS.push(
 {id:'txt-count',n:'Word Counter',i:'📝',c:'text',
  render:()=>`${F.area('t','Text daalo','')}<div id="resultBox"></div>`,
  calc(){const t=val('t');const words=t.trim()?t.trim().split(/\s+/).length:0;const chars=t.length,noSpace=t.replace(/\s/g,'').length;const sent=t.split(/[.!?]+/).filter(x=>x.trim()).length;const para=t.split(/\n\n+/).filter(x=>x.trim()).length;const read=Math.ceil(words/200);setResult(`<div class="result-box"><h4>📊 Text Statistics</h4><div class="result-row"><span class="lb">Words</span><span class="vl">${words}</span></div><div class="result-row"><span class="lb">Characters</span><span class="vl">${chars}</span></div><div class="result-row"><span class="lb">Without Spaces</span><span class="vl">${noSpace}</span></div><div class="result-row"><span class="lb">Sentences</span><span class="vl">${sent}</span></div><div class="result-row"><span class="lb">Paragraphs</span><span class="vl">${para}</span></div><div class="result-row total"><span class="lb">Read Time</span><span class="vl">${read} min</span></div></div>`,`Words: ${words}, Characters: ${chars}, Sentences: ${sent}, Read: ${read} min`);}},
 {id:'txt-case',n:'Case Converter',i:'🔠',c:'text',
  render:()=>`${F.area('t','Text','hello world')}<div id="resultBox"></div>`,
- calc(){const t=val('t');const up=t.toUpperCase(),lo=t.toLowerCase();const title=t.replace(/\w\S*/g,x=>x[0].toUpperCase()+x.slice(1).toLowerCase());setResult(`<div class="result-box"><h4>🔠 Case Options</h4><div class="result-row"><span class="lb">UPPERCASE</span><span class="vl" style="font-size:12px;text-align:right;max-width:60%">${up}</span></div><div class="result-row"><span class="lb">lowercase</span><span class="vl" style="font-size:12px;text-align:right;max-width:60%">${lo}</span></div><div class="result-row total"><span class="lb">Title Case</span><span class="vl" style="font-size:12px;text-align:right;max-width:60%">${title}</span></div></div>`,up+'\n\n'+lo+'\n\n'+title);}},
+ calc(){const t=val('t');const up=t.toUpperCase(),lo=t.toLowerCase();const title=t.replace(/\w\S*/g,x=>x[0].toUpperCase()+x.slice(1).toLowerCase());setResult(`<div class="result-box"><h4>🔠 Case Options</h4><div class="result-row"><span class="lb">UPPERCASE</span><span class="vl" style="font-size:12px;max-width:60%;text-align:right;word-break:break-word">${up}</span></div><div class="result-row"><span class="lb">lowercase</span><span class="vl" style="font-size:12px;max-width:60%;text-align:right;word-break:break-word">${lo}</span></div><div class="result-row total"><span class="lb">Title Case</span><span class="vl" style="font-size:12px;max-width:60%;text-align:right;word-break:break-word">${title}</span></div></div>`,`UPPER: ${up}\n\nlower: ${lo}\n\nTitle: ${title}`);}},
 {id:'txt-reverse',n:'Reverse Text',i:'🔃',c:'text',
  render:()=>`${F.area('t','Text','Hello World')}<div id="resultBox"></div>`,
- calc(){const t=val('t');const r=t.split('').reverse().join('');const rw=t.split(/\s+/).reverse().join(' ');setResult(`<div class="result-box"><h4>🔃 Reversed</h4><div class="result-row"><span class="lb">Character</span><span class="vl">${r}</span></div><div class="result-row total"><span class="lb">Word</span><span class="vl">${rw}</span></div></div>`,r);}},
+ calc(){const t=val('t');const r=t.split('').reverse().join('');const rw=t.split(/\s+/).reverse().join(' ');setResult(`<div class="result-box"><h4>🔃 Reversed</h4><div class="result-row"><span class="lb">Character</span><span class="vl">${r}</span></div><div class="result-row total"><span class="lb">Word</span><span class="vl">${rw}</span></div></div>`,`Character: ${r}\nWord: ${rw}`);}},
 {id:'txt-pass',n:'Password Generator',i:'🔐',c:'text',
  render:()=>`${F.num('len','Length','16')}${F.sel('type','Type',[['all','All (A-Z, a-z, 0-9, symbols)'],['alpha','Only Letters'],['num','Only Numbers']])}<div id="resultBox"></div>`,
  calc(){const l=+val('len'),ty=val('type');let chars='abcdefghijklmnopqrstuvwxyz';if(ty==='all'){chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';}else if(ty==='alpha'){chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';}else{chars='0123456789';}let p='';for(let i=0;i<l;i++)p+=chars[Math.floor(Math.random()*chars.length)];setResult(`<div class="result-box"><h4>🔐 Password</h4><div class="result-row total"><span class="lb">Password</span><span class="vl" style="font-family:monospace;font-size:13px;word-break:break-all">${p}</span></div></div>`,p);}},
@@ -448,38 +589,38 @@ TOOLS.push(
  calc(){const emails=val('t').match(/[\w.-]+@[\w.-]+\.\w+/g)||[];setResult(`<div class="result-box"><h4>📧 Emails Found: ${emails.length}</h4><textarea rows="5" readonly style="font-size:12px;margin-top:10px">${emails.join('\n')}</textarea></div>`,emails.join('\n'));}},
 );
 
-/* FINANCE */
+/* ---------- FINANCE ---------- */
 TOOLS.push(
 {id:'fin-sip',n:'SIP Calculator',i:'📊',c:'fin',
  render:()=>`${F.num('m','Monthly SIP (₹)','5000')}${F.num('r','Return Rate (%)','12')}${F.num('y','Years','10')}<div id="resultBox"></div>`,
- calc(){const m=+val('m'),r=+val('r')/12/100,n=+val('y')*12;const fv=m*((Math.pow(1+r,n)-1)/r)*(1+r);const invested=m*n,gain=fv-invested;setResult(`<div class="result-box"><h4>📊 SIP Result</h4><div class="result-row"><span class="lb">Invested</span><span class="vl">₹${fmt(invested,0)}</span></div><div class="result-row"><span class="lb">Returns</span><span class="vl">₹${fmt(gain,0)}</span></div><div class="result-row total"><span class="lb">Final Value</span><span class="vl">₹${fmt(fv,0)}</span></div></div>`,`SIP Maturity: ₹${fmt(fv,0)} (Invested ₹${fmt(invested,0)}, Returns ₹${fmt(gain,0)})`);}},
+ calc(){const m=+val('m'),r=+val('r')/12/100,n=+val('y')*12;const fv=m*((Math.pow(1+r,n)-1)/r)*(1+r);const invested=m*n,gain=fv-invested;setResult(`<div class="result-box"><h4>📊 SIP Result</h4><div class="result-row"><span class="lb">Monthly SIP</span><span class="vl">₹${fmt(m,0)}</span></div><div class="result-row"><span class="lb">Invested</span><span class="vl">₹${fmt(invested,0)}</span></div><div class="result-row"><span class="lb">Returns</span><span class="vl">₹${fmt(gain,0)}</span></div><div class="result-row total"><span class="lb">Final Value</span><span class="vl">₹${fmt(fv,0)}</span></div></div>`,`SIP ₹${fmt(m,0)}/mo for ${val('y')}y @ ${val('r')}%: Final ₹${fmt(fv,0)} (Invested ₹${fmt(invested,0)}, Gain ₹${fmt(gain,0)})`);}},
 {id:'fin-fd',n:'FD Calculator',i:'🏛️',c:'fin',
  render:()=>`${F.num('p','Principal (₹)','100000')}${F.num('r','Rate (%)','7')}${F.num('y','Years','5')}<div id="resultBox"></div>`,
- calc(){const p=+val('p'),r=+val('r')/100,y=+val('y');const a=p*Math.pow(1+r/4,y*4),i=a-p;setResult(`<div class="result-box"><h4>🏛️ FD Result</h4><div class="result-row"><span class="lb">Principal</span><span class="vl">₹${fmt(p,0)}</span></div><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row total"><span class="lb">Maturity</span><span class="vl">₹${fmt(a,0)}</span></div></div>`,`FD Maturity: ₹${fmt(a,0)} (Interest ₹${fmt(i,0)})`);}},
+ calc(){const p=+val('p'),r=+val('r')/100,y=+val('y');const a=p*Math.pow(1+r/4,y*4),i=a-p;setResult(`<div class="result-box"><h4>🏛️ FD Result</h4><div class="result-row"><span class="lb">Principal</span><span class="vl">₹${fmt(p,0)}</span></div><div class="result-row"><span class="lb">Rate/Years</span><span class="vl">${val('r')}% / ${val('y')}y</span></div><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row total"><span class="lb">Maturity</span><span class="vl">₹${fmt(a,0)}</span></div></div>`,`FD Maturity: ₹${fmt(a,0)} (Principal ₹${fmt(p,0)} + Interest ₹${fmt(i,0)})`);}},
 {id:'fin-tax',n:'Income Tax Calculator',i:'🧮',c:'fin',
  render:()=>`${F.num('inc','Annual Income (₹)','800000')}<div id="resultBox"></div>`,
- calc(){const i=+val('inc');let tax=0;if(i<=300000)tax=0;else if(i<=600000)tax=(i-300000)*0.05;else if(i<=900000)tax=15000+(i-600000)*0.10;else if(i<=1200000)tax=45000+(i-900000)*0.15;else if(i<=1500000)tax=90000+(i-1200000)*0.20;else tax=150000+(i-1500000)*0.30;const cess=tax*0.04,total=tax+cess;setResult(`<div class="result-box"><h4>🧮 Tax (New Regime)</h4><div class="result-row"><span class="lb">Income</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row"><span class="lb">Tax</span><span class="vl">₹${fmt(tax,0)}</span></div><div class="result-row"><span class="lb">Cess 4%</span><span class="vl">₹${fmt(cess,0)}</span></div><div class="result-row total"><span class="lb">Total Tax</span><span class="vl">₹${fmt(total,0)}</span></div></div>`,`Tax: ₹${fmt(total,0)}`);}},
+ calc(){const i=+val('inc');let tax=0;if(i<=300000)tax=0;else if(i<=600000)tax=(i-300000)*0.05;else if(i<=900000)tax=15000+(i-600000)*0.10;else if(i<=1200000)tax=45000+(i-900000)*0.15;else if(i<=1500000)tax=90000+(i-1200000)*0.20;else tax=150000+(i-1500000)*0.30;const cess=tax*0.04,total=tax+cess;setResult(`<div class="result-box"><h4>🧮 Tax (New Regime)</h4><div class="result-row"><span class="lb">Annual Income</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row"><span class="lb">Base Tax</span><span class="vl">₹${fmt(tax,0)}</span></div><div class="result-row"><span class="lb">Cess 4%</span><span class="vl">₹${fmt(cess,0)}</span></div><div class="result-row total"><span class="lb">Total Tax</span><span class="vl">₹${fmt(total,0)}</span></div></div>`,`Income ₹${fmt(i,0)}: Tax ₹${fmt(total,0)} (Tax ₹${fmt(tax,0)} + Cess ₹${fmt(cess,0)})`);}},
 {id:'fin-compound',n:'Compound Interest',i:'📈',c:'fin',
  render:()=>`${F.num('p','Principal (₹)','10000')}${F.num('r','Rate (%)','8')}${F.num('y','Years','10')}${F.num('n','Compounds/Year','4')}<div id="resultBox"></div>`,
- calc(){const p=+val('p'),r=+val('r')/100,y=+val('y'),n=+val('n');const a=p*Math.pow(1+r/n,n*y),i=a-p;setResult(`<div class="result-box"><h4>📈 Compound Interest</h4><div class="result-row"><span class="lb">Principal</span><span class="vl">₹${fmt(p,0)}</span></div><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row total"><span class="lb">Final Amount</span><span class="vl">₹${fmt(a,0)}</span></div></div>`,`CI Final: ₹${fmt(a,0)} (Interest ₹${fmt(i,0)})`);}},
+ calc(){const p=+val('p'),r=+val('r')/100,y=+val('y'),n=+val('n');const a=p*Math.pow(1+r/n,n*y),i=a-p;setResult(`<div class="result-box"><h4>📈 Compound Interest</h4><div class="result-row"><span class="lb">Principal</span><span class="vl">₹${fmt(p,0)}</span></div><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row total"><span class="lb">Final Amount</span><span class="vl">₹${fmt(a,0)}</span></div></div>`,`CI Final ₹${fmt(a,0)} (Principal ₹${fmt(p,0)} + Interest ₹${fmt(i,0)})`);}},
 {id:'fin-simple',n:'Simple Interest',i:'💵',c:'fin',
  render:()=>`${F.num('p','Principal (₹)','10000')}${F.num('r','Rate (%)','8')}${F.num('y','Years','5')}<div id="resultBox"></div>`,
- calc(){const p=+val('p'),r=+val('r'),y=+val('y');const i=p*r*y/100;setResult(`<div class="result-box"><h4>💵 Simple Interest</h4><div class="result-row"><span class="lb">Principal</span><span class="vl">₹${fmt(p,0)}</span></div><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(p+i,0)}</span></div></div>`,`SI: ₹${fmt(i,0)}, Total ₹${fmt(p+i,0)}`);}},
+ calc(){const p=+val('p'),r=+val('r'),y=+val('y');const i=p*r*y/100;setResult(`<div class="result-box"><h4>💵 Simple Interest</h4><div class="result-row"><span class="lb">Principal</span><span class="vl">₹${fmt(p,0)}</span></div><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row total"><span class="lb">Total Amount</span><span class="vl">₹${fmt(p+i,0)}</span></div></div>`,`SI ₹${fmt(i,0)}, Total ₹${fmt(p+i,0)}`);}},
 {id:'fin-cagr',n:'CAGR Calculator',i:'📊',c:'fin',
  render:()=>`${F.num('start','Initial Value (₹)','10000')}${F.num('end','Final Value (₹)','25000')}${F.num('y','Years','5')}<div id="resultBox"></div>`,
  calc(){const s=+val('start'),e=+val('end'),y=+val('y');const c=(Math.pow(e/s,1/y)-1)*100;setResult(`<div class="result-box"><h4>📊 CAGR</h4><div class="result-row"><span class="lb">Initial</span><span class="vl">₹${fmt(s,0)}</span></div><div class="result-row"><span class="lb">Final</span><span class="vl">₹${fmt(e,0)}</span></div><div class="result-row total"><span class="lb">Annual Growth</span><span class="vl">${fmt(c)}%</span></div></div>`,`CAGR: ${fmt(c)}% per year`);}},
 {id:'fin-tip',n:'Tip Calculator',i:'🍽️',c:'fin',
  render:()=>`${F.num('bill','Bill (₹)','500')}${F.num('tip','Tip (%)','10')}${F.num('p','Split Between','2')}<div id="resultBox"></div>`,
- calc(){const b=+val('bill'),t=+val('tip'),p=+val('p')||1;const tip=b*t/100,tot=b+tip,per=tot/p;setResult(`<div class="result-box"><h4>🍽️ Bill Split</h4><div class="result-row"><span class="lb">Bill</span><span class="vl">₹${fmt(b)}</span></div><div class="result-row"><span class="lb">Tip ${t}%</span><span class="vl">₹${fmt(tip)}</span></div><div class="result-row"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div><div class="result-row total"><span class="lb">Per Person</span><span class="vl">₹${fmt(per)}</span></div></div>`,`Per Person: ₹${fmt(per)} (Total ₹${fmt(tot)})`);}},
+ calc(){const b=+val('bill'),t=+val('tip'),p=+val('p')||1;const tip=b*t/100,tot=b+tip,per=tot/p;setResult(`<div class="result-box"><h4>🍽️ Bill Split</h4><div class="result-row"><span class="lb">Bill</span><span class="vl">₹${fmt(b)}</span></div><div class="result-row"><span class="lb">Tip ${t}%</span><span class="vl">₹${fmt(tip)}</span></div><div class="result-row"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div><div class="result-row total"><span class="lb">Per Person (${p})</span><span class="vl">₹${fmt(per)}</span></div></div>`,`Per Person ₹${fmt(per)} (Total ₹${fmt(tot)}, Tip ₹${fmt(tip)})`);}},
 );
 
-/* SOCIAL */
+/* ---------- SOCIAL ---------- */
 TOOLS.push(
 {id:'soc-qr',n:'QR Code Generator',i:'📱',c:'social',
  render:()=>`${F.txt('t','Text or URL','https://qunvero.vercel.app')}${F.sel('sz','Size',[['200','Small'],['300','Medium'],['500','Large']])}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runQR()">📱 Generate QR</button><div id="resultBox"></div>`,
  calc(){return '';}},
 {id:'soc-bar',n:'Barcode Generator',i:'▮▮▮',c:'social',
- render:()=>`${F.txt('t','Text (numbers/letters)','1234567890')}${F.sel('fmt','Format',[['CODE128','CODE128 (any text)'],['EAN13','EAN13 (13 digits)'],['UPC','UPC (12 digits)'],['CODE39','CODE39'],['ITF14','ITF14']])}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runBarcode()">▮▮▮ Generate Barcode</button><div id="resultBox"></div>`,
+ render:()=>`${F.txt('t','Text (numbers/letters)','1234567890')}${F.sel('fmt','Format',[['CODE128','CODE128 (any text)'],['EAN13','EAN13 (13 digits)'],['UPC','UPC (12 digits)'],['CODE39','CODE39'],['ITF14','ITF14 (14 digits)']])}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runBarcode()">▮▮▮ Generate Barcode</button><div id="resultBox"></div>`,
  calc(){return '';}},
 {id:'soc-hashtag',n:'Hashtag Generator',i:'#️⃣',c:'social',
  render:()=>`${F.txt('t','Topic','fitness')}<div id="resultBox"></div>`,
@@ -492,24 +633,24 @@ TOOLS.push(
  calc(){const n=val('n').toLowerCase().replace(/\s+/g,'');const u=[`${n}_official`,`the_${n}`,`${n}_india`,`${n}${Math.floor(Math.random()*999)}`,`iam${n}`,`${n}_vibes`,`real_${n}`,`${n}_2025`,`${n}_pro`];setResult(`<div class="result-box"><h4>👤 Usernames</h4><textarea rows="4" readonly style="font-size:13px;margin-top:10px">${u.join('\n')}</textarea></div>`,u.join('\n'));}},
 );
 
-/* EDUCATION */
+/* ---------- EDUCATION ---------- */
 TOOLS.push(
 {id:'edu-age',n:'Age Calculator',i:'🎂',c:'edu',
  render:()=>`${F.date('dob','Date of Birth')}<div id="resultBox"></div>`,
  init(){document.getElementById('dob').valueAsDate=new Date(2000,0,1);},
- calc(){const d=val('dob');if(!d){setResult('','');return;}const b=new Date(d),n=new Date();let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),dd=n.getDate()-b.getDate();if(dd<0){m--;dd+=new Date(n.getFullYear(),n.getMonth(),0).getDate();}if(m<0){y--;m+=12;}const days=Math.floor((n-b)/86400000);setResult(`<div class="result-box"><h4>🎂 Your Age</h4><div class="result-row"><span class="lb">Years</span><span class="vl">${y} years</span></div><div class="result-row"><span class="lb">Months</span><span class="vl">${y*12+m} months</span></div><div class="result-row"><span class="lb">Weeks</span><span class="vl">${Math.floor(days/7)} weeks</span></div><div class="result-row total"><span class="lb">Days</span><span class="vl">${days.toLocaleString('en-IN')} days</span></div></div>`,`Age: ${y} years, ${m} months, ${dd} days (${days} days total)`);}},
+ calc(){const d=val('dob');if(!d){setResult('','');return;}const b=new Date(d),n=new Date();let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),dd=n.getDate()-b.getDate();if(dd<0){m--;dd+=new Date(n.getFullYear(),n.getMonth(),0).getDate();}if(m<0){y--;m+=12;}const days=Math.floor((n-b)/86400000);setResult(`<div class="result-box"><h4>🎂 Your Age</h4><div class="result-row"><span class="lb">Years</span><span class="vl">${y} years</span></div><div class="result-row"><span class="lb">Months</span><span class="vl">${y*12+m} months</span></div><div class="result-row"><span class="lb">Weeks</span><span class="vl">${Math.floor(days/7)} weeks</span></div><div class="result-row total"><span class="lb">Days</span><span class="vl">${days.toLocaleString('en-IN')} days</span></div></div>`,`Age: ${y} years, ${m} months, ${dd} days (Total ${days} days)`);}},
 {id:'edu-percent',n:'Percentage Calculator',i:'%',c:'edu',
  render:()=>`${F.num('got','Obtained Marks','450')}${F.num('total','Total Marks','500')}<div id="resultBox"></div>`,
- calc(){const g=+val('got'),t=+val('total');const p=g/t*100;let grade='F';if(p>=90)grade='A+';else if(p>=80)grade='A';else if(p>=70)grade='B';else if(p>=60)grade='C';else if(p>=50)grade='D';else if(p>=33)grade='E';setResult(`<div class="result-box"><h4>% Result</h4><div class="result-row"><span class="lb">Obtained</span><span class="vl">${g}/${t}</span></div><div class="result-row"><span class="lb">Percentage</span><span class="vl">${fmt(p)}%</span></div><div class="result-row total"><span class="lb">Grade</span><span class="vl">${grade}</span></div></div>`,`Percentage: ${fmt(p)}% (Grade ${grade})`);}},
+ calc(){const g=+val('got'),t=+val('total');const p=g/t*100;let grade='F';if(p>=90)grade='A+';else if(p>=80)grade='A';else if(p>=70)grade='B';else if(p>=60)grade='C';else if(p>=50)grade='D';else if(p>=33)grade='E';setResult(`<div class="result-box"><h4>% Result</h4><div class="result-row"><span class="lb">Marks</span><span class="vl">${g}/${t}</span></div><div class="result-row"><span class="lb">Percentage</span><span class="vl">${fmt(p)}%</span></div><div class="result-row total"><span class="lb">Grade</span><span class="vl">${grade}</span></div></div>`,`Percentage: ${fmt(p)}% (Grade ${grade})`);}},
 {id:'edu-cgpa',n:'CGPA to Percentage',i:'📚',c:'edu',
  render:()=>`${F.num('c','CGPA','8.5')}<div id="resultBox"></div>`,
  calc(){const c=+val('c');const p=c*9.5;setResult(`<div class="result-box"><h4>📚 CGPA Conversion</h4><div class="result-row"><span class="lb">CGPA</span><span class="vl">${c}</span></div><div class="result-row total"><span class="lb">Percentage</span><span class="vl">${fmt(p)}%</span></div></div>`,`CGPA ${c} = ${fmt(p)}%`);}},
 {id:'edu-attendance',n:'Attendance Calculator',i:'📅',c:'edu',
  render:()=>`${F.num('tot','Total Classes','100')}${F.num('att','Attended','75')}${F.num('req','Required (%)','75')}<div id="resultBox"></div>`,
- calc(){const t=+val('tot'),a=+val('att'),r=+val('req');const p=a/t*100;const need=Math.max(0,Math.ceil((r*t/100-a)/(1-r/100)));setResult(`<div class="result-box"><h4>📅 Attendance</h4><div class="result-row"><span class="lb">Attended</span><span class="vl">${a}/${t}</span></div><div class="result-row"><span class="lb">Current %</span><span class="vl">${fmt(p)}%</span></div><div class="result-row total"><span class="lb">Status</span><span class="vl">${p>=r?'✅ Good':'Attend '+need+' more classes'}</span></div></div>`,`Attendance: ${fmt(p)}% (${p>=r?'Good':'Need '+need+' more'})`);}},
+ calc(){const t=+val('tot'),a=+val('att'),r=+val('req');const p=a/t*100;const need=Math.max(0,Math.ceil((r*t/100-a)/(1-r/100)));setResult(`<div class="result-box"><h4>📅 Attendance</h4><div class="result-row"><span class="lb">Attended</span><span class="vl">${a}/${t}</span></div><div class="result-row"><span class="lb">Current %</span><span class="vl">${fmt(p)}%</span></div><div class="result-row total"><span class="lb">Status</span><span class="vl">${p>=r?'✅ Good':'Attend '+need+' more'}</span></div></div>`,`Attendance: ${fmt(p)}% (${p>=r?'Good':'Need '+need+' more classes'})`);}},
 );
 
-/* HEALTH */
+/* ---------- HEALTH ---------- */
 TOOLS.push(
 {id:'hea-bmi',n:'BMI Calculator',i:'⚖️',c:'health',
  render:()=>`${F.num('w','Weight (kg)','70')}${F.num('h','Height (cm)','170')}<div id="resultBox"></div>`,
@@ -519,13 +660,13 @@ TOOLS.push(
  calc(){const w=+val('w'),h=+val('h'),a=+val('a'),g=val('g'),ac=+val('act');const bmr=g==='m'?(10*w+6.25*h-5*a+5):(10*w+6.25*h-5*a-161);const cal=bmr*ac;setResult(`<div class="result-box"><h4>🍎 Daily Calories</h4><div class="result-row"><span class="lb">BMR</span><span class="vl">${fmt(bmr,0)} kcal</span></div><div class="result-row total"><span class="lb">Maintain Weight</span><span class="vl">${fmt(cal,0)} kcal</span></div></div>`,`Daily Calories: ${fmt(cal,0)} kcal (BMR ${fmt(bmr,0)})`);}},
 {id:'hea-water',n:'Water Intake Calculator',i:'💧',c:'health',
  render:()=>`${F.num('w','Weight (kg)','70')}${F.num('ex','Exercise (min)','30')}<div id="resultBox"></div>`,
- calc(){const w=+val('w'),e=+val('ex');const l=(w*0.033)+(e*0.35/60);setResult(`<div class="result-box"><h4>💧 Water Intake</h4><div class="result-row"><span class="lb">Weight</span><span class="vl">${w} kg</span></div><div class="result-row"><span class="lb">Liters/Day</span><span class="vl">${fmt(l,1)} L</span></div><div class="result-row total"><span class="lb">Glasses (250ml)</span><span class="vl">${Math.ceil(l*4)} glasses</span></div></div>`,`Water: ${fmt(l,1)} L/day (${Math.ceil(l*4)} glasses)`);}},
+ calc(){const w=+val('w'),e=+val('ex');const l=(w*0.033)+(e*0.35/60);setResult(`<div class="result-box"><h4>💧 Water Intake</h4><div class="result-row"><span class="lb">Weight</span><span class="vl">${w} kg</span></div><div class="result-row"><span class="lb">Liters/Day</span><span class="vl">${fmt(l,1)} L</span></div><div class="result-row total"><span class="lb">Glasses (250ml)</span><span class="vl">${Math.ceil(l*4)} glasses</span></div></div>`,`Water: ${fmt(l,1)} L/day (${Math.ceil(l*4)} glasses of 250ml)`);}},
 {id:'hea-ideal',n:'Ideal Weight Calculator',i:'💪',c:'health',
  render:()=>`${F.num('h','Height (cm)','170')}${F.sel('g','Gender',[['m','Male'],['f','Female']])}<div id="resultBox"></div>`,
- calc(){const h=+val('h'),g=val('g');const base=g==='m'?50:45.5;const inch=(h-152.4)/2.54;const ideal=base+2.3*inch;setResult(`<div class="result-box"><h4>💪 Ideal Weight</h4><div class="result-row"><span class="lb">Height</span><span class="vl">${h} cm</span></div><div class="result-row"><span class="lb">Ideal</span><span class="vl">${fmt(ideal,1)} kg</span></div><div class="result-row total"><span class="lb">Healthy Range</span><span class="vl">${fmt(ideal*0.9,1)} - ${fmt(ideal*1.1,1)} kg</span></div></div>`,`Ideal Weight: ${fmt(ideal,1)} kg`);}},
+ calc(){const h=+val('h'),g=val('g');const base=g==='m'?50:45.5;const inch=(h-152.4)/2.54;const ideal=base+2.3*inch;setResult(`<div class="result-box"><h4>💪 Ideal Weight</h4><div class="result-row"><span class="lb">Height</span><span class="vl">${h} cm</span></div><div class="result-row"><span class="lb">Ideal</span><span class="vl">${fmt(ideal,1)} kg</span></div><div class="result-row total"><span class="lb">Healthy Range</span><span class="vl">${fmt(ideal*0.9,1)} - ${fmt(ideal*1.1,1)} kg</span></div></div>`,`Ideal Weight: ${fmt(ideal,1)} kg (Range ${fmt(ideal*0.9,1)} - ${fmt(ideal*1.1,1)} kg)`);}},
 );
 
-/* UTILITY */
+/* ---------- UTILITY ---------- */
 TOOLS.push(
 {id:'ut-random',n:'Random Number Generator',i:'🎲',c:'util',
  render:()=>`${F.num('min','Min','1')}${F.num('max','Max','100')}${F.num('count','Count','1')}<div id="resultBox"></div>`,
@@ -547,7 +688,7 @@ TOOLS.push(
  calc(){const lines=val('t').split('\n');const u=[...new Set(lines.map(l=>l.trim()))].filter(x=>x);setResult(`<div class="result-box"><h4>🧹 Unique Lines</h4><div class="result-row"><span class="lb">Before</span><span class="vl">${lines.length}</span></div><div class="result-row total"><span class="lb">After</span><span class="vl">${u.length}</span></div><textarea rows="4" readonly style="margin-top:10px;font-size:13px">${u.join('\n')}</textarea></div>`,u.join('\n'));}},
 );
 
-/* TIME */
+/* ---------- TIME ---------- */
 TOOLS.push(
 {id:'tm-diff',n:'Date Difference',i:'📅',c:'time',
  render:()=>`${F.date('d1','Start Date')}${F.date('d2','End Date')}<div id="resultBox"></div>`,
@@ -562,29 +703,29 @@ TOOLS.push(
  calc(){const d=val('d');if(!d){setResult('','');return;}const dt=new Date(d),m=dt.getMonth()+1,day=dt.getDate();const signs=[['Capricorn ♑','Dec 22 - Jan 19'],['Aquarius ♒','Jan 20 - Feb 18'],['Pisces ♓','Feb 19 - Mar 20'],['Aries ♈','Mar 21 - Apr 19'],['Taurus ♉','Apr 20 - May 20'],['Gemini ♊','May 21 - Jun 20'],['Cancer ♋','Jun 21 - Jul 22'],['Leo ♌','Jul 23 - Aug 22'],['Virgo ♍','Aug 23 - Sep 22'],['Libra ♎','Sep 23 - Oct 22'],['Scorpio ♏','Oct 23 - Nov 21'],['Sagittarius ♐','Nov 22 - Dec 21']];const dates=[20,19,21,20,21,21,23,23,23,23,22,22];let idx=m-1;if(day<dates[m-1])idx=(m+10)%12;const s=signs[idx];setResult(`<div class="result-box"><h4>♈ Zodiac Sign</h4><div class="result-row total"><span class="lb">Sign</span><span class="vl">${s[0]}</span></div><div class="result-row"><span class="lb">Dates</span><span class="vl">${s[1]}</span></div></div>`,`${s[0]} (${s[1]})`);}},
 );
 
-/* MATH */
+/* ---------- MATH ---------- */
 TOOLS.push(
 {id:'mth-avg',n:'Average Calculator',i:'📊',c:'math',
  render:()=>`${F.area('t','Numbers (comma separated)','10,20,30,40,50')}<div id="resultBox"></div>`,
  calc(){const n=val('t').split(',').map(Number).filter(x=>!isNaN(x));if(!n.length){setResult('','');return;}const sum=n.reduce((a,b)=>a+b,0),avg=sum/n.length;setResult(`<div class="result-box"><h4>📊 Statistics</h4><div class="result-row"><span class="lb">Count</span><span class="vl">${n.length}</span></div><div class="result-row"><span class="lb">Sum</span><span class="vl">${fmt(sum)}</span></div><div class="result-row"><span class="lb">Average</span><span class="vl">${fmt(avg)}</span></div><div class="result-row"><span class="lb">Min</span><span class="vl">${fmt(Math.min(...n))}</span></div><div class="result-row"><span class="lb">Max</span><span class="vl">${fmt(Math.max(...n))}</span></div><div class="result-row total"><span class="lb">Median</span><span class="vl">${fmt(n.sort((a,b)=>a-b)[Math.floor(n.length/2)])}</span></div></div>`,`Average: ${fmt(avg)}, Sum: ${fmt(sum)}, Count: ${n.length}`);}},
 {id:'mth-prime',n:'Prime Checker',i:'🔍',c:'math',
  render:()=>`${F.num('n','Number','17')}<div id="resultBox"></div>`,
- calc(){const n=+val('n');let p=n>1;for(let i=2;i<=Math.sqrt(n);i++)if(n%i===0){p=false;break;}setResult(`<div class="result-box"><h4>🔍 Prime Check</h4><div class="result-row total"><span class="lb">${n}</span><span class="vl">${p?'✅ Prime':'❌ Not Prime'}</span></div></div>`,`${n} is ${p?'Prime':'Not Prime'}`);}},
+ calc(){const n=+val('n');let p=n>1;for(let i=2;i<=Math.sqrt(n);i++)if(n%i===0){p=false;break;}setResult(`<div class="result-box"><h4>🔍 Prime Check</h4><div class="result-row total"><span class="lb">${n}</span><span class="vl">${p?'✅ Prime Number':'❌ Not Prime'}</span></div></div>`,`${n} is ${p?'Prime':'Not Prime'}`);}},
 {id:'mth-table',n:'Multiplication Table',i:'✖️',c:'math',
  render:()=>`${F.num('n','Number','7')}${F.num('u','Up to','20')}<div id="resultBox"></div>`,
  calc(){const n=+val('n'),u=+val('u');let s='';let txt='';for(let i=1;i<=u;i++){s+=`<div class="result-row"><span class="lb">${n} × ${i}</span><span class="vl">${n*i}</span></div>`;txt+=`${n} × ${i} = ${n*i}\n`;}setResult(`<div class="result-box"><h4>✖️ Table of ${n}</h4>${s}</div>`,txt);}},
 {id:'mth-percent',n:'Percentage Calculator',i:'%',c:'math',
  render:()=>`${F.sel('mode','Calculate',[['x-y','X is what % of Y'],['xp','X% of Y'],['chg','% change X to Y']])}${F.num('x','Value 1','25')}${F.num('y','Value 2','200')}<div id="resultBox"></div>`,
- calc(){const x=+val('x'),y=+val('y'),m=val('mode');let r,txt;if(m==='x-y'){r=x/y*100;txt=`${x} is ${fmt(r)}% of ${y}`;}else if(m==='xp'){r=x*y/100;txt=`${x}% of ${y} = ${fmt(r)}`;}else{r=(y-x)/x*100;txt=`Change = ${fmt(r)}%`;}setResult(`<div class="result-box"><h4>% Result</h4><div class="result-row total"><span class="lb">Answer</span><span class="vl">${txt}</span></div></div>`,txt);}},
+ calc(){const x=+val('x'),y=+val('y'),m=val('mode');let r,txt;if(m==='x-y'){r=x/y*100;txt=`${x} is ${fmt(r)}% of ${y}`;}else if(m==='xp'){r=x*y/100;txt=`${x}% of ${y} = ${fmt(r)}`;}else{r=(y-x)/x*100;txt=`Change from ${x} to ${y} = ${fmt(r)}%`;}setResult(`<div class="result-box"><h4>% Result</h4><div class="result-row total"><span class="lb">Answer</span><span class="vl">${txt}</span></div></div>`,txt);}},
 {id:'mth-sqrt',n:'Square Root Calculator',i:'√',c:'math',
  render:()=>`${F.num('n','Number','144')}<div id="resultBox"></div>`,
  calc(){const n=+val('n');const r=Math.sqrt(n);setResult(`<div class="result-box"><h4>√ Result</h4><div class="result-row"><span class="lb">Number</span><span class="vl">${n}</span></div><div class="result-row total"><span class="lb">Square Root</span><span class="vl">${fmt(r,4)}</span></div></div>`,`√${n} = ${fmt(r,4)}`);}},
 {id:'mth-pow',n:'Power Calculator',i:'^',c:'math',
  render:()=>`${F.num('b','Base','2')}${F.num('e','Exponent','10')}<div id="resultBox"></div>`,
- calc(){const b=+val('b'),e=+val('e');const r=Math.pow(b,e);setResult(`<div class="result-box"><h4>^ Result</h4><div class="result-row total"><span class="lb">${b}^${e}</span><span class="vl">${r.toLocaleString('en-IN')}</span></div></div>`,`${b}^${e} = ${r}`);}},
+ calc(){const b=+val('b'),e=+val('e');const r=Math.pow(b,e);setResult(`<div class="result-box"><h4>^ Result</h4><div class="result-row"><span class="lb">Base</span><span class="vl">${b}</span></div><div class="result-row"><span class="lb">Exponent</span><span class="vl">${e}</span></div><div class="result-row total"><span class="lb">Result</span><span class="vl">${r.toLocaleString('en-IN')}</span></div></div>`,`${b}^${e} = ${r}`);}},
 );
 
-/* CONVERT */
+/* ---------- CONVERT ---------- */
 TOOLS.push(
 {id:'cv-len',n:'Length Converter',i:'📏',c:'convert',
  render:()=>`${F.num('v','Value','1')}${F.sel('f','From',[['m','Meter'],['km','Kilometer'],['cm','Centimeter'],['ft','Feet'],['in','Inch'],['mi','Mile']])}${F.sel('t','To',[['m','Meter'],['km','Kilometer'],['cm','Centimeter'],['ft','Feet'],['in','Inch'],['mi','Mile']])}<div id="resultBox"></div>`,
@@ -603,7 +744,7 @@ TOOLS.push(
  calc(){const n=+val('n');const m=[[1000,'M'],[900,'CM'],[500,'D'],[400,'CD'],[100,'C'],[90,'XC'],[50,'L'],[40,'XL'],[10,'X'],[9,'IX'],[5,'V'],[4,'IV'],[1,'I']];let r='',num=n;for(const [v,s] of m){while(num>=v){r+=s;num-=v;}}setResult(`<div class="result-box"><h4>🏛️ Roman Numeral</h4><div class="result-row"><span class="lb">Number</span><span class="vl">${n}</span></div><div class="result-row total"><span class="lb">Roman</span><span class="vl">${r}</span></div></div>`,`${n} = ${r}`);}},
 );
 
-/* WEB */
+/* ---------- WEB ---------- */
 TOOLS.push(
 {id:'web-json',n:'JSON Formatter',i:'{ }',c:'web',
  render:()=>`${F.area('t','JSON','{"name":"Test","age":25}')}<div id="resultBox"></div>`,
@@ -622,7 +763,7 @@ TOOLS.push(
  calc(){const t=val('t').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');setResult(`<div class="result-box"><h4>&lt; Escaped</h4><textarea rows="5" readonly style="margin-top:10px;font-size:13px">${t}</textarea></div>`,t);}},
 );
 
-/* FUN */
+/* ---------- FUN ---------- */
 TOOLS.push(
 {id:'fun-lucky',n:'Lucky Number',i:'🍀',c:'fun',
  render:()=>`${F.txt('n','Your Name','')}<div id="resultBox"></div>`,
@@ -643,11 +784,11 @@ TOOLS.push(
 
 /* ============ RENDER ============ */
 function renderQuick(){const quick=['biz-invoice','elec-bill','biz-emi','biz-gst','txt-count','soc-qr','fin-sip','edu-age'];const box=document.getElementById('quickGrid');box.innerHTML=quick.map(id=>{const t=TOOLS.find(x=>x.id===id);if(!t)return '';return `<div class="q-card" onclick="openTool('${t.id}')"><span class="e">${t.i}</span><span class="nm">${t.n}</span></div>`;}).join('');}
-function renderCategories(){const wrap=document.getElementById('categoriesWrap');wrap.innerHTML=CATEGORIES.map(cat=>{const tools=TOOLS.filter(t=>t.c===cat.id);if(!tools.length)return '';return `<section class="sec"><div class="sec-head"><h2><span class="emo">${cat.emo}</span>${cat.name} <span class="cnt">${tools.length}</span></h2></div><div class="tools-grid">${tools.map(t=>`<div class="tool" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><span class="nm">${t.n}</span></div>`).join('')}</div></section>`;}).join('');}
+function renderCategories(){const wrap=document.getElementById('categoriesWrap');wrap.innerHTML=CATEGORIES.map(cat=>{const tools=TOOLS.filter(t=>t.c===cat.id);if(!tools.length)return '';return `<section class="sec"><div class="sec-head"><h2><span class="emo">${cat.emo}</span>${cat.name}</h2><span class="cnt">${tools.length} tools</span></div><div class="tools-grid">${tools.map(t=>`<div class="tool" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><span class="nm">${t.n}</span></div>`).join('')}</div></section>`;}).join('');}
 function buildCalcFuncs(){TOOLS.forEach(t=>{if(t.calc){window['calc_'+t.id]=()=>{try{t.calc();}catch(e){console.error(e);}};}});}
 
 /* ============ SEARCH ============ */
-function doSearch(q){const box=document.getElementById('searchRes');if(!q||q.length<1){box.classList.remove('on');return;}q=q.toLowerCase();const results=TOOLS.filter(t=>t.n.toLowerCase().includes(q)||t.id.includes(q)).slice(0,10);if(!results.length){box.innerHTML='<div class="sr-empty">😕 Kuch nahi mila</div>';}else{box.innerHTML=results.map(t=>{const cat=CATEGORIES.find(c=>c.id===t.c);return `<div class="sr-item" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><div class="info"><div class="nm">${t.n}</div><div class="ct">${cat?cat.name:''}</div></div><span style="color:#0070f3">→</span></div>`;}).join('');}box.classList.add('on');}
+function doSearch(q){const box=document.getElementById('searchRes');if(!q||q.length<1){box.classList.remove('on');return;}q=q.toLowerCase();const results=TOOLS.filter(t=>t.n.toLowerCase().includes(q)||t.id.includes(q)||t.c.includes(q)).slice(0,10);if(!results.length){box.innerHTML='<div class="sr-empty">😕 Kuch nahi mila. Try: bijli, invoice, PDF, photo, EMI</div>';}else{box.innerHTML=results.map(t=>{const cat=CATEGORIES.find(c=>c.id===t.c);return `<div class="sr-item" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><div class="info"><div class="nm">${t.n}</div><div class="ct">${cat?cat.name:''}</div></div><span style="color:var(--primary)">→</span></div>`;}).join('');}box.classList.add('on');}
 document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap'))document.getElementById('searchRes').classList.remove('on');});
 function focusSearch(){document.getElementById('searchBox').focus();window.scrollTo({top:0,behavior:'smooth'});}
 
@@ -662,15 +803,17 @@ function previewTool(){
   const {title,resultHTML,icon}=getToolContent();
   if(!resultHTML||resultHTML.trim().length<10){toast('Pehle result nikalo',1);return;}
   const win=window.open('','_blank');
-  win.document.write(`<!DOCTYPE html><html><head><title>${title} — Qunvero</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:24px;background:#f5f7fa;color:#1a1a2e;max-width:800px;margin:0 auto;min-height:100vh}.header{background:linear-gradient(135deg,#0070f3,#7928ca);color:#fff;padding:24px;border-radius:16px;margin-bottom:20px}.header h1{font-size:20px;margin:0 0 4px 0}.header p{font-size:13px;opacity:.9;margin:0}.card{background:#fff;padding:24px;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08)}.card h2{font-size:22px;margin-bottom:6px}.card .sub{font-size:13px;color:#6b7280;margin-bottom:20px}.result-box{background:#f0fdf4;border:1px solid #10b981;padding:20px;border-radius:12px}.result-box h4{color:#10b981;font-size:13px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}.result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #d1d5db;font-size:14px}.result-row:last-child{border-bottom:none}.result-row .lb{color:#6b7280}.result-row .vl{font-weight:700;text-align:right;max-width:60%}.result-row.total{padding-top:14px;font-size:17px;border-top:2px solid #10b981}.result-row.total .vl{color:#10b981}textarea{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-family:monospace;font-size:12px}img{max-width:100%;border-radius:12px}.footer{text-align:center;padding:20px;font-size:12px;color:#6b7280;margin-top:20px}@media print{body{background:#fff;padding:0}.card{box-shadow:none}}</style></head><body><div class="header"><h1>⚡ Qunvero</h1><p>200+ Free Tools • qunvero.vercel.app</p></div><div class="card"><h2>${icon} ${title}</h2><div class="sub">${new Date().toLocaleString('en-IN')}</div>${resultHTML}</div><div class="footer">Generated by Qunvero — 100% Free Tools<br>https://qunvero.vercel.app</div></body></html>`);
+  if(!win){toast('Popup blocked! Allow karo',1);return;}
+  win.document.write(`<!DOCTYPE html><html><head><title>${title} — Qunvero</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:20px;background:#f8fafc;color:#0f172a;max-width:800px;margin:0 auto;min-height:100vh}.header{background:linear-gradient(135deg,#0070f3,#7928ca);color:#fff;padding:24px;border-radius:16px;margin-bottom:20px}.header h1{font-size:20px;margin:0 0 4px 0}.header p{font-size:13px;opacity:.9;margin:0}.card{background:#fff;padding:24px;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08)}.card h2{font-size:22px;margin-bottom:6px}.card .sub{font-size:13px;color:#6b7280;margin-bottom:20px}.result-box{background:#f0fdf4;border:1px solid #10b981;padding:20px;border-radius:12px}.result-box h4{color:#10b981;font-size:13px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}.result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #d1d5db;font-size:14px;gap:12px}.result-row:last-child{border-bottom:none}.result-row .lb{color:#6b7280}.result-row .vl{font-weight:700;text-align:right;word-break:break-word}.result-row.total{padding-top:14px;font-size:17px;border-top:2px solid #10b981}.result-row.total .vl{color:#10b981}textarea{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-family:monospace;font-size:12px}img{max-width:100%;border-radius:12px}.footer{text-align:center;padding:20px;font-size:12px;color:#6b7280;margin-top:20px}@media print{body{background:#fff;padding:0}.card{box-shadow:none}}</style></head><body><div class="header"><h1>⚡ Qunvero</h1><p>200+ Free Tools • qunvero.vercel.app</p></div><div class="card"><h2>${icon} ${title}</h2><div class="sub">${new Date().toLocaleString('en-IN')}</div>${resultHTML}</div><div class="footer">Generated by Qunvero — 100% Free Tools<br>https://qunvero.vercel.app</div></body></html>`);
   win.document.close();
-  toast('👁️ Preview khul gaya');
+  toast('👁️ Preview new tab me khula');
 }
 function printTool(){
   const {title,resultHTML,icon}=getToolContent();
   if(!resultHTML||resultHTML.trim().length<10){toast('Pehle result nikalo',1);return;}
   const win=window.open('','_blank');
-  win.document.write(`<!DOCTYPE html><html><head><title>${title} — Qunvero</title><style>body{font-family:Arial,sans-serif;padding:30px;color:#000;max-width:800px;margin:0 auto}h1{font-size:22px;margin-bottom:6px}h2{font-size:16px;color:#666;font-weight:400;margin-bottom:20px}.result-box{background:#f5f5f5;border:2px solid #000;padding:20px;border-radius:10px;margin-top:16px}.result-box h4{color:#000;font-size:14px;text-transform:uppercase;margin-bottom:12px}.result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #ccc;font-size:14px}.result-row .lb{color:#666}.result-row .vl{font-weight:700}.result-row.total{padding-top:14px;font-size:16px;border-top:2px solid #000}.footer{margin-top:30px;padding-top:16px;border-top:1px solid #ccc;font-size:12px;color:#666;text-align:center}textarea{width:100%;padding:10px;border:1px solid #ccc;font-family:monospace;font-size:12px;min-height:100px}</style></head><body><h1>⚡ Qunvero</h1><h2>${icon} ${title}</h2>${resultHTML}<div class="footer">Generated by Qunvero — qunvero.vercel.app<br>${new Date().toLocaleString('en-IN')}</div></body></html>`);
+  if(!win){toast('Popup blocked! Allow karo',1);return;}
+  win.document.write(`<!DOCTYPE html><html><head><title>${title} — Qunvero</title><style>*{box-sizing:border-box}body{font-family:Arial,sans-serif;padding:30px;color:#000;max-width:800px;margin:0 auto}h1{font-size:22px;margin-bottom:6px}h2{font-size:16px;color:#666;font-weight:400;margin-bottom:20px}.result-box{background:#f5f5f5;border:2px solid #000;padding:20px;border-radius:10px;margin-top:16px}.result-box h4{color:#000;font-size:14px;text-transform:uppercase;margin-bottom:12px}.result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #ccc;font-size:14px;gap:12px}.result-row .lb{color:#666}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:14px;font-size:16px;border-top:2px solid #000}.footer{margin-top:30px;padding-top:16px;border-top:1px solid #ccc;font-size:12px;color:#666;text-align:center}textarea{width:100%;padding:10px;border:1px solid #ccc;font-family:monospace;font-size:12px;min-height:100px}</style></head><body><h1>⚡ Qunvero</h1><h2>${icon} ${title}</h2>${resultHTML}<div class="footer">Generated by Qunvero — qunvero.vercel.app<br>${new Date().toLocaleString('en-IN')}</div></body></html>`);
   win.document.close();
   setTimeout(()=>{win.print();},400);
   toast('🖨️ Print dialog khul gaya');
@@ -704,26 +847,29 @@ async function shareTool(){
 
 /* ============ TOOL HELPERS ============ */
 function addInvRow(){const tb=document.getElementById('invBody');if(!tb)return;const r=document.createElement('tr');r.innerHTML=`<td><input class="item" placeholder="Item" style="width:100%"></td><td><input type="number" class="q" value="1" oninput="calc_biz-invoice()" style="width:70px"></td><td><input type="number" class="r" value="0" oninput="calc_biz-invoice()" style="width:80px"></td><td class="a">₹0</td><td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove();calc_biz-invoice()">❌</button></td>`;tb.appendChild(r);}
-async function runPdfMerge(){const files=document.getElementById('pdfs').files;if(files.length<2){toast('2+ PDF select karo',1);return;}toast('⏳ Merging...');try{const {PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const merged=await PDFDocument.create();for(const f of files){const buf=await f.arrayBuffer();const doc=await PDFDocument.load(buf);const pages=await merged.copyPages(doc,doc.getPageIndices());pages.forEach(p=>merged.addPage(p));}const bytes=await merged.save();window._lastBlob=new Blob([bytes],{type:'application/pdf'});window._lastName='merged.pdf';setResult(`<div class="result-box"><h4>✅ Merged!</h4><p style="font-size:14px">${files.length} PDFs merged successfully.</p><div class="result-row"><span class="lb">Total Files</span><span class="vl">${files.length}</span></div></div>`,`Merged ${files.length} PDFs into one file`);toast('✅ Merge complete! Download dabao');}catch(e){toast('Failed: '+e.message,1);}}
-async function runImgToPdf(){const files=document.getElementById('imgs').files;if(!files.length){toast('Images select karo',1);return;}toast('⏳ Converting...');try{const {PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const doc=await PDFDocument.create();for(const f of files){const buf=await f.arrayBuffer();const img=f.type.includes('png')?await doc.embedPng(buf):await doc.embedJpg(buf);const p=doc.addPage([img.width,img.height]);p.drawImage(img,{x:0,y:0,width:img.width,height:img.height});}const bytes=await doc.save();window._lastBlob=new Blob([bytes],{type:'application/pdf'});window._lastName='images.pdf';setResult(`<div class="result-box"><h4>✅ PDF Ready!</h4><div class="result-row"><span class="lb">Images Converted</span><span class="vl">${files.length}</span></div></div>`,`Converted ${files.length} images to PDF`);toast('✅ PDF ready!');}catch(e){toast('Failed: '+e.message,1);}}
-async function runPdfInfo(){const f=document.getElementById('pdf').files[0];if(!f){toast('PDF select karo',1);return;}try{const {PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const doc=await PDFDocument.load(await f.arrayBuffer());setResult(`<div class="result-box"><h4>ℹ️ PDF Info</h4><div class="result-row"><span class="lb">File Name</span><span class="vl">${f.name}</span></div><div class="result-row"><span class="lb">Size</span><span class="vl">${(f.size/1024).toFixed(2)} KB</span></div><div class="result-row total"><span class="lb">Total Pages</span><span class="vl">${doc.getPageCount()}</span></div></div>`,`File: ${f.name}\nSize: ${(f.size/1024).toFixed(2)} KB\nPages: ${doc.getPageCount()}`);}catch(e){toast('Failed: '+e.message,1);}}
-function runImgCompress(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const q=+val('q')/100;const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);c.toBlob(b=>{setResult(`<div class="result-box"><h4>✅ Compressed</h4><div class="result-row"><span class="lb">Original Size</span><span class="vl">${(f.size/1024).toFixed(1)} KB</span></div><div class="result-row"><span class="lb">New Size</span><span class="vl">${(b.size/1024).toFixed(1)} KB</span></div><div class="result-row total"><span class="lb">Saved</span><span class="vl">${(100-b.size/f.size*100).toFixed(0)}%</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,`Original: ${(f.size/1024).toFixed(1)}KB, Compressed: ${(b.size/1024).toFixed(1)}KB`);window._lastBlob=b;window._lastName='compressed.jpg';toast('✅ Compressed!');},'image/jpeg',q);};}
+async function runPdfMerge(){const files=document.getElementById('pdfs').files;if(files.length<2){toast('2+ PDF select karo',1);return;}toast('⏳ Merging...');try{const {PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const merged=await PDFDocument.create();for(const f of files){const buf=await f.arrayBuffer();const doc=await PDFDocument.load(buf);const pages=await merged.copyPages(doc,doc.getPageIndices());pages.forEach(p=>merged.addPage(p));}const bytes=await merged.save();window._lastBlob=new Blob([bytes],{type:'application/pdf'});window._lastName='merged.pdf';setResult(`<div class="result-box"><h4>✅ Merged!</h4><div class="result-row"><span class="lb">Total Files</span><span class="vl">${files.length}</span></div></div>`,`Merged ${files.length} PDFs into one file`);toast('✅ Merge complete! Download dabao');}catch(e){toast('Failed: '+e.message,1);}}
+async function runImgToPdf(){const files=document.getElementById('imgs').files;if(!files.length){toast('Images select karo',1);return;}toast('⏳ Converting...');try{const {PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const doc=await PDFDocument.create();for(const f of files){const buf=await f.arrayBuffer();const img=f.type.includes('png')?await doc.embedPng(buf):await doc.embedJpg(buf);const p=doc.addPage([img.width,img.height]);p.drawImage(img,{x:0,y:0,width:img.width,height:img.height});}const bytes=await doc.save();window._lastBlob=new Blob([bytes],{type:'application/pdf'});window._lastName='images.pdf';setResult(`<div class="result-box"><h4>✅ PDF Ready!</h4><div class="result-row"><span class="lb">Images</span><span class="vl">${files.length}</span></div></div>`,`Converted ${files.length} images to PDF`);toast('✅ PDF ready!');}catch(e){toast('Failed: '+e.message,1);}}
+async function runPdfInfo(){const f=document.getElementById('pdf').files[0];if(!f){toast('PDF select karo',1);return;}try{const {PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const doc=await PDFDocument.load(await f.arrayBuffer());setResult(`<div class="result-box"><h4>ℹ️ PDF Info</h4><div class="result-row"><span class="lb">File</span><span class="vl">${f.name}</span></div><div class="result-row"><span class="lb">Size</span><span class="vl">${(f.size/1024).toFixed(2)} KB</span></div><div class="result-row total"><span class="lb">Pages</span><span class="vl">${doc.getPageCount()}</span></div></div>`,`File: ${f.name}\nSize: ${(f.size/1024).toFixed(2)} KB\nPages: ${doc.getPageCount()}`);}catch(e){toast('Failed: '+e.message,1);}}
+function runImgCompress(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const q=+val('q')/100;const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);c.toBlob(b=>{setResult(`<div class="result-box"><h4>✅ Compressed</h4><div class="result-row"><span class="lb">Original</span><span class="vl">${(f.size/1024).toFixed(1)} KB</span></div><div class="result-row"><span class="lb">Compressed</span><span class="vl">${(b.size/1024).toFixed(1)} KB</span></div><div class="result-row total"><span class="lb">Saved</span><span class="vl">${(100-b.size/f.size*100).toFixed(0)}%</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,`Original ${(f.size/1024).toFixed(1)}KB → ${(b.size/1024).toFixed(1)}KB (Saved ${(100-b.size/f.size*100).toFixed(0)}%)`);window._lastBlob=b;window._lastName='compressed.jpg';toast('✅ Compressed!');},'image/jpeg',q);};}
 function runImgResize(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=+val('w');c.height=+val('h');c.getContext('2d').drawImage(img,0,0,c.width,c.height);c.toBlob(b=>{setResult(`<div class="result-box"><h4>✅ Resized</h4><div class="result-row"><span class="lb">Original</span><span class="vl">${img.width}×${img.height}</span></div><div class="result-row total"><span class="lb">New Size</span><span class="vl">${c.width}×${c.height}</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,`Resized to ${c.width}×${c.height}`);window._lastBlob=b;window._lastName='resized.jpg';toast('✅ Resized!');},'image/jpeg',0.9);};}
-function runPassport(){const f=document.getElementById('file').files[0];if(!f){toast('Photo select karo',1);return;}const sizes={passport:[413,531],stamp:[236,295],visa:[600,600]};const [w,h]=sizes[val('size')];const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');const scale=Math.max(w/img.width,h/img.height);const nw=img.width*scale,nh=img.height*scale;ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);c.toBlob(b=>{setResult(`<div class="result-box"><h4>📸 Passport Photo</h4><div class="result-row"><span class="lb">Size</span><span class="vl">${w}×${h} px</span></div><div class="result-row total"><span class="lb">Dimensions</span><span class="vl">35×45 mm</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:6px;max-height:200px"></div>`,`Passport photo ${w}×${h}px`);window._lastBlob=b;window._lastName='passport.jpg';toast('✅ Photo ready!');},'image/jpeg',0.95);};}
-function runImgBase64(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const r=new FileReader();r.onload=e=>{setResult(`<div class="result-box"><h4>🔤 Base64 Code</h4><textarea rows="8" style="font-size:11px;margin-top:10px" readonly>${e.target.result}</textarea></div>`,e.target.result);toast('✅ Ready! Copy ya Download dabao');};r.readAsDataURL(f);}
+function runPassport(){const f=document.getElementById('file').files[0];if(!f){toast('Photo select karo',1);return;}const sizes={passport:[413,531],stamp:[236,295],visa:[600,600]};const [w,h]=sizes[val('size')];const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');const scale=Math.max(w/img.width,h/img.height);const nw=img.width*scale,nh=img.height*scale;ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);c.toBlob(b=>{setResult(`<div class="result-box"><h4>📸 Passport Photo</h4><div class="result-row"><span class="lb">Size</span><span class="vl">${w}×${h} px</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:6px;max-height:200px"></div>`,`Passport photo ${w}×${h}px`);window._lastBlob=b;window._lastName='passport.jpg';toast('✅ Photo ready!');},'image/jpeg',0.95);};}
+function runImgBase64(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const r=new FileReader();r.onload=e=>{setResult(`<div class="result-box"><h4>🔤 Base64 Code</h4><textarea rows="8" style="font-size:11px;margin-top:10px" readonly>${e.target.result}</textarea></div>`,e.target.result);toast('✅ Ready!');};r.readAsDataURL(f);}
 function runImgRotate(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const rot=+val('rot');const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');const ctx=c.getContext('2d');if(rot===180){c.width=img.width;c.height=img.height;ctx.translate(c.width/2,c.height/2);ctx.rotate(Math.PI);ctx.drawImage(img,-img.width/2,-img.height/2);}else{c.width=img.height;c.height=img.width;ctx.translate(c.width/2,c.height/2);ctx.rotate(rot*Math.PI/180);ctx.drawImage(img,-img.width/2,-img.height/2);}c.toBlob(b=>{setResult(`<div class="result-box"><h4>🔄 Rotated ${rot}°</h4><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,`Rotated by ${rot}°`);window._lastBlob=b;window._lastName='rotated.jpg';toast('✅ Rotated!');},'image/jpeg',0.92);};}
-function runImgGray(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const ctx=c.getContext('2d');ctx.drawImage(img,0,0);const id=ctx.getImageData(0,0,c.width,c.height),d=id.data;for(let i=0;i<d.length;i+=4){const g=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];d[i]=d[i+1]=d[i+2]=g;}ctx.putImageData(id,0,0);c.toBlob(b=>{setResult(`<div class="result-box"><h4>⚫ Grayscale</h4><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,'Grayscale image ready');window._lastBlob=b;window._lastName='grayscale.jpg';toast('✅ Grayscale ready!');},'image/jpeg',0.92);};}
-function runImgBlur(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const b=+val('b');const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const ctx=c.getContext('2d');ctx.filter=`blur(${b}px)`;ctx.drawImage(img,0,0);c.toBlob(bl=>{setResult(`<div class="result-box"><h4>🌫️ Blurred</h4><img src="${URL.createObjectURL(bl)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,`Blurred with ${b}px`);window._lastBlob=bl;window._lastName='blur.jpg';toast('✅ Blurred!');},'image/jpeg',0.92);};}
-function runQR(){const t=val('t'),s=+val('sz')||300;if(!t){toast('Text likho',1);return;}const box=document.getElementById('resultBox');box.innerHTML=`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><p style="font-size:12px;color:#8a8a9a;margin:10px 0">Generating...</p></div>`;const img=new Image();img.crossOrigin='anonymous';img.onload=()=>{const c=document.createElement('canvas');c.width=s;c.height=s;c.getContext('2d').drawImage(img,0,0,s,s);c.toBlob(b=>{setResult(`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:10px;max-width:250px"><div class="result-row"><span class="lb">Content</span><span class="vl" style="font-size:12px">${t}</span></div><div class="result-row total"><span class="lb">Size</span><span class="vl">${s}×${s}px</span></div></div>`,`QR Code for: ${t}`);window._lastBlob=b;window._lastName='qrcode.png';toast('✅ QR ready!');},'image/png');};img.onerror=()=>{setResult(`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><img src="https://api.qrserver.com/v1/create-qr-code/?size=${s}x${s}&data=${encodeURIComponent(t)}" style="margin:16px auto;border-radius:12px;background:white;padding:10px;max-width:250px"><p style="font-size:12px;color:#8a8a9a">Right-click → Save Image</p></div>`,`QR Code: ${t}`);toast('QR ready!');};img.src=`https://api.qrserver.com/v1/create-qr-code/?size=${s}x${s}&data=${encodeURIComponent(t)}`;}
-function runBarcode(){const t=val('t');const fmt=val('fmt');if(!t){toast('Text likho',1);return;}const box=document.getElementById('resultBox');box.innerHTML=`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><p style="font-size:12px;color:#8a8a9a;margin:10px 0">Generating...</p></div>`;
-  try{const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');JsBarcode(svg,t,{format:fmt,width:2,height:80,displayValue:true,margin:10,background:'#ffffff',lineColor:'#000000'});
-    const svgData=new XMLSerializer().serializeToString(svg);
-    const canvas=document.createElement('canvas');canvas.width=600;canvas.height=200;const ctx=canvas.getContext('2d');
-    const img=new Image();
-    img.onload=()=>{ctx.fillStyle='#fff';ctx.fillRect(0,0,600,200);const scale=Math.min(560/img.width,180/img.height);const w=img.width*scale,h=img.height*scale;ctx.drawImage(img,(600-w)/2,(200-h)/2,w,h);
-      canvas.toBlob(b=>{setResult(`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:12px;max-width:100%"><div class="result-row"><span class="lb">Content</span><span class="vl" style="font-size:12px">${t}</span></div><div class="result-row total"><span class="lb">Format</span><span class="vl">${fmt}</span></div></div>`,`Barcode (${fmt}): ${t}`);window._lastBlob=b;window._lastName='barcode.png';toast('✅ Barcode ready!');},'image/png');};
-    img.src='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(svgData)));
-  }catch(e){toast('❌ Barcode failed: '+e.message,1);setResult(`<div class="result-box" style="border-color:#ef4444"><h4 style="color:#ef4444">❌ Error</h4><p>${e.message}</p></div>`,'Barcode failed');}}
+function runImgGray(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const ctx=c.getContext('2d');ctx.drawImage(img,0,0);const id=ctx.getImageData(0,0,c.width,c.height),d=id.data;for(let i=0;i<d.length;i+=4){const g=0.299*d[i]+0.587*d[i+1]+0.114*d[i+2];d[i]=d[i+1]=d[i+2]=g;}ctx.putImageData(id,0,0);c.toBlob(b=>{setResult(`<div class="result-box"><h4>⚫ Grayscale</h4><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,'Grayscale ready');window._lastBlob=b;window._lastName='grayscale.jpg';toast('✅ Grayscale!');},'image/jpeg',0.92);};}
+function runImgBlur(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const b=+val('b');const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const ctx=c.getContext('2d');ctx.filter=`blur(${b}px)`;ctx.drawImage(img,0,0);c.toBlob(bl=>{setResult(`<div class="result-box"><h4>🌫️ Blurred</h4><img src="${URL.createObjectURL(bl)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,`Blur ${b}px`);window._lastBlob=bl;window._lastName='blur.jpg';toast('✅ Blurred!');},'image/jpeg',0.92);};}
+function runQR(){const t=val('t'),s=+val('sz')||300;if(!t){toast('Text likho',1);return;}const box=document.getElementById('resultBox');box.innerHTML=`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><p style="font-size:12px;color:var(--muted);margin:10px 0">Generating...</p></div>`;const img=new Image();img.crossOrigin='anonymous';img.onload=()=>{const c=document.createElement('canvas');c.width=s;c.height=s;c.getContext('2d').drawImage(img,0,0,s,s);c.toBlob(b=>{setResult(`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:10px;max-width:250px"><div class="result-row"><span class="lb">Content</span><span class="vl" style="font-size:12px">${t}</span></div></div>`,`QR Code for: ${t}`);window._lastBlob=b;window._lastName='qrcode.png';toast('✅ QR ready!');},'image/png');};img.onerror=()=>{setResult(`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><img src="https://api.qrserver.com/v1/create-qr-code/?size=${s}x${s}&data=${encodeURIComponent(t)}" style="margin:16px auto;border-radius:12px;background:white;padding:10px;max-width:250px"><p style="font-size:12px;color:var(--muted)">Right-click → Save Image</p></div>`,`QR Code: ${t}`);};img.src=`https://api.qrserver.com/v1/create-qr-code/?size=${s}x${s}&data=${encodeURIComponent(t)}`;}
+function runBarcode(){
+  const t=val('t');const fmt=val('fmt');if(!t){toast('Text likho',1);return;}
+  const box=document.getElementById('resultBox');box.innerHTML=`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><p style="font-size:12px;color:var(--muted);margin:10px 0">Generating...</p></div>`;
+  try{
+    const canvas=document.createElement('canvas');
+    JsBarcode(canvas,t,{format:fmt,width:2.5,height:90,displayValue:true,fontSize:16,margin:14,background:'#ffffff',lineColor:'#000000'});
+    canvas.toBlob(b=>{
+      setResult(`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:12px;max-width:100%"><div class="result-row"><span class="lb">Content</span><span class="vl" style="font-size:12px">${t}</span></div><div class="result-row total"><span class="lb">Format</span><span class="vl">${fmt}</span></div></div>`,`Barcode (${fmt}): ${t}`);
+      window._lastBlob=b;window._lastName='barcode.png';toast('✅ Barcode ready!');
+    },'image/png');
+  }catch(e){toast('❌ '+e.message,1);setResult(`<div class="result-box" style="border-color:#ef4444"><h4 style="color:#ef4444">❌ Error</h4><p>${e.message}. Try different format or text.</p></div>`,'Barcode failed');}
+}
 
 /* ============ STATIC PAGES ============ */
 function openStatic(page){const content={about:{t:'ℹ️ About Qunvero',b:`<p style="line-height:1.8;font-size:15px">Qunvero is a free online platform offering 200+ useful tools for daily life, business, education, and more.</p><p style="margin-top:14px;line-height:1.8;font-size:15px">All tools run directly in your browser. Your data never leaves your device — 100% private.</p><p style="margin-top:14px;line-height:1.8;font-size:15px">We believe useful tools should be free for everyone.</p>`},privacy:{t:'🔒 Privacy Policy',b:`<p style="line-height:1.8;font-size:15px">Your privacy is important to us.</p><ul style="margin:14px 0;padding-left:22px;line-height:1.9;font-size:15px"><li>All processing happens in your browser</li><li>Your files and data never leave your device</li><li>No personal information is collected</li><li>No tracking or third-party cookies</li></ul>`},terms:{t:'📜 Terms of Use',b:`<ul style="padding-left:22px;line-height:1.9;font-size:15px"><li>All tools are provided "as-is"</li><li>Financial and tax calculations are for reference only</li><li>Health tools are educational, not medical advice</li><li>Verify important results with a professional</li><li>We may add or remove tools at any time</li></ul>`}};const c=content[page];if(!c)return;document.getElementById('staticTitle').textContent=c.t;document.getElementById('staticBody').innerHTML=c.b;document.getElementById('staticModal').classList.add('on');document.body.style.overflow='hidden';}
@@ -733,7 +879,10 @@ function goHome(){window.scrollTo({top:0,behavior:'smooth'});closeTool();closeSt
 document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.shiftKey&&e.key==='A'){e.preventDefault();feedbackSystem.openAdmin();}});
 window.openAdmin=()=>feedbackSystem.openAdmin();
 
-document.addEventListener('DOMContentLoaded',()=>{buildCalcFuncs();renderQuick();renderCategories();liveUsers.update();feedbackSystem.checkAdminAccess();});
+document.addEventListener('DOMContentLoaded',()=>{buildCalcFuncs();renderQuick();renderCategories();
+  document.getElementById('toolCount').textContent=TOOLS.length+'+';
+  liveUsers.update();feedbackSystem.checkAdminAccess();showWelcome();
+});
 console.log('⚡ Qunvero loaded — '+TOOLS.length+' tools ready!');
 </script>
 </body>
