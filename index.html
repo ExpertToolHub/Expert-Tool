@@ -293,7 +293,6 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
     <div class="menu-item" onclick="goHome();closeMenu()"><span class="mi-icon">🏠</span>Home</div>
     <div class="menu-item" onclick="scrollToTools();closeMenu()"><span class="mi-icon">📚</span>All Tools</div>
     <div class="menu-item" onclick="showFavorites();closeMenu()"><span class="mi-icon">⭐</span>Favorites</div>
-    <div class="menu-item" onclick="showRecent();closeMenu()"><span class="mi-icon">🕐</span>Recent Tools</div>
     <div class="menu-item" onclick="openStatic('about');closeMenu()"><span class="mi-icon">ℹ️</span>About</div>
     <div class="menu-item" onclick="openStatic('privacy');closeMenu()"><span class="mi-icon">🔒</span>Privacy Policy</div>
     <div class="menu-item" onclick="openStatic('terms');closeMenu()"><span class="mi-icon">📜</span>Terms of Use</div>
@@ -323,11 +322,6 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 <section class="sec" id="favSection" style="display:none">
   <div class="sec-head"><h2><span class="emo">⭐</span>Favorites</h2><span class="cnt" id="favCount">0</span></div>
   <div class="slider-row" id="favRow"></div>
-</section>
-
-<section class="sec" id="recentSection" style="display:none">
-  <div class="sec-head"><h2><span class="emo">🕐</span>Recent</h2><span class="cnt" id="recentCount">0</span></div>
-  <div class="slider-row" id="recentRow"></div>
 </section>
 
 <section class="sec">
@@ -416,22 +410,18 @@ const ADMIN_KEY = "qunvero2025";
 const AI_PASSWORD = "Pass@wordRakesh@!123456";
 const AI_URL = "https://master-tool-omega.vercel.app";
 
-/* THEME */
 function toggleTheme(){const isDark=document.body.classList.toggle('dark');localStorage.setItem('qn_theme',isDark?'dark':'light');document.getElementById('themeBtn').textContent=isDark?'☀️':'🌙';}
 (function(){const t=localStorage.getItem('qn_theme');if(t==='dark'){document.body.classList.add('dark');document.addEventListener('DOMContentLoaded',()=>{const b=document.getElementById('themeBtn');if(b)b.textContent='☀️';});}})();
 
 function toast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.className='toast on'+(err?' err':'');clearTimeout(t._t);t._t=setTimeout(()=>t.className='toast',2400);}
 
-/* LIVE DATE/TIME */
 function updateDateTime(){const now=new Date();const timeEl=document.getElementById('liveTime');const dateEl=document.getElementById('liveDate');if(!timeEl)return;const h=now.getHours();const m=String(now.getMinutes()).padStart(2,'0');const s=String(now.getSeconds()).padStart(2,'0');const ampm=h>=12?'PM':'AM';const h12=h%12||12;timeEl.textContent=`${h12}:${m}:${s} ${ampm}`;const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];dateEl.textContent=`${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;}
 setInterval(updateDateTime,1000);
 document.addEventListener('DOMContentLoaded',updateDateTime);
 
-/* MENU */
 function openMenu(){document.getElementById('menuDrawer').classList.add('on');document.getElementById('menuOverlay').classList.add('on');document.body.style.overflow='hidden';}
 function closeMenu(){document.getElementById('menuDrawer').classList.remove('on');document.getElementById('menuOverlay').classList.remove('on');document.body.style.overflow='';}
 
-/* LIVE USERS */
 class LiveUsers{
   constructor(){this.tabId=this.getTabId();this.channel=null;this.init();}
   getTabId(){let id=sessionStorage.getItem('qn_tab');if(!id){id='tab_'+Math.random().toString(36).slice(2);sessionStorage.setItem('qn_tab',id);}return id;}
@@ -444,7 +434,6 @@ class LiveUsers{
 }
 const liveUsers=new LiveUsers();
 
-/* FAVORITES & RECENT */
 const Favorites={
   get(){try{return JSON.parse(localStorage.getItem('qn_favs')||'[]');}catch(e){return[];}},
   save(arr){localStorage.setItem('qn_favs',JSON.stringify(arr));},
@@ -452,27 +441,18 @@ const Favorites={
   toggle(id){let arr=this.get();if(arr.includes(id))arr=arr.filter(x=>x!==id);else arr.unshift(id);this.save(arr);this.render();return arr.includes(id);},
   render(){const arr=this.get();const sec=document.getElementById('favSection');const row=document.getElementById('favRow');const cnt=document.getElementById('favCount');if(!sec||!row)return;if(!arr.length){sec.style.display='none';return;}sec.style.display='';cnt.textContent=arr.length;row.innerHTML=arr.map(id=>{const t=TOOLS.find(x=>x.id===id);if(!t)return'';return`<div class="q-card" onclick="openTool('${t.id}')"><span class="e">${t.i}</span><span class="nm">${t.n}</span></div>`;}).join('');}
 };
-const Recent={
-  get(){try{return JSON.parse(localStorage.getItem('qn_recent')||'[]');}catch(e){return[];}},
-  save(arr){localStorage.setItem('qn_recent',JSON.stringify(arr.slice(0,10)));},
-  add(id){let arr=this.get().filter(x=>x!==id);arr.unshift(id);this.save(arr);this.render();},
-  render(){const arr=this.get();const sec=document.getElementById('recentSection');const row=document.getElementById('recentRow');const cnt=document.getElementById('recentCount');if(!sec||!row)return;if(!arr.length){sec.style.display='none';return;}sec.style.display='';cnt.textContent=arr.length;row.innerHTML=arr.map(id=>{const t=TOOLS.find(x=>x.id===id);if(!t)return'';return`<div class="q-card" onclick="openTool('${t.id}')"><span class="e">${t.i}</span><span class="nm">${t.n}</span></div>`;}).join('');}
-};
 
-/* 5-TAP LOGO */
 let logoTapCount=0;
 let logoLastTap=0;
 function onLogoClick(){const now=Date.now();if(now-logoLastTap>1500){logoTapCount=0;}logoLastTap=now;logoTapCount++;if(logoTapCount>=5){logoTapCount=0;setTimeout(()=>openAIAccess(),100);}}
 function openAIAccess(){const existing=document.getElementById('aiPopup');if(existing)existing.remove();const popup=document.createElement('div');popup.id='aiPopup';popup.className='popup';popup.onclick=(e)=>{if(e.target===popup)popup.remove();};popup.innerHTML=`<div class="popup-box" style="max-width:380px"><div class="popup-head"><h3>🔐 Private Access</h3><button class="popup-close" onclick="document.getElementById('aiPopup').remove()">✕</button></div><div class="popup-body"><p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Enter your access key to unlock the private AI tool.</p><label>Access Key</label><input type="password" id="aiPassInput" placeholder="Enter key..." onkeypress="if(event.key==='Enter')verifyAIPass()" autocomplete="off"></div><div class="popup-foot"><button class="btn btn-g" onclick="document.getElementById('aiPopup').remove()">Cancel</button><button class="btn btn-p" onclick="verifyAIPass()">🔓 Unlock</button></div></div>`;document.body.appendChild(popup);setTimeout(()=>{const inp=document.getElementById('aiPassInput');if(inp)inp.focus();},100);}
 function verifyAIPass(){const inp=document.getElementById('aiPassInput');if(!inp)return;const val=inp.value;if(val===AI_PASSWORD){document.getElementById('aiPopup').remove();toast('✅ Access granted!');setTimeout(()=>{window.open(AI_URL,'_blank','noopener,noreferrer');},400);}else{toast('❌ Access Denied',1);inp.value='';inp.focus();}}
 
-/* WELCOME */
 let welcomeRating=0;
 function showWelcome(){if(localStorage.getItem('qn_welcomed')==='yes')return;setTimeout(()=>{document.getElementById('welcomePopup').classList.add('on');},1200);const stars=document.querySelectorAll('#welcomeRating span');stars.forEach(s=>{s.onclick=()=>{welcomeRating=+s.dataset.v;stars.forEach(x=>{const on=+x.dataset.v<=welcomeRating;x.classList.toggle('on',on);});};});}
 function closeWelcome(){document.getElementById('welcomePopup').classList.remove('on');localStorage.setItem('qn_welcomed','yes');}
 function submitWelcomeRating(){if(!welcomeRating){toast('⭐ Rating do pehle',1);return;}const fb={id:'fb_welcome_'+Date.now(),name:'Anonymous Visitor',email:'no-email',message:`⭐ Welcome Rating: ${'⭐'.repeat(welcomeRating)} (${welcomeRating}/5)`,category:welcomeRating>=4?'praise':'general',rating:welcomeRating,time:Date.now(),page:window.location.href,screenSize:window.innerWidth+'x'+window.innerHeight,read:false};try{const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');all.unshift(fb);localStorage.setItem('qn_feedback',JSON.stringify(all.slice(0,500)));}catch(e){}try{fetch(FORMSPREE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:`⭐ Welcome Rating: ${welcomeRating}/5`,Rating:`${'⭐'.repeat(welcomeRating)} (${welcomeRating}/5)`,Name:'Welcome Visitor',Time:new Date().toLocaleString('en-IN')})}).catch(()=>{});}catch(e){}closeWelcome();toast(`🎉 Shukriya! ${welcomeRating}★`);}
 
-/* FEEDBACK SYSTEM */
 const feedbackSystem={
   currentRating:0,
   openForm(){if(document.getElementById('feedbackModal'))return;this.currentRating=0;const m=document.createElement('div');m.id='feedbackModal';m.className='popup';m.onclick=(e)=>{if(e.target===m)this.closeForm();};m.innerHTML=`<div class="popup-box"><div class="popup-head"><h3>💬 Send Feedback</h3><button class="popup-close" onclick="feedbackSystem.closeForm()">✕</button></div><div class="popup-body"><p style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6">Aapki suggestion, problem, ya idea — sab welcome hai.</p><label>Name (optional)</label><input type="text" id="fbName" placeholder="Aapka naam"><label>Email (optional)</label><input type="email" id="fbEmail" placeholder="aap@example.com"><label>Rating</label><div id="fbStars" style="display:flex;gap:6px;font-size:26px;cursor:pointer;user-select:none">${[1,2,3,4,5].map(v=>`<span data-v="${v}" style="filter:grayscale(1) brightness(.7);transition:.2s">⭐</span>`).join('')}</div><label>Category</label><select id="fbCat"><option value="general">💬 General</option><option value="bug">🐛 Bug Report</option><option value="suggestion">💡 Suggestion</option><option value="problem">⚠️ Problem</option><option value="praise">🎉 Praise</option></select><label>Message *</label><textarea id="fbMsg" rows="4" placeholder="Aapka message..."></textarea></div><div class="popup-foot"><button class="btn btn-g" onclick="feedbackSystem.closeForm()">Cancel</button><button class="btn btn-p" onclick="feedbackSystem.submit()">📤 Submit</button></div></div>`;document.body.appendChild(m);const stars=m.querySelectorAll('#fbStars span');stars.forEach(s=>{s.onclick=()=>{this.currentRating=+s.dataset.v;stars.forEach(x=>{const on=+x.dataset.v<=this.currentRating;x.style.filter=on?'none':'grayscale(1) brightness(.7)';});};});},
@@ -493,7 +473,6 @@ const feedbackSystem={
   checkAccess(){const params=new URLSearchParams(window.location.search);if(params.get('admin')===ADMIN_KEY){setTimeout(()=>this.openAdmin(),500);}}
 };
 
-/* ============ TOOLS DATABASE — 29 Tools ============ */
 const CATEGORIES=[
   {id:'elec',name:'Bijli / Electricity',emo:'⚡'},
   {id:'biz',name:'Business / Shop',emo:'🏪'},
@@ -529,50 +508,50 @@ const F={
 };
 function calcBtn(label){return`<div class="calc-btn-row"><button class="calc-btn" onclick="__calc()">${label||'🔢 Calculate'}</button></div>`;}
 
-/* ============ CATEGORY: BIJLI (4 tools) ============ */
+/* ELECTRICITY */
 TOOLS.push(
 {id:'elecBill',n:'Electricity Bill Calculator',i:'💡',c:'elec',
  render:()=>`${F.num('units','Units Consumed (kWh)')}${F.num('rate','Rate per Unit (₹)')}${F.num('fixed','Fixed Charges (₹)')}${F.num('tax','Tax (%)')}${calcBtn('💡 Calculate Bill')}<div id="resultBox"></div>`,
- calc(){const u=+v('units')||0,r=+v('rate')||0,f=+v('fixed')||0,t=+v('tax')||0;const e=u*r,s=e+f,tx=s*t/100,tot=s+tx;res(`<div class="result-box"><h4>💡 Bill Breakdown</h4><div class="result-row"><span class="lb">Units</span><span class="vl">${u} kWh</span></div><div class="result-row"><span class="lb">Energy Charge</span><span class="vl">₹${fmt(e)}</span></div><div class="result-row"><span class="lb">Fixed Charge</span><span class="vl">₹${fmt(f)}</span></div><div class="result-row"><span class="lb">Tax ${t}%</span><span class="vl">₹${fmt(tx)}</span></div><div class="result-row total"><span class="lb">Total Bill</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`Electricity Bill: ₹${fmt(tot)} (${u} units × ₹${r} + ₹${fmt(f)} fixed + ${t}% tax)`);}},
+ calc(){const u=+v('units')||0,r=+v('rate')||0,f=+v('fixed')||0,t=+v('tax')||0;const e=u*r,s=e+f,tx=s*t/100,tot=s+tx;res(`<div class="result-box"><h4>💡 Bill Breakdown</h4><div class="result-row"><span class="lb">Units</span><span class="vl">${u} kWh</span></div><div class="result-row"><span class="lb">Energy Charge</span><span class="vl">₹${fmt(e)}</span></div><div class="result-row"><span class="lb">Fixed Charge</span><span class="vl">₹${fmt(f)}</span></div><div class="result-row"><span class="lb">Tax ${t}%</span><span class="vl">₹${fmt(tx)}</span></div><div class="result-row total"><span class="lb">Total Bill</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`Electricity Bill: ₹${fmt(tot)}`);}},
 {id:'elecSolar',n:'Solar Panel Calculator',i:'☀️',c:'elec',
  render:()=>`${F.num('cons','Monthly Units (kWh)')}${F.num('sun','Sun Hours/Day')}${F.num('panel','Panel Watt (W)')}${calcBtn('☀️ Calculate Solar')}<div id="resultBox"></div>`,
- calc(){const c=+v('cons')||0,s=+v('sun')||1,p=+v('panel')||1;const daily=c/30,kw=daily/s,panels=Math.ceil(kw*1000/p);const cost=panels*p*30,save=c*8*12;res(`<div class="result-box"><h4>☀️ Solar Estimate</h4><div class="result-row"><span class="lb">Panels Needed</span><span class="vl">${panels} × ${p}W</span></div><div class="result-row"><span class="lb">System Size</span><span class="vl">${fmt(kw,2)} kW</span></div><div class="result-row"><span class="lb">Approx Cost</span><span class="vl">₹${fmt(cost,0)}</span></div><div class="result-row total"><span class="lb">Yearly Saving</span><span class="vl">₹${fmt(save,0)}</span></div></div>`,`Solar: ${panels} panels of ${p}W, Yearly saving ₹${fmt(save,0)}`);}},
+ calc(){const c=+v('cons')||0,s=+v('sun')||1,p=+v('panel')||1;const daily=c/30,kw=daily/s,panels=Math.ceil(kw*1000/p);const cost=panels*p*30,save=c*8*12;res(`<div class="result-box"><h4>☀️ Solar Estimate</h4><div class="result-row"><span class="lb">Panels Needed</span><span class="vl">${panels} × ${p}W</span></div><div class="result-row"><span class="lb">System Size</span><span class="vl">${fmt(kw,2)} kW</span></div><div class="result-row"><span class="lb">Approx Cost</span><span class="vl">₹${fmt(cost,0)}</span></div><div class="result-row total"><span class="lb">Yearly Saving</span><span class="vl">₹${fmt(save,0)}</span></div></div>`,`Solar: ${panels} panels, Yearly ₹${fmt(save,0)}`);}},
 {id:'elecInverter',n:'Inverter Backup Time',i:'🔋',c:'elec',
  render:()=>`${F.num('bat','Battery Ah')}${F.num('volt','Battery Volt')}${F.num('load','Load (Watt)')}${F.num('eff','Efficiency (%)')}${calcBtn('🔋 Calculate')}<div id="resultBox"></div>`,
- calc(){const ah=+v('bat')||0,vlt=+v('volt')||0,l=+v('load')||1,e=+v('eff')||0;const wh=ah*vlt*(e/100),h=wh/l;res(`<div class="result-box"><h4>🔋 Backup Time</h4><div class="result-row"><span class="lb">Total Energy</span><span class="vl">${fmt(wh,0)} Wh</span></div><div class="result-row total"><span class="lb">Backup Time</span><span class="vl">${fmt(h,1)} hours</span></div></div>`,`Backup: ${fmt(h,1)} hours at ${l}W load`);}},
+ calc(){const ah=+v('bat')||0,vlt=+v('volt')||0,l=+v('load')||1,e=+v('eff')||0;const wh=ah*vlt*(e/100),h=wh/l;res(`<div class="result-box"><h4>🔋 Backup Time</h4><div class="result-row"><span class="lb">Energy</span><span class="vl">${fmt(wh,0)} Wh</span></div><div class="result-row total"><span class="lb">Backup</span><span class="vl">${fmt(h,1)} hours</span></div></div>`,`Backup: ${fmt(h,1)} hours`);}},
 {id:'elecAppliance',n:'Appliance Power Cost',i:'🔌',c:'elec',
  render:()=>`${F.num('watt','Appliance Watt')}${F.num('hours','Hours/Day')}${F.num('rate','Rate/Unit (₹)')}${calcBtn('🔌 Calculate')}<div id="resultBox"></div>`,
  calc(){const w=+v('watt')||0,h=+v('hours')||0,r=+v('rate')||0;const daily=w*h/1000*r,monthly=daily*30,yearly=monthly*12;res(`<div class="result-box"><h4>🔌 Power Cost</h4><div class="result-row"><span class="lb">Daily</span><span class="vl">₹${fmt(daily)}</span></div><div class="result-row"><span class="lb">Monthly</span><span class="vl">₹${fmt(monthly)}</span></div><div class="result-row total"><span class="lb">Yearly</span><span class="vl">₹${fmt(yearly)}</span></div></div>`,`Yearly: ₹${fmt(yearly)}`);}}
 );
 
-/* ============ CATEGORY: BUSINESS (5 tools) ============ */
+/* BUSINESS */
 TOOLS.push(
 {id:'bizInvoice',n:'Invoice Generator',i:'🧾',c:'biz',
  render:()=>`<div class="form-grid">${F.txt('biz','Business Name')}${F.txt('cust','Customer Name')}${F.txt('inv','Invoice No')}${F.date('date','Date')}</div><table class="tbl"><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amt</th><th></th></tr></thead><tbody id="invBody"></tbody></table><button class="btn btn-g btn-sm" style="margin-top:10px" onclick="addInvRow()">+ Add Item</button>${calcBtn('🧾 Calculate Invoice')}<div id="resultBox"></div>`,
  init(){const d=document.getElementById('date');if(d)d.valueAsDate=new Date();addInvRow();addInvRow();},
- calc(){let sub=0;document.querySelectorAll('#invBody tr').forEach(r=>{const q=+r.querySelector('.q').value||0,rt=+r.querySelector('.r').value||0,a=q*rt;r.querySelector('.a').textContent='₹'+fmt(a);sub+=a;});const g=sub*0.18,tot=sub+g;res(`<div class="result-box"><h4>🧾 Invoice Total</h4><div class="result-row"><span class="lb">Subtotal</span><span class="vl">₹${fmt(sub)}</span></div><div class="result-row"><span class="lb">GST 18%</span><span class="vl">₹${fmt(g)}</span></div><div class="result-row total"><span class="lb">Grand Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`Invoice ${v('inv')}: ₹${fmt(tot)} (Subtotal ₹${fmt(sub)} + GST ₹${fmt(g)})`);}},
+ calc(){let sub=0;document.querySelectorAll('#invBody tr').forEach(r=>{const q=+r.querySelector('.q').value||0,rt=+r.querySelector('.r').value||0,a=q*rt;r.querySelector('.a').textContent='₹'+fmt(a);sub+=a;});const g=sub*0.18,tot=sub+g;res(`<div class="result-box"><h4>🧾 Invoice Total</h4><div class="result-row"><span class="lb">Subtotal</span><span class="vl">₹${fmt(sub)}</span></div><div class="result-row"><span class="lb">GST 18%</span><span class="vl">₹${fmt(g)}</span></div><div class="result-row total"><span class="lb">Grand Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`Invoice Total: ₹${fmt(tot)}`);}},
 {id:'bizGST',n:'GST Calculator',i:'💰',c:'biz',
  render:()=>`${F.num('amt','Amount (₹)')}${F.sel('rate','GST Rate',[['5','5%'],['12','12%'],['18','18%'],['28','28%']])}${F.sel('mode','Type',[['add','Add GST'],['rem','Remove GST']])}${calcBtn('💰 Calculate GST')}<div id="resultBox"></div>`,
- calc(){const a=+v('amt')||0,r=+v('rate')||0,m=v('mode');let base,gst,tot;if(m==='add'){base=a;gst=a*r/100;tot=a+gst;}else{base=a*100/(100+r);gst=a-base;tot=a;}res(`<div class="result-box"><h4>💰 GST Breakdown</h4><div class="result-row"><span class="lb">Base</span><span class="vl">₹${fmt(base)}</span></div><div class="result-row"><span class="lb">GST ${r}%</span><span class="vl">₹${fmt(gst)}</span></div><div class="result-row"><span class="lb">CGST</span><span class="vl">₹${fmt(gst/2)}</span></div><div class="result-row"><span class="lb">SGST</span><span class="vl">₹${fmt(gst/2)}</span></div><div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`Total: ₹${fmt(tot)}`);}},
+ calc(){const a=+v('amt')||0,r=+v('rate')||0,m=v('mode');let base,gst,tot;if(m==='add'){base=a;gst=a*r/100;tot=a+gst;}else{base=a*100/(100+r);gst=a-base;tot=a;}res(`<div class="result-box"><h4>💰 GST Breakdown</h4><div class="result-row"><span class="lb">Base</span><span class="vl">₹${fmt(base)}</span></div><div class="result-row"><span class="lb">GST ${r}%</span><span class="vl">₹${fmt(gst)}</span></div><div class="result-row"><span class="lb">CGST</span><span class="vl">₹${fmt(gst/2)}</span></div><div class="result-row"><span class="lb">SGST</span><span class="vl">₹${fmt(gst/2)}</span></div><div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`GST Total: ₹${fmt(tot)}`);}},
 {id:'bizEMI',n:'EMI Calculator',i:'🏦',c:'biz',
  render:()=>`${F.num('p','Loan Amount (₹)')}${F.num('r','Annual Rate (%)')}${F.num('n','Years')}${calcBtn('🏦 Calculate EMI')}<div id="resultBox"></div>`,
- calc(){const P=+v('p')||0,R=(+v('r')||0)/12/100,N=(+v('n')||0)*12;let emi=0,tot=0,int=0;if(R>0&&N>0){emi=P*R*Math.pow(1+R,N)/(Math.pow(1+R,N)-1);tot=emi*N;int=tot-P;}else{emi=P/N||0;tot=P;}res(`<div class="result-box"><h4>🏦 EMI Details</h4><div class="result-row"><span class="lb">Monthly EMI</span><span class="vl">₹${fmt(emi,0)}</span></div><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(int,0)}</span></div><div class="result-row total"><span class="lb">Total Payment</span><span class="vl">₹${fmt(tot,0)}</span></div></div>`,`EMI ₹${fmt(emi,0)}/mo, Total ₹${fmt(tot,0)}`);}},
+ calc(){const P=+v('p')||0,R=(+v('r')||0)/12/100,N=(+v('n')||0)*12;let emi=0,tot=0,int=0;if(R>0&&N>0){emi=P*R*Math.pow(1+R,N)/(Math.pow(1+R,N)-1);tot=emi*N;int=tot-P;}else{emi=P/N||0;tot=P;}res(`<div class="result-box"><h4>🏦 EMI Details</h4><div class="result-row"><span class="lb">Monthly EMI</span><span class="vl">₹${fmt(emi,0)}</span></div><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(int,0)}</span></div><div class="result-row total"><span class="lb">Total Payment</span><span class="vl">₹${fmt(tot,0)}</span></div></div>`,`EMI: ₹${fmt(emi,0)}/mo`);}},
 {id:'bizProfit',n:'Profit Margin Calculator',i:'📈',c:'biz',
  render:()=>`${F.num('cost','Cost Price (₹)')}${F.num('sell','Selling Price (₹)')}${calcBtn('📈 Calculate Profit')}<div id="resultBox"></div>`,
  calc(){const c=+v('cost')||0,s=+v('sell')||0;const p=s-c,m=c?(p/c*100):0,mk=s?(p/s*100):0;res(`<div class="result-box"><h4>📈 Profit</h4><div class="result-row"><span class="lb">Profit</span><span class="vl">₹${fmt(p)}</span></div><div class="result-row"><span class="lb">Markup %</span><span class="vl">${fmt(m)}%</span></div><div class="result-row total"><span class="lb">Margin %</span><span class="vl">${fmt(mk)}%</span></div></div>`,`Profit ₹${fmt(p)}, Margin ${fmt(mk)}%`);}},
 {id:'bizDiscount',n:'Discount Calculator',i:'🏷️',c:'biz',
  render:()=>`${F.num('mrp','MRP (₹)')}${F.num('disc','Discount (%)')}${calcBtn('🏷️ Calculate Discount')}<div id="resultBox"></div>`,
- calc(){const m=+v('mrp')||0,d=+v('disc')||0;const save=m*d/100,fp=m-save;res(`<div class="result-box"><h4>🏷️ Discount</h4><div class="result-row"><span class="lb">You Save</span><span class="vl">₹${fmt(save)}</span></div><div class="result-row total"><span class="lb">Final Price</span><span class="vl">₹${fmt(fp)}</span></div></div>`,`Final ₹${fmt(fp)} (Saved ₹${fmt(save)})`);}}
+ calc(){const m=+v('mrp')||0,d=+v('disc')||0;const save=m*d/100,fp=m-save;res(`<div class="result-box"><h4>🏷️ Discount</h4><div class="result-row"><span class="lb">Save</span><span class="vl">₹${fmt(save)}</span></div><div class="result-row total"><span class="lb">Final</span><span class="vl">₹${fmt(fp)}</span></div></div>`,`Final ₹${fmt(fp)}`);}}
 );
 
-/* ============ CATEGORY: PDF (1 tool) ============ */
+/* PDF */
 TOOLS.push(
 {id:'pdfImg',n:'Image to PDF',i:'🖼️',c:'pdf',
  render:()=>`<div><label>Select Images</label><input type="file" id="imgs" accept="image/*" multiple></div><button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgToPdf()">🖼️ Convert to PDF</button><div id="resultBox"></div>`,
  calc(){return '';}}
 );
 
-/* ============ CATEGORY: IMAGE (3 tools) ============ */
+/* IMAGE */
 TOOLS.push(
 {id:'imgCompress',n:'Image Compressor',i:'🗜️',c:'img',
  render:()=>`<div><label>Image</label><input type="file" id="file" accept="image/*"></div>${F.num('q','Quality (10-100)')}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgCompress()">🗜️ Compress</button><div id="resultBox"></div>`,
@@ -585,121 +564,237 @@ TOOLS.push(
  calc(){return '';}}
 );
 
-/* ============ CATEGORY: TEXT (1 tool) ============ */
+/* TEXT */
 TOOLS.push(
 {id:'passGen',n:'Password Generator',i:'🔐',c:'text',
- render:()=>`${F.num('len','Length')}${F.sel('type','Type',[['all','All (A-Z, a-z, 0-9, symbols)'],['alpha','Only Letters'],['num','Only Numbers']])}${calcBtn('🔐 Generate Password')}<div id="resultBox"></div>`,
+ render:()=>`${F.num('len','Length')}${F.sel('type','Type',[['all','All'],['alpha','Letters'],['num','Numbers']])}${calcBtn('🔐 Generate')}<div id="resultBox"></div>`,
  calc(){const l=+v('len')||12,ty=v('type');let chars='abcdefghijklmnopqrstuvwxyz';if(ty==='all')chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';else if(ty==='alpha')chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';else chars='0123456789';let p='';for(let i=0;i<l;i++)p+=chars[Math.floor(Math.random()*chars.length)];res(`<div class="result-box"><h4>🔐 Password</h4><div class="result-row total"><span class="lb">Password</span><span class="vl" style="font-family:monospace;font-size:13px;word-break:break-all">${p}</span></div></div>`,p);}}
 );
 
-/* ============ CATEGORY: FINANCE (3 tools) ============ */
+/* FINANCE */
 TOOLS.push(
 {id:'finSIP',n:'SIP Calculator',i:'📊',c:'fin',
  render:()=>`${F.num('m','Monthly SIP (₹)')}${F.num('r','Return Rate (%)')}${F.num('y','Years')}${calcBtn('📊 Calculate SIP')}<div id="resultBox"></div>`,
  calc(){const m=+v('m')||0,r=(+v('r')||0)/12/100,n=(+v('y')||0)*12;let fv=0;if(r>0)fv=m*((Math.pow(1+r,n)-1)/r)*(1+r);else fv=m*n;const inv=m*n,gain=fv-inv;res(`<div class="result-box"><h4>📊 SIP Result</h4><div class="result-row"><span class="lb">Invested</span><span class="vl">₹${fmt(inv,0)}</span></div><div class="result-row"><span class="lb">Returns</span><span class="vl">₹${fmt(gain,0)}</span></div><div class="result-row total"><span class="lb">Final Value</span><span class="vl">₹${fmt(fv,0)}</span></div></div>`,`SIP Final: ₹${fmt(fv,0)}`);}},
 {id:'finFD',n:'FD Calculator',i:'🏛️',c:'fin',
  render:()=>`${F.num('p','Principal (₹)')}${F.num('r','Rate (%)')}${F.num('y','Years')}${calcBtn('🏛️ Calculate FD')}<div id="resultBox"></div>`,
- calc(){const p=+v('p')||0,r=(+v('r')||0)/100,y=+v('y')||0;const a=p*Math.pow(1+r/4,y*4),i=a-p;res(`<div class="result-box"><h4>🏛️ FD Result</h4><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row total"><span class="lb">Maturity</span><span class="vl">₹${fmt(a,0)}</span></div></div>`,`FD Maturity: ₹${fmt(a,0)}`);}},
+ calc(){const p=+v('p')||0,r=(+v('r')||0)/100,y=+v('y')||0;const a=p*Math.pow(1+r/4,y*4),i=a-p;res(`<div class="result-box"><h4>🏛️ FD Result</h4><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row total"><span class="lb">Maturity</span><span class="vl">₹${fmt(a,0)}</span></div></div>`,`FD: ₹${fmt(a,0)}`);}},
 {id:'finTax',n:'Income Tax Calculator',i:'🧮',c:'fin',
  render:()=>`${F.num('inc','Annual Income (₹)')}${calcBtn('🧮 Calculate Tax')}<div id="resultBox"></div>`,
- calc(){const i=+v('inc')||0;let tax=0;if(i<=300000)tax=0;else if(i<=600000)tax=(i-300000)*0.05;else if(i<=900000)tax=15000+(i-600000)*0.10;else if(i<=1200000)tax=45000+(i-900000)*0.15;else if(i<=1500000)tax=90000+(i-1200000)*0.20;else tax=150000+(i-1500000)*0.30;const cess=tax*0.04,total=tax+cess;res(`<div class="result-box"><h4>🧮 Tax (New Regime)</h4><div class="result-row"><span class="lb">Tax</span><span class="vl">₹${fmt(tax,0)}</span></div><div class="result-row"><span class="lb">Cess 4%</span><span class="vl">₹${fmt(cess,0)}</span></div><div class="result-row total"><span class="lb">Total Tax</span><span class="vl">₹${fmt(total,0)}</span></div></div>`,`Tax: ₹${fmt(total,0)}`);}}
+ calc(){const i=+v('inc')||0;let tax=0;if(i<=300000)tax=0;else if(i<=600000)tax=(i-300000)*0.05;else if(i<=900000)tax=15000+(i-600000)*0.10;else if(i<=1200000)tax=45000+(i-900000)*0.15;else if(i<=1500000)tax=90000+(i-1200000)*0.20;else tax=150000+(i-1500000)*0.30;const cess=tax*0.04,total=tax+cess;res(`<div class="result-box"><h4>🧮 Tax</h4><div class="result-row"><span class="lb">Tax</span><span class="vl">₹${fmt(tax,0)}</span></div><div class="result-row"><span class="lb">Cess 4%</span><span class="vl">₹${fmt(cess,0)}</span></div><div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(total,0)}</span></div></div>`,`Tax: ₹${fmt(total,0)}`);}}
 );
 
-/* ============ CATEGORY: SOCIAL (2 tools) ============ */
+/* SOCIAL */
 TOOLS.push(
 {id:'socQR',n:'QR Code Generator',i:'📱',c:'social',
- render:()=>`${F.txt('t','Text or URL')}${F.sel('sz','Size',[['200','Small'],['300','Medium'],['500','Large']])}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runQR()">📱 Generate QR</button><div id="resultBox"></div>`,
+ render:()=>`${F.txt('t','Text or URL')}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runQR()">📱 Generate QR</button><div id="resultBox"></div>`,
  calc(){return '';}},
 {id:'socBar',n:'Barcode Generator',i:'▮▮▮',c:'social',
- render:()=>`${F.txt('t','Text (numbers/letters)')}${F.sel('fmt','Format',[['CODE128','CODE128 (any text)'],['EAN13','EAN13 (13 digits)'],['UPC','UPC (12 digits)'],['CODE39','CODE39']])}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runBarcode()">▮▮▮ Generate Barcode</button><div id="resultBox"></div>`,
+ render:()=>`${F.txt('t','Text (koi bhi text/URL/number)')}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runBarcode()">▮▮▮ Generate Barcode</button><div id="resultBox"></div>`,
  calc(){return '';}}
 );
 
-/* ============ CATEGORY: EDUCATION (2 tools) ============ */
+/* EDUCATION */
 TOOLS.push(
 {id:'eduAge',n:'Age Calculator',i:'🎂',c:'edu',
  render:()=>`${F.date('dob','Date of Birth')}${calcBtn('🎂 Calculate Age')}<div id="resultBox"></div>`,
- calc(){const d=v('dob');if(!d){toast('Date select karo',1);return;}const b=new Date(d),n=new Date();let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),dd=n.getDate()-b.getDate();if(dd<0){m--;dd+=new Date(n.getFullYear(),n.getMonth(),0).getDate();}if(m<0){y--;m+=12;}const days=Math.floor((n-b)/86400000);res(`<div class="result-box"><h4>🎂 Your Age</h4><div class="result-row"><span class="lb">Years</span><span class="vl">${y} years</span></div><div class="result-row"><span class="lb">Months</span><span class="vl">${y*12+m} months</span></div><div class="result-row total"><span class="lb">Days</span><span class="vl">${days.toLocaleString('en-IN')} days</span></div></div>`,`Age: ${y} years, ${m} months, ${dd} days`);}},
+ calc(){const d=v('dob');if(!d){toast('Date select karo',1);return;}const b=new Date(d),n=new Date();let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),dd=n.getDate()-b.getDate();if(dd<0){m--;dd+=new Date(n.getFullYear(),n.getMonth(),0).getDate();}if(m<0){y--;m+=12;}const days=Math.floor((n-b)/86400000);res(`<div class="result-box"><h4>🎂 Age</h4><div class="result-row"><span class="lb">Years</span><span class="vl">${y} years</span></div><div class="result-row"><span class="lb">Months</span><span class="vl">${y*12+m} months</span></div><div class="result-row total"><span class="lb">Days</span><span class="vl">${days.toLocaleString('en-IN')}</span></div></div>`,`Age: ${y}y ${m}m ${dd}d`);}},
 {id:'eduPercent',n:'Percentage Calculator',i:'%',c:'edu',
  render:()=>`${F.num('got','Obtained Marks')}${F.num('total','Total Marks')}${calcBtn('📊 Calculate %')}<div id="resultBox"></div>`,
- calc(){const g=+v('got')||0,t=+v('total')||1;const p=g/t*100;let grade='F';if(p>=90)grade='A+';else if(p>=80)grade='A';else if(p>=70)grade='B';else if(p>=60)grade='C';else if(p>=50)grade='D';else if(p>=33)grade='E';res(`<div class="result-box"><h4>📊 Result</h4><div class="result-row"><span class="lb">Marks</span><span class="vl">${g}/${t}</span></div><div class="result-row"><span class="lb">Percentage</span><span class="vl">${fmt(p)}%</span></div><div class="result-row total"><span class="lb">Grade</span><span class="vl">${grade}</span></div></div>`,`${fmt(p)}% (Grade ${grade})`);}}
+ calc(){const g=+v('got')||0,t=+v('total')||1;const p=g/t*100;let grade='F';if(p>=90)grade='A+';else if(p>=80)grade='A';else if(p>=70)grade='B';else if(p>=60)grade='C';else if(p>=50)grade='D';else if(p>=33)grade='E';res(`<div class="result-box"><h4>📊 Result</h4><div class="result-row"><span class="lb">Marks</span><span class="vl">${g}/${t}</span></div><div class="result-row"><span class="lb">Percentage</span><span class="vl">${fmt(p)}%</span></div><div class="result-row total"><span class="lb">Grade</span><span class="vl">${grade}</span></div></div>`,`${fmt(p)}% Grade ${grade}`);}}
 );
 
-/* ============ CATEGORY: HEALTH (2 tools) ============ */
+/* HEALTH */
 TOOLS.push(
 {id:'heaBMI',n:'BMI Calculator',i:'⚖️',c:'health',
  render:()=>`${F.num('w','Weight (kg)')}${F.num('h','Height (cm)')}${calcBtn('⚖️ Calculate BMI')}<div id="resultBox"></div>`,
- calc(){const w=+v('w')||0,h=(+v('h')||0)/100;const b=h?w/(h*h):0;let cat='-';if(b<18.5)cat='Underweight';else if(b<25)cat='Normal';else if(b<30)cat='Overweight';else if(b>0)cat='Obese';res(`<div class="result-box"><h4>⚖️ BMI</h4><div class="result-row"><span class="lb">BMI</span><span class="vl">${fmt(b,1)}</span></div><div class="result-row total"><span class="lb">Category</span><span class="vl">${cat}</span></div></div>`,`BMI: ${fmt(b,1)} (${cat})`);}},
+ calc(){const w=+v('w')||0,h=(+v('h')||0)/100;const b=h?w/(h*h):0;let cat='-';if(b<18.5)cat='Underweight';else if(b<25)cat='Normal';else if(b<30)cat='Overweight';else if(b>0)cat='Obese';res(`<div class="result-box"><h4>⚖️ BMI</h4><div class="result-row"><span class="lb">BMI</span><span class="vl">${fmt(b,1)}</span></div><div class="result-row total"><span class="lb">Category</span><span class="vl">${cat}</span></div></div>`,`BMI ${fmt(b,1)} (${cat})`);}},
 {id:'heaWater',n:'Water Intake Calculator',i:'💧',c:'health',
  render:()=>`${F.num('w','Weight (kg)')}${F.num('ex','Exercise (min)')}${calcBtn('💧 Calculate')}<div id="resultBox"></div>`,
- calc(){const w=+v('w')||0,e=+v('ex')||0;const l=(w*0.033)+(e*0.35/60);res(`<div class="result-box"><h4>💧 Water Intake</h4><div class="result-row total"><span class="lb">Daily Water</span><span class="vl">${fmt(l,1)} Liters</span></div><div class="result-row"><span class="lb">Glasses</span><span class="vl">${Math.ceil(l*4)} × 250ml</span></div></div>`,`${fmt(l,1)} L/day`);}}
+ calc(){const w=+v('w')||0,e=+v('ex')||0;const l=(w*0.033)+(e*0.35/60);res(`<div class="result-box"><h4>💧 Water</h4><div class="result-row total"><span class="lb">Daily</span><span class="vl">${fmt(l,1)} Liters</span></div><div class="result-row"><span class="lb">Glasses</span><span class="vl">${Math.ceil(l*4)} × 250ml</span></div></div>`,`${fmt(l,1)} L/day`);}}
 );
 
-/* ============ CATEGORY: UTILITY (1 tool) ============ */
+/* UTILITY */
 TOOLS.push(
 {id:'utOTP',n:'OTP Generator',i:'🔢',c:'util',
  render:()=>`${F.num('d','Digits')}${calcBtn('🔢 Generate OTP')}<div id="resultBox"></div>`,
  calc(){const d=+v('d')||6;let o='';for(let i=0;i<d;i++)o+=Math.floor(Math.random()*10);res(`<div class="result-box"><h4>🔢 OTP</h4><div class="result-row total"><span class="lb">OTP</span><span class="vl" style="font-family:monospace;font-size:24px;letter-spacing:5px">${o}</span></div></div>`,o);}}
 );
 
-/* ============ CATEGORY: GYM (1 tool) ============ */
+/* GYM */
 TOOLS.push(
 {id:'gymTracker',n:'Gym Workout Tracker',i:'💪',c:'gym',
  render:()=>`<div class="form-grid">${F.txt('ex','Exercise Name')}${F.num('sets','Sets')}${F.num('reps','Reps')}${F.num('weight','Weight (kg)')}</div>${calcBtn('💪 Add Workout')}<div id="resultBox"></div><div id="gymList"></div>`,
  init(){renderGymList();},
- calc(){const ex=v('ex'),s=+v('sets')||0,r=+v('reps')||0,w=+v('weight')||0;if(!ex||!s||!r){toast('Exercise, sets, reps bharo',1);return;}const totalVol=s*r*w;const list=JSON.parse(localStorage.getItem('qn_gym')||'[]');list.unshift({ex,s,r,w,totalVol,time:Date.now()});localStorage.setItem('qn_gym',JSON.stringify(list.slice(0,50)));res(`<div class="result-box"><h4>💪 Workout Added</h4><div class="result-row"><span class="lb">Exercise</span><span class="vl">${ex}</span></div><div class="result-row"><span class="lb">Sets × Reps</span><span class="vl">${s} × ${r}</span></div><div class="result-row"><span class="lb">Volume</span><span class="vl">${totalVol} kg</span></div><div class="result-row total"><span class="lb">Total Volume</span><span class="vl">${totalVol} kg</span></div></div>`,`${ex}: ${s}x${r} @ ${w}kg = ${totalVol}kg volume`);renderGymList();}}
+ calc(){const ex=v('ex'),s=+v('sets')||0,r=+v('reps')||0,w=+v('weight')||0;if(!ex||!s||!r){toast('Exercise, sets, reps bharo',1);return;}const totalVol=s*r*w;const list=JSON.parse(localStorage.getItem('qn_gym')||'[]');list.unshift({ex,s,r,w,totalVol,time:Date.now()});localStorage.setItem('qn_gym',JSON.stringify(list.slice(0,50)));res(`<div class="result-box"><h4>💪 Workout Added</h4><div class="result-row"><span class="lb">Exercise</span><span class="vl">${ex}</span></div><div class="result-row"><span class="lb">Sets × Reps</span><span class="vl">${s} × ${r}</span></div><div class="result-row total"><span class="lb">Volume</span><span class="vl">${totalVol} kg</span></div></div>`,`${ex}: ${s}x${r} @ ${w}kg = ${totalVol}kg`);renderGymList();}}
 );
 
 function renderGymList(){const el=document.getElementById('gymList');if(!el)return;const list=JSON.parse(localStorage.getItem('qn_gym')||'[]');if(!list.length){el.innerHTML='';return;}el.innerHTML=`<div style="margin-top:20px"><h4 style="font-size:13px;color:var(--muted);text-transform:uppercase;margin-bottom:10px">📋 Workout History (${list.length})</h4>${list.map((g,i)=>`<div style="background:var(--card);border:1px solid var(--border);padding:10px 14px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px"><div style="flex:1;min-width:0"><b style="font-size:13px">${g.ex}</b><div style="font-size:11px;color:var(--muted)">${g.s} × ${g.r} @ ${g.w}kg • ${g.totalVol}kg</div></div><button onclick="delGym(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:14px">🗑️</button></div>`).join('')}</div>`;}
 function delGym(i){const list=JSON.parse(localStorage.getItem('qn_gym')||'[]');list.splice(i,1);localStorage.setItem('qn_gym',JSON.stringify(list));renderGymList();}
 
-/* ============ CATEGORY: NOTES (1 tool) ============ */
+/* NOTES */
 TOOLS.push(
 {id:'notesTool',n:'Notes / Writing Tool',i:'📝',c:'notes',
  render:()=>`<div><label>Note Title</label><input type="text" id="noteTitle" placeholder="Note ka naam"><label>Content (lakh characters tak)</label><textarea id="noteContent" rows="12" placeholder="Yahan likho..."></textarea></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-p" onclick="saveNote()" style="flex:1">💾 Save Note</button><button class="btn btn-g" onclick="clearNote()" style="flex:1">🗑️ Clear</button></div><div id="resultBox"></div><div id="notesList" style="margin-top:16px"></div>`,
  init(){renderNotesList();},
  calc(){}});
 
-function saveNote(){const title=v('noteTitle')||'Untitled',content=v('noteContent');if(!content.trim()){toast('Content likho',1);return;}const list=JSON.parse(localStorage.getItem('qn_notes')||'[]');list.unshift({title,content,time:Date.now()});localStorage.setItem('qn_notes',JSON.stringify(list.slice(0,50)));res(`<div class="result-box"><h4>✅ Note Saved</h4><div class="result-row"><span class="lb">Title</span><span class="vl">${title}</span></div><div class="result-row"><span class="lb">Characters</span><span class="vl">${content.length}</span></div><div class="result-row total"><span class="lb">Words</span><span class="vl">${content.trim().split(/\s+/).length}</span></div></div>`,`Note "${title}" saved (${content.length} chars)`);window._lt=`${title}\n\n${content}`;renderNotesList();toast('✅ Note saved!');}
+function saveNote(){const title=v('noteTitle')||'Untitled',content=v('noteContent');if(!content.trim()){toast('Content likho',1);return;}const list=JSON.parse(localStorage.getItem('qn_notes')||'[]');list.unshift({title,content,time:Date.now()});localStorage.setItem('qn_notes',JSON.stringify(list.slice(0,50)));res(`<div class="result-box"><h4>✅ Note Saved</h4><div class="result-row"><span class="lb">Title</span><span class="vl">${title}</span></div><div class="result-row"><span class="lb">Chars</span><span class="vl">${content.length}</span></div><div class="result-row total"><span class="lb">Words</span><span class="vl">${content.trim().split(/\s+/).length}</span></div></div>`,`Note "${title}" saved (${content.length} chars)`);window._lt=`${title}\n\n${content}`;renderNotesList();toast('✅ Note saved!');}
 function clearNote(){const t=document.getElementById('noteTitle'),c=document.getElementById('noteContent');if(t)t.value='';if(c)c.value='';toast('Cleared');}
 function renderNotesList(){const el=document.getElementById('notesList');if(!el)return;const list=JSON.parse(localStorage.getItem('qn_notes')||'[]');if(!list.length){el.innerHTML='';return;}el.innerHTML=`<h4 style="font-size:13px;color:var(--muted);text-transform:uppercase;margin-bottom:10px">📋 Saved Notes (${list.length})</h4>${list.map((n,i)=>`<div style="background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-bottom:8px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px"><b style="font-size:13px">${n.title}</b><div style="display:flex;gap:6px"><button onclick="loadNote(${i})" style="background:transparent;border:none;color:var(--primary);cursor:pointer;font-size:12px">📂 Load</button><button onclick="delNote(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:12px">🗑️</button></div></div><div style="font-size:11px;color:var(--muted);max-height:60px;overflow:hidden">${n.content.slice(0,120)}${n.content.length>120?'...':''}</div></div>`).join('')}`;}
 function loadNote(i){const list=JSON.parse(localStorage.getItem('qn_notes')||'[]');const n=list[i];if(!n)return;const t=document.getElementById('noteTitle'),c=document.getElementById('noteContent');if(t)t.value=n.title;if(c)c.value=n.content;toast('📂 Note loaded');}
 function delNote(i){if(!confirm('Delete note?'))return;const list=JSON.parse(localStorage.getItem('qn_notes')||'[]');list.splice(i,1);localStorage.setItem('qn_notes',JSON.stringify(list));renderNotesList();}
 
-/* ============ CATEGORY: TIME (1 tool) ============ */
+/* TIME */
 TOOLS.push(
 {id:'timeAdder',n:'Date & Time Adder',i:'⏰',c:'time',
- render:()=>`<div><label>Start Date</label><input type="date" id="startDate"></div><div class="form-grid" style="margin-top:12px">${F.num('days','Add Days')}${F.num('hours','Add Hours')}${F.num('mins','Add Minutes')}</div>${calcBtn('⏰ Calculate New Date')}<div id="resultBox"></div>`,
+ render:()=>`<div><label>Start Date</label><input type="date" id="startDate"></div><div class="form-grid" style="margin-top:12px">${F.num('days','Add Days')}${F.num('hours','Add Hours')}${F.num('mins','Add Minutes')}</div>${calcBtn('⏰ Calculate')}<div id="resultBox"></div>`,
  init(){const d=document.getElementById('startDate');if(d)d.valueAsDate=new Date();},
- calc(){const d=v('startDate');if(!d){toast('Date select karo',1);return;}const days=+v('days')||0,hrs=+v('hours')||0,mins=+v('mins')||0;const dt=new Date(d);dt.setDate(dt.getDate()+days);dt.setHours(dt.getHours()+hrs);dt.setMinutes(dt.getMinutes()+mins);const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const days2=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const result=`${days2[dt.getDay()]}, ${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()} at ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;res(`<div class="result-box"><h4>⏰ New Date & Time</h4><div class="result-row"><span class="lb">Start</span><span class="vl">${d}</span></div><div class="result-row"><span class="lb">Added</span><span class="vl">${days}d ${hrs}h ${mins}m</span></div><div class="result-row total"><span class="lb">Result</span><span class="vl" style="font-size:13px">${result}</span></div></div>`,result);}}
+ calc(){const d=v('startDate');if(!d){toast('Date select karo',1);return;}const days=+v('days')||0,hrs=+v('hours')||0,mins=+v('mins')||0;const dt=new Date(d);dt.setDate(dt.getDate()+days);dt.setHours(dt.getHours()+hrs);dt.setMinutes(dt.getMinutes()+mins);const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const days2=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const result=`${days2[dt.getDay()]}, ${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()} at ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;res(`<div class="result-box"><h4>⏰ New Date</h4><div class="result-row"><span class="lb">Added</span><span class="vl">${days}d ${hrs}h ${mins}m</span></div><div class="result-row total"><span class="lb">Result</span><span class="vl" style="font-size:13px">${result}</span></div></div>`,result);}}
 );
 
-/* ============ CATEGORY: SPLITTER (1 tool) ============ */
+/* SPLITTER */
 TOOLS.push(
 {id:'splitter',n:'Split Bill / Expense',i:'💸',c:'split',
- render:()=>`${F.num('total','Total Amount (₹)')}${F.num('people','Split Between (People)')}${F.num('tip','Tip (%)')}${calcBtn('💸 Calculate Split')}<div id="resultBox"></div>`,
- calc(){const tot=+v('total')||0,p=+v('people')||1,tip=+v('tip')||0;const tipAmt=tot*tip/100,grand=tot+tipAmt,per=grand/p;res(`<div class="result-box"><h4>💸 Bill Split</h4><div class="result-row"><span class="lb">Total Bill</span><span class="vl">₹${fmt(tot)}</span></div><div class="result-row"><span class="lb">Tip ${tip}%</span><span class="vl">₹${fmt(tipAmt)}</span></div><div class="result-row"><span class="lb">Grand Total</span><span class="vl">₹${fmt(grand)}</span></div><div class="result-row total"><span class="lb">Per Person (${p})</span><span class="vl">₹${fmt(per)}</span></div></div>`,`Per person: ₹${fmt(per)} (Total ₹${fmt(grand)} split between ${p})`);}}
+ render:()=>`${F.num('total','Total Amount (₹)')}${F.num('people','Split Between')}${F.num('tip','Tip (%)')}${calcBtn('💸 Calculate Split')}<div id="resultBox"></div>`,
+ calc(){const tot=+v('total')||0,p=+v('people')||1,tip=+v('tip')||0;const tipAmt=tot*tip/100,grand=tot+tipAmt,per=grand/p;res(`<div class="result-box"><h4>💸 Split</h4><div class="result-row"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div><div class="result-row"><span class="lb">Tip ${tip}%</span><span class="vl">₹${fmt(tipAmt)}</span></div><div class="result-row"><span class="lb">Grand</span><span class="vl">₹${fmt(grand)}</span></div><div class="result-row total"><span class="lb">Per Person (${p})</span><span class="vl">₹${fmt(per)}</span></div></div>`,`₹${fmt(per)}/person`);}}
 );
 
-/* ============ CATEGORY: TO-DO (1 tool) ============ */
+/* TO-DO */
 TOOLS.push(
 {id:'todoList',n:'To-Do List',i:'✅',c:'todo',
  render:()=>`<div><label>New Task</label><input type="text" id="taskInput" placeholder="Task likho..." onkeypress="if(event.key==='Enter')addTask()"></div><button class="btn btn-p" style="width:100%;margin-top:12px" onclick="addTask()">➕ Add Task</button><div id="resultBox"></div><div id="todoListBox" style="margin-top:16px"></div>`,
  init(){renderTodoList();},
  calc(){}});
 
-function addTask(){const inp=document.getElementById('taskInput');const t=inp.value.trim();if(!t){toast('Task likho',1);return;}const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');list.unshift({task:t,done:false,time:Date.now()});localStorage.setItem('qn_todos',JSON.stringify(list));inp.value='';renderTodoList();toast('✅ Task added');res(`<div class="result-box"><h4>✅ Task Added</h4><div class="result-row total"><span class="lb">Task</span><span class="vl">${t}</span></div></div>`,`Task added: ${t}`);}
+function addTask(){const inp=document.getElementById('taskInput');const t=inp.value.trim();if(!t){toast('Task likho',1);return;}const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');list.unshift({task:t,done:false,time:Date.now()});localStorage.setItem('qn_todos',JSON.stringify(list));inp.value='';renderTodoList();toast('✅ Task added');res(`<div class="result-box"><h4>✅ Task Added</h4><div class="result-row total"><span class="lb">Task</span><span class="vl">${t}</span></div></div>`,`Task: ${t}`);}
 function toggleTask(i){const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');if(list[i]){list[i].done=!list[i].done;localStorage.setItem('qn_todos',JSON.stringify(list));renderTodoList();}}
 function delTask(i){const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');list.splice(i,1);localStorage.setItem('qn_todos',JSON.stringify(list));renderTodoList();}
 function renderTodoList(){const el=document.getElementById('todoListBox');if(!el)return;const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');if(!list.length){el.innerHTML='<p style="text-align:center;color:var(--muted);font-size:13px;padding:20px">Koi task nahi hai</p>';return;}const pending=list.filter(x=>!x.done).length;el.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:13px;color:var(--muted);text-transform:uppercase">📋 Tasks (${pending} pending)</h4></div>${list.map((t,i)=>`<div style="background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-bottom:8px;display:flex;align-items:center;gap:10px"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${i})" style="width:auto;flex-shrink:0"><span style="flex:1;font-size:14px;${t.done?'text-decoration:line-through;color:var(--muted)':''}">${t.task}</span><button onclick="delTask(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:14px;flex-shrink:0">🗑️</button></div>`).join('')}`;}
 
-/* ============ TOOL RUNNERS ============ */
+/* ============ RUNNERS ============ */
 async function runImgToPdf(){const files=document.getElementById('imgs').files;if(!files.length){toast('Images select karo',1);return;}toast('⏳ Converting...');try{const{PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const doc=await PDFDocument.create();for(const f of files){const buf=await f.arrayBuffer();const img=f.type.includes('png')?await doc.embedPng(buf):await doc.embedJpg(buf);const p=doc.addPage([img.width,img.height]);p.drawImage(img,{x:0,y:0,width:img.width,height:img.height});}const bytes=await doc.save();window._lastBlob=new Blob([bytes],{type:'application/pdf'});window._lastName='images.pdf';res(`<div class="result-box"><h4>✅ PDF Ready!</h4><div class="result-row total"><span class="lb">Images</span><span class="vl">${files.length}</span></div></div>`,`${files.length} images → PDF`);toast('✅ Ready! Download dabao');}catch(e){toast('Failed: '+e.message,1);}}
 function runImgCompress(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const q=(+v('q')||70)/100;const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);c.toBlob(b=>{res(`<div class="result-box"><h4>✅ Compressed</h4><div class="result-row"><span class="lb">Original</span><span class="vl">${(f.size/1024).toFixed(1)} KB</span></div><div class="result-row total"><span class="lb">Compressed</span><span class="vl">${(b.size/1024).toFixed(1)} KB</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,`${(f.size/1024).toFixed(1)}KB → ${(b.size/1024).toFixed(1)}KB`);window._lastBlob=b;window._lastName='compressed.jpg';toast('✅ Done!');},'image/jpeg',q);};}
 function runPassport(){const f=document.getElementById('file').files[0];if(!f){toast('Photo select karo',1);return;}const sizes={passport:[413,531],stamp:[236,295],visa:[600,600]};const[w,h]=sizes[v('size')]||[413,531];const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');const scale=Math.max(w/img.width,h/img.height);const nw=img.width*scale,nh=img.height*scale;ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);c.toBlob(b=>{res(`<div class="result-box"><h4>📸 Passport Photo</h4><div class="result-row"><span class="lb">Size</span><span class="vl">${w}×${h} px</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:6px;max-height:200px"></div>`,`Passport ${w}×${h}px`);window._lastBlob=b;window._lastName='passport.jpg';toast('✅ Ready!');},'image/jpeg',0.95);};}
 function runImgBase64(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const r=new FileReader();r.onload=e=>{res(`<div class="result-box"><h4>🔤 Base64</h4><textarea rows="8" style="font-size:11px;margin-top:10px" readonly>${e.target.result}</textarea></div>`,e.target.result);toast('✅ Ready!');};r.readAsDataURL(f);}
-function runQR(){const t=v('t');const s=+v('sz')||300;if(!t){toast('Text likho',1);return;}const box=document.getElementById('resultBox');box.innerHTML=`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><p style="font-size:12px;color:var(--muted)">Generating...</p></div>`;const img=new Image();img.crossOrigin='anonymous';img.onload=()=>{const c=document.createElement('canvas');c.width=s;c.height=s;c.getContext('2d').drawImage(img,0,0,s,s);c.toBlob(b=>{res(`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:10px;max-width:250px"><div class="result-row total"><span class="lb">Content</span><span class="vl" style="font-size:12px">${t}</span></div></div>`,`QR: ${t}`);window._lastBlob=b;window._lastName='qrcode.png';toast('✅ QR Ready!');},'image/png');};img.onerror=()=>{res(`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><img src="https://api.qrserver.com/v1/create-qr-code/?size=${s}x${s}&data=${encodeURIComponent(t)}" style="margin:16px auto;background:white;padding:10px;border-radius:10px;max-width:250px"><p style="font-size:12px;color:var(--muted)">Right-click → Save Image</p></div>`,`QR: ${t}`);};img.src=`https://api.qrserver.com/v1/create-qr-code/?size=${s}x${s}&data=${encodeURIComponent(t)}`;}
-function runBarcode(){const t=v('t');const fmtType=v('fmt');if(!t){toast('Text likho',1);return;}const box=document.getElementById('resultBox');box.innerHTML=`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><p>Generating...</p></div>`;try{const canvas=document.createElement('canvas');JsBarcode(canvas,t,{format:fmtType,width:2.5,height:90,displayValue:true,fontSize:16,margin:14,background:'#ffffff',lineColor:'#000000'});canvas.toBlob(b=>{res(`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:12px;max-width:100%"><div class="result-row"><span class="lb">Content</span><span class="vl" style="font-size:12px">${t}</span></div><div class="result-row total"><span class="lb">Format</span><span class="vl">${fmtType}</span></div></div>`,`Barcode (${fmtType}): ${t}`);window._lastBlob=b;window._lastName='barcode.png';toast('✅ Barcode Ready!');},'image/png');}catch(e){toast('❌ '+e.message,1);res(`<div class="result-box" style="border-color:#ef4444"><h4 style="color:#ef4444">❌ Error</h4><p>${e.message}</p></div>`,'Error');}}
+
+/* HIGH QUALITY QR — 2000x2000 */
+function runQR(){
+  const t=v('t');
+  if(!t){toast('Text likho',1);return;}
+  const qrSize=2000;
+  const box=document.getElementById('resultBox');
+  box.innerHTML=`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><p style="font-size:12px;color:var(--muted)">Generating Ultra HD (2000×2000)...</p></div>`;
+  const img=new Image();
+  img.crossOrigin='anonymous';
+  img.onload=()=>{
+    const c=document.createElement('canvas');
+    c.width=qrSize;c.height=qrSize;
+    const ctx=c.getContext('2d');
+    ctx.fillStyle='#ffffff';
+    ctx.fillRect(0,0,qrSize,qrSize);
+    ctx.imageSmoothingEnabled=false;
+    ctx.drawImage(img,0,0,qrSize,qrSize);
+    c.toBlob(b=>{
+      res(`<div class="result-box" style="text-align:center"><h4>📱 QR Code (Ultra HD)</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:12px;max-width:280px;image-rendering:crisp-edges"><div class="result-row"><span class="lb">Resolution</span><span class="vl">${qrSize}×${qrSize}px</span></div><div class="result-row total"><span class="lb">Content</span><span class="vl" style="font-size:12px">${t}</span></div></div>`,`QR Code (2000×2000): ${t}`);
+      window._lastBlob=b;
+      window._lastName='qrcode-ultra-hd.png';
+      toast('✅ Ultra HD QR ready!');
+    },'image/png');
+  };
+  img.onerror=()=>{toast('QR generation failed',1);};
+  img.src=`https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(t)}&margin=20`;
+}
+
+/* HIGH QUALITY BARCODE — 1250x1500 — Auto format (no option) */
+function runBarcode(){
+  const t=v('t');
+  if(!t){toast('Text likho',1);return;}
+  const box=document.getElementById('resultBox');
+  box.innerHTML=`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><p>Generating Ultra HD...</p></div>`;
+  
+  // Target: 1250x1500 (approx)
+  // Barcode width depends on content, so scale up
+  const targetWidth=1250;
+  const targetHeight=1500;
+  
+  // Try CODE128 first (works with any text/URL), fallback to CODE39
+  let barcodeText=t;
+  let format='CODE128';
+  
+  try{
+    // Create temp canvas to measure
+    const tempCanvas=document.createElement('canvas');
+    JsBarcode(tempCanvas,barcodeText,{
+      format:format,
+      width:3,
+      height:200,
+      displayValue:false,
+      margin:10
+    });
+    
+    // Calculate scale to reach target width
+    const naturalWidth=tempCanvas.width;
+    const scaleX=targetWidth/naturalWidth;
+    
+    // Final canvas
+    const canvas=document.createElement('canvas');
+    JsBarcode(canvas,barcodeText,{
+      format:format,
+      width:Math.max(2, 2.5*scaleX),
+      height:Math.max(200, 400),
+      displayValue:true,
+      fontSize:Math.max(28, 50),
+      textMargin:16,
+      margin:30,
+      background:'#ffffff',
+      lineColor:'#000000'
+    });
+    
+    // Resize canvas to fit target height if needed
+    const finalCanvas=document.createElement('canvas');
+    finalCanvas.width=Math.max(targetWidth, canvas.width);
+    finalCanvas.height=Math.max(targetHeight, canvas.height);
+    const fctx=finalCanvas.getContext('2d');
+    fctx.fillStyle='#ffffff';
+    fctx.fillRect(0,0,finalCanvas.width,finalCanvas.height);
+    // Center the barcode
+    const xOff=(finalCanvas.width-canvas.width)/2;
+    const yOff=(finalCanvas.height-canvas.height)/2;
+    fctx.drawImage(canvas,xOff,yOff);
+    
+    finalCanvas.toBlob(b=>{
+      res(`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode (Ultra HD)</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:14px;max-width:100%;image-rendering:crisp-edges"><div class="result-row"><span class="lb">Resolution</span><span class="vl">${finalCanvas.width}×${finalCanvas.height}px</span></div><div class="result-row"><span class="lb">Content</span><span class="vl" style="font-size:12px">${t}</span></div><div class="result-row total"><span class="lb">Format</span><span class="vl">CODE128 (auto)</span></div></div>`,`Barcode (Ultra HD): ${t}`);
+      window._lastBlob=b;
+      window._lastName='barcode-ultra-hd.png';
+      toast('✅ Ultra HD Barcode ready!');
+    },'image/png');
+  }catch(e){
+    // Fallback to CODE39
+    try{
+      const canvas=document.createElement('canvas');
+      JsBarcode(canvas,barcodeText,{
+        format:'CODE39',
+        width:3,
+        height:400,
+        displayValue:true,
+        fontSize:50,
+        margin:30,
+        background:'#ffffff',
+        lineColor:'#000000'
+      });
+      canvas.toBlob(b=>{
+        res(`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:14px;max-width:100%"><div class="result-row total"><span class="lb">Format</span><span class="vl">CODE39 (auto)</span></div></div>`,`Barcode: ${t}`);
+        window._lastBlob=b;
+        window._lastName='barcode.png';
+        toast('✅ Barcode ready!');
+      },'image/png');
+    }catch(e2){
+      toast('❌ '+e2.message,1);
+      res(`<div class="result-box" style="border-color:#ef4444"><h4 style="color:#ef4444">❌ Error</h4><p>${e2.message}</p></div>`,'Error');
+    }
+  }
+}
 
 /* ============ RENDER ============ */
 function renderQuick(){const q=['bizInvoice','elecBill','bizEMI','bizGST','socQR','finSIP','eduAge','passGen'];const box=document.getElementById('quickRow');if(!box)return;const found=q.map(id=>TOOLS.find(x=>x.id===id)).filter(Boolean);box.innerHTML=found.map(t=>`<div class="q-card" onclick="openTool('${t.id}')"><span class="e">${t.i}</span><span class="nm">${t.n}</span></div>`).join('');}
@@ -708,34 +803,30 @@ function renderChips(){const box=document.getElementById('catChips');if(!box)ret
 function scrollToCat(catId,chipEl){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));if(chipEl)chipEl.classList.add('on');const sec=document.querySelector(`section[data-cat="${catId}"]`);if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});}
 function scrollToTools(){const el=document.getElementById('categoriesWrap');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
 function showFavorites(){const sec=document.getElementById('favSection');if(sec&&sec.style.display==='none'){toast('Koi favorite nahi');return;}if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});}
-function showRecent(){const sec=document.getElementById('recentSection');if(sec&&sec.style.display==='none'){toast('Koi recent nahi');return;}if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});}
 
 function doSearch(q){const box=document.getElementById('searchRes');if(!box)return;if(!q||q.length<1){box.classList.remove('on');return;}q=q.toLowerCase();const results=TOOLS.filter(t=>t.n.toLowerCase().includes(q)||t.id.toLowerCase().includes(q)).slice(0,10);if(!results.length){box.innerHTML='<div class="sr-empty">😕 Kuch nahi mila</div>';}else{box.innerHTML=results.map(t=>{const cat=CATEGORIES.find(c=>c.id===t.c);return`<div class="sr-item" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><div class="info"><div class="nm">${t.n}</div><div class="ct">${cat?cat.name:''}</div></div><span style="color:var(--primary)">→</span></div>`;}).join('');}box.classList.add('on');}
 document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap')){const box=document.getElementById('searchRes');if(box)box.classList.remove('on');}});
 function focusSearch(){const el=document.getElementById('searchBox');if(el){el.focus();window.scrollTo({top:0,behavior:'smooth'});}}
 
-function openTool(id){const t=TOOLS.find(x=>x.id===id);if(!t){toast('Tool not found',1);return;}window.__currentTool=id;document.getElementById('toolIcon').textContent=t.i;document.getElementById('toolTitle').textContent=t.n;document.getElementById('toolBody').innerHTML=t.render();const favEl=document.getElementById('favToggle');if(favEl)favEl.classList.toggle('on',Favorites.has(id));document.getElementById('toolModal').classList.add('on');document.body.style.overflow='hidden';window._lastBlob=null;window._lt='';window._lastName='result';if(t.init)try{t.init();}catch(e){console.warn(e);}Recent.add(id);}
+function openTool(id){const t=TOOLS.find(x=>x.id===id);if(!t){toast('Tool not found',1);return;}window.__currentTool=id;document.getElementById('toolIcon').textContent=t.i;document.getElementById('toolTitle').textContent=t.n;document.getElementById('toolBody').innerHTML=t.render();const favEl=document.getElementById('favToggle');if(favEl)favEl.classList.toggle('on',Favorites.has(id));document.getElementById('toolModal').classList.add('on');document.body.style.overflow='hidden';window._lastBlob=null;window._lt='';window._lastName='result';if(t.init)try{t.init();}catch(e){console.warn(e);}}
 function closeTool(){document.getElementById('toolModal').classList.remove('on');document.body.style.overflow='';window.__currentTool='';}
 function openRandomTool(){const t=TOOLS[Math.floor(Math.random()*TOOLS.length)];openTool(t.id);}
 function toggleFavoriteCurrent(){if(!window.__currentTool)return;const now=Favorites.toggle(window.__currentTool);const el=document.getElementById('favToggle');if(el)el.classList.toggle('on',now);toast(now?'⭐ Added to favorites':'Removed');}
 
-/* ============ CALC DISPATCHER ============ */
 window.__calc=function(){if(!window.__currentTool)return;const t=TOOLS.find(x=>x.id===window.__currentTool);if(t&&t.calc)try{t.calc();}catch(e){console.warn(e);}};
 
-/* ============ PREVIEW/PRINT/DOWNLOAD/COPY/SHARE ============ */
 function getContent(){const t=TOOLS.find(x=>x.id===window.__currentTool);const title=t?t.n:'Qunvero Tool';const rb=document.getElementById('resultBox');const html=rb?rb.innerHTML:'';return{title,html,icon:t?t.i:'⚡'};}
-function previewTool(){const{title,html,icon}=getContent();if(!html||html.trim().length<10){toast('Pehle Calculate dabao',1);return;}const w=window.open('','_blank');if(!w){toast('Popup blocked! Allow karo',1);return;}w.document.write(`<!DOCTYPE html><html><head><title>${title} — Qunvero</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{box-sizing:border-box}body{font-family:-apple-system,sans-serif;padding:20px;background:#f8fafc;color:#0f172a;max-width:800px;margin:0 auto}.hdr{background:linear-gradient(135deg,#0070f3,#7928ca);color:#fff;padding:22px;border-radius:16px;margin-bottom:18px}.hdr h1{margin:0;font-size:20px}.hdr p{margin:4px 0 0;font-size:12px;opacity:.9}.card{background:#fff;padding:22px;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08)}.card h2{margin:0 0 6px;font-size:22px}.sub{color:#6b7280;font-size:12px;margin-bottom:18px}.result-box{background:#f0fdf4;border:1px solid #10b981;padding:18px;border-radius:12px}.result-box h4{color:#10b981;font-size:13px;text-transform:uppercase;margin:0 0 12px}.result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #d1d5db;font-size:14px;gap:12px}.result-row:last-child{border-bottom:none}.result-row .lb{color:#6b7280}.result-row .vl{font-weight:700;text-align:right;word-break:break-word}.result-row.total{padding-top:14px;font-size:17px;border-top:2px solid #10b981}.result-row.total .vl{color:#10b981}textarea{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-family:monospace;font-size:12px}img{max-width:100%;border-radius:12px}.ft{text-align:center;padding:18px;font-size:12px;color:#6b7280;margin-top:20px}</style></head><body><div class="hdr"><h1>⚡ Qunvero</h1><p>29+ Free Tools • qunvero.vercel.app</p></div><div class="card"><h2>${icon} ${title}</h2><div class="sub">${new Date().toLocaleString('en-IN')}</div>${html}</div><div class="ft">Generated by Qunvero — https://qunvero.vercel.app</div></body></html>`);w.document.close();toast('👁️ Preview khula');}
+function previewTool(){const{title,html,icon}=getContent();if(!html||html.trim().length<10){toast('Pehle Calculate dabao',1);return;}const w=window.open('','_blank');if(!w){toast('Popup blocked!',1);return;}w.document.write(`<!DOCTYPE html><html><head><title>${title} — Qunvero</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{box-sizing:border-box}body{font-family:-apple-system,sans-serif;padding:20px;background:#f8fafc;color:#0f172a;max-width:800px;margin:0 auto}.hdr{background:linear-gradient(135deg,#0070f3,#7928ca);color:#fff;padding:22px;border-radius:16px;margin-bottom:18px}.hdr h1{margin:0;font-size:20px}.hdr p{margin:4px 0 0;font-size:12px;opacity:.9}.card{background:#fff;padding:22px;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.08)}.card h2{margin:0 0 6px;font-size:22px}.sub{color:#6b7280;font-size:12px;margin-bottom:18px}.result-box{background:#f0fdf4;border:1px solid #10b981;padding:18px;border-radius:12px}.result-box h4{color:#10b981;font-size:13px;text-transform:uppercase;margin:0 0 12px}.result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #d1d5db;font-size:14px;gap:12px}.result-row:last-child{border-bottom:none}.result-row .lb{color:#6b7280}.result-row .vl{font-weight:700;text-align:right;word-break:break-word}.result-row.total{padding-top:14px;font-size:17px;border-top:2px solid #10b981}.result-row.total .vl{color:#10b981}textarea{width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-family:monospace;font-size:12px}img{max-width:100%;border-radius:12px}.ft{text-align:center;padding:18px;font-size:12px;color:#6b7280;margin-top:20px}</style></head><body><div class="hdr"><h1>⚡ Qunvero</h1><p>29+ Free Tools • qunvero.vercel.app</p></div><div class="card"><h2>${icon} ${title}</h2><div class="sub">${new Date().toLocaleString('en-IN')}</div>${html}</div><div class="ft">Generated by Qunvero — https://qunvero.vercel.app</div></body></html>`);w.document.close();toast('👁️ Preview khula');}
 function printTool(){const{title,html,icon}=getContent();if(!html||html.trim().length<10){toast('Pehle Calculate dabao',1);return;}const w=window.open('','_blank');if(!w){toast('Popup blocked!',1);return;}
   const hasImage=html.indexOf('<img')>-1;
   if(hasImage){
-    // Print only images
     const tempDiv=document.createElement('div');tempDiv.innerHTML=html;
     const imgs=tempDiv.querySelectorAll('img');
     let imgHTML='';
-    imgs.forEach(img=>{imgHTML+=`<div style="text-align:center;margin:20px 0"><img src="${img.src}" style="max-width:100%;max-height:95vh"></div>`;});
-    w.document.write(`<!DOCTYPE html><html><head><title>${title} — Qunvero</title><style>body{margin:0;padding:20px;text-align:center}h2{font-family:Arial;font-size:16px;margin-bottom:14px}img{max-width:100%;max-height:90vh}</style></head><body><h2>${icon} ${title}</h2>${imgHTML}<script>setTimeout(()=>{window.print();},500);<\/script></body></html>`);
+    imgs.forEach(img=>{imgHTML+=`<div style="text-align:center;margin:20px 0"><img src="${img.src}" style="max-width:100%;max-height:90vh"></div>`;});
+    w.document.write(`<!DOCTYPE html><html><head><title>${title} — Qunvero</title><style>body{margin:0;padding:20px;text-align:center}h2{font-family:Arial;font-size:16px;margin-bottom:14px}img{max-width:100%;max-height:90vh}</style></head><body><h2>${icon} ${title}</h2>${imgHTML}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
   } else {
-    w.document.write(`<!DOCTYPE html><html><head><title>${title} — Qunvero</title><style>body{font-family:Arial;padding:30px;color:#000;max-width:800px;margin:0 auto}h1{font-size:22px}h2{font-size:16px;color:#666;font-weight:400}.result-box{background:#f5f5f5;border:2px solid #000;padding:20px;border-radius:10px;margin-top:16px}.result-box h4{font-size:14px;text-transform:uppercase;margin-bottom:12px}.result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #ccc;font-size:14px;gap:12px}.result-row .lb{color:#666}.result-row .vl{font-weight:700}.result-row.total{padding-top:14px;font-size:16px;border-top:2px solid #000}.ft{margin-top:30px;padding-top:16px;border-top:1px solid #ccc;font-size:12px;color:#666;text-align:center}textarea{width:100%;padding:10px;border:1px solid #ccc;font-family:monospace;font-size:12px}</style></head><body><h1>⚡ Qunvero</h1><h2>${icon} ${title}</h2>${html}<div class="ft">Generated by Qunvero — qunvero.vercel.app<br>${new Date().toLocaleString('en-IN')}</div><script>setTimeout(()=>{window.print();},400);<\/script></body></html>`);
+    w.document.write(`<!DOCTYPE html><html><head><title>${title} — Qunvero</title><style>body{font-family:Arial;padding:30px;color:#000;max-width:800px;margin:0 auto}h1{font-size:22px}h2{font-size:16px;color:#666;font-weight:400}.result-box{background:#f5f5f5;border:2px solid #000;padding:20px;border-radius:10px;margin-top:16px}.result-box h4{font-size:14px;text-transform:uppercase;margin-bottom:12px}.result-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #ccc;font-size:14px;gap:12px}.result-row .lb{color:#666}.result-row .vl{font-weight:700}.result-row.total{padding-top:14px;font-size:16px;border-top:2px solid #000}.ft{margin-top:30px;padding-top:16px;border-top:1px solid #ccc;font-size:12px;color:#666;text-align:center}textarea{width:100%;padding:10px;border:1px solid #ccc;font-family:monospace;font-size:12px}</style></head><body><h1>⚡ Qunvero</h1><h2>${icon} ${title}</h2>${html}<div class="ft">Generated by Qunvero<br>${new Date().toLocaleString('en-IN')}</div><script>setTimeout(()=>{window.print();},500);<\/script></body></html>`);
   }
   w.document.close();toast('🖨️ Print dialog khula');}
 function downloadTool(){const t=TOOLS.find(x=>x.id===window.__currentTool);const name=(t?t.n:'qunvero').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
@@ -748,24 +839,19 @@ function dlBlob(blob,name){const url=URL.createObjectURL(blob);const a=document.
 async function copyResult(){const rb=document.getElementById('resultBox');if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}const text=window._lt||rb.innerText;if(!text.trim()){toast('Kuch nahi',1);return;}try{await navigator.clipboard.writeText(text);toast('📋 Copied!');}catch(e){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('📋 Copied!');}}
 async function shareTool(){const t=TOOLS.find(x=>x.id===window.__currentTool);const text=window._lt||'';const shareText=`⚡ Qunvero — ${t?t.n:'Free Tools'}\n\n${text?text+'\n\n':''}🚀 Try Qunvero: https://qunvero.vercel.app`;try{if(navigator.share){await navigator.share({title:'Qunvero',text:shareText,url:'https://qunvero.vercel.app'});}else{await navigator.clipboard.writeText(shareText);toast('📋 Link copied!');}}catch(e){if(e.name!=='AbortError'){try{await navigator.clipboard.writeText(shareText);toast('📋 Copied!');}catch(err){}}}}
 
-/* ============ INVOICE ROW HELPER ============ */
 function addInvRow(){const tb=document.getElementById('invBody');if(!tb)return;const r=document.createElement('tr');r.innerHTML=`<td><input class="item" placeholder="Item" style="width:100%"></td><td><input type="number" class="q" value="1" style="width:70px"></td><td><input type="number" class="r" value="0" style="width:80px"></td><td class="a">₹0</td><td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove()">❌</button></td>`;tb.appendChild(r);}
 
-/* ============ STATIC PAGES ============ */
-function openStatic(page){const content={about:{t:'ℹ️ About Qunvero',b:`<p>Qunvero is a free online platform offering 29+ useful tools for daily life, business, education, and more.</p><p>All tools run directly in your browser. Your data never leaves your device — 100% private.</p><p>We believe useful tools should be free for everyone.</p>`},privacy:{t:'🔒 Privacy Policy',b:`<p>Your privacy is important to us.</p><ul><li>All processing happens in your browser</li><li>Your files never leave your device</li><li>No personal information is collected</li><li>No tracking or third-party cookies</li></ul>`},terms:{t:'📜 Terms of Use',b:`<ul><li>All tools are provided "as-is"</li><li>Financial and tax calculations are for reference only</li><li>Health tools are educational, not medical advice</li><li>Verify important results with a professional</li><li>We may add or remove tools at any time</li></ul>`},contact:{t:'📞 Contact Us',b:`<p>Koi suggestion, bug report, ya help chahiye?</p><p>Feedback button (💬) use karo — bottom-left me hai.</p><p style="margin-top:16px">Email: <a href="mailto:techrakesh196@gmail.com" style="color:var(--primary)">techrakesh196@gmail.com</a></p>`}};const c=content[page];if(!c)return;document.getElementById('staticTitle').textContent=c.t;document.getElementById('staticBody').innerHTML=c.b;document.getElementById('staticModal').classList.add('on');document.body.style.overflow='hidden';}
+function openStatic(page){const content={about:{t:'ℹ️ About Qunvero',b:`<p>Qunvero is a free online platform offering 29+ useful tools for daily life, business, education, and more.</p><p>All tools run directly in your browser. Your data never leaves your device — 100% private.</p>`},privacy:{t:'🔒 Privacy Policy',b:`<p>Your privacy is important to us.</p><ul><li>All processing happens in your browser</li><li>Your files never leave your device</li><li>No personal information is collected</li><li>No tracking or third-party cookies</li></ul>`},terms:{t:'📜 Terms of Use',b:`<ul><li>All tools are provided "as-is"</li><li>Financial and tax calculations are for reference only</li><li>Health tools are educational, not medical advice</li><li>Verify important results with a professional</li></ul>`},contact:{t:'📞 Contact Us',b:`<p>Feedback button (💬) use karo — bottom-left me hai.</p><p style="margin-top:16px">Email: <a href="mailto:techrakesh196@gmail.com" style="color:var(--primary)">techrakesh196@gmail.com</a></p>`}};const c=content[page];if(!c)return;document.getElementById('staticTitle').textContent=c.t;document.getElementById('staticBody').innerHTML=c.b;document.getElementById('staticModal').classList.add('on');document.body.style.overflow='hidden';}
 function closeStatic(){document.getElementById('staticModal').classList.remove('on');document.body.style.overflow='';}
 function goHome(){window.scrollTo({top:0,behavior:'smooth'});closeTool();closeStatic();}
 
-/* ============ KEYBOARD SHORTCUT ============ */
 document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.shiftKey&&e.key==='A'){e.preventDefault();feedbackSystem.openAdmin();}});
 
-/* ============ INIT ============ */
 document.addEventListener('DOMContentLoaded',()=>{
   renderQuick();
   renderCategories();
   renderChips();
   Favorites.render();
-  Recent.render();
   liveUsers.update();
   feedbackSystem.checkAccess();
   showWelcome();
