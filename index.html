@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Qunvero — India's Free Tools Website</title>
-<meta name="description" content="Qunvero — 29 free online tools for India. Bijli bill, invoice, GST, EMI, PDF, image, QR, barcode. 100% free.">
+<meta name="description" content="Qunvero — 30 free online tools for India. Bijli bill, invoice, GST, EMI, PDF, image, QR, barcode, photo copy. 100% free.">
 <meta name="theme-color" content="#0070f3">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
@@ -140,6 +140,22 @@ body.dark header{background:rgba(10,10,15,.85)}
 .result-row.total{padding-top:14px;font-size:17px;border-top:2px solid var(--success);margin-top:6px}
 .result-row.total .vl{color:var(--success)}
 
+/* AGE CELEBRATION */
+.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px 20px;text-align:center;margin-top:8px;position:relative;overflow:hidden}
+.age-celebration::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.4),transparent 50%);pointer-events:none}
+.age-celebration .age-name{font-size:22px;font-weight:800;color:#0f172a;margin-bottom:8px;position:relative;z-index:1}
+.age-celebration .age-big{font-size:48px;font-weight:900;background:linear-gradient(135deg,#7c3aed,#0070f3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin:8px 0;position:relative;z-index:1}
+.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase;letter-spacing:1px;position:relative;z-index:1}
+.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap;position:relative;z-index:1}
+.age-celebration .age-chip{background:rgba(255,255,255,.7);padding:8px 14px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}
+.age-celebration .age-chip b{display:block;font-size:18px;color:#7c3aed;margin-bottom:2px}
+.age-celebration .confetti{position:absolute;font-size:24px;animation:float 3s ease-in-out infinite}
+.age-celebration .confetti.c1{top:10px;left:12px;animation-delay:0s}
+.age-celebration .confetti.c2{top:16px;right:16px;animation-delay:.5s}
+.age-celebration .confetti.c3{bottom:14px;left:20px;animation-delay:1s}
+.age-celebration .confetti.c4{bottom:10px;right:14px;animation-delay:1.5s}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(15deg)}}
+
 .calc-btn-row{margin-top:18px}
 .calc-btn{width:100%;padding:14px;border-radius:14px;background:var(--grad);color:#fff;border:none;font-size:16px;font-weight:700;cursor:pointer;transition:.2s;box-shadow:0 8px 20px rgba(0,112,243,.3)}
 .calc-btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,112,243,.4)}
@@ -217,6 +233,25 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .preview-actions .btn-img{background:linear-gradient(135deg,#7c3aed,#0070f3);color:#fff}
 .preview-actions button:hover{transform:translateY(-2px)}
 
+/* PHOTO COPY TOOL */
+.photo-copy-wrap{display:grid;grid-template-columns:1fr;gap:16px}
+.photo-upload-box{border:2px dashed var(--border);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:.2s;background:var(--bg2)}
+.photo-upload-box:hover{border-color:var(--primary);background:rgba(0,112,243,.04)}
+.photo-upload-box .up-icon{font-size:40px;margin-bottom:8px}
+.photo-upload-box .up-text{font-size:14px;font-weight:600;color:var(--text)}
+.photo-upload-box .up-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.photo-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-top:14px}
+.photo-preview-item{position:relative;aspect-ratio:1;border-radius:10px;overflow:hidden;background:var(--bg);border:1px solid var(--border)}
+.photo-preview-item img{width:100%;height:100%;object-fit:cover}
+.photo-preview-item .del-btn{position:absolute;top:4px;right:4px;background:var(--danger);color:#fff;border:none;width:22px;height:22px;border-radius:50%;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700}
+.photo-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:14px}
+.photo-a4-preview{background:#fff;color:#000;padding:20px;border-radius:8px;margin-top:16px;overflow-x:auto}
+.photo-a4-page{background:#fff;width:100%;max-width:595px;aspect-ratio:210/297;margin:0 auto;display:grid;gap:4px;padding:8px;border:1px solid #e2e8f0;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.photo-a4-page .a4-photo{background:#f1f5f9;aspect-ratio:35/45;border:1px solid #cbd5e1;display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:10px;color:#94a3b8}
+.photo-a4-page .a4-photo img{width:100%;height:100%;object-fit:cover}
+.photo-info{display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--card);border-radius:10px;margin-top:12px;font-size:13px;border:1px solid var(--border)}
+.photo-info b{color:var(--primary)}
+
 #adminPanel{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);z-index:2500;overflow-y:auto;padding:16px}
 .admin-inner{max-width:1100px;margin:0 auto;background:#fff;color:#0f172a;border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.5)}
 .admin-header{padding:18px 22px;background:var(--grad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;color:#fff}
@@ -279,6 +314,8 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
   .preview-capture{padding:20px 16px}
   .preview-actions{padding:12px 14px;gap:6px}
   .preview-actions button{min-width:calc(33.333% - 4px);padding:10px 4px;font-size:11px}
+  .age-celebration .age-big{font-size:38px}
+  .photo-a4-page{padding:6px;gap:3px}
 }
 
 @media print{
@@ -288,6 +325,7 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
   .modal-inner{border:none;box-shadow:none;margin:0;border-radius:0;max-width:100%}
   .modal-head{background:#fff;border-bottom:2px solid #000;position:static}
   .result-box{background:#f5f5f5;border:2px solid #000;color:#000}
+  .photo-a4-page{border:none;box-shadow:none}
 }
 </style>
 </head>
@@ -332,9 +370,9 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 </div>
 
 <section class="hero">
-  <div class="hero-badge"><span class="dot"></span>Live • <span id="heroToolCount">29+</span> Tools Working</div>
+  <div class="hero-badge"><span class="dot"></span>Live • <span id="heroToolCount">30+</span> Tools Working</div>
   <h1>Har Kaam Ka <span>Free Tool</span> — Ek Hi Jagah 🚀</h1>
-  <p>Bijli bill se lekar invoice, PDF, photo, gym — sab kuch free me. No signup, no ads, 100% private.</p>
+  <p>Bijli bill se lekar invoice, PDF, photo copy, gym — sab kuch free me. No signup, no ads, 100% private.</p>
   <div class="hero-cta">
     <button class="btn btn-p" onclick="focusSearch()">🔍 Tool Dhundho</button>
     <button class="btn btn-g" onclick="openRandomTool()">🎲 Random Tool</button>
@@ -343,7 +381,7 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 
 <div class="stats">
   <div class="stat"><div class="stat-n" id="liveUsersStat">0</div><div class="stat-l">🟢 Live Users</div></div>
-  <div class="stat"><div class="stat-n" id="toolCount">29+</div><div class="stat-l">🛠️ Free Tools</div></div>
+  <div class="stat"><div class="stat-n" id="toolCount">30+</div><div class="stat-l">🛠️ Free Tools</div></div>
   <div class="stat"><div class="stat-n">0₹</div><div class="stat-l">💰 Forever</div></div>
   <div class="stat"><div class="stat-n">100%</div><div class="stat-l">🔒 Private</div></div>
 </div>
@@ -414,7 +452,7 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
   <div class="welcome-box">
     <span class="welcome-emoji">👋</span>
     <h2>Qunvero Me Aapka Swagat!</h2>
-    <p>29+ free tools — bijli bill se lekar PDF, photo, gym tak. Sab kuch 100% free aur private.</p>
+    <p>30+ free tools — bijli bill se lekar PDF, photo copy, gym tak. Sab kuch 100% free aur private.</p>
     <div style="font-size:13px;color:var(--muted);margin-bottom:4px">Website kaisi lagi? Rating do:</div>
     <div class="welcome-rating" id="welcomeRating">
       <span data-v="1">⭐</span><span data-v="2">⭐</span><span data-v="3">⭐</span><span data-v="4">⭐</span><span data-v="5">⭐</span>
@@ -513,7 +551,8 @@ const CATEGORIES=[
   {id:'notes',name:'Notes & Writing',emo:'📝'},
   {id:'time',name:'Date / Time',emo:'⏰'},
   {id:'split',name:'Splitter',emo:'💸'},
-  {id:'todo',name:'To-Do List',emo:'✅'}
+  {id:'todo',name:'To-Do List',emo:'✅'},
+  {id:'copy',name:'Photo Copy',emo:'📸'}
 ];
 
 const TOOLS=[];
@@ -586,6 +625,38 @@ TOOLS.push(
 );
 
 TOOLS.push(
+{id:'photoCopy',n:'Photo Copy (A4 Print)',i:'📸',c:'copy',
+ render:()=>`
+  <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">📸 Photo copy wale dukano ke liye — Photo upload karo, A4 page pe multiple copies print karo. Jaise passport size photo nikalte hain.</p>
+  <div class="photo-upload-box" onclick="document.getElementById('photoCopyFiles').click()">
+    <div class="up-icon">📤</div>
+    <div class="up-text">Photo Upload Karo</div>
+    <div class="up-sub">1 ya usse zyada photos select karo (JPG, PNG)</div>
+  </div>
+  <input type="file" id="photoCopyFiles" accept="image/*" multiple style="display:none" onchange="handlePhotoCopyUpload(event)">
+  <div class="photo-preview-grid" id="photoCopyGrid"></div>
+  <div class="photo-controls">
+    ${F.sel('photoSize','Photo Size',[['passport','Passport (35×45mm)'],['stamp','Stamp (20×25mm)'],['visa','Visa (51×51mm)'],['custom','Custom (35×35mm)']])}
+    ${F.sel('photoQty','Kitni Photos Chahiye?',[['6','6 Photos'],['8','8 Photos'],['12','12 Photos'],['16','16 Photos'],['20','20 Photos'],['24','24 Photos'],['30','30 Photos'],['40','40 Photos']])}
+    ${F.sel('photoBorder','Border',[['none','No Border'],['thin','Thin White Border'],['cut','Cutting Line']])}
+  </div>
+  <div class="calc-btn-row"><button class="calc-btn" onclick="generatePhotoA4()">📄 Generate A4 Print Sheet</button></div>
+  <div id="resultBox"></div>
+  <div class="photo-a4-preview" id="photoA4PreviewWrap" style="display:none">
+    <div style="font-size:12px;color:#64748b;text-align:center;margin-bottom:10px;font-weight:600">A4 Print Preview (210×297mm)</div>
+    <div class="photo-a4-page" id="photoA4Page"></div>
+  </div>
+`, calc(){return '';}}
+);
+
+/* ============ SPLITTER (UPDATED - NO TIP, EXPENSE NAME) ============ */
+TOOLS.push(
+{id:'splitter',n:'Split Bill / Expense',i:'💸',c:'split',
+ render:()=>`${F.txt('expName','Expense Ka Naam (kya cheez hai?)')}${F.num('total','Total Amount (₹)')}${F.num('people','Kitne Log Me Split?')}${calcBtn('💸 Calculate Split')}<div id="resultBox"></div>`,
+ calc(){const name=v('expName')||'Expense',tot=+v('total')||0,p=+v('people')||1;const per=tot/p;res(`<div class="result-box"><h4>💸 ${name}</h4><div class="result-row"><span class="lb">Expense</span><span class="vl">${name}</span></div><div class="result-row"><span class="lb">Total Amount</span><span class="vl">₹${fmt(tot)}</span></div><div class="result-row"><span class="lb">Split Between</span><span class="vl">${p} log</span></div><div class="result-row total"><span class="lb">Per Person</span><span class="vl">₹${fmt(per)}</span></div></div>`,`${name}: ₹${fmt(per)}/person (Total ₹${fmt(tot)} ÷ ${p})`);}}
+);
+
+TOOLS.push(
 {id:'passGen',n:'Password Generator',i:'🔐',c:'text',
  render:()=>`${F.num('len','Length')}${F.sel('type','Type',[['all','All'],['alpha','Letters'],['num','Numbers']])}${calcBtn('🔐 Generate')}<div id="resultBox"></div>`,
  calc(){const l=+v('len')||12,ty=v('type');let chars='abcdefghijklmnopqrstuvwxyz';if(ty==='all')chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';else if(ty==='alpha')chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';else chars='0123456789';let p='';for(let i=0;i<l;i++)p+=chars[Math.floor(Math.random()*chars.length)];res(`<div class="result-box"><h4>🔐 Password</h4><div class="result-row total"><span class="lb">Password</span><span class="vl" style="font-family:monospace;font-size:13px;word-break:break-all">${p}</span></div></div>`,p);}}
@@ -612,10 +683,41 @@ TOOLS.push(
  calc(){return '';}}
 );
 
+/* ============ AGE CALCULATOR (WITH NAME + CELEBRATION) ============ */
 TOOLS.push(
 {id:'eduAge',n:'Age Calculator',i:'🎂',c:'edu',
- render:()=>`${F.date('dob','Date of Birth')}${calcBtn('🎂 Calculate Age')}<div id="resultBox"></div>`,
- calc(){const d=v('dob');if(!d){toast('Date select karo',1);return;}const b=new Date(d),n=new Date();let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),dd=n.getDate()-b.getDate();if(dd<0){m--;dd+=new Date(n.getFullYear(),n.getMonth(),0).getDate();}if(m<0){y--;m+=12;}const days=Math.floor((n-b)/86400000);res(`<div class="result-box"><h4>🎂 Age</h4><div class="result-row"><span class="lb">Years</span><span class="vl">${y} years</span></div><div class="result-row"><span class="lb">Months</span><span class="vl">${y*12+m} months</span></div><div class="result-row total"><span class="lb">Days</span><span class="vl">${days.toLocaleString('en-IN')}</span></div></div>`,`Age: ${y}y ${m}m ${dd}d`);}},
+ render:()=>`${F.txt('name','Aapka Naam')}${F.date('dob','Date of Birth')}${calcBtn('🎂 Calculate Age')}<div id="resultBox"></div>`,
+ calc(){const name=v('name')||'';const d=v('dob');if(!d){toast('Date select karo',1);return;}
+  const b=new Date(d),n=new Date();
+  let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),dd=n.getDate()-b.getDate();
+  if(dd<0){m--;dd+=new Date(n.getFullYear(),n.getMonth(),0).getDate();}
+  if(m<0){y--;m+=12;}
+  const totalDays=Math.floor((n-b)/86400000);
+  const totalMonths=y*12+m;
+  const totalHours=totalDays*24;
+  const totalMinutes=totalHours*60;
+  const totalSeconds=totalMinutes*60;
+  const weeks=Math.floor(totalDays/7);
+  const yearsBig=name?`${name} ki Age`:'Your Age';
+  res(`<div class="age-celebration">
+    <span class="confetti c1">🎉</span>
+    <span class="confetti c2">🎊</span>
+    <span class="confetti c3">⭐</span>
+    <span class="confetti c4">✨</span>
+    <div class="age-label">${yearsBig}</div>
+    <div class="age-big">${y} Years</div>
+    <div class="age-label">🎂 ${y} saal, ${m} mahine, ${dd} din</div>
+    <div class="age-detail">
+      <div class="age-chip"><b>${totalMonths}</b>Mahine</div>
+      <div class="age-chip"><b>${weeks}</b>Hafte</div>
+      <div class="age-chip"><b>${totalDays.toLocaleString('en-IN')}</b>Din</div>
+    </div>
+    <div class="age-detail" style="margin-top:10px">
+      <div class="age-chip"><b>${totalHours.toLocaleString('en-IN')}</b>Ghante</div>
+      <div class="age-chip"><b>${totalMinutes.toLocaleString('en-IN')}</b>Minute</div>
+      <div class="age-chip"><b>${totalSeconds.toLocaleString('en-IN')}</b>Second</div>
+    </div>
+  </div>`,`${name?name+' ki age: ':''}${y} years, ${m} months, ${dd} days (${totalDays} days total)`);}},
 {id:'eduPercent',n:'Percentage Calculator',i:'%',c:'edu',
  render:()=>`${F.num('got','Obtained Marks')}${F.num('total','Total Marks')}${calcBtn('📊 Calculate %')}<div id="resultBox"></div>`,
  calc(){const g=+v('got')||0,t=+v('total')||1;const p=g/t*100;let grade='F';if(p>=90)grade='A+';else if(p>=80)grade='A';else if(p>=70)grade='B';else if(p>=60)grade='C';else if(p>=50)grade='D';else if(p>=33)grade='E';res(`<div class="result-box"><h4>📊 Result</h4><div class="result-row"><span class="lb">Marks</span><span class="vl">${g}/${t}</span></div><div class="result-row"><span class="lb">Percentage</span><span class="vl">${fmt(p)}%</span></div><div class="result-row total"><span class="lb">Grade</span><span class="vl">${grade}</span></div></div>`,`${fmt(p)}% Grade ${grade}`);}}
@@ -666,12 +768,6 @@ TOOLS.push(
 );
 
 TOOLS.push(
-{id:'splitter',n:'Split Bill / Expense',i:'💸',c:'split',
- render:()=>`${F.num('total','Total Amount (₹)')}${F.num('people','Split Between')}${F.num('tip','Tip (%)')}${calcBtn('💸 Calculate Split')}<div id="resultBox"></div>`,
- calc(){const tot=+v('total')||0,p=+v('people')||1,tip=+v('tip')||0;const tipAmt=tot*tip/100,grand=tot+tipAmt,per=grand/p;res(`<div class="result-box"><h4>💸 Split</h4><div class="result-row"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div><div class="result-row"><span class="lb">Tip ${tip}%</span><span class="vl">₹${fmt(tipAmt)}</span></div><div class="result-row"><span class="lb">Grand</span><span class="vl">₹${fmt(grand)}</span></div><div class="result-row total"><span class="lb">Per Person (${p})</span><span class="vl">₹${fmt(per)}</span></div></div>`,`₹${fmt(per)}/person`);}}
-);
-
-TOOLS.push(
 {id:'todoList',n:'To-Do List',i:'✅',c:'todo',
  render:()=>`<div><label>New Task</label><input type="text" id="taskInput" placeholder="Task likho..." onkeypress="if(event.key==='Enter')addTask()"></div><button class="btn btn-p" style="width:100%;margin-top:12px" onclick="addTask()">➕ Add Task</button><div id="resultBox"></div><div id="todoListBox" style="margin-top:16px"></div>`,
  init(){renderTodoList();},
@@ -682,6 +778,66 @@ function toggleTask(i){const list=JSON.parse(localStorage.getItem('qn_todos')||'
 function delTask(i){const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');list.splice(i,1);localStorage.setItem('qn_todos',JSON.stringify(list));renderTodoList();}
 function renderTodoList(){const el=document.getElementById('todoListBox');if(!el)return;const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');if(!list.length){el.innerHTML='<p style="text-align:center;color:var(--muted);font-size:13px;padding:20px">Koi task nahi hai</p>';return;}const pending=list.filter(x=>!x.done).length;el.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:13px;color:var(--muted);text-transform:uppercase">📋 Tasks (${pending} pending)</h4></div>${list.map((t,i)=>`<div style="background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-bottom:8px;display:flex;align-items:center;gap:10px"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${i})" style="width:auto;flex-shrink:0"><span style="flex:1;font-size:14px;${t.done?'text-decoration:line-through;color:var(--muted)':''}">${t.task}</span><button onclick="delTask(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:14px;flex-shrink:0">🗑️</button></div>`).join('')}`;}
 
+/* ============ PHOTO COPY HELPERS ============ */
+let photoCopyImages=[];
+function handlePhotoCopyUpload(e){
+  const files=Array.from(e.target.files||[]);
+  files.forEach(file=>{
+    const reader=new FileReader();
+    reader.onload=ev=>{photoCopyImages.push({src:ev.target.result,name:file.name});renderPhotoCopyGrid();};
+    reader.readAsDataURL(file);
+  });
+  e.target.value='';
+}
+function renderPhotoCopyGrid(){
+  const grid=document.getElementById('photoCopyGrid');
+  if(!grid)return;
+  if(!photoCopyImages.length){grid.innerHTML='';return;}
+  grid.innerHTML=photoCopyImages.map((p,i)=>`<div class="photo-preview-item"><img src="${p.src}" alt="photo"><button class="del-btn" onclick="removePhotoCopy(${i})">✕</button></div>`).join('');
+}
+function removePhotoCopy(i){photoCopyImages.splice(i,1);renderPhotoCopyGrid();}
+function generatePhotoA4(){
+  if(!photoCopyImages.length){toast('Photo upload karo pehle',1);return;}
+  const qty=+v('photoQty')||6;
+  const size=v('photoSize')||'passport';
+  const border=v('photoBorder')||'none';
+  const sizeMap={passport:[35,45],stamp:[20,25],visa:[51,51],custom:[35,35]};
+  const [wMM,hMM]=sizeMap[size];
+  const page=document.getElementById('photoA4Page');
+  const wrap=document.getElementById('photoA4PreviewWrap');
+  if(!page||!wrap)return;
+  const A4_W=210,A4_H=297,paddingMM=8;
+  const usableW=A4_W-paddingMM*2,usableH=A4_H-paddingMM*2;
+  const gapMM=2;
+  const cols=Math.floor((usableW+gapMM)/(wMM+gapMM));
+  const rows=Math.floor((usableH+gapMM)/(hMM+gapMM));
+  const perPage=cols*rows;
+  const pages=Math.ceil(qty/perPage);
+  let html='';
+  for(let p=0;p<pages;p++){
+    const startIdx=p*perPage;
+    const endIdx=Math.min(startIdx+perPage,qty);
+    html+=`<div class="photo-a4-page" style="grid-template-columns:repeat(${cols},1fr);grid-template-rows:repeat(${rows},1fr);margin-bottom:12px">`;
+    for(let i=startIdx;i<endIdx;i++){
+      const img=photoCopyImages[i%photoCopyImages.length];
+      let borderStyle='border:1px solid #cbd5e1';
+      if(border==='thin')borderStyle='border:2px solid #ffffff;box-shadow:inset 0 0 0 1px #cbd5e1';
+      else if(border==='cut')borderStyle='border:1px dashed #94a3b8';
+      html+=`<div class="a4-photo" style="${borderStyle}"><img src="${img.src}" alt="photo"></div>`;
+    }
+    for(let i=endIdx;i<startIdx+perPage;i++){html+=`<div class="a4-photo" style="background:#f8fafc;border:1px dashed #e2e8f0"></div>`;}
+    html+=`</div>`;
+  }
+  page.outerHTML=html;
+  const newPage=document.querySelector('.photo-a4-page');
+  if(newPage)newPage.id='photoA4Page';
+  wrap.style.display='block';
+  res(`<div class="result-box"><h4>📸 Photo Copy Sheet Ready</h4><div class="result-row"><span class="lb">Photos Needed</span><span class="vl">${qty}</span></div><div class="result-row"><span class="lb">Photo Size</span><span class="vl">${wMM}×${hMM}mm</span></div><div class="result-row"><span class="lb">Per A4 Page</span><span class="vl">${perPage} photos</span></div><div class="result-row"><span class="lb">Pages Required</span><span class="vl">${pages}</span></div><div class="result-row total"><span class="lb">Total Photos</span><span class="vl">${qty}</span></div></div>`,`${qty} photos → ${pages} A4 page(s) at ${wMM}×${hMM}mm each`);
+  toast('✅ A4 sheet ready! Print dabao');
+  window._lastText=`Photo Copy: ${qty} photos of ${wMM}×${hMM}mm on ${pages} A4 page(s)`;
+}
+
+/* ============ RUNNERS ============ */
 async function runImgToPdf(){const files=document.getElementById('imgs').files;if(!files.length){toast('Images select karo',1);return;}toast('⏳ Converting...');try{const{PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const doc=await PDFDocument.create();for(const f of files){const buf=await f.arrayBuffer();const img=f.type.includes('png')?await doc.embedPng(buf):await doc.embedJpg(buf);const p=doc.addPage([img.width,img.height]);p.drawImage(img,{x:0,y:0,width:img.width,height:img.height});}const bytes=await doc.save();window._lastBlob=new Blob([bytes],{type:'application/pdf'});window._lastName='images.pdf';res(`<div class="result-box"><h4>✅ PDF Ready!</h4><div class="result-row total"><span class="lb">Images</span><span class="vl">${files.length}</span></div></div>`,`${files.length} images → PDF`);toast('✅ Ready! Download dabao');}catch(e){toast('Failed: '+e.message,1);}}
 function runImgCompress(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const q=(+v('q')||70)/100;const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);c.toBlob(b=>{res(`<div class="result-box"><h4>✅ Compressed</h4><div class="result-row"><span class="lb">Original</span><span class="vl">${(f.size/1024).toFixed(1)} KB</span></div><div class="result-row total"><span class="lb">Compressed</span><span class="vl">${(b.size/1024).toFixed(1)} KB</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,`${(f.size/1024).toFixed(1)}KB → ${(b.size/1024).toFixed(1)}KB`);window._lastBlob=b;window._lastName='compressed.jpg';toast('✅ Done!');},'image/jpeg',q);};}
 function runPassport(){const f=document.getElementById('file').files[0];if(!f){toast('Photo select karo',1);return;}const sizes={passport:[413,531],stamp:[236,295],visa:[600,600]};const[w,h]=sizes[v('size')]||[413,531];const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');const scale=Math.max(w/img.width,h/img.height);const nw=img.width*scale,nh=img.height*scale;ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);c.toBlob(b=>{res(`<div class="result-box"><h4>📸 Passport Photo</h4><div class="result-row"><span class="lb">Size</span><span class="vl">${w}×${h} px</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:6px;max-height:200px"></div>`,`Passport ${w}×${h}px`);window._lastBlob=b;window._lastName='passport.jpg';toast('✅ Ready!');},'image/jpeg',0.95);};}
@@ -761,7 +917,7 @@ function runBarcode(){
   }
 }
 
-function renderQuick(){const q=['bizInvoice','elecBill','bizEMI','bizGST','socQR','finSIP','eduAge','passGen'];const box=document.getElementById('quickRow');if(!box)return;const found=q.map(id=>TOOLS.find(x=>x.id===id)).filter(Boolean);box.innerHTML=found.map(t=>`<div class="q-card" onclick="openTool('${t.id}')"><span class="e">${t.i}</span><span class="nm">${t.n}</span></div>`).join('');}
+function renderQuick(){const q=['photoCopy','eduAge','bizInvoice','elecBill','bizEMI','bizGST','socQR','splitter'];const box=document.getElementById('quickRow');if(!box)return;const found=q.map(id=>TOOLS.find(x=>x.id===id)).filter(Boolean);box.innerHTML=found.map(t=>`<div class="q-card" onclick="openTool('${t.id}')"><span class="e">${t.i}</span><span class="nm">${t.n}</span></div>`).join('');}
 function renderCategories(){const wrap=document.getElementById('categoriesWrap');if(!wrap)return;wrap.innerHTML=CATEGORIES.map(cat=>{const tools=TOOLS.filter(t=>t.c===cat.id);if(!tools.length)return'';return`<section class="sec" data-cat="${cat.id}"><div class="sec-head"><h2><span class="emo">${cat.emo}</span>${cat.name}</h2><span class="cnt">${tools.length} tool${tools.length>1?'s':''}</span></div><div class="tools-grid">${tools.map(t=>`<div class="tool" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><span class="nm">${t.n}</span></div>`).join('')}</div></section>`;}).join('');}
 function renderChips(){const box=document.getElementById('catChips');if(!box)return;box.innerHTML=CATEGORIES.map((c,i)=>{const has=TOOLS.some(t=>t.c===c.id);if(!has)return'';return`<div class="chip${i===0?' on':''}" onclick="scrollToCat('${c.id}',this)">${c.emo} ${c.name.split('/')[0].trim()}</div>`;}).join('');}
 function scrollToCat(catId,chipEl){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));if(chipEl)chipEl.classList.add('on');const sec=document.querySelector(`section[data-cat="${catId}"]`);if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});}
@@ -773,19 +929,21 @@ document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap')){cons
 function focusSearch(){const el=document.getElementById('searchBox');if(el){el.focus();window.scrollTo({top:0,behavior:'smooth'});}}
 
 function openTool(id){const t=TOOLS.find(x=>x.id===id);if(!t){toast('Tool not found',1);return;}window.__currentTool=id;document.getElementById('toolIcon').textContent=t.i;document.getElementById('toolTitle').textContent=t.n;document.getElementById('toolBody').innerHTML=t.render();const favEl=document.getElementById('favToggle');if(favEl)favEl.classList.toggle('on',Favorites.has(id));document.getElementById('toolModal').classList.add('on');document.body.style.overflow='hidden';window._lastBlob=null;window._lt='';window._lastName='result';if(t.init)try{t.init();}catch(e){console.warn(e);}}
-function closeTool(){document.getElementById('toolModal').classList.remove('on');document.body.style.overflow='';window.__currentTool='';}
+function closeTool(){document.getElementById('toolModal').classList.remove('on');document.body.style.overflow='';window.__currentTool='';photoCopyImages=[];}
 function openRandomTool(){const t=TOOLS[Math.floor(Math.random()*TOOLS.length)];openTool(t.id);}
 function toggleFavoriteCurrent(){if(!window.__currentTool)return;const now=Favorites.toggle(window.__currentTool);const el=document.getElementById('favToggle');if(el)el.classList.toggle('on',now);toast(now?'⭐ Added to favorites':'Removed');}
 
 window.__calc=function(){if(!window.__currentTool)return;const t=TOOLS.find(x=>x.id===window.__currentTool);if(t&&t.calc)try{t.calc();}catch(e){console.warn(e);}};
 
-/* ============ PREVIEW MODAL (SIRF DATA) ============ */
+/* ============ PREVIEW MODAL ============ */
 function openPreview(){
   const rb=document.getElementById('resultBox');
   if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}
   const resultHTML=rb.innerHTML;
   const rawText=window._lt||'';
   const hasImage=resultHTML.indexOf('<img')>-1;
+  const hasCelebration=resultHTML.indexOf('age-celebration')>-1;
+  const hasA4=resultHTML.indexOf('photo-a4')>-1;
   let cleanHTML='';
   if(hasImage){
     const tempDiv=document.createElement('div');
@@ -794,6 +952,11 @@ function openPreview(){
     let imgHTML='';
     imgs.forEach(img=>{imgHTML+=`<img src="${img.src}" style="max-width:100%;display:block;margin:0 auto">`;});
     cleanHTML=imgHTML;
+  } else if(hasCelebration){
+    const tempDiv=document.createElement('div');
+    tempDiv.innerHTML=resultHTML;
+    const cel=tempDiv.querySelector('.age-celebration');
+    cleanHTML=cel?cel.outerHTML:resultHTML;
   } else {
     const tempDiv=document.createElement('div');
     tempDiv.innerHTML=resultHTML;
@@ -844,7 +1007,7 @@ function printPreview(){
   const w=window.open('','_blank');
   if(!w){toast('Popup blocked!',1);return;}
   const html=capture.outerHTML;
-  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:30px;background:#fff;color:#0f172a;max-width:800px;margin:0 auto}.preview-capture{background:#fff;padding:30px;border-radius:12px}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row:last-child{border-bottom:none}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;color:#0f172a;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none;margin-top:8px}.result-row.total .lb{color:#10b981;font-weight:700}.result-row.total .vl{color:#10b981;font-weight:800}.preview-capture img{max-width:100%;display:block;margin:16px auto}textarea{width:100%;padding:10px;border:1px solid #ccc;font-family:monospace;font-size:12px}@media print{body{padding:0}}</style></head><body><div class="preview-capture">${document.getElementById('previewData').innerHTML}</div><script>setTimeout(()=>{window.print();},400);<\/script></body></html>`);
+  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:30px;background:#fff;color:#0f172a;max-width:800px;margin:0 auto}.preview-capture{background:#fff;padding:30px;border-radius:12px}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row:last-child{border-bottom:none}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;color:#0f172a;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none;margin-top:8px}.result-row.total .lb{color:#10b981;font-weight:700}.result-row.total .vl{color:#10b981;font-weight:800}.preview-capture img{max-width:100%;display:block;margin:16px auto}textarea{width:100%;padding:10px;border:1px solid #ccc;font-family:monospace;font-size:12px}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;line-height:1;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase;letter-spacing:1px}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.7);padding:8px 14px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:18px;color:#7c3aed;margin-bottom:2px}.age-celebration .age-name{font-size:22px;font-weight:800;color:#0f172a;margin-bottom:8px}@media print{body{padding:0}}</style></head><body><div class="preview-capture">${document.getElementById('previewData').innerHTML}</div><script>setTimeout(()=>{window.print();},400);<\/script></body></html>`);
   w.document.close();
   toast('🖨️ Print ready');
 }
@@ -855,7 +1018,7 @@ function downloadPDF(){
   const w=window.open('','_blank');
   if(!w){toast('Popup blocked!',1);return;}
   const html=`<div class="preview-capture">${document.getElementById('previewData').innerHTML}</div>`;
-  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:30px;background:#fff;color:#0f172a;max-width:800px;margin:0 auto}.preview-capture{background:#fff;padding:30px}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row:last-child{border-bottom:none}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;color:#0f172a;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none;margin-top:8px}.result-row.total .lb{color:#10b981;font-weight:700}.result-row.total .vl{color:#10b981;font-weight:800}.preview-capture img{max-width:100%;display:block;margin:16px auto}textarea{width:100%;padding:10px;border:1px solid #ccc;font-family:monospace;font-size:12px}</style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
+  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:30px;background:#fff;color:#0f172a;max-width:800px;margin:0 auto}.preview-capture{background:#fff;padding:30px}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row:last-child{border-bottom:none}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;color:#0f172a;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none;margin-top:8px}.result-row.total .lb{color:#10b981;font-weight:700}.result-row.total .vl{color:#10b981;font-weight:800}.preview-capture img{max-width:100%;display:block;margin:16px auto}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;line-height:1;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.7);padding:8px 14px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:18px;color:#7c3aed;margin-bottom:2px}</style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
   w.document.close();
   toast('📄 PDF dialog khula — Save as PDF');
 }
@@ -864,32 +1027,33 @@ async function downloadPreviewImage(){
   const capture=document.getElementById('previewCapture');
   if(!capture){toast('Preview kholo pehle',1);return;}
   toast('📷 HD image ban raha hai...');
-  
-  // Clone and place off-screen at large size
+  const contentWidth=capture.offsetWidth||500;
+  const finalWidth=Math.max(700, Math.min(contentWidth, 900));
   const clone=capture.cloneNode(true);
   clone.style.position='fixed';
   clone.style.left='-99999px';
   clone.style.top='0';
-  clone.style.width='1400px';
-  clone.style.maxWidth='none';
-  clone.style.padding='60px';
+  clone.style.width=finalWidth+'px';
+  clone.style.maxWidth=finalWidth+'px';
+  clone.style.padding='50px 40px';
   clone.style.background='#ffffff';
   clone.style.borderRadius='0';
   clone.style.boxShadow='none';
   clone.style.color='#0f172a';
   clone.style.display='block';
+  clone.style.boxSizing='border-box';
   clone.querySelectorAll('img').forEach(img=>{
     img.style.maxWidth='100%';
     img.style.height='auto';
     img.style.display='block';
     img.style.margin='20px auto';
   });
+  clone.querySelectorAll('*').forEach(el=>{el.style.boxSizing='border-box';});
   document.body.appendChild(clone);
-  
   try{
     await new Promise(r=>setTimeout(r,400));
     const canvas=await html2canvas(clone,{
-      scale:2,
+      scale:3,
       backgroundColor:'#ffffff',
       logging:false,
       useCORS:true,
@@ -933,7 +1097,7 @@ async function shareTool(){const t=TOOLS.find(x=>x.id===window.__currentTool);co
 
 function addInvRow(){const tb=document.getElementById('invBody');if(!tb)return;const r=document.createElement('tr');r.innerHTML=`<td><input class="item" placeholder="Item" style="width:100%"></td><td><input type="number" class="q" value="1" style="width:70px"></td><td><input type="number" class="r" value="0" style="width:80px"></td><td class="a">₹0</td><td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove()">❌</button></td>`;tb.appendChild(r);}
 
-function openStatic(page){const content={about:{t:'ℹ️ About Qunvero',b:`<p>Qunvero is a free online platform offering 29+ useful tools for daily life, business, education, and more.</p><p>All tools run directly in your browser. Your data never leaves your device — 100% private.</p>`},privacy:{t:'🔒 Privacy Policy',b:`<p>Your privacy is important to us.</p><ul><li>All processing happens in your browser</li><li>Your files never leave your device</li><li>No personal information is collected</li><li>No tracking or third-party cookies</li></ul>`},terms:{t:'📜 Terms of Use',b:`<ul><li>All tools are provided "as-is"</li><li>Financial and tax calculations are for reference only</li><li>Health tools are educational, not medical advice</li><li>Verify important results with a professional</li></ul>`},contact:{t:'📞 Contact Us',b:`<p>Aapka feedback, suggestion, ya koi problem hai?</p><p style="margin-top:14px">💬 <b>Feedback button</b> use karo — bottom-left corner me hai. Aapka message seedha admin tak pahunchta hai.</p><p style="margin-top:14px">Hum 24-48 ghante me reply karte hain.</p>`}};const c=content[page];if(!c)return;document.getElementById('staticTitle').textContent=c.t;document.getElementById('staticBody').innerHTML=c.b;document.getElementById('staticModal').classList.add('on');document.body.style.overflow='hidden';}
+function openStatic(page){const content={about:{t:'ℹ️ About Qunvero',b:`<p>Qunvero is a free online platform offering 30+ useful tools for daily life, business, education, and more.</p><p>All tools run directly in your browser. Your data never leaves your device — 100% private.</p>`},privacy:{t:'🔒 Privacy Policy',b:`<p>Your privacy is important to us.</p><ul><li>All processing happens in your browser</li><li>Your files never leave your device</li><li>No personal information is collected</li><li>No tracking or third-party cookies</li></ul>`},terms:{t:'📜 Terms of Use',b:`<ul><li>All tools are provided "as-is"</li><li>Financial and tax calculations are for reference only</li><li>Health tools are educational, not medical advice</li><li>Verify important results with a professional</li></ul>`},contact:{t:'📞 Contact Us',b:`<p>Aapka feedback, suggestion, ya koi problem hai?</p><p style="margin-top:14px">💬 <b>Feedback button</b> use karo — bottom-left corner me hai. Aapka message seedha admin tak pahunchta hai.</p><p style="margin-top:14px">Hum 24-48 ghante me reply karte hain.</p>`}};const c=content[page];if(!c)return;document.getElementById('staticTitle').textContent=c.t;document.getElementById('staticBody').innerHTML=c.b;document.getElementById('staticModal').classList.add('on');document.body.style.overflow='hidden';}
 function closeStatic(){document.getElementById('staticModal').classList.remove('on');document.body.style.overflow='';}
 function goHome(){window.scrollTo({top:0,behavior:'smooth'});closeTool();closeStatic();}
 
