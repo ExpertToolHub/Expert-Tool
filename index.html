@@ -140,7 +140,6 @@ body.dark header{background:rgba(10,10,15,.85)}
 .result-row.total{padding-top:14px;font-size:17px;border-top:2px solid var(--success);margin-top:6px}
 .result-row.total .vl{color:var(--success)}
 
-/* AGE CELEBRATION */
 .age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px 20px;text-align:center;margin-top:8px;position:relative;overflow:hidden}
 .age-celebration::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.4),transparent 50%);pointer-events:none}
 .age-celebration .age-name{font-size:22px;font-weight:800;color:#0f172a;margin-bottom:8px;position:relative;z-index:1}
@@ -215,7 +214,7 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .preview-head h3{font-size:16px;color:var(--text);display:flex;align-items:center;gap:8px}
 .preview-close-btn{background:var(--danger);border:none;padding:8px 14px;border-radius:10px;color:#fff;font-weight:600;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:4px}
 .preview-content{padding:20px}
-.preview-capture{background:#ffffff;color:#0f172a;padding:30px 26px;border-radius:12px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:200px;display:flex;align-items:center;justify-content:center}
+.preview-capture{background:#ffffff;color:#0f172a;padding:30px 26px;border-radius:12px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;display:inline-block;width:100%}
 .preview-data{width:100%}
 .preview-data img{max-width:100%;height:auto;display:block;margin:0 auto}
 .preview-data .result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px;color:#0f172a}
@@ -233,7 +232,6 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .preview-actions .btn-img{background:linear-gradient(135deg,#7c3aed,#0070f3);color:#fff}
 .preview-actions button:hover{transform:translateY(-2px)}
 
-/* PHOTO COPY TOOL */
 .photo-copy-wrap{display:grid;grid-template-columns:1fr;gap:16px}
 .photo-upload-box{border:2px dashed var(--border);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:.2s;background:var(--bg2)}
 .photo-upload-box:hover{border-color:var(--primary);background:rgba(0,112,243,.04)}
@@ -249,8 +247,6 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .photo-a4-page{background:#fff;width:100%;max-width:595px;aspect-ratio:210/297;margin:0 auto;display:grid;gap:4px;padding:8px;border:1px solid #e2e8f0;box-shadow:0 2px 10px rgba(0,0,0,.1)}
 .photo-a4-page .a4-photo{background:#f1f5f9;aspect-ratio:35/45;border:1px solid #cbd5e1;display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:10px;color:#94a3b8}
 .photo-a4-page .a4-photo img{width:100%;height:100%;object-fit:cover}
-.photo-info{display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--card);border-radius:10px;margin-top:12px;font-size:13px;border:1px solid var(--border)}
-.photo-info b{color:var(--primary)}
 
 #adminPanel{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);z-index:2500;overflow-y:auto;padding:16px}
 .admin-inner{max-width:1100px;margin:0 auto;background:#fff;color:#0f172a;border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.5)}
@@ -627,7 +623,7 @@ TOOLS.push(
 TOOLS.push(
 {id:'photoCopy',n:'Photo Copy (A4 Print)',i:'📸',c:'copy',
  render:()=>`
-  <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">📸 Photo copy wale dukano ke liye — Photo upload karo, A4 page pe multiple copies print karo. Jaise passport size photo nikalte hain.</p>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">📸 Photo copy wale dukano ke liye — Photo upload karo, A4 page pe multiple copies print karo.</p>
   <div class="photo-upload-box" onclick="document.getElementById('photoCopyFiles').click()">
     <div class="up-icon">📤</div>
     <div class="up-text">Photo Upload Karo</div>
@@ -649,7 +645,6 @@ TOOLS.push(
 `, calc(){return '';}}
 );
 
-/* ============ SPLITTER (UPDATED - NO TIP, EXPENSE NAME) ============ */
 TOOLS.push(
 {id:'splitter',n:'Split Bill / Expense',i:'💸',c:'split',
  render:()=>`${F.txt('expName','Expense Ka Naam (kya cheez hai?)')}${F.num('total','Total Amount (₹)')}${F.num('people','Kitne Log Me Split?')}${calcBtn('💸 Calculate Split')}<div id="resultBox"></div>`,
@@ -683,7 +678,6 @@ TOOLS.push(
  calc(){return '';}}
 );
 
-/* ============ AGE CALCULATOR (WITH NAME + CELEBRATION) ============ */
 TOOLS.push(
 {id:'eduAge',n:'Age Calculator',i:'🎂',c:'edu',
  render:()=>`${F.txt('name','Aapka Naam')}${F.date('dob','Date of Birth')}${calcBtn('🎂 Calculate Age')}<div id="resultBox"></div>`,
@@ -717,7 +711,7 @@ TOOLS.push(
       <div class="age-chip"><b>${totalMinutes.toLocaleString('en-IN')}</b>Minute</div>
       <div class="age-chip"><b>${totalSeconds.toLocaleString('en-IN')}</b>Second</div>
     </div>
-  </div>`,`${name?name+' ki age: ':''}${y} years, ${m} months, ${dd} days (${totalDays} days total)`);}},
+  </div>`,`${name?name+' ki age: ':''}${y} years, ${m} months, ${dd} days`);}},
 {id:'eduPercent',n:'Percentage Calculator',i:'%',c:'edu',
  render:()=>`${F.num('got','Obtained Marks')}${F.num('total','Total Marks')}${calcBtn('📊 Calculate %')}<div id="resultBox"></div>`,
  calc(){const g=+v('got')||0,t=+v('total')||1;const p=g/t*100;let grade='F';if(p>=90)grade='A+';else if(p>=80)grade='A';else if(p>=70)grade='B';else if(p>=60)grade='C';else if(p>=50)grade='D';else if(p>=33)grade='E';res(`<div class="result-box"><h4>📊 Result</h4><div class="result-row"><span class="lb">Marks</span><span class="vl">${g}/${t}</span></div><div class="result-row"><span class="lb">Percentage</span><span class="vl">${fmt(p)}%</span></div><div class="result-row total"><span class="lb">Grade</span><span class="vl">${grade}</span></div></div>`,`${fmt(p)}% Grade ${grade}`);}}
@@ -742,7 +736,7 @@ TOOLS.push(
 {id:'gymTracker',n:'Gym Workout Tracker',i:'💪',c:'gym',
  render:()=>`<div class="form-grid">${F.txt('ex','Exercise Name')}${F.num('sets','Sets')}${F.num('reps','Reps')}${F.num('weight','Weight (kg)')}</div>${calcBtn('💪 Add Workout')}<div id="resultBox"></div><div id="gymList"></div>`,
  init(){renderGymList();},
- calc(){const ex=v('ex'),s=+v('sets')||0,r=+v('reps')||0,w=+v('weight')||0;if(!ex||!s||!r){toast('Exercise, sets, reps bharo',1);return;}const totalVol=s*r*w;const list=JSON.parse(localStorage.getItem('qn_gym')||'[]');list.unshift({ex,s,r,w,totalVol,time:Date.now()});localStorage.setItem('qn_gym',JSON.stringify(list.slice(0,50)));res(`<div class="result-box"><h4>💪 Workout Added</h4><div class="result-row"><span class="lb">Exercise</span><span class="vl">${ex}</span></div><div class="result-row"><span class="lb">Sets × Reps</span><span class="vl">${s} × ${r}</span></div><div class="result-row total"><span class="lb">Volume</span><span class="vl">${totalVol} kg</span></div></div>`,`${ex}: ${s}x${r} @ ${w}kg = ${totalVol}kg`);renderGymList();}}
+ calc(){const ex=v('ex'),s=+v('sets')||0,r=+v('reps')||0,w=+v('weight')||0;if(!ex||!s||!r){toast('Exercise, sets, reps bharo',1);return;}const totalVol=s*r*w;const list=JSON.parse(localStorage.getItem('qn_gym')||'[]');list.unshift({ex,s,r,w,totalVol,time:Date.now()});localStorage.setItem('qn_gym',JSON.stringify(list.slice(0,50)));res(`<div class="result-box"><h4>💪 Workout Added</h4><div class="result-row"><span class="lb">Exercise</span><span class="vl">${ex}</span></div><div class="result-row"><span class="lb">Sets × Reps</span><span class="vl">${s} × ${r}</span></div><div class="result-row total"><span class="lb">Volume</span><span class="vl">${totalVol} kg</span></div></div>`,`${ex}: ${s}x${r} @ ${w}kg`);renderGymList();}}
 );
 
 function renderGymList(){const el=document.getElementById('gymList');if(!el)return;const list=JSON.parse(localStorage.getItem('qn_gym')||'[]');if(!list.length){el.innerHTML='';return;}el.innerHTML=`<div style="margin-top:20px"><h4 style="font-size:13px;color:var(--muted);text-transform:uppercase;margin-bottom:10px">📋 Workout History (${list.length})</h4>${list.map((g,i)=>`<div style="background:var(--card);border:1px solid var(--border);padding:10px 14px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px"><div style="flex:1;min-width:0"><b style="font-size:13px">${g.ex}</b><div style="font-size:11px;color:var(--muted)">${g.s} × ${g.r} @ ${g.w}kg • ${g.totalVol}kg</div></div><button onclick="delGym(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:14px">🗑️</button></div>`).join('')}</div>`;}
@@ -754,7 +748,7 @@ TOOLS.push(
  init(){renderNotesList();},
  calc(){}});
 
-function saveNote(){const title=v('noteTitle')||'Untitled',content=v('noteContent');if(!content.trim()){toast('Content likho',1);return;}const list=JSON.parse(localStorage.getItem('qn_notes')||'[]');list.unshift({title,content,time:Date.now()});localStorage.setItem('qn_notes',JSON.stringify(list.slice(0,50)));res(`<div class="result-box"><h4>✅ Note Saved</h4><div class="result-row"><span class="lb">Title</span><span class="vl">${title}</span></div><div class="result-row"><span class="lb">Chars</span><span class="vl">${content.length}</span></div><div class="result-row total"><span class="lb">Words</span><span class="vl">${content.trim().split(/\s+/).length}</span></div></div>`,`Note "${title}" saved (${content.length} chars)`);window._lt=`${title}\n\n${content}`;renderNotesList();toast('✅ Note saved!');}
+function saveNote(){const title=v('noteTitle')||'Untitled',content=v('noteContent');if(!content.trim()){toast('Content likho',1);return;}const list=JSON.parse(localStorage.getItem('qn_notes')||'[]');list.unshift({title,content,time:Date.now()});localStorage.setItem('qn_notes',JSON.stringify(list.slice(0,50)));res(`<div class="result-box"><h4>✅ Note Saved</h4><div class="result-row"><span class="lb">Title</span><span class="vl">${title}</span></div><div class="result-row"><span class="lb">Chars</span><span class="vl">${content.length}</span></div><div class="result-row total"><span class="lb">Words</span><span class="vl">${content.trim().split(/\s+/).length}</span></div></div>`,`Note "${title}" saved`);window._lt=`${title}\n\n${content}`;renderNotesList();toast('✅ Note saved!');}
 function clearNote(){const t=document.getElementById('noteTitle'),c=document.getElementById('noteContent');if(t)t.value='';if(c)c.value='';toast('Cleared');}
 function renderNotesList(){const el=document.getElementById('notesList');if(!el)return;const list=JSON.parse(localStorage.getItem('qn_notes')||'[]');if(!list.length){el.innerHTML='';return;}el.innerHTML=`<h4 style="font-size:13px;color:var(--muted);text-transform:uppercase;margin-bottom:10px">📋 Saved Notes (${list.length})</h4>${list.map((n,i)=>`<div style="background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-bottom:8px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px"><b style="font-size:13px">${n.title}</b><div style="display:flex;gap:6px"><button onclick="loadNote(${i})" style="background:transparent;border:none;color:var(--primary);cursor:pointer;font-size:12px">📂 Load</button><button onclick="delNote(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:12px">🗑️</button></div></div><div style="font-size:11px;color:var(--muted);max-height:60px;overflow:hidden">${n.content.slice(0,120)}${n.content.length>120?'...':''}</div></div>`).join('')}`;}
 function loadNote(i){const list=JSON.parse(localStorage.getItem('qn_notes')||'[]');const n=list[i];if(!n)return;const t=document.getElementById('noteTitle'),c=document.getElementById('noteContent');if(t)t.value=n.title;if(c)c.value=n.content;toast('📂 Note loaded');}
@@ -773,12 +767,12 @@ TOOLS.push(
  init(){renderTodoList();},
  calc(){}});
 
-function addTask(){const inp=document.getElementById('taskInput');const t=inp.value.trim();if(!t){toast('Task likho',1);return;}const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');list.unshift({task:t,done:false,time:Date.now()});localStorage.setItem('qn_todos',JSON.stringify(list));inp.value='';renderTodoList();toast('✅ Task added');res(`<div class="result-box"><h4>✅ Task Added</h4><div class="result-row total"><span class="lb">Task</span><span class="vl">${t}</span></div></div>`,`Task: ${t}`);}
+function addTask(){const inp=document.getElementById('taskInput');const t=inp.value.trim();if(!t){toast('Task likho',1);return;}const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');list.unshift({task:t,done:false,time:Date.now()});localStorage.setItem('qn_todos',JSON.stringify(list));inp.value='';renderTodoList();toast('✅ Task added');}
 function toggleTask(i){const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');if(list[i]){list[i].done=!list[i].done;localStorage.setItem('qn_todos',JSON.stringify(list));renderTodoList();}}
 function delTask(i){const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');list.splice(i,1);localStorage.setItem('qn_todos',JSON.stringify(list));renderTodoList();}
 function renderTodoList(){const el=document.getElementById('todoListBox');if(!el)return;const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');if(!list.length){el.innerHTML='<p style="text-align:center;color:var(--muted);font-size:13px;padding:20px">Koi task nahi hai</p>';return;}const pending=list.filter(x=>!x.done).length;el.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:13px;color:var(--muted);text-transform:uppercase">📋 Tasks (${pending} pending)</h4></div>${list.map((t,i)=>`<div style="background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-bottom:8px;display:flex;align-items:center;gap:10px"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${i})" style="width:auto;flex-shrink:0"><span style="flex:1;font-size:14px;${t.done?'text-decoration:line-through;color:var(--muted)':''}">${t.task}</span><button onclick="delTask(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:14px;flex-shrink:0">🗑️</button></div>`).join('')}`;}
 
-/* ============ PHOTO COPY HELPERS ============ */
+/* PHOTO COPY */
 let photoCopyImages=[];
 function handlePhotoCopyUpload(e){
   const files=Array.from(e.target.files||[]);
@@ -828,19 +822,25 @@ function generatePhotoA4(){
     for(let i=endIdx;i<startIdx+perPage;i++){html+=`<div class="a4-photo" style="background:#f8fafc;border:1px dashed #e2e8f0"></div>`;}
     html+=`</div>`;
   }
-  page.outerHTML=html;
-  const newPage=document.querySelector('.photo-a4-page');
-  if(newPage)newPage.id='photoA4Page';
-  wrap.style.display='block';
-  res(`<div class="result-box"><h4>📸 Photo Copy Sheet Ready</h4><div class="result-row"><span class="lb">Photos Needed</span><span class="vl">${qty}</span></div><div class="result-row"><span class="lb">Photo Size</span><span class="vl">${wMM}×${hMM}mm</span></div><div class="result-row"><span class="lb">Per A4 Page</span><span class="vl">${perPage} photos</span></div><div class="result-row"><span class="lb">Pages Required</span><span class="vl">${pages}</span></div><div class="result-row total"><span class="lb">Total Photos</span><span class="vl">${qty}</span></div></div>`,`${qty} photos → ${pages} A4 page(s) at ${wMM}×${hMM}mm each`);
+  const wrapHTML=`<div class="photo-a4-preview" id="photoA4PreviewWrap">
+    <div style="font-size:12px;color:#64748b;text-align:center;margin-bottom:10px;font-weight:600">A4 Print Preview (210×297mm)</div>
+    <div id="photoA4PagesContainer">${html}</div>
+  </div>`;
+  const existing=document.getElementById('photoA4PreviewWrap');
+  if(existing){existing.outerHTML=wrapHTML;} else {
+    const newWrap=document.createElement('div');
+    newWrap.innerHTML=wrapHTML;
+    document.getElementById('toolBody').appendChild(newWrap.firstElementChild);
+  }
+  document.getElementById('photoA4PreviewWrap').style.display='block';
+  res(`<div class="result-box"><h4>📸 Photo Copy Sheet Ready</h4><div class="result-row"><span class="lb">Photos Needed</span><span class="vl">${qty}</span></div><div class="result-row"><span class="lb">Photo Size</span><span class="vl">${wMM}×${hMM}mm</span></div><div class="result-row"><span class="lb">Per A4 Page</span><span class="vl">${perPage} photos</span></div><div class="result-row"><span class="lb">Pages Required</span><span class="vl">${pages}</span></div><div class="result-row total"><span class="lb">Total Photos</span><span class="vl">${qty}</span></div></div>`,`${qty} photos → ${pages} A4 page(s)`);
   toast('✅ A4 sheet ready! Print dabao');
   window._lastText=`Photo Copy: ${qty} photos of ${wMM}×${hMM}mm on ${pages} A4 page(s)`;
 }
 
-/* ============ RUNNERS ============ */
 async function runImgToPdf(){const files=document.getElementById('imgs').files;if(!files.length){toast('Images select karo',1);return;}toast('⏳ Converting...');try{const{PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const doc=await PDFDocument.create();for(const f of files){const buf=await f.arrayBuffer();const img=f.type.includes('png')?await doc.embedPng(buf):await doc.embedJpg(buf);const p=doc.addPage([img.width,img.height]);p.drawImage(img,{x:0,y:0,width:img.width,height:img.height});}const bytes=await doc.save();window._lastBlob=new Blob([bytes],{type:'application/pdf'});window._lastName='images.pdf';res(`<div class="result-box"><h4>✅ PDF Ready!</h4><div class="result-row total"><span class="lb">Images</span><span class="vl">${files.length}</span></div></div>`,`${files.length} images → PDF`);toast('✅ Ready! Download dabao');}catch(e){toast('Failed: '+e.message,1);}}
-function runImgCompress(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const q=(+v('q')||70)/100;const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);c.toBlob(b=>{res(`<div class="result-box"><h4>✅ Compressed</h4><div class="result-row"><span class="lb">Original</span><span class="vl">${(f.size/1024).toFixed(1)} KB</span></div><div class="result-row total"><span class="lb">Compressed</span><span class="vl">${(b.size/1024).toFixed(1)} KB</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,`${(f.size/1024).toFixed(1)}KB → ${(b.size/1024).toFixed(1)}KB`);window._lastBlob=b;window._lastName='compressed.jpg';toast('✅ Done!');},'image/jpeg',q);};}
-function runPassport(){const f=document.getElementById('file').files[0];if(!f){toast('Photo select karo',1);return;}const sizes={passport:[413,531],stamp:[236,295],visa:[600,600]};const[w,h]=sizes[v('size')]||[413,531];const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');const scale=Math.max(w/img.width,h/img.height);const nw=img.width*scale,nh=img.height*scale;ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);c.toBlob(b=>{res(`<div class="result-box"><h4>📸 Passport Photo</h4><div class="result-row"><span class="lb">Size</span><span class="vl">${w}×${h} px</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:6px;max-height:200px"></div>`,`Passport ${w}×${h}px`);window._lastBlob=b;window._lastName='passport.jpg';toast('✅ Ready!');},'image/jpeg',0.95);};}
+function runImgCompress(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const q=(+v('q')||70)/100;const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);c.toBlob(b=>{res(`<div class="result-box"><h4>✅ Compressed</h4><div class="result-row"><span class="lb">Original</span><span class="vl">${(f.size/1024).toFixed(1)} KB</span></div><div class="result-row total"><span class="lb">Compressed</span><span class="vl">${(b.size/1024).toFixed(1)} KB</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,`Compressed!`);window._lastBlob=b;window._lastName='compressed.jpg';toast('✅ Done!');},'image/jpeg',q);};}
+function runPassport(){const f=document.getElementById('file').files[0];if(!f){toast('Photo select karo',1);return;}const sizes={passport:[413,531],stamp:[236,295],visa:[600,600]};const[w,h]=sizes[v('size')]||[413,531];const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');const scale=Math.max(w/img.width,h/img.height);const nw=img.width*scale,nh=img.height*scale;ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);c.toBlob(b=>{res(`<div class="result-box"><h4>📸 Passport Photo</h4><div class="result-row"><span class="lb">Size</span><span class="vl">${w}×${h} px</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:6px;max-height:200px"></div>`,`Passport ready!`);window._lastBlob=b;window._lastName='passport.jpg';toast('✅ Ready!');},'image/jpeg',0.95);};}
 function runImgBase64(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const r=new FileReader();r.onload=e=>{res(`<div class="result-box"><h4>🔤 Base64</h4><textarea rows="8" style="font-size:11px;margin-top:10px" readonly>${e.target.result}</textarea></div>`,e.target.result);toast('✅ Ready!');};r.readAsDataURL(f);}
 
 function runQR(){
@@ -848,73 +848,36 @@ function runQR(){
   if(!t){toast('Text likho',1);return;}
   const qrSize=2000;
   const box=document.getElementById('resultBox');
-  box.innerHTML=`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><p style="font-size:12px;color:var(--muted)">Generating Ultra HD (2000×2000)...</p></div>`;
+  box.innerHTML=`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><p style="font-size:12px;color:var(--muted)">Generating Ultra HD...</p></div>`;
   const img=new Image();
   img.crossOrigin='anonymous';
   img.onload=()=>{
     const c=document.createElement('canvas');
     c.width=qrSize;c.height=qrSize;
     const ctx=c.getContext('2d');
-    ctx.fillStyle='#ffffff';
-    ctx.fillRect(0,0,qrSize,qrSize);
+    ctx.fillStyle='#ffffff';ctx.fillRect(0,0,qrSize,qrSize);
     ctx.imageSmoothingEnabled=false;
     ctx.drawImage(img,0,0,qrSize,qrSize);
     c.toBlob(b=>{
-      res(`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:12px;max-width:280px;image-rendering:crisp-edges"></div>`,`QR Code: ${t}`);
-      window._lastBlob=b;
-      window._lastName='qrcode-ultra-hd.png';
-      toast('✅ Ultra HD QR ready!');
+      res(`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:12px;max-width:280px;image-rendering:crisp-edges"></div>`,`QR: ${t}`);
+      window._lastBlob=b;window._lastName='qrcode.png';toast('✅ Ready!');
     },'image/png');
   };
-  img.onerror=()=>{toast('QR generation failed',1);};
   img.src=`https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(t)}&margin=20`;
 }
 
 function runBarcode(){
-  const t=v('t');
-  if(!t){toast('Text likho',1);return;}
+  const t=v('t');if(!t){toast('Text likho',1);return;}
   const box=document.getElementById('resultBox');
-  box.innerHTML=`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><p>Generating Ultra HD...</p></div>`;
-  const targetWidth=1250;
-  const targetHeight=1500;
-  let barcodeText=t;
-  let format='CODE128';
+  box.innerHTML=`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><p>Generating...</p></div>`;
   try{
-    const tempCanvas=document.createElement('canvas');
-    JsBarcode(tempCanvas,barcodeText,{format:format,width:3,height:200,displayValue:false,margin:10});
-    const naturalWidth=tempCanvas.width;
-    const scaleX=targetWidth/naturalWidth;
     const canvas=document.createElement('canvas');
-    JsBarcode(canvas,barcodeText,{format:format,width:Math.max(2, 2.5*scaleX),height:Math.max(200, 400),displayValue:true,fontSize:Math.max(28, 50),textMargin:16,margin:30,background:'#ffffff',lineColor:'#000000'});
-    const finalCanvas=document.createElement('canvas');
-    finalCanvas.width=Math.max(targetWidth, canvas.width);
-    finalCanvas.height=Math.max(targetHeight, canvas.height);
-    const fctx=finalCanvas.getContext('2d');
-    fctx.fillStyle='#ffffff';
-    fctx.fillRect(0,0,finalCanvas.width,finalCanvas.height);
-    const xOff=(finalCanvas.width-canvas.width)/2;
-    const yOff=(finalCanvas.height-canvas.height)/2;
-    fctx.drawImage(canvas,xOff,yOff);
-    finalCanvas.toBlob(b=>{
-      res(`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:14px;max-width:100%;image-rendering:crisp-edges"></div>`,`Barcode: ${t}`);
-      window._lastBlob=b;
-      window._lastName='barcode-ultra-hd.png';
-      toast('✅ Ultra HD Barcode ready!');
+    JsBarcode(canvas,t,{format:'CODE128',width:3,height:150,displayValue:true,fontSize:24,margin:20,background:'#ffffff',lineColor:'#000000'});
+    canvas.toBlob(b=>{
+      res(`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:14px;max-width:100%"></div>`,`Barcode: ${t}`);
+      window._lastBlob=b;window._lastName='barcode.png';toast('✅ Ready!');
     },'image/png');
-  }catch(e){
-    try{
-      const canvas=document.createElement('canvas');
-      JsBarcode(canvas,barcodeText,{format:'CODE39',width:3,height:400,displayValue:true,fontSize:50,margin:30,background:'#ffffff',lineColor:'#000000'});
-      canvas.toBlob(b=>{
-        res(`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:14px;max-width:100%"></div>`,`Barcode: ${t}`);
-        window._lastBlob=b;
-        window._lastName='barcode.png';
-        toast('✅ Barcode ready!');
-      },'image/png');
-    }catch(e2){
-      toast('❌ '+e2.message,1);
-    }
-  }
+  }catch(e){toast('❌ '+e.message,1);}
 }
 
 function renderQuick(){const q=['photoCopy','eduAge','bizInvoice','elecBill','bizEMI','bizGST','socQR','splitter'];const box=document.getElementById('quickRow');if(!box)return;const found=q.map(id=>TOOLS.find(x=>x.id===id)).filter(Boolean);box.innerHTML=found.map(t=>`<div class="q-card" onclick="openTool('${t.id}')"><span class="e">${t.i}</span><span class="nm">${t.n}</span></div>`).join('');}
@@ -935,7 +898,7 @@ function toggleFavoriteCurrent(){if(!window.__currentTool)return;const now=Favor
 
 window.__calc=function(){if(!window.__currentTool)return;const t=TOOLS.find(x=>x.id===window.__currentTool);if(t&&t.calc)try{t.calc();}catch(e){console.warn(e);}};
 
-/* ============ PREVIEW MODAL ============ */
+/* PREVIEW */
 function openPreview(){
   const rb=document.getElementById('resultBox');
   if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}
@@ -943,20 +906,19 @@ function openPreview(){
   const rawText=window._lt||'';
   const hasImage=resultHTML.indexOf('<img')>-1;
   const hasCelebration=resultHTML.indexOf('age-celebration')>-1;
-  const hasA4=resultHTML.indexOf('photo-a4')>-1;
   let cleanHTML='';
-  if(hasImage){
+  if(hasCelebration){
+    const tempDiv=document.createElement('div');
+    tempDiv.innerHTML=resultHTML;
+    const cel=tempDiv.querySelector('.age-celebration');
+    cleanHTML=cel?cel.outerHTML:resultHTML;
+  } else if(hasImage){
     const tempDiv=document.createElement('div');
     tempDiv.innerHTML=resultHTML;
     const imgs=tempDiv.querySelectorAll('img');
     let imgHTML='';
     imgs.forEach(img=>{imgHTML+=`<img src="${img.src}" style="max-width:100%;display:block;margin:0 auto">`;});
     cleanHTML=imgHTML;
-  } else if(hasCelebration){
-    const tempDiv=document.createElement('div');
-    tempDiv.innerHTML=resultHTML;
-    const cel=tempDiv.querySelector('.age-celebration');
-    cleanHTML=cel?cel.outerHTML:resultHTML;
   } else {
     const tempDiv=document.createElement('div');
     tempDiv.innerHTML=resultHTML;
@@ -1007,7 +969,7 @@ function printPreview(){
   const w=window.open('','_blank');
   if(!w){toast('Popup blocked!',1);return;}
   const html=capture.outerHTML;
-  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:30px;background:#fff;color:#0f172a;max-width:800px;margin:0 auto}.preview-capture{background:#fff;padding:30px;border-radius:12px}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row:last-child{border-bottom:none}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;color:#0f172a;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none;margin-top:8px}.result-row.total .lb{color:#10b981;font-weight:700}.result-row.total .vl{color:#10b981;font-weight:800}.preview-capture img{max-width:100%;display:block;margin:16px auto}textarea{width:100%;padding:10px;border:1px solid #ccc;font-family:monospace;font-size:12px}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;line-height:1;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase;letter-spacing:1px}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.7);padding:8px 14px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:18px;color:#7c3aed;margin-bottom:2px}.age-celebration .age-name{font-size:22px;font-weight:800;color:#0f172a;margin-bottom:8px}@media print{body{padding:0}}</style></head><body><div class="preview-capture">${document.getElementById('previewData').innerHTML}</div><script>setTimeout(()=>{window.print();},400);<\/script></body></html>`);
+  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>body{font-family:Arial;padding:30px;background:#fff;color:#0f172a}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none}.result-row.total .lb,.result-row.total .vl{color:#10b981;font-weight:800}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.7);padding:8px 14px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:18px;color:#7c3aed}img{max-width:100%}</style></head><body>${html}<script>setTimeout(()=>{window.print();},400);<\/script></body></html>`);
   w.document.close();
   toast('🖨️ Print ready');
 }
@@ -1017,71 +979,100 @@ function downloadPDF(){
   if(!capture){toast('Preview kholo pehle',1);return;}
   const w=window.open('','_blank');
   if(!w){toast('Popup blocked!',1);return;}
-  const html=`<div class="preview-capture">${document.getElementById('previewData').innerHTML}</div>`;
-  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:30px;background:#fff;color:#0f172a;max-width:800px;margin:0 auto}.preview-capture{background:#fff;padding:30px}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row:last-child{border-bottom:none}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;color:#0f172a;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none;margin-top:8px}.result-row.total .lb{color:#10b981;font-weight:700}.result-row.total .vl{color:#10b981;font-weight:800}.preview-capture img{max-width:100%;display:block;margin:16px auto}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;line-height:1;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.7);padding:8px 14px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:18px;color:#7c3aed;margin-bottom:2px}</style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
+  const html=`<div style="padding:30px;background:#fff;font-family:Arial">${document.getElementById('previewData').innerHTML}</div>`;
+  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>body{font-family:Arial;padding:30px;background:#fff;color:#0f172a}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none}.result-row.total .lb,.result-row.total .vl{color:#10b981;font-weight:800}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.7);padding:8px 14px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:18px;color:#7c3aed}img{max-width:100%}</style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
   w.document.close();
-  toast('📄 PDF dialog khula — Save as PDF');
+  toast('📄 PDF dialog khula');
 }
 
+/* ============ FINAL FIX — DOWNLOAD IMAGE (EXACT CONTENT SIZE) ============ */
 async function downloadPreviewImage(){
   const capture=document.getElementById('previewCapture');
   if(!capture){toast('Preview kholo pehle',1);return;}
   toast('📷 HD image ban raha hai...');
-  const contentWidth=capture.offsetWidth||500;
-  const finalWidth=Math.max(700, Math.min(contentWidth, 900));
-  const clone=capture.cloneNode(true);
-  clone.style.position='fixed';
-  clone.style.left='-99999px';
-  clone.style.top='0';
-  clone.style.width=finalWidth+'px';
-  clone.style.maxWidth=finalWidth+'px';
-  clone.style.padding='50px 40px';
-  clone.style.background='#ffffff';
-  clone.style.borderRadius='0';
-  clone.style.boxShadow='none';
-  clone.style.color='#0f172a';
-  clone.style.display='block';
-  clone.style.boxSizing='border-box';
-  clone.querySelectorAll('img').forEach(img=>{
-    img.style.maxWidth='100%';
-    img.style.height='auto';
-    img.style.display='block';
-    img.style.margin='20px auto';
+  
+  // Fixed width 700px, height auto
+  const finalWidth = 700;
+  
+  // Clone
+  const clone = capture.cloneNode(true);
+  clone.style.position = 'fixed';
+  clone.style.left = '-99999px';
+  clone.style.top = '0';
+  clone.style.width = finalWidth + 'px';
+  clone.style.maxWidth = finalWidth + 'px';
+  clone.style.padding = '50px 40px';
+  clone.style.background = '#ffffff';
+  clone.style.borderRadius = '0';
+  clone.style.boxShadow = 'none';
+  clone.style.color = '#0f172a';
+  clone.style.display = 'block';
+  clone.style.boxSizing = 'border-box';
+  clone.style.margin = '0';
+  clone.style.height = 'auto';
+  clone.style.minHeight = '0';
+  clone.style.maxHeight = 'none';
+  
+  clone.querySelectorAll('*').forEach(el => {
+    el.style.boxSizing = 'border-box';
+    el.style.marginLeft = '0';
+    el.style.marginRight = '0';
   });
-  clone.querySelectorAll('*').forEach(el=>{el.style.boxSizing='border-box';});
+  
+  clone.querySelectorAll('img').forEach(img => {
+    img.style.maxWidth = '100%';
+    img.style.height = 'auto';
+    img.style.display = 'block';
+    img.style.margin = '20px auto';
+  });
+  
   document.body.appendChild(clone);
-  try{
-    await new Promise(r=>setTimeout(r,400));
-    const canvas=await html2canvas(clone,{
-      scale:3,
-      backgroundColor:'#ffffff',
-      logging:false,
-      useCORS:true,
-      allowTaint:true,
-      imageTimeout:0
+  
+  try {
+    await new Promise(r => setTimeout(r, 500));
+    
+    const actualWidth = clone.offsetWidth;
+    const actualHeight = clone.offsetHeight;
+    
+    const canvas = await html2canvas(clone, {
+      scale: 3,
+      backgroundColor: '#ffffff',
+      logging: false,
+      useCORS: true,
+      allowTaint: true,
+      imageTimeout: 0,
+      width: actualWidth,
+      height: actualHeight,
+      windowWidth: actualWidth,
+      windowHeight: actualHeight,
+      x: 0,
+      y: 0,
+      scrollX: 0,
+      scrollY: 0
     });
-    canvas.toBlob(b=>{
+    
+    canvas.toBlob(b => {
       if(b){
-        const t=TOOLS.find(x=>x.id===window.__currentTool);
-        const name=(t?t.n:'qunvero-report').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
-        const url=URL.createObjectURL(b);
-        const a=document.createElement('a');
-        a.href=url;
-        a.download=`${name}-qunvero-hd.png`;
+        const t = TOOLS.find(x => x.id === window.__currentTool);
+        const name = (t ? t.n : 'qunvero-report').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+        const url = URL.createObjectURL(b);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${name}-qunvero-hd.png`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        setTimeout(()=>URL.revokeObjectURL(url),1000);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
         toast('✅ HD image downloaded!');
       } else {
-        toast('Image failed',1);
+        toast('Image failed', 1);
       }
       if(clone.parentElement) document.body.removeChild(clone);
-    },'image/png');
-  }catch(e){
+    }, 'image/png');
+  } catch(e) {
     console.error(e);
     if(clone.parentElement) document.body.removeChild(clone);
-    toast('❌ '+e.message,1);
+    toast('❌ ' + e.message, 1);
   }
 }
 
@@ -1104,18 +1095,11 @@ function goHome(){window.scrollTo({top:0,behavior:'smooth'});closeTool();closeSt
 document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.shiftKey&&e.key==='A'){e.preventDefault();feedbackSystem.openAdmin();}});
 
 document.addEventListener('DOMContentLoaded',()=>{
-  renderQuick();
-  renderCategories();
-  renderChips();
-  Favorites.render();
-  liveUsers.update();
-  feedbackSystem.checkAccess();
-  showWelcome();
+  renderQuick();renderCategories();renderChips();Favorites.render();
+  liveUsers.update();feedbackSystem.checkAccess();showWelcome();
   const count=TOOLS.length;
-  const tc=document.getElementById('toolCount');
-  const hc=document.getElementById('heroToolCount');
-  if(tc)tc.textContent=count+'+';
-  if(hc)hc.textContent=count+'+';
+  const tc=document.getElementById('toolCount');const hc=document.getElementById('heroToolCount');
+  if(tc)tc.textContent=count+'+';if(hc)hc.textContent=count+'+';
   console.log('⚡ Qunvero loaded — '+count+' tools ready!');
 });
 </script>
