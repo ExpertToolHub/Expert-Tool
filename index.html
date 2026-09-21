@@ -396,6 +396,754 @@ const CATEGORIES=[
 /* TOOLS REGISTRY — Message 2 & 3 me tools bharenge */
 /* @TOOLS_START@ */
 const TOOLS = {
+  /* ============ 🏪 SHOP (20) ============ */
+  shop: [
+    {id:'shop1', i:'🧾', n:'Bill Generator', render:()=>`
+      <div class="fld"><label>Shop Name</label><input id="s1_shop" placeholder="My Shop"></div>
+      <div class="fld"><label>Customer Name</label><input id="s1_cust" placeholder="Customer"></div>
+      <div class="fld"><label>Items (Name | Qty | Price) — ek line ek item</label><textarea id="s1_items" style="min-height:110px" placeholder="Rice | 2 | 120&#10;Sugar | 1 | 45"></textarea></div>
+      <div class="fld"><label>Discount (₹)</label><input type="number" id="s1_disc" placeholder="0"></div>
+      <div class="fld"><label>GST %</label><select id="s1_gst"><option value="0">0%</option><option value="5">5%</option><option value="12">12%</option><option value="18">18%</option><option value="28">28%</option></select></div>
+      <button class="calc-btn" onclick="calcShop1()">🧮 Generate Bill</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop2', i:'📋', n:'Rate List Maker', render:()=>`
+      <div class="fld"><label>Shop Name</label><input id="s2_shop" placeholder="My Shop"></div>
+      <div class="fld"><label>Items (Name | Price)</label><textarea id="s2_items" style="min-height:120px" placeholder="Rice 1kg | 80&#10;Sugar 1kg | 45"></textarea></div>
+      <button class="calc-btn" onclick="calcShop2()">📋 Generate Rate List</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop3', i:'📄', n:'Receipt Maker', render:()=>`
+      <div class="fld"><label>Shop Name</label><input id="s3_shop" placeholder="My Shop"></div>
+      <div class="fld"><label>Received From</label><input id="s3_from" placeholder="Customer"></div>
+      <div class="fld"><label>Amount (₹)</label><input type="number" id="s3_amt"></div>
+      <div class="fld"><label>Purpose</label><input id="s3_for" placeholder="Grocery purchase"></div>
+      <button class="calc-btn" onclick="calcShop3()">🧾 Generate Receipt</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop4', i:'📒', n:'Udhar Khata', render:()=>`
+      <div class="fld"><label>Customer Name</label><input id="s4_name" placeholder="Customer"></div>
+      <div class="fld"><label>Amount (₹)</label><input type="number" id="s4_amt"></div>
+      <div class="fld"><label>Type</label><select id="s4_type"><option value="due">Udhar Diya (Due)</option><option value="paid">Paid</option></select></div>
+      <button class="calc-btn" onclick="calcShop4()">➕ Add Entry</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop5', i:'📈', n:'Daily Sales Tracker', render:()=>`
+      <div class="fld"><label>Sale Amount (₹)</label><input type="number" id="s5_amt"></div>
+      <div class="fld"><label>Note (optional)</label><input id="s5_note" placeholder="Morning sales"></div>
+      <button class="calc-btn" onclick="calcShop5()">➕ Add Sale</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop6', i:'📦', n:'Stock Manager', render:()=>`
+      <div class="fld"><label>Item Name</label><input id="s6_name" placeholder="Rice 1kg"></div>
+      <div class="fld"><label>Quantity</label><input type="number" id="s6_qty"></div>
+      <div class="fld"><label>Price (₹)</label><input type="number" id="s6_price"></div>
+      <button class="calc-btn" onclick="calcShop6()">➕ Add Stock</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop7', i:'📝', n:'Purchase Order Maker', render:()=>`
+      <div class="fld"><label>Your Shop</label><input id="s7_shop" placeholder="My Shop"></div>
+      <div class="fld"><label>Supplier</label><input id="s7_supp" placeholder="Supplier"></div>
+      <div class="fld"><label>Items (Name | Qty | Rate)</label><textarea id="s7_items" style="min-height:100px" placeholder="Item A | 10 | 50"></textarea></div>
+      <button class="calc-btn" onclick="calcShop7()">📝 Generate PO</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop8', i:'📄', n:'Invoice Maker', render:()=>`
+      <div class="fld"><label>Business Name</label><input id="s8_biz" placeholder="Your Business"></div>
+      <div class="fld"><label>Client Name</label><input id="s8_cli" placeholder="Client"></div>
+      <div class="fld"><label>Items (Name | Qty | Rate)</label><textarea id="s8_items" style="min-height:100px" placeholder="Service | 1 | 500"></textarea></div>
+      <button class="calc-btn" onclick="calcShop8()">📄 Generate Invoice</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop9', i:'💹', n:'GST Calculator', render:()=>`
+      <div class="fld"><label>Amount (₹)</label><input type="number" id="s9_amt" placeholder="1000"></div>
+      <div class="fld"><label>GST Rate</label><select id="s9_rate"><option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option></select></div>
+      <div class="fld"><label>Type</label><select id="s9_type"><option value="add">Add GST</option><option value="rem">Remove GST</option></select></div>
+      <button class="calc-btn" onclick="calcShop9()">💹 Calculate GST</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop10', i:'🏷️', n:'Discount Calculator', render:()=>`
+      <div class="fld"><label>Price (₹)</label><input type="number" id="s10_p"></div>
+      <div class="fld"><label>Discount %</label><input type="number" id="s10_d"></div>
+      <button class="calc-btn" onclick="calcShop10()">🏷️ Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop11', i:'📊', n:'Profit / Loss Calculator', render:()=>`
+      <div class="fld"><label>Cost Price (₹)</label><input type="number" id="s11_cp"></div>
+      <div class="fld"><label>Selling Price (₹)</label><input type="number" id="s11_sp"></div>
+      <button class="calc-btn" onclick="calcShop11()">📊 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop12', i:'💳', n:'EMI Calculator', render:()=>`
+      <div class="fld"><label>Loan Amount (₹)</label><input type="number" id="s12_p"></div>
+      <div class="fld"><label>Interest Rate (%/year)</label><input type="number" id="s12_r"></div>
+      <div class="fld"><label>Tenure (months)</label><input type="number" id="s12_n"></div>
+      <button class="calc-btn" onclick="calcShop12()">💳 Calculate EMI</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop13', i:'💵', n:'Cash Denomination', render:()=>`
+      <div class="fld"><label>Amount (₹)</label><input type="number" id="s13_amt" placeholder="5000"></div>
+      <button class="calc-btn" onclick="calcShop13()">💵 Calculate Notes</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop14', i:'🪙', n:'Change Calculator', render:()=>`
+      <div class="fld"><label>Bill Amount (₹)</label><input type="number" id="s14_bill"></div>
+      <div class="fld"><label>Cash Given (₹)</label><input type="number" id="s14_given"></div>
+      <button class="calc-btn" onclick="calcShop14()">🪙 Calculate Change</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop15', i:'💰', n:'Commission Calculator', render:()=>`
+      <div class="fld"><label>Sale Amount (₹)</label><input type="number" id="s15_amt"></div>
+      <div class="fld"><label>Commission %</label><input type="number" id="s15_pct"></div>
+      <button class="calc-btn" onclick="calcShop15()">💰 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop16', i:'⭐', n:'Loyalty Points Calc', render:()=>`
+      <div class="fld"><label>Purchase Amount (₹)</label><input type="number" id="s16_amt"></div>
+      <div class="fld"><label>Points per ₹100</label><input type="number" id="s16_rate" value="1"></div>
+      <button class="calc-btn" onclick="calcShop16()">⭐ Calculate Points</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop17', i:'⚖️', n:'Unit Price Compare', render:()=>`
+      <div class="fld"><label>Product A Price (₹)</label><input type="number" id="s17_pa"></div>
+      <div class="fld"><label>Product A Qty</label><input type="number" id="s17_qa"></div>
+      <div class="fld"><label>Product B Price (₹)</label><input type="number" id="s17_pb"></div>
+      <div class="fld"><label>Product B Qty</label><input type="number" id="s17_qb"></div>
+      <button class="calc-btn" onclick="calcShop17()">⚖️ Compare</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop18', i:'📦', n:'Packaging Calculator', render:()=>`
+      <div class="fld"><label>Total Items</label><input type="number" id="s18_t"></div>
+      <div class="fld"><label>Items per Box</label><input type="number" id="s18_p"></div>
+      <button class="calc-btn" onclick="calcShop18()">📦 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop19', i:'🖨️', n:'Barcode Generator', render:()=>`
+      <div class="fld"><label>Barcode Value</label><input id="s19_val" placeholder="1234567890"></div>
+      <div class="fld"><label>Format</label><select id="s19_fmt"><option>CODE128</option><option>EAN13</option><option>UPC</option><option>CODE39</option></select></div>
+      <button class="calc-btn" onclick="calcShop19()">▮ Generate Barcode</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'shop20', i:'📱', n:'QR Code Generator', render:()=>`
+      <div class="fld"><label>Text / URL / UPI ID</label><textarea id="s20_t" placeholder="https://example.com"></textarea></div>
+      <button class="calc-btn" onclick="calcShop20()">📱 Generate QR</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 📸 PHOTO COPY (20) ============ */
+  photo: [
+    {id:'pc1', i:'📸', n:'Photo Copy A4 Print', render:()=>`
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px;line-height:1.6">📸 Photo upload karo, auto crop hoke A4 page pe multiple copies print karo.</p>
+      <div class="photo-upload-box" onclick="document.getElementById('pc1Files').click()">
+        <div class="up-icon">📤</div>
+        <div class="up-text">Photo Upload Karo</div>
+        <div class="up-sub">1 ya zyada photos (JPG, PNG)</div>
+      </div>
+      <input type="file" id="pc1Files" accept="image/*" multiple style="display:none" onchange="pc1Upload(event)">
+      <div class="photo-preview-grid" id="pc1Grid"></div>
+      <div class="photo-controls">
+        <div class="fld"><label>Photo Size</label><select id="pc1Size"><option value="passport">Passport (35×45mm)</option><option value="stamp">Stamp (20×25mm)</option><option value="visa">Visa (51×51mm)</option></select></div>
+        <div class="fld"><label>Photo Fit Mode</label><select id="pc1Mode"><option value="auto">✂️ Auto Crop</option><option value="full">🖼️ Full Photo</option></select></div>
+        <div class="fld"><label>Border Style</label><select id="pc1Border"><option value="none">🚫 None</option><option value="thin-white">⚪ Thin White</option><option value="thin-black">⚫ Thin Black</option><option value="cut">✂️ Cutting Line</option><option value="block-color">🎨 Block Color</option></select></div>
+        <div class="fld"><label>Block Color</label><select id="pc1Color"><option value="white">⚪ White</option><option value="black">⚫ Black</option><option value="blue">🔵 Blue</option><option value="red">🔴 Red</option><option value="green">🟢 Green</option></select></div>
+      </div>
+      <div class="fld"><label>Kitni Photos Chahiye?</label><input type="number" id="pc1Qty" placeholder="e.g. 8"></div>
+      <button class="calc-btn" onclick="pc1Gen()">📄 Generate A4 Sheet</button>
+      <button class="btn btn-p" style="width:100%;margin-top:10px;padding:13px" onclick="pc1Print()">🖨️ Print A4 Sheet</button>
+      <button class="btn btn-g" style="width:100%;margin-top:8px;padding:13px" onclick="pc1Download()">⬇️ Download A4 Image</button>
+      <div id="resultBox" class="result-box"></div>`, init(){ window.pc1Images=[]; }},
+    {id:'pc2', i:'✂️', n:'Auto Crop Photo', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc2File" accept="image/*"></div>
+      <div class="fld"><label>Aspect Ratio</label><select id="pc2Ratio"><option value="1">1:1 (Square)</option><option value="0.777">35:45 (Passport)</option><option value="1.333">4:3</option><option value="1.777">16:9</option></select></div>
+      <button class="calc-btn" onclick="pc2Crop()">✂️ Crop Photo</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc3', i:'🖼️', n:'Border Add Karo', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc3File" accept="image/*"></div>
+      <div class="fld"><label>Border Width (px)</label><input type="number" id="pc3W" value="10"></div>
+      <div class="fld"><label>Border Color</label><input type="color" id="pc3C" value="#000000"></div>
+      <button class="calc-btn" onclick="pc3Add()">🖼️ Add Border</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc4', i:'🔄', n:'Photo Rotate', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc4File" accept="image/*"></div>
+      <div class="fld"><label>Rotate</label><select id="pc4Deg"><option value="90">90° Right</option><option value="180">180°</option><option value="270">90° Left</option></select></div>
+      <button class="calc-btn" onclick="pc4Rot()">🔄 Rotate Photo</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc5', i:'📐', n:'Photo Resize', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc5File" accept="image/*"></div>
+      <div class="fld"><label>Width (px)</label><input type="number" id="pc5W" placeholder="800"></div>
+      <div class="fld"><label>Height (px)</label><input type="number" id="pc5H" placeholder="600"></div>
+      <button class="calc-btn" onclick="pc5Resize()">📐 Resize Photo</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc6', i:'⚫', n:'Black & White', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc6File" accept="image/*"></div>
+      <button class="calc-btn" onclick="pc6BW()">⚫ Convert B&W</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc7', i:'🌫️', n:'Photo Blur', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc7File" accept="image/*"></div>
+      <div class="fld"><label>Blur Amount (px)</label><input type="number" id="pc7A" value="5"></div>
+      <button class="calc-btn" onclick="pc7Blur()">🌫️ Apply Blur</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc8', i:'☀️', n:'Photo Brightness', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc8File" accept="image/*"></div>
+      <div class="fld"><label>Brightness (%)</label><input type="number" id="pc8B" value="120"></div>
+      <button class="calc-btn" onclick="pc8Bright()">☀️ Apply</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc9', i:'🔄', n:'Photo Mirror', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc9File" accept="image/*"></div>
+      <div class="fld"><label>Direction</label><select id="pc9Dir"><option value="h">Horizontal</option><option value="v">Vertical</option></select></div>
+      <button class="calc-btn" onclick="pc9Mirror()">🔄 Mirror Photo</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc10', i:'🖼️', n:'Multiple Photos A4', render:()=>`
+      <div class="fld"><label>Photos Upload (multiple)</label><input type="file" id="pc10Files" accept="image/*" multiple></div>
+      <button class="calc-btn" onclick="pc10Gen()">🖼️ Generate A4</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc11', i:'📏', n:'Photo Size Reducer', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc11File" accept="image/*"></div>
+      <div class="fld"><label>Max Size (KB)</label><input type="number" id="pc11KB" value="200"></div>
+      <button class="calc-btn" onclick="pc11Reduce()">📏 Reduce Size</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc12', i:'🏷️', n:'Watermark Add', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc12File" accept="image/*"></div>
+      <div class="fld"><label>Watermark Text</label><input id="pc12Text" placeholder="Qunvero"></div>
+      <button class="calc-btn" onclick="pc12Water()">🏷️ Add Watermark</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc13', i:'🆔', n:'ID Card Photo', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc13File" accept="image/*"></div>
+      <div class="fld"><label>ID Type</label><select id="pc13Type"><option value="aadhaar">Aadhaar (3.5×4.5cm)</option><option value="pan">PAN (2.5×3.5cm)</option><option value="voter">Voter ID</option></select></div>
+      <button class="calc-btn" onclick="pc13Gen()">🆔 Generate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc14', i:'💍', n:'Wedding Card Photo', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc14File" accept="image/*"></div>
+      <div class="fld"><label>Card Size</label><select id="pc14Size"><option value="small">Small (10×15cm)</option><option value="medium">Medium (15×20cm)</option><option value="large">Large (20×30cm)</option></select></div>
+      <button class="calc-btn" onclick="pc14Gen()">💍 Generate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc15', i:'🖨️', n:'Photo to A4 Sheet', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc15File" accept="image/*"></div>
+      <div class="fld"><label>Copies on A4</label><input type="number" id="pc15Qty" value="8"></div>
+      <button class="calc-btn" onclick="pc15Gen()">🖨️ Generate A4</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc16', i:'🔍', n:'Photo Zoom', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc16File" accept="image/*"></div>
+      <div class="fld"><label>Zoom (%)</label><input type="number" id="pc16Z" value="150"></div>
+      <button class="calc-btn" onclick="pc16Zoom()">🔍 Zoom</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc17', i:'🎨', n:'Photo Filters', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc17File" accept="image/*"></div>
+      <div class="fld"><label>Filter</label><select id="pc17F"><option value="sepia">Sepia</option><option value="grayscale">Grayscale</option><option value="invert">Invert</option></select></div>
+      <button class="calc-btn" onclick="pc17Apply()">🎨 Apply Filter</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc18', i:'📸', n:'Selfie Frame', render:()=>`
+      <div class="fld"><label>Photo Upload</label><input type="file" id="pc18File" accept="image/*"></div>
+      <button class="calc-btn" onclick="pc18Frame()">📸 Add Frame</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc19', i:'👥', n:'Photo Collage', render:()=>`
+      <div class="fld"><label>Photos Upload (2-4)</label><input type="file" id="pc19Files" accept="image/*" multiple></div>
+      <button class="calc-btn" onclick="pc19Collage()">👥 Make Collage</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'pc20', i:'📄', n:'Photo to PDF', render:()=>`
+      <div class="fld"><label>Photos Upload</label><input type="file" id="pc20Files" accept="image/*" multiple></div>
+      <button class="calc-btn" onclick="pc20PDF()">📄 Convert to PDF</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ ⚡ BIJLI (5) ============ */
+  bijli: [
+    {id:'b1', i:'💡', n:'Electricity Bill', render:()=>`
+      <div class="fld"><label>Units Consumed (kWh)</label><input type="number" id="b1_u"></div>
+      <div class="fld"><label>Rate per Unit (₹)</label><input type="number" id="b1_r"></div>
+      <div class="fld"><label>Fixed Charges (₹)</label><input type="number" id="b1_f"></div>
+      <div class="fld"><label>Tax (%)</label><input type="number" id="b1_t"></div>
+      <button class="calc-btn" onclick="calcB1()">💡 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'b2', i:'☀️', n:'Solar Calculator', render:()=>`
+      <div class="fld"><label>Monthly Units (kWh)</label><input type="number" id="b2_c"></div>
+      <div class="fld"><label>Sun Hours/Day</label><input type="number" id="b2_s" value="5"></div>
+      <div class="fld"><label>Panel Watt (W)</label><input type="number" id="b2_p" value="330"></div>
+      <button class="calc-btn" onclick="calcB2()">☀️ Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'b3', i:'🔋', n:'Inverter Backup', render:()=>`
+      <div class="fld"><label>Battery Ah</label><input type="number" id="b3_ah"></div>
+      <div class="fld"><label>Battery Volt</label><input type="number" id="b3_v" value="12"></div>
+      <div class="fld"><label>Load (Watt)</label><input type="number" id="b3_l"></div>
+      <div class="fld"><label>Efficiency (%)</label><input type="number" id="b3_e" value="80"></div>
+      <button class="calc-btn" onclick="calcB3()">🔋 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'b4', i:'🔌', n:'Appliance Cost', render:()=>`
+      <div class="fld"><label>Watt</label><input type="number" id="b4_w"></div>
+      <div class="fld"><label>Hours/Day</label><input type="number" id="b4_h"></div>
+      <div class="fld"><label>Rate/Unit (₹)</label><input type="number" id="b4_r"></div>
+      <button class="calc-btn" onclick="calcB4()">🔌 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'b5', i:'⚡', n:'Unit Converter (Bijli)', render:()=>`
+      <div class="fld"><label>Value</label><input type="number" id="b5_v"></div>
+      <div class="fld"><label>From</label><select id="b5_f"><option value="w">Watt</option><option value="kw">Kilowatt</option><option value="hp">Horsepower</option></select></div>
+      <div class="fld"><label>To</label><select id="b5_t"><option value="w">Watt</option><option value="kw">Kilowatt</option><option value="hp">Horsepower</option></select></div>
+      <button class="calc-btn" onclick="calcB5()">⚡ Convert</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 💼 BUSINESS (10) ============ */
+  business: [
+    {id:'bu1', i:'📄', n:'Quotation Maker', render:()=>`
+      <div class="fld"><label>Your Business</label><input id="bu1_b"></div>
+      <div class="fld"><label>Client</label><input id="bu1_c"></div>
+      <div class="fld"><label>Items (Name | Qty | Rate)</label><textarea id="bu1_i" style="min-height:100px" placeholder="Service | 1 | 500"></textarea></div>
+      <button class="calc-btn" onclick="calcBu1()">📄 Generate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'bu2', i:'🤝', n:'Partnership Split', render:()=>`
+      <div class="fld"><label>Total Profit (₹)</label><input type="number" id="bu2_p"></div>
+      <div class="fld"><label>Partner 1 %</label><input type="number" id="bu2_a"></div>
+      <div class="fld"><label>Partner 2 %</label><input type="number" id="bu2_b"></div>
+      <button class="calc-btn" onclick="calcBu2()">🤝 Split</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'bu3', i:'📊', n:'Break Even Point', render:()=>`
+      <div class="fld"><label>Fixed Cost (₹)</label><input type="number" id="bu3_f"></div>
+      <div class="fld"><label>Price per Unit (₹)</label><input type="number" id="bu3_p"></div>
+      <div class="fld"><label>Variable Cost/Unit (₹)</label><input type="number" id="bu3_v"></div>
+      <button class="calc-btn" onclick="calcBu3()">📊 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'bu4', i:'📈', n:'Growth Rate', render:()=>`
+      <div class="fld"><label>Initial Value</label><input type="number" id="bu4_i"></div>
+      <div class="fld"><label>Final Value</label><input type="number" id="bu4_f"></div>
+      <div class="fld"><label>Periods (Years/Months)</label><input type="number" id="bu4_p"></div>
+      <button class="calc-btn" onclick="calcBu4()">📈 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'bu5', i:'💼', n:'Salary Calculator', render:()=>`
+      <div class="fld"><label>Monthly Salary (₹)</label><input type="number" id="bu5_m"></div>
+      <button class="calc-btn" onclick="calcBu5()">💼 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'bu6', i:'🏢', n:'Business Loan EMI', render:()=>`
+      <div class="fld"><label>Loan Amount (₹)</label><input type="number" id="bu6_p"></div>
+      <div class="fld"><label>Rate (%/year)</label><input type="number" id="bu6_r"></div>
+      <div class="fld"><label>Years</label><input type="number" id="bu6_y"></div>
+      <button class="calc-btn" onclick="calcBu6()">🏢 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'bu7', i:'📋', n:'Customer List Maker', render:()=>`
+      <div class="fld"><label>Name</label><input id="bu7_n"></div>
+      <div class="fld"><label>Phone</label><input id="bu7_p"></div>
+      <button class="calc-btn" onclick="calcBu7()">➕ Add</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'bu8', i:'💰', n:'Expense Tracker', render:()=>`
+      <div class="fld"><label>Expense Name</label><input id="bu8_n"></div>
+      <div class="fld"><label>Amount (₹)</label><input type="number" id="bu8_a"></div>
+      <button class="calc-btn" onclick="calcBu8()">➕ Add Expense</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'bu9', i:'📉', n:'Depreciation Calc', render:()=>`
+      <div class="fld"><label>Asset Value (₹)</label><input type="number" id="bu9_v"></div>
+      <div class="fld"><label>Rate (%/year)</label><input type="number" id="bu9_r"></div>
+      <div class="fld"><label>Years</label><input type="number" id="bu9_y"></div>
+      <button class="calc-btn" onclick="calcBu9()">📉 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'bu10', i:'📊', n:'ROI Calculator', render:()=>`
+      <div class="fld"><label>Investment (₹)</label><input type="number" id="bu10_i"></div>
+      <div class="fld"><label>Return (₹)</label><input type="number" id="bu10_r"></div>
+      <button class="calc-btn" onclick="calcBu10()">📊 Calculate ROI</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 📄 PDF (10) ============ */
+  pdf: [
+    {id:'p1', i:'🖼️', n:'Image to PDF', render:()=>`
+      <div class="fld"><label>Select Images</label><input type="file" id="p1Files" accept="image/*" multiple></div>
+      <button class="calc-btn" onclick="calcP1()">🖼️ Convert to PDF</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'p2', i:'📝', n:'Text to PDF', render:()=>`
+      <div class="fld"><label>Text</label><textarea id="p2_t" rows="8" placeholder="Apna text yahan likho..."></textarea></div>
+      <button class="calc-btn" onclick="calcP2()">📝 Convert to PDF</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'p3', i:'📄', n:'Merge PDF (Coming)', render:()=>`<div class="placeholder-box">🚧 Coming Soon</div>`},
+    {id:'p4', i:'✂️', n:'Split PDF (Coming)', render:()=>`<div class="placeholder-box">🚧 Coming Soon</div>`},
+    {id:'p5', i:'🗜️', n:'Compress PDF (Coming)', render:()=>`<div class="placeholder-box">🚧 Coming Soon</div>`},
+    {id:'p6', i:'🔄', n:'Rotate PDF (Coming)', render:()=>`<div class="placeholder-box">🚧 Coming Soon</div>`},
+    {id:'p7', i:'🔒', n:'Protect PDF (Coming)', render:()=>`<div class="placeholder-box">🚧 Coming Soon</div>`},
+    {id:'p8', i:'🔓', n:'Unlock PDF (Coming)', render:()=>`<div class="placeholder-box">🚧 Coming Soon</div>`},
+    {id:'p9', i:'📊', n:'Word to PDF (Coming)', render:()=>`<div class="placeholder-box">🚧 Coming Soon</div>`},
+    {id:'p10', i:'📈', n:'Excel to PDF (Coming)', render:()=>`<div class="placeholder-box">🚧 Coming Soon</div>`}
+  ],
+
+  /* ============ 🖼️ IMAGE (10) ============ */
+  image: [
+    {id:'i1', i:'🗜️', n:'Image Compressor', render:()=>`
+      <div class="fld"><label>Image</label><input type="file" id="i1File" accept="image/*"></div>
+      <div class="fld"><label>Quality (10-100)</label><input type="number" id="i1_q" value="70"></div>
+      <button class="calc-btn" onclick="calcI1()">🗜️ Compress</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'i2', i:'📸', n:'Passport Photo Maker', render:()=>`
+      <div class="fld"><label>Photo</label><input type="file" id="i2File" accept="image/*"></div>
+      <div class="fld"><label>Size</label><select id="i2_s"><option value="passport">Passport</option><option value="stamp">Stamp</option><option value="visa">Visa</option></select></div>
+      <button class="calc-btn" onclick="calcI2()">📸 Make</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'i3', i:'🔤', n:'Image to Base64', render:()=>`
+      <div class="fld"><label>Image</label><input type="file" id="i3File" accept="image/*"></div>
+      <button class="calc-btn" onclick="calcI3()">🔤 Convert</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'i4', i:'📐', n:'Image Resizer', render:()=>`
+      <div class="fld"><label>Image</label><input type="file" id="i4File" accept="image/*"></div>
+      <div class="fld"><label>Width (px)</label><input type="number" id="i4_w"></div>
+      <div class="fld"><label>Height (px)</label><input type="number" id="i4_h"></div>
+      <button class="calc-btn" onclick="calcI4()">📐 Resize</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'i5', i:'🔄', n:'Image Rotate', render:()=>`
+      <div class="fld"><label>Image</label><input type="file" id="i5File" accept="image/*"></div>
+      <div class="fld"><label>Rotate</label><select id="i5_d"><option value="90">90°</option><option value="180">180°</option><option value="270">270°</option></select></div>
+      <button class="calc-btn" onclick="calcI5()">🔄 Rotate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'i6', i:'✂️', n:'Image Crop', render:()=>`
+      <div class="fld"><label>Image</label><input type="file" id="i6File" accept="image/*"></div>
+      <button class="calc-btn" onclick="calcI6()">✂️ Crop Center</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'i7', i:'🎨', n:'Image Filter', render:()=>`
+      <div class="fld"><label>Image</label><input type="file" id="i7File" accept="image/*"></div>
+      <div class="fld"><label>Filter</label><select id="i7_f"><option value="grayscale">Grayscale</option><option value="sepia">Sepia</option><option value="invert">Invert</option></select></div>
+      <button class="calc-btn" onclick="calcI7()">🎨 Apply</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'i8', i:'🖼️', n:'Image Border', render:()=>`
+      <div class="fld"><label>Image</label><input type="file" id="i8File" accept="image/*"></div>
+      <div class="fld"><label>Border (px)</label><input type="number" id="i8_b" value="10"></div>
+      <div class="fld"><label>Color</label><input type="color" id="i8_c" value="#000000"></div>
+      <button class="calc-btn" onclick="calcI8()">🖼️ Add</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'i9', i:'🔍', n:'Image Zoom', render:()=>`
+      <div class="fld"><label>Image</label><input type="file" id="i9File" accept="image/*"></div>
+      <div class="fld"><label>Zoom (%)</label><input type="number" id="i9_z" value="150"></div>
+      <button class="calc-btn" onclick="calcI9()">🔍 Zoom</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'i10', i:'📏', n:'Image Size Reducer', render:()=>`
+      <div class="fld"><label>Image</label><input type="file" id="i10File" accept="image/*"></div>
+      <div class="fld"><label>Max KB</label><input type="number" id="i10_kb" value="200"></div>
+      <button class="calc-btn" onclick="calcI10()">📏 Reduce</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 🔤 TEXT (8) ============ */
+  text: [
+    {id:'t1', i:'🔐', n:'Password Generator', render:()=>`
+      <div class="fld"><label>Length</label><input type="number" id="t1_l" value="12"></div>
+      <div class="fld"><label>Type</label><select id="t1_ty"><option value="all">All</option><option value="alpha">Letters</option><option value="num">Numbers</option></select></div>
+      <button class="calc-btn" onclick="calcT1()">🔐 Generate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'t2', i:'🔠', n:'Text Case Converter', render:()=>`
+      <div class="fld"><label>Text</label><textarea id="t2_t"></textarea></div>
+      <div class="fld"><label>Convert To</label><select id="t2_m"><option value="upper">UPPERCASE</option><option value="lower">lowercase</option><option value="title">Title Case</option><option value="sentence">Sentence case</option></select></div>
+      <button class="calc-btn" onclick="calcT2()">🔠 Convert</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'t3', i:'🔢', n:'Word Counter', render:()=>`
+      <div class="fld"><label>Text</label><textarea id="t3_t" rows="6"></textarea></div>
+      <button class="calc-btn" onclick="calcT3()">🔢 Count</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'t4', i:'🔁', n:'Text Repeater', render:()=>`
+      <div class="fld"><label>Text</label><input id="t4_t"></div>
+      <div class="fld"><label>Times</label><input type="number" id="t4_n" value="5"></div>
+      <button class="calc-btn" onclick="calcT4()">🔁 Repeat</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'t5', i:'🔄', n:'Text Reverser', render:()=>`
+      <div class="fld"><label>Text</label><textarea id="t5_t"></textarea></div>
+      <button class="calc-btn" onclick="calcT5()">🔄 Reverse</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'t6', i:'🔍', n:'Text Diff Checker', render:()=>`
+      <div class="fld"><label>Text 1</label><textarea id="t6_a"></textarea></div>
+      <div class="fld"><label>Text 2</label><textarea id="t6_b"></textarea></div>
+      <button class="calc-btn" onclick="calcT6()">🔍 Compare</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'t7', i:'🔤', n:'Character Counter', render:()=>`
+      <div class="fld"><label>Text</label><textarea id="t7_t" rows="6" oninput="calcT7()"></textarea></div>
+      <div id="resultBox" class="result-box on"></div>`},
+    {id:'t8', i:'🗑️', n:'Remove Duplicates', render:()=>`
+      <div class="fld"><label>Lines</label><textarea id="t8_t" rows="6" placeholder="Ek line ek item"></textarea></div>
+      <button class="calc-btn" onclick="calcT8()">🗑️ Remove Duplicates</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 💰 FINANCE (8) ============ */
+  finance: [
+    {id:'f1', i:'📊', n:'SIP Calculator', render:()=>`
+      <div class="fld"><label>Monthly SIP (₹)</label><input type="number" id="f1_m"></div>
+      <div class="fld"><label>Return Rate (%)</label><input type="number" id="f1_r"></div>
+      <div class="fld"><label>Years</label><input type="number" id="f1_y"></div>
+      <button class="calc-btn" onclick="calcF1()">📊 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'f2', i:'🏛️', n:'FD Calculator', render:()=>`
+      <div class="fld"><label>Principal (₹)</label><input type="number" id="f2_p"></div>
+      <div class="fld"><label>Rate (%)</label><input type="number" id="f2_r"></div>
+      <div class="fld"><label>Years</label><input type="number" id="f2_y"></div>
+      <button class="calc-btn" onclick="calcF2()">🏛️ Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'f3', i:'🧮', n:'Income Tax Calculator', render:()=>`
+      <div class="fld"><label>Annual Income (₹)</label><input type="number" id="f3_i"></div>
+      <button class="calc-btn" onclick="calcF3()">🧮 Calculate Tax</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'f4', i:'💰', n:'Simple Interest', render:()=>`
+      <div class="fld"><label>Principal (₹)</label><input type="number" id="f4_p"></div>
+      <div class="fld"><label>Rate (%)</label><input type="number" id="f4_r"></div>
+      <div class="fld"><label>Years</label><input type="number" id="f4_y"></div>
+      <button class="calc-btn" onclick="calcF4()">💰 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'f5', i:'💹', n:'Compound Interest', render:()=>`
+      <div class="fld"><label>Principal (₹)</label><input type="number" id="f5_p"></div>
+      <div class="fld"><label>Rate (%)</label><input type="number" id="f5_r"></div>
+      <div class="fld"><label>Years</label><input type="number" id="f5_y"></div>
+      <button class="calc-btn" onclick="calcF5()">💹 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'f6', i:'🏦', n:'Loan Eligibility', render:()=>`
+      <div class="fld"><label>Monthly Income (₹)</label><input type="number" id="f6_i"></div>
+      <div class="fld"><label>Existing EMI (₹)</label><input type="number" id="f6_e" value="0"></div>
+      <button class="calc-btn" onclick="calcF6()">🏦 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'f7', i:'💵', n:'Currency Converter', render:()=>`
+      <div class="fld"><label>Amount</label><input type="number" id="f7_a"></div>
+      <div class="fld"><label>From</label><select id="f7_f"><option value="INR">INR</option><option value="USD">USD</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div>
+      <div class="fld"><label>To</label><select id="f7_t"><option value="USD">USD</option><option value="INR">INR</option><option value="EUR">EUR</option><option value="GBP">GBP</option></select></div>
+      <button class="calc-btn" onclick="calcF7()">💵 Convert</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'f8', i:'📈', n:'PPF Calculator', render:()=>`
+      <div class="fld"><label>Yearly Investment (₹)</label><input type="number" id="f8_i"></div>
+      <div class="fld"><label>Years</label><input type="number" id="f8_y"></div>
+      <button class="calc-btn" onclick="calcF8()">📈 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 📱 SOCIAL (5) ============ */
+  social: [
+    {id:'so1', i:'📱', n:'QR Code Generator', render:()=>`
+      <div class="fld"><label>Text / URL</label><textarea id="so1_t"></textarea></div>
+      <button class="calc-btn" onclick="calcSo1()">📱 Generate QR</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'so2', i:'▮', n:'Barcode Generator', render:()=>`
+      <div class="fld"><label>Text</label><input id="so2_t"></div>
+      <button class="calc-btn" onclick="calcSo2()">▮ Generate Barcode</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'so3', i:'#️⃣', n:'Hashtag Generator', render:()=>`
+      <div class="fld"><label>Keyword</label><input id="so3_k" placeholder="fitness"></div>
+      <button class="calc-btn" onclick="calcSo3()">#️⃣ Generate Hashtags</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'so4', i:'📝', n:'Bio Generator', render:()=>`
+      <div class="fld"><label>Name</label><input id="so4_n"></div>
+      <div class="fld"><label>Profession</label><input id="so4_p" placeholder="YouTuber"></div>
+      <button class="calc-btn" onclick="calcSo4()">📝 Generate Bio</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'so5', i:'📊', n:'Engagement Rate', render:()=>`
+      <div class="fld"><label>Likes</label><input type="number" id="so5_l"></div>
+      <div class="fld"><label>Comments</label><input type="number" id="so5_c"></div>
+      <div class="fld"><label>Followers</label><input type="number" id="so5_f"></div>
+      <button class="calc-btn" onclick="calcSo5()">📊 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 🎓 STUDENT (5) ============ */
+  student: [
+    {id:'st1', i:'🎂', n:'Age Calculator', render:()=>`
+      <div class="fld"><label>Name (optional)</label><input id="st1_n"></div>
+      <div class="fld"><label>Date of Birth</label><input type="date" id="st1_d"></div>
+      <button class="calc-btn" onclick="calcSt1()">🎂 Calculate Age</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'st2', i:'📊', n:'Percentage Calculator', render:()=>`
+      <div class="fld"><label>Obtained Marks</label><input type="number" id="st2_g"></div>
+      <div class="fld"><label>Total Marks</label><input type="number" id="st2_t"></div>
+      <button class="calc-btn" onclick="calcSt2()">📊 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'st3', i:'📈', n:'CGPA Calculator', render:()=>`
+      <div class="fld"><label>Total Grade Points</label><input type="number" id="st3_p"></div>
+      <div class="fld"><label>Total Credits</label><input type="number" id="st3_c"></div>
+      <button class="calc-btn" onclick="calcSt3()">📈 Calculate CGPA</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'st4', i:'⏱️', n:'Study Time Calculator', render:()=>`
+      <div class="fld"><label>Subject</label><input id="st4_s"></div>
+      <div class="fld"><label>Hours/Day</label><input type="number" id="st4_h"></div>
+      <div class="fld"><label>Days</label><input type="number" id="st4_d" value="7"></div>
+      <button class="calc-btn" onclick="calcSt4()">⏱️ Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'st5', i:'📅', n:'Exam Countdown', render:()=>`
+      <div class="fld"><label>Exam Name</label><input id="st5_n"></div>
+      <div class="fld"><label>Exam Date</label><input type="date" id="st5_d"></div>
+      <button class="calc-btn" onclick="calcSt5()">📅 Countdown</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 🏥 HEALTH (5) ============ */
+  health: [
+    {id:'h1', i:'⚖️', n:'BMI Calculator', render:()=>`
+      <div class="fld"><label>Weight (kg)</label><input type="number" id="h1_w"></div>
+      <div class="fld"><label>Height (cm)</label><input type="number" id="h1_h"></div>
+      <button class="calc-btn" onclick="calcH1()">⚖️ Calculate BMI</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'h2', i:'💧', n:'Water Intake', render:()=>`
+      <div class="fld"><label>Weight (kg)</label><input type="number" id="h2_w"></div>
+      <div class="fld"><label>Exercise (min)</label><input type="number" id="h2_e" value="0"></div>
+      <button class="calc-btn" onclick="calcH2()">💧 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'h3', i:'🔥', n:'Calorie Calculator', render:()=>`
+      <div class="fld"><label>Age</label><input type="number" id="h3_a"></div>
+      <div class="fld"><label>Weight (kg)</label><input type="number" id="h3_w"></div>
+      <div class="fld"><label>Height (cm)</label><input type="number" id="h3_h"></div>
+      <div class="fld"><label>Gender</label><select id="h3_g"><option value="m">Male</option><option value="f">Female</option></select></div>
+      <button class="calc-btn" onclick="calcH3()">🔥 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'h4', i:'💊', n:'BMI (Advanced)', render:()=>`
+      <div class="fld"><label>Weight (kg)</label><input type="number" id="h4_w"></div>
+      <div class="fld"><label>Height (cm)</label><input type="number" id="h4_h"></div>
+      <div class="fld"><label>Age</label><input type="number" id="h4_a"></div>
+      <button class="calc-btn" onclick="calcH4()">💊 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'h5', i:'❤️', n:'Heart Rate Zone', render:()=>`
+      <div class="fld"><label>Age</label><input type="number" id="h5_a"></div>
+      <button class="calc-btn" onclick="calcH5()">❤️ Calculate</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 🔧 UTILITY (5) ============ */
+  utility: [
+    {id:'u1', i:'🔢', n:'OTP Generator', render:()=>`
+      <div class="fld"><label>Digits</label><input type="number" id="u1_d" value="6"></div>
+      <button class="calc-btn" onclick="calcU1()">🔢 Generate OTP</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'u2', i:'🆔', n:'UUID Generator', render:()=>`
+      <button class="calc-btn" onclick="calcU2()">🆔 Generate UUID</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'u3', i:'🎲', n:'Random Number', render:()=>`
+      <div class="fld"><label>Min</label><input type="number" id="u3_min" value="1"></div>
+      <div class="fld"><label>Max</label><input type="number" id="u3_max" value="100"></div>
+      <button class="calc-btn" onclick="calcU3()">🎲 Generate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'u4', i:'🔐', n:'PIN Generator', render:()=>`
+      <div class="fld"><label>Length</label><input type="number" id="u4_l" value="4"></div>
+      <button class="calc-btn" onclick="calcU4()">🔐 Generate PIN</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'u5', i:'📅', n:'Days Between Dates', render:()=>`
+      <div class="fld"><label>From Date</label><input type="date" id="u5_a"></div>
+      <div class="fld"><label>To Date</label><input type="date" id="u5_b"></div>
+      <button class="calc-btn" onclick="calcU5()">📅 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ ⏰ DATE/TIME (5) ============ */
+  datetime: [
+    {id:'dt1', i:'📅', n:'Date Difference', render:()=>`
+      <div class="fld"><label>Start Date</label><input type="date" id="dt1_a"></div>
+      <div class="fld"><label>End Date</label><input type="date" id="dt1_b"></div>
+      <button class="calc-btn" onclick="calcDt1()">📅 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'dt2', i:'➕', n:'Date Adder', render:()=>`
+      <div class="fld"><label>Start Date</label><input type="date" id="dt2_d"></div>
+      <div class="fld"><label>Add Days</label><input type="number" id="dt2_n"></div>
+      <button class="calc-btn" onclick="calcDt2()">➕ Add</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'dt3', i:'⏰', n:'Time Zone Converter', render:()=>`
+      <div class="fld"><label>Time (HH:MM)</label><input type="time" id="dt3_t"></div>
+      <div class="fld"><label>Offset (hours)</label><input type="number" id="dt3_o" value="5.5"></div>
+      <button class="calc-btn" onclick="calcDt3()">⏰ Convert</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'dt4', i:'📆', n:'Week Number', render:()=>`
+      <div class="fld"><label>Date</label><input type="date" id="dt4_d"></div>
+      <button class="calc-btn" onclick="calcDt4()">📆 Get Week No.</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'dt5', i:'🎂', n:'Age in Days', render:()=>`
+      <div class="fld"><label>Birth Date</label><input type="date" id="dt5_d"></div>
+      <button class="calc-btn" onclick="calcDt5()">🎂 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 🔢 MATH (5) ============ */
+  math: [
+    {id:'m1', i:'%', n:'Percentage', render:()=>`
+      <div class="fld"><label>Number</label><input type="number" id="m1_n"></div>
+      <div class="fld"><label>Percent (%)</label><input type="number" id="m1_p"></div>
+      <button class="calc-btn" onclick="calcM1()">% Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'m2', i:'√', n:'Square Root', render:()=>`
+      <div class="fld"><label>Number</label><input type="number" id="m2_n"></div>
+      <button class="calc-btn" onclick="calcM2()">√ Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'m3', i:'x²', n:'Power Calculator', render:()=>`
+      <div class="fld"><label>Base</label><input type="number" id="m3_b"></div>
+      <div class="fld"><label>Power</label><input type="number" id="m3_p"></div>
+      <button class="calc-btn" onclick="calcM3()">x² Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'m4', i:'f', n:'Factorial', render:()=>`
+      <div class="fld"><label>Number</label><input type="number" id="m4_n"></div>
+      <button class="calc-btn" onclick="calcM4()">f Calculate</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'m5', i:'∑', n:'Average Calculator', render:()=>`
+      <div class="fld"><label>Numbers (comma separated)</label><input id="m5_n" placeholder="10, 20, 30, 40"></div>
+      <button class="calc-btn" onclick="calcM5()">∑ Calculate</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 🔄 CONVERTERS (5) ============ */
+  convert: [
+    {id:'c1', i:'📏', n:'Length Converter', render:()=>`
+      <div class="fld"><label>Value</label><input type="number" id="c1_v"></div>
+      <div class="fld"><label>From</label><select id="c1_f"><option value="m">Meter</option><option value="cm">CM</option><option value="km">KM</option><option value="ft">Feet</option><option value="in">Inch</option></select></div>
+      <div class="fld"><label>To</label><select id="c1_t"><option value="cm">CM</option><option value="m">Meter</option><option value="km">KM</option><option value="ft">Feet</option><option value="in">Inch</option></select></div>
+      <button class="calc-btn" onclick="calcC1()">📏 Convert</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'c2', i:'⚖️', n:'Weight Converter', render:()=>`
+      <div class="fld"><label>Value</label><input type="number" id="c2_v"></div>
+      <div class="fld"><label>From</label><select id="c2_f"><option value="kg">KG</option><option value="g">Gram</option><option value="lb">Pound</option></select></div>
+      <div class="fld"><label>To</label><select id="c2_t"><option value="g">Gram</option><option value="kg">KG</option><option value="lb">Pound</option></select></div>
+      <button class="calc-btn" onclick="calcC2()">⚖️ Convert</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'c3', i:'🌡️', n:'Temperature', render:()=>`
+      <div class="fld"><label>Value</label><input type="number" id="c3_v"></div>
+      <div class="fld"><label>From</label><select id="c3_f"><option value="C">Celsius</option><option value="F">Fahrenheit</option><option value="K">Kelvin</option></select></div>
+      <div class="fld"><label>To</label><select id="c3_t"><option value="F">Fahrenheit</option><option value="C">Celsius</option><option value="K">Kelvin</option></select></div>
+      <button class="calc-btn" onclick="calcC3()">🌡️ Convert</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'c4', i:'📐', n:'Area Converter', render:()=>`
+      <div class="fld"><label>Value</label><input type="number" id="c4_v"></div>
+      <div class="fld"><label>From</label><select id="c4_f"><option value="sqm">Sq Meter</option><option value="sqft">Sq Feet</option><option value="acre">Acre</option></select></div>
+      <div class="fld"><label>To</label><select id="c4_t"><option value="sqft">Sq Feet</option><option value="sqm">Sq Meter</option><option value="acre">Acre</option></select></div>
+      <button class="calc-btn" onclick="calcC4()">📐 Convert</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'c5', i:'💾', n:'Data Converter', render:()=>`
+      <div class="fld"><label>Value</label><input type="number" id="c5_v"></div>
+      <div class="fld"><label>From</label><select id="c5_f"><option value="mb">MB</option><option value="gb">GB</option><option value="kb">KB</option></select></div>
+      <div class="fld"><label>To</label><select id="c5_t"><option value="gb">GB</option><option value="mb">MB</option><option value="kb">KB</option></select></div>
+      <button class="calc-btn" onclick="calcC5()">💾 Convert</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 💻 WEB/CODE (3) ============ */
+  web: [
+    {id:'w1', i:'🔐', n:'Base64 Encoder', render:()=>`
+      <div class="fld"><label>Text</label><textarea id="w1_t"></textarea></div>
+      <div class="fld"><label>Mode</label><select id="w1_m"><option value="enc">Encode</option><option value="dec">Decode</option></select></div>
+      <button class="calc-btn" onclick="calcW1()">🔐 Convert</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'w2', i:'🔗', n:'URL Encoder', render:()=>`
+      <div class="fld"><label>URL</label><textarea id="w2_t"></textarea></div>
+      <div class="fld"><label>Mode</label><select id="w2_m"><option value="enc">Encode</option><option value="dec">Decode</option></select></div>
+      <button class="calc-btn" onclick="calcW2()">🔗 Convert</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'w3', i:'📋', n:'JSON Formatter', render:()=>`
+      <div class="fld"><label>JSON</label><textarea id="w3_t" rows="6" placeholder='{"key": "value"}'></textarea></div>
+      <button class="calc-btn" onclick="calcW3()">📋 Format</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 🎲 FUN (3) ============ */
+  fun: [
+    {id:'fu1', i:'🎲', n:'Dice Roll', render:()=>`
+      <button class="calc-btn" onclick="calcFu1()">🎲 Roll Dice</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'fu2', i:'🪙', n:'Coin Flip', render:()=>`
+      <button class="calc-btn" onclick="calcFu2()">🪙 Flip Coin</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'fu3', i:'🎯', n:'Random Picker', render:()=>`
+      <div class="fld"><label>Options (comma separated)</label><input id="fu3_o" placeholder="Option 1, Option 2, Option 3"></div>
+      <button class="calc-btn" onclick="calcFu3()">🎯 Pick Random</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ 💸 SPLITTER (2) ============ */
+  split: [
+    {id:'sp1', i:'💸', n:'Split Bill', render:()=>`
+      <div class="fld"><label>Total Bill (₹)</label><input type="number" id="sp1_t"></div>
+      <div class="fld"><label>People</label><input type="number" id="sp1_p" value="2"></div>
+      <button class="calc-btn" onclick="calcSp1()">💸 Split</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'sp2', i:'💰', n:'Group Expense', render:()=>`
+      <div class="fld"><label>Total Expense (₹)</label><input type="number" id="sp2_t"></div>
+      <div class="fld"><label>People</label><input type="number" id="sp2_p" value="4"></div>
+      <div class="fld"><label>Tip (%)</label><input type="number" id="sp2_tip" value="10"></div>
+      <button class="calc-btn" onclick="calcSp2()">💰 Calculate</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ],
+
+  /* ============ ✅ TO-DO (2) ============ */
+  todo: [
+    {id:'td1', i:'✅', n:'To-Do List', render:()=>`
+      <div class="fld"><label>New Task</label><input id="td1_t" placeholder="Task likho..."></div>
+      <button class="calc-btn" onclick="calcTd1()">➕ Add Task</button>
+      <div id="resultBox" class="result-box"></div>`},
+    {id:'td2', i:'📝', n:'Quick Notes', render:()=>`
+      <div class="fld"><label>Note</label><textarea id="td2_t" rows="6"></textarea></div>
+      <button class="calc-btn" onclick="calcTd2()">💾 Save Note</button>
+      <div id="resultBox" class="result-box"></div>`}
+  ]
+};
+/* @TOOLS_END@ */
+const TOOLS = {
   shop: [],
   photo: [],
   bijli: [],
