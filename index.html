@@ -2552,6 +2552,683 @@ window.downloadAsPDF = function(){
   w.document.close();
   toast('📄 PDF dialog khula');
 };
+/* ============================================================
+   QUNVERO — PART B: Bijli + Business + PDF + Image + Text + Finance
+   ============================================================ */
+
+/* ============================================================
+   ⚡ BIJLI (5 tools)
+   ============================================================ */
+window.calcB1 = function(){
+  const u = parseFloat(v('b1_u')) || 0;
+  const r = parseFloat(v('b1_r')) || 0;
+  const f = parseFloat(v('b1_f')) || 0;
+  const t = parseFloat(v('b1_t')) || 0;
+  if(!u || !r){ toast('Units & rate daalo',1); return; }
+  const e = u*r, s = e+f, tx = s*t/100, tot = s+tx;
+  res(`<div class="result-box"><h4>💡 Bill</h4>
+    <div class="result-row"><span class="lb">Units</span><span class="vl">${u} kWh</span></div>
+    <div class="result-row"><span class="lb">Energy</span><span class="vl">₹${fmt(e)}</span></div>
+    <div class="result-row"><span class="lb">Fixed</span><span class="vl">₹${fmt(f)}</span></div>
+    <div class="result-row"><span class="lb">Tax ${t}%</span><span class="vl">₹${fmt(tx)}</span></div>
+    <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div>
+  </div>`, `Bill: ₹${fmt(tot)}`);
+};
+window.calcB2 = function(){
+  const c = parseFloat(v('b2_c')) || 0;
+  const s = parseFloat(v('b2_s')) || 1;
+  const p = parseFloat(v('b2_p')) || 1;
+  if(!c){ toast('Units daalo',1); return; }
+  const daily = c/30, kw = daily/s, panels = Math.ceil(kw*1000/p);
+  const cost = panels*p*30, save = c*8*12;
+  res(`<div class="result-box"><h4>☀️ Solar</h4>
+    <div class="result-row"><span class="lb">Panels</span><span class="vl">${panels} × ${p}W</span></div>
+    <div class="result-row"><span class="lb">System</span><span class="vl">${fmt(kw)} kW</span></div>
+    <div class="result-row"><span class="lb">Cost</span><span class="vl">₹${fmt(cost,0)}</span></div>
+    <div class="result-row total"><span class="lb">Yearly Save</span><span class="vl">₹${fmt(save,0)}</span></div>
+  </div>`, `${panels} panels needed`);
+};
+window.calcB3 = function(){
+  const ah = parseFloat(v('b3_ah')) || 0;
+  const vlt = parseFloat(v('b3_v')) || 0;
+  const l = parseFloat(v('b3_l')) || 1;
+  const e = parseFloat(v('b3_e')) || 0;
+  if(!ah || !vlt || !l){ toast('Battery & load daalo',1); return; }
+  const wh = ah*vlt*(e/100), h = wh/l;
+  res(`<div class="result-box"><h4>🔋 Backup</h4>
+    <div class="result-row"><span class="lb">Energy</span><span class="vl">${fmt(wh,0)} Wh</span></div>
+    <div class="result-row total"><span class="lb">Backup Time</span><span class="vl">${fmt(h,1)} hours</span></div>
+  </div>`, `Backup: ${fmt(h,1)} hours`);
+};
+window.calcB4 = function(){
+  const w = parseFloat(v('b4_w')) || 0;
+  const h = parseFloat(v('b4_h')) || 0;
+  const r = parseFloat(v('b4_r')) || 0;
+  if(!w || !h || !r){ toast('Sab fields daalo',1); return; }
+  const daily = w*h/1000*r, monthly = daily*30, yearly = monthly*12;
+  res(`<div class="result-box"><h4>🔌 Power Cost</h4>
+    <div class="result-row"><span class="lb">Daily</span><span class="vl">₹${fmt(daily)}</span></div>
+    <div class="result-row"><span class="lb">Monthly</span><span class="vl">₹${fmt(monthly)}</span></div>
+    <div class="result-row total"><span class="lb">Yearly</span><span class="vl">₹${fmt(yearly)}</span></div>
+  </div>`, `Yearly: ₹${fmt(yearly)}`);
+};
+window.calcB5 = function(){
+  const val = parseFloat(v('b5_v')) || 0;
+  const from = v('b5_f'), to = v('b5_t');
+  if(!val){ toast('Value daalo',1); return; }
+  const toW = { w:1, kw:1000, hp:745.7 };
+  const w = val * toW[from];
+  const result = w / toW[to];
+  res(`<div class="result-box"><h4>⚡ Convert</h4>
+    <div class="result-row total"><span class="lb">Result</span><span class="vl">${fmt(result,4)} ${to}</span></div>
+  </div>`, `${val} ${from} = ${fmt(result,4)} ${to}`);
+};
+
+/* ============================================================
+   💼 BUSINESS (10 tools)
+   ============================================================ */
+window.calcBu1 = function(){
+  const biz = v('bu1_b').trim() || 'Business';
+  const cli = v('bu1_c').trim() || 'Client';
+  const raw = v('bu1_i').trim();
+  if(!raw){ toast('Items daalo',1); return; }
+  const items = raw.split('\n').map(l => {
+    const p = l.split('|').map(s => s.trim());
+    return { name: p[0]||'', qty: parseFloat(p[1])||1, rate: parseFloat(p[2])||0 };
+  }).filter(i => i.name);
+  const total = items.reduce((s,i) => s + i.qty*i.rate, 0);
+  res(`<div class="result-box"><h4>📄 Quotation</h4>
+    <div class="result-row"><span class="lb">Business</span><span class="vl">${QV.escapeHtml(biz)}</span></div>
+    <div class="result-row"><span class="lb">Client</span><span class="vl">${QV.escapeHtml(cli)}</span></div>
+    ${items.map(i => `<div class="result-row"><span class="lb">${QV.escapeHtml(i.name)} × ${i.qty}</span><span class="vl">₹${fmt(i.qty*i.rate)}</span></div>`).join('')}
+    <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(total)}</span></div>
+  </div>`, `Quotation: ₹${fmt(total)}`);
+};
+window.calcBu2 = function(){
+  const p = parseFloat(v('bu2_p')) || 0;
+  const a = parseFloat(v('bu2_a')) || 0;
+  const b = parseFloat(v('bu2_b')) || 0;
+  if(!p){ toast('Profit daalo',1); return; }
+  const pa = p*a/100, pb = p*b/100;
+  res(`<div class="result-box"><h4>🤝 Partnership</h4>
+    <div class="result-row"><span class="lb">Partner 1 (${a}%)</span><span class="vl">₹${fmt(pa)}</span></div>
+    <div class="result-row"><span class="lb">Partner 2 (${b}%)</span><span class="vl">₹${fmt(pb)}</span></div>
+    <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(p)}</span></div>
+  </div>`, `P1: ₹${fmt(pa)}, P2: ₹${fmt(pb)}`);
+};
+window.calcBu3 = function(){
+  const f = parseFloat(v('bu3_f')) || 0;
+  const p = parseFloat(v('bu3_p')) || 0;
+  const vc = parseFloat(v('bu3_v')) || 0;
+  if(!f || !p || p-vc <= 0){ toast('Valid values daalo',1); return; }
+  const bep = Math.ceil(f/(p-vc));
+  res(`<div class="result-box"><h4>📊 Break Even</h4>
+    <div class="result-row"><span class="lb">Contribution</span><span class="vl">₹${fmt(p-vc)}/unit</span></div>
+    <div class="result-row total"><span class="lb">Break Even Units</span><span class="vl">${bep} units</span></div>
+  </div>`, `${bep} units to break even`);
+};
+window.calcBu4 = function(){
+  const i = parseFloat(v('bu4_i')) || 0;
+  const f = parseFloat(v('bu4_f')) || 0;
+  const p = parseFloat(v('bu4_p')) || 0;
+  if(!i || !f || !p){ toast('Sab daalo',1); return; }
+  const cagr = ((Math.pow(f/i, 1/p) - 1) * 100);
+  res(`<div class="result-box"><h4>📈 Growth Rate</h4>
+    <div class="result-row"><span class="lb">Initial</span><span class="vl">${i}</span></div>
+    <div class="result-row"><span class="lb">Final</span><span class="vl">${f}</span></div>
+    <div class="result-row total"><span class="lb">Growth (CAGR)</span><span class="vl">${fmt(cagr)}% / period</span></div>
+  </div>`, `Growth: ${fmt(cagr)}%`);
+};
+window.calcBu5 = function(){
+  const m = parseFloat(v('bu5_m')) || 0;
+  if(!m){ toast('Salary daalo',1); return; }
+  const y = m*12;
+  res(`<div class="result-box"><h4>💼 Salary</h4>
+    <div class="result-row"><span class="lb">Monthly</span><span class="vl">₹${fmt(m)}</span></div>
+    <div class="result-row"><span class="lb">Yearly</span><span class="vl">₹${fmt(y)}</span></div>
+    <div class="result-row total"><span class="lb">Daily (avg)</span><span class="vl">₹${fmt(m/30)}</span></div>
+  </div>`, `Yearly: ₹${fmt(y)}`);
+};
+window.calcBu6 = function(){
+  const P = parseFloat(v('bu6_p')) || 0;
+  const R = parseFloat(v('bu6_r'))/12/100 || 0;
+  const N = (parseFloat(v('bu6_y')) || 0)*12;
+  if(!P || !N){ toast('Amount & years daalo',1); return; }
+  let emi = R === 0 ? P/N : P*R*Math.pow(1+R,N)/(Math.pow(1+R,N)-1);
+  const total = emi*N, interest = total-P;
+  res(`<div class="result-box"><h4>🏢 Business Loan</h4>
+    <div class="result-row"><span class="lb">Monthly EMI</span><span class="vl">₹${fmt(emi,0)}</span></div>
+    <div class="result-row"><span class="lb">Total Interest</span><span class="vl">₹${fmt(interest,0)}</span></div>
+    <div class="result-row total"><span class="lb">Total Payment</span><span class="vl">₹${fmt(total,0)}</span></div>
+  </div>`, `EMI: ₹${fmt(emi,0)}/mo`);
+};
+window.calcBu7 = function(){
+  const n = v('bu7_n').trim();
+  const p = v('bu7_p').trim();
+  if(!n){ toast('Name daalo',1); return; }
+  const list = JSON.parse(localStorage.getItem('qunvero_customers') || '[]');
+  list.unshift({ id: Date.now(), n, p });
+  localStorage.setItem('qunvero_customers', JSON.stringify(list));
+  res(`<div class="result-box"><h4>📋 Customers (${list.length})</h4>
+    ${list.slice(0,10).map(c => `<div class="result-row"><span class="lb">${QV.escapeHtml(c.n)}</span><span class="vl">${QV.escapeHtml(c.p)}</span></div>`).join('')}
+  </div>`, `${n} added`);
+};
+window.calcBu8 = function(){
+  const n = v('bu8_n').trim();
+  const a = parseFloat(v('bu8_a')) || 0;
+  if(!n || !a){ toast('Name & amount daalo',1); return; }
+  const list = JSON.parse(localStorage.getItem('qunvero_expenses') || '[]');
+  list.unshift({ id: Date.now(), n, a, date: new Date().toLocaleDateString('en-IN') });
+  localStorage.setItem('qunvero_expenses', JSON.stringify(list));
+  const tot = list.reduce((s,i) => s+i.a, 0);
+  res(`<div class="result-box"><h4>💰 Expenses</h4>
+    <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div>
+    <div class="result-row"><span class="lb">Entries</span><span class="vl">${list.length}</span></div>
+  </div>`, `Expense ₹${fmt(a)} added. Total: ₹${fmt(tot)}`);
+};
+window.calcBu9 = function(){
+  const val = parseFloat(v('bu9_v')) || 0;
+  const r = parseFloat(v('bu9_r')) || 0;
+  const y = parseFloat(v('bu9_y')) || 0;
+  if(!val || !r || !y){ toast('Sab daalo',1); return; }
+  const dep = val * Math.pow(1-r/100, y);
+  const total = val - dep;
+  res(`<div class="result-box"><h4>📉 Depreciation</h4>
+    <div class="result-row"><span class="lb">Original</span><span class="vl">₹${fmt(val)}</span></div>
+    <div class="result-row"><span class="lb">Depreciated</span><span class="vl">₹${fmt(total)}</span></div>
+    <div class="result-row total"><span class="lb">Current Value</span><span class="vl">₹${fmt(dep)}</span></div>
+  </div>`, `Current value: ₹${fmt(dep)}`);
+};
+window.calcBu10 = function(){
+  const i = parseFloat(v('bu10_i')) || 0;
+  const r = parseFloat(v('bu10_r')) || 0;
+  if(!i || !r){ toast('Dono daalo',1); return; }
+  const profit = r-i, roi = (profit/i)*100;
+  res(`<div class="result-box"><h4>📊 ROI</h4>
+    <div class="result-row"><span class="lb">Investment</span><span class="vl">₹${fmt(i)}</span></div>
+    <div class="result-row"><span class="lb">Return</span><span class="vl">₹${fmt(r)}</span></div>
+    <div class="result-row"><span class="lb">Profit</span><span class="vl">₹${fmt(profit)}</span></div>
+    <div class="result-row total"><span class="lb">ROI</span><span class="vl">${fmt(roi)}%</span></div>
+  </div>`, `ROI: ${fmt(roi)}%`);
+};
+
+/* ============================================================
+   📄 PDF (2 working + 8 coming soon)
+   ============================================================ */
+window.calcP1 = async function(){
+  const files = document.getElementById('p1Files').files;
+  if(!files.length){ toast('Images select karo',1); return; }
+  toast('⏳ Converting...');
+  try {
+    const { PDFDocument } = await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');
+    const doc = await PDFDocument.create();
+    for(const f of files){
+      const buf = await f.arrayBuffer();
+      const img = f.type.includes('png') ? await doc.embedPng(buf) : await doc.embedJpg(buf);
+      const p = doc.addPage([img.width, img.height]);
+      p.drawImage(img, { x:0, y:0, width:img.width, height:img.height });
+    }
+    const bytes = await doc.save();
+    window._lastBlob = new Blob([bytes], { type:'application/pdf' });
+    window._lastName = 'images.pdf';
+    res(`<div class="result-box"><h4>✅ PDF Ready</h4>
+      <div class="result-row total"><span class="lb">Images</span><span class="vl">${files.length}</span></div>
+    </div>`, `${files.length} images → PDF`);
+    toast('✅ Ready! Download dabao');
+  } catch(e){ toast('Failed: ' + e.message, 1); }
+};
+window.calcP2 = async function(){
+  const txt = v('p2_t').trim();
+  if(!txt){ toast('Text daalo',1); return; }
+  toast('⏳ Converting...');
+  try {
+    const { PDFDocument, rgb, StandardFonts } = await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');
+    const doc = await PDFDocument.create();
+    const font = await doc.embedFont(StandardFonts.Helvetica);
+    const page = doc.addPage([595, 842]);
+    const fontSize = 12;
+    const lineHeight = 16;
+    const margin = 50;
+    const maxWidth = 595 - margin*2;
+    let y = 842 - margin;
+    const words = txt.split(/\s+/);
+    let line = '';
+    for(const w of words){
+      const test = line ? line + ' ' + w : w;
+      const wWidth = font.widthOfTextAtSize(test, fontSize);
+      if(wWidth > maxWidth){
+        page.drawText(line, { x:margin, y, size:fontSize, font });
+        y -= lineHeight;
+        if(y < margin){ y = 842 - margin; doc.addPage([595, 842]); }
+        line = w;
+      } else {
+        line = test;
+      }
+    }
+    if(line) page.drawText(line, { x:margin, y, size:fontSize, font });
+    const bytes = await doc.save();
+    window._lastBlob = new Blob([bytes], { type:'application/pdf' });
+    window._lastName = 'text.pdf';
+    res(`<div class="result-box"><h4>✅ Text PDF Ready</h4>
+      <div class="result-row total"><span class="lb">Words</span><span class="vl">${words.length}</span></div>
+    </div>`, `Text → PDF (${words.length} words)`);
+    toast('✅ Ready! Download dabao');
+  } catch(e){ toast('Failed: ' + e.message, 1); }
+};
+
+/* ============================================================
+   🖼️ IMAGE (10 tools)
+   ============================================================ */
+window.calcI1 = function(){
+  const f = document.getElementById('i1File').files[0];
+  if(!f){ toast('Image select karo',1); return; }
+  const q = (parseFloat(v('i1_q')) || 70)/100;
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    c.getContext('2d').drawImage(img, 0, 0);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'compressed.jpg';
+      res(`<div class="result-box"><h4>✅ Compressed</h4>
+        <div class="result-row"><span class="lb">Original</span><span class="vl">${(f.size/1024).toFixed(1)} KB</span></div>
+        <div class="result-row total"><span class="lb">New</span><span class="vl">${(b.size/1024).toFixed(1)} KB</span></div>
+        <img src="${URL.createObjectURL(b)}" style="margin-top:10px;max-width:100%;border-radius:8px">
+      </div>`, `Compressed!`);
+    }, 'image/jpeg', q);
+  };
+};
+window.calcI2 = function(){
+  const f = document.getElementById('i2File').files[0];
+  if(!f){ toast('Photo select karo',1); return; }
+  const sizes = { passport:[413,531], stamp:[236,295], visa:[600,600] };
+  const [w, h] = sizes[v('i2_s')] || [413,531];
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    const scale = Math.max(w/img.width, h/img.height);
+    c.getContext('2d').drawImage(img, (w-img.width*scale)/2, (h-img.height*scale)/2, img.width*scale, img.height*scale);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'passport.jpg';
+      res(`<div class="result-box"><h4>📸 Passport Photo</h4>
+        <div class="result-row"><span class="lb">Size</span><span class="vl">${w}×${h}px</span></div>
+        <img src="${URL.createObjectURL(b)}" style="margin-top:10px;max-height:200px">
+      </div>`, `Passport ready`);
+    }, 'image/jpeg', 0.95);
+  };
+};
+window.calcI3 = function(){
+  const f = document.getElementById('i3File').files[0];
+  if(!f){ toast('Image select karo',1); return; }
+  const r = new FileReader();
+  r.onload = e => {
+    res(`<div class="result-box"><h4>🔤 Base64</h4>
+      <textarea rows="8" style="font-size:11px;margin-top:8px;width:100%" readonly>${e.target.result}</textarea>
+    </div>`, e.target.result);
+  };
+  r.readAsDataURL(f);
+};
+window.calcI4 = function(){
+  const f = document.getElementById('i4File').files[0];
+  if(!f){ toast('Image select karo',1); return; }
+  const w = parseFloat(v('i4_w')) || 800;
+  const h = parseFloat(v('i4_h')) || 600;
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    c.getContext('2d').drawImage(img, 0, 0, w, h);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'resized.jpg';
+      res(`<div class="result-box"><h4>📐 Resized ${w}×${h}</h4>
+        <img src="${URL.createObjectURL(b)}" style="margin-top:10px;max-width:100%">
+      </div>`, `Resized ${w}×${h}`);
+    }, 'image/jpeg', 0.95);
+  };
+};
+window.calcI5 = function(){
+  const f = document.getElementById('i5File').files[0];
+  if(!f){ toast('Image select karo',1); return; }
+  const deg = parseFloat(v('i5_d'));
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const rad = deg * Math.PI / 180;
+    const swap = deg === 90 || deg === 270;
+    const c = document.createElement('canvas');
+    c.width = swap ? img.height : img.width;
+    c.height = swap ? img.width : img.height;
+    const ctx = c.getContext('2d');
+    ctx.translate(c.width/2, c.height/2);
+    ctx.rotate(rad);
+    ctx.drawImage(img, -img.width/2, -img.height/2);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'rotated.jpg';
+      res(`<div class="result-box"><h4>🔄 Rotated ${deg}°</h4>
+        <img src="${URL.createObjectURL(b)}" style="margin-top:10px;max-width:100%">
+      </div>`, `Rotated ${deg}°`);
+    }, 'image/jpeg', 0.95);
+  };
+};
+window.calcI6 = function(){
+  const f = document.getElementById('i6File').files[0];
+  if(!f){ toast('Image select karo',1); return; }
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const size = Math.min(img.width, img.height);
+    const sx = (img.width - size)/2, sy = (img.height - size)/2;
+    const c = document.createElement('canvas');
+    c.width = size; c.height = size;
+    c.getContext('2d').drawImage(img, sx, sy, size, size, 0, 0, size, size);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'cropped.jpg';
+      res(`<div class="result-box"><h4>✂️ Center Crop</h4>
+        <img src="${URL.createObjectURL(b)}" style="margin-top:10px;max-width:100%">
+      </div>`, `Cropped to ${size}×${size}`);
+    }, 'image/jpeg', 0.95);
+  };
+};
+window.calcI7 = function(){
+  const f = document.getElementById('i7File').files[0];
+  if(!f){ toast('Image select karo',1); return; }
+  const fl = v('i7_f');
+  const filters = { grayscale:'grayscale(1)', sepia:'sepia(1)', invert:'invert(1)' };
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    const ctx = c.getContext('2d');
+    ctx.filter = filters[fl];
+    ctx.drawImage(img, 0, 0);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'filtered.jpg';
+      res(`<div class="result-box"><h4>🎨 Filter: ${fl}</h4>
+        <img src="${URL.createObjectURL(b)}" style="margin-top:10px;max-width:100%">
+      </div>`, `Filter ${fl}`);
+    }, 'image/jpeg', 0.95);
+  };
+};
+window.calcI8 = function(){
+  const f = document.getElementById('i8File').files[0];
+  if(!f){ toast('Image select karo',1); return; }
+  const bw = parseInt(v('i8_b')) || 10;
+  const bc = v('i8_c') || '#000';
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width + bw*2;
+    c.height = img.height + bw*2;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = bc;
+    ctx.fillRect(0, 0, c.width, c.height);
+    ctx.drawImage(img, bw, bw);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'bordered.jpg';
+      res(`<div class="result-box"><h4>🖼️ Border Added</h4>
+        <img src="${URL.createObjectURL(b)}" style="margin-top:10px;max-width:100%">
+      </div>`, `Border added`);
+    }, 'image/jpeg', 0.95);
+  };
+};
+window.calcI9 = function(){
+  const f = document.getElementById('i9File').files[0];
+  if(!f){ toast('Image select karo',1); return; }
+  const z = parseFloat(v('i9_z')) || 150;
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width * z / 100;
+    c.height = img.height * z / 100;
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'zoomed.jpg';
+      res(`<div class="result-box"><h4>🔍 Zoom ${z}%</h4>
+        <img src="${URL.createObjectURL(b)}" style="margin-top:10px;max-width:100%">
+      </div>`, `Zoom ${z}%`);
+    }, 'image/jpeg', 0.95);
+  };
+};
+window.calcI10 = function(){
+  const f = document.getElementById('i10File').files[0];
+  if(!f){ toast('Image select karo',1); return; }
+  const maxKB = parseInt(v('i10_kb')) || 200;
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    let q = 0.9;
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    c.getContext('2d').drawImage(img, 0, 0);
+    const tryNext = () => {
+      c.toBlob(b => {
+        if(b.size/1024 > maxKB && q > 0.1){ q -= 0.1; tryNext(); }
+        else {
+          window._lastBlob = b; window._lastName = 'reduced.jpg';
+          res(`<div class="result-box"><h4>📏 Size Reduced</h4>
+            <div class="result-row"><span class="lb">Original</span><span class="vl">${(f.size/1024).toFixed(1)} KB</span></div>
+            <div class="result-row total"><span class="lb">New</span><span class="vl">${(b.size/1024).toFixed(1)} KB</span></div>
+            <img src="${URL.createObjectURL(b)}" style="margin-top:10px;max-width:100%">
+          </div>`, `Reduced to ${(b.size/1024).toFixed(1)} KB`);
+        }
+      }, 'image/jpeg', q);
+    };
+    tryNext();
+  };
+};
+
+/* ============================================================
+   🔤 TEXT (8 tools)
+   ============================================================ */
+window.calcT1 = function(){
+  const l = parseInt(v('t1_l')) || 12;
+  const ty = v('t1_ty');
+  let chars = 'abcdefghijklmnopqrstuvwxyz';
+  if(ty === 'all') chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
+  else if(ty === 'alpha') chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  else chars = '0123456789';
+  let p = '';
+  for(let i = 0; i < l; i++) p += chars[Math.floor(Math.random() * chars.length)];
+  res(`<div class="result-box"><h4>🔐 Password</h4>
+    <div class="result-row total"><span class="lb">Password</span><span class="vl" style="font-family:monospace;word-break:break-all">${p}</span></div>
+  </div>`, p);
+};
+window.calcT2 = function(){
+  const t = v('t2_t');
+  const m = v('t2_m');
+  let r = t;
+  if(m === 'upper') r = t.toUpperCase();
+  else if(m === 'lower') r = t.toLowerCase();
+  else if(m === 'title') r = t.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.substr(1).toLowerCase());
+  else if(m === 'sentence') r = t.charAt(0).toUpperCase() + t.slice(1).toLowerCase();
+  res(`<div class="result-box"><h4>🔠 Converted</h4>
+    <div style="padding:10px;background:#f5f5f5;border-radius:8px;word-break:break-word">${QV.escapeHtml(r)}</div>
+  </div>`, r);
+};
+window.calcT3 = function(){
+  const t = v('t3_t');
+  const chars = t.length;
+  const words = t.trim() ? t.trim().split(/\s+/).length : 0;
+  const lines = t.split('\n').length;
+  const paras = t.split(/\n\s*\n/).filter(p => p.trim()).length;
+  const read = Math.ceil(words/200);
+  res(`<div class="result-box"><h4>🔢 Count</h4>
+    <div class="result-row"><span class="lb">Characters</span><span class="vl">${chars}</span></div>
+    <div class="result-row"><span class="lb">Words</span><span class="vl">${words}</span></div>
+    <div class="result-row"><span class="lb">Lines</span><span class="vl">${lines}</span></div>
+    <div class="result-row"><span class="lb">Paragraphs</span><span class="vl">${paras}</span></div>
+    <div class="result-row total"><span class="lb">Read Time</span><span class="vl">${read} min</span></div>
+  </div>`, `${words} words, ${chars} chars`);
+};
+window.calcT4 = function(){
+  const t = v('t4_t');
+  const n = parseInt(v('t4_n')) || 1;
+  const r = t.repeat(n);
+  res(`<div class="result-box"><h4>🔁 Repeated ${n}×</h4>
+    <div style="padding:10px;background:#f5f5f5;border-radius:8px;word-break:break-word;max-height:200px;overflow:auto">${QV.escapeHtml(r)}</div>
+  </div>`, r);
+};
+window.calcT5 = function(){
+  const t = v('t5_t');
+  const r = t.split('').reverse().join('');
+  res(`<div class="result-box"><h4>🔄 Reversed</h4>
+    <div style="padding:10px;background:#f5f5f5;border-radius:8px;word-break:break-word">${QV.escapeHtml(r)}</div>
+  </div>`, r);
+};
+window.calcT6 = function(){
+  const a = v('t6_a'), b = v('t6_b');
+  const same = a === b;
+  res(`<div class="result-box"><h4>🔍 Compare</h4>
+    <div class="result-row"><span class="lb">Text 1 length</span><span class="vl">${a.length}</span></div>
+    <div class="result-row"><span class="lb">Text 2 length</span><span class="vl">${b.length}</span></div>
+    <div class="result-row total"><span class="lb">Match</span><span class="vl">${same ? '✅ Same' : '❌ Different'}</span></div>
+  </div>`, same ? 'Same' : 'Different');
+};
+window.calcT7 = function(){
+  const t = v('t7_t');
+  const rb = document.getElementById('resultBox');
+  if(rb){
+    rb.innerHTML = `<h4>🔤 Live Count</h4>
+      <div class="result-row"><span class="lb">Characters</span><span class="vl">${t.length}</span></div>
+      <div class="result-row total"><span class="lb">Words</span><span class="vl">${t.trim() ? t.trim().split(/\s+/).length : 0}</span></div>`;
+    rb.classList.add('on');
+  }
+};
+window.calcT8 = function(){
+  const t = v('t8_t');
+  const lines = t.split('\n');
+  const seen = new Set(), uniq = [];
+  lines.forEach(l => {
+    const k = l.trim();
+    if(k && !seen.has(k)){ seen.add(k); uniq.push(k); }
+  });
+  const r = uniq.join('\n');
+  res(`<div class="result-box"><h4>🗑️ Removed Duplicates</h4>
+    <div class="result-row"><span class="lb">Before</span><span class="vl">${lines.length}</span></div>
+    <div class="result-row total"><span class="lb">After</span><span class="vl">${uniq.length}</span></div>
+    <div style="padding:10px;background:#f5f5f5;border-radius:8px;margin-top:8px;white-space:pre-wrap;font-size:12px;max-height:200px;overflow:auto">${QV.escapeHtml(r)}</div>
+  </div>`, r);
+};
+
+/* ============================================================
+   💰 FINANCE (8 tools)
+   ============================================================ */
+window.calcF1 = function(){
+  const m = parseFloat(v('f1_m')) || 0;
+  const r = (parseFloat(v('f1_r')) || 0)/12/100;
+  const n = (parseFloat(v('f1_y')) || 0)*12;
+  if(!m || !n){ toast('SIP & years daalo',1); return; }
+  let fv;
+  if(r > 0) fv = m * ((Math.pow(1+r, n)-1)/r) * (1+r);
+  else fv = m*n;
+  const inv = m*n, gain = fv-inv;
+  res(`<div class="result-box"><h4>📊 SIP Result</h4>
+    <div class="result-row"><span class="lb">Invested</span><span class="vl">₹${fmt(inv,0)}</span></div>
+    <div class="result-row"><span class="lb">Returns</span><span class="vl">₹${fmt(gain,0)}</span></div>
+    <div class="result-row total"><span class="lb">Final Value</span><span class="vl">₹${fmt(fv,0)}</span></div>
+  </div>`, `SIP: ₹${fmt(fv,0)}`);
+};
+window.calcF2 = function(){
+  const p = parseFloat(v('f2_p')) || 0;
+  const r = (parseFloat(v('f2_r')) || 0)/100;
+  const y = parseFloat(v('f2_y')) || 0;
+  if(!p || !y){ toast('Amount & years daalo',1); return; }
+  const a = p*Math.pow(1+r/4, y*4);
+  const i = a-p;
+  res(`<div class="result-box"><h4>🏛️ FD</h4>
+    <div class="result-row"><span class="lb">Principal</span><span class="vl">₹${fmt(p,0)}</span></div>
+    <div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div>
+    <div class="result-row total"><span class="lb">Maturity</span><span class="vl">₹${fmt(a,0)}</span></div>
+  </div>`, `FD Maturity: ₹${fmt(a,0)}`);
+};
+window.calcF3 = function(){
+  const i = parseFloat(v('f3_i')) || 0;
+  if(!i){ toast('Income daalo',1); return; }
+  let tax = 0;
+  if(i <= 300000) tax = 0;
+  else if(i <= 600000) tax = (i-300000)*0.05;
+  else if(i <= 900000) tax = 15000+(i-600000)*0.10;
+  else if(i <= 1200000) tax = 45000+(i-900000)*0.15;
+  else if(i <= 1500000) tax = 90000+(i-1200000)*0.20;
+  else tax = 150000+(i-1500000)*0.30;
+  const cess = tax*0.04, total = tax+cess;
+  res(`<div class="result-box"><h4>🧮 Income Tax</h4>
+    <div class="result-row"><span class="lb">Income</span><span class="vl">₹${fmt(i,0)}</span></div>
+    <div class="result-row"><span class="lb">Tax</span><span class="vl">₹${fmt(tax,0)}</span></div>
+    <div class="result-row"><span class="lb">Cess 4%</span><span class="vl">₹${fmt(cess,0)}</span></div>
+    <div class="result-row total"><span class="lb">Total Tax</span><span class="vl">₹${fmt(total,0)}</span></div>
+  </div>`, `Tax: ₹${fmt(total,0)}`);
+};
+window.calcF4 = function(){
+  const p = parseFloat(v('f4_p')) || 0;
+  const r = parseFloat(v('f4_r')) || 0;
+  const y = parseFloat(v('f4_y')) || 0;
+  if(!p || !r || !y){ toast('Sab daalo',1); return; }
+  const si = p*r*y/100, total = p+si;
+  res(`<div class="result-box"><h4>💰 Simple Interest</h4>
+    <div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(si)}</span></div>
+    <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(total)}</span></div>
+  </div>`, `SI: ₹${fmt(si)}`);
+};
+window.calcF5 = function(){
+  const p = parseFloat(v('f5_p')) || 0;
+  const r = (parseFloat(v('f5_r')) || 0)/100;
+  const y = parseFloat(v('f5_y')) || 0;
+  if(!p || !y){ toast('Amount & years daalo',1); return; }
+  const a = p*Math.pow(1+r, y);
+  const ci = a-p;
+  res(`<div class="result-box"><h4>💹 Compound Interest</h4>
+    <div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(ci)}</span></div>
+    <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(a)}</span></div>
+  </div>`, `CI: ₹${fmt(ci)}`);
+};
+window.calcF6 = function(){
+  const i = parseFloat(v('f6_i')) || 0;
+  const e = parseFloat(v('f6_e')) || 0;
+  if(!i){ toast('Income daalo',1); return; }
+  const maxEmi = i*0.5;
+  const avail = Math.max(0, maxEmi-e);
+  res(`<div class="result-box"><h4>🏦 Loan Eligibility</h4>
+    <div class="result-row"><span class="lb">Monthly Income</span><span class="vl">₹${fmt(i,0)}</span></div>
+    <div class="result-row"><span class="lb">Max EMI (50%)</span><span class="vl">₹${fmt(maxEmi,0)}</span></div>
+    <div class="result-row"><span class="lb">Existing EMI</span><span class="vl">₹${fmt(e,0)}</span></div>
+    <div class="result-row total"><span class="lb">Available EMI</span><span class="vl">₹${fmt(avail,0)}</span></div>
+  </div>`, `Available EMI: ₹${fmt(avail,0)}`);
+};
+window.calcF7 = function(){
+  const a = parseFloat(v('f7_a')) || 0;
+  const from = v('f7_f'), to = v('f7_t');
+  if(!a){ toast('Amount daalo',1); return; }
+  const rates = { INR:1, USD:83, EUR:90, GBP:105 };
+  const inr = a * rates[from];
+  const result = inr / rates[to];
+  res(`<div class="result-box"><h4>💵 Currency</h4>
+    <div class="result-row"><span class="lb">Input</span><span class="vl">${a} ${from}</span></div>
+    <div class="result-row total"><span class="lb">Result</span><span class="vl">${fmt(result,2)} ${to}</span></div>
+    <div style="font-size:10px;color:#888;text-align:center;margin-top:6px">* Approx rates</div>
+  </div>`, `${a} ${from} = ${fmt(result,2)} ${to}`);
+};
+window.calcF8 = function(){
+  const i = parseFloat(v('f8_i')) || 0;
+  const y = parseFloat(v('f8_y')) || 0;
+  if(!i || !y){ toast('Sab daalo',1); return; }
+  const r = 0.071;
+  let fv = 0;
+  for(let k = 0; k < y; k++) fv = (fv + i) * (1+r);
+  const inv = i*y, gain = fv-inv;
+  res(`<div class="result-box"><h4>📈 PPF</h4>
+    <div class="result-row"><span class="lb">Invested</span><span class="vl">₹${fmt(inv,0)}</span></div>
+    <div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(gain,0)}</span></div>
+    <div class="result-row total"><span class="lb">Maturity</span><span class="vl">₹${fmt(fv,0)}</span></div>
+  </div>`, `PPF Maturity: ₹${fmt(fv,0)}`);
+};
 /* @FUNCTIONS_END@ */
 
 /* ============================================================
