@@ -420,16 +420,189 @@ const CATEGORIES=[
 ];
 
 /* TOOLS REGISTRY — Message 2 me tools bharenge */
+/* TOOLS REGISTRY */
 const TOOLS = {
-  shop: [],
-  photo: [],
-  bijli: [],
+  /* ============ 🏪 SHOP ============ */
+  shop: [
+    {id:'bizInvoice', i:'🧾', n:'Invoice Generator',
+     render:()=>`<div class="form-grid">
+       <div class="fld"><label>Business Name</label><input id="biz" placeholder="My Business"></div>
+       <div class="fld"><label>Customer Name</label><input id="cust" placeholder="Customer"></div>
+       <div class="fld"><label>Invoice No</label><input id="inv" placeholder="INV-001"></div>
+       <div class="fld"><label>Date</label><input type="date" id="date"></div>
+     </div>
+     <table class="tbl"><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amt</th><th></th></tr></thead><tbody id="invBody"></tbody></table>
+     <button class="btn btn-g" style="margin-top:10px;width:100%" onclick="addInvRow()">+ Add Item</button>
+     <button class="calc-btn" onclick="calcInv()">🧾 Calculate Invoice</button>
+     <div id="resultBox" class="result-box"></div>`,
+     init(){const d=document.getElementById('date');if(d)d.valueAsDate=new Date();addInvRow();addInvRow();}
+    },
+    {id:'bizGST', i:'💰', n:'GST Calculator',
+     render:()=>`<div class="fld"><label>Amount (₹)</label><input type="number" id="gstAmt" placeholder="1000"></div>
+     <div class="fld"><label>GST Rate</label><select id="gstRate"><option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option></select></div>
+     <div class="fld"><label>Type</label><select id="gstMode"><option value="add">Add GST (Exclusive)</option><option value="rem">Remove GST (Inclusive)</option></select></div>
+     <button class="calc-btn" onclick="calcGST()">💰 Calculate GST</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    },
+    {id:'bizEMI', i:'🏦', n:'EMI Calculator',
+     render:()=>`<div class="fld"><label>Loan Amount (₹)</label><input type="number" id="emiP" placeholder="100000"></div>
+     <div class="fld"><label>Annual Interest Rate (%)</label><input type="number" id="emiR" placeholder="10"></div>
+     <div class="fld"><label>Tenure (Years)</label><input type="number" id="emiN" placeholder="5"></div>
+     <button class="calc-btn" onclick="calcEMI()">🏦 Calculate EMI</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    },
+    {id:'bizProfit', i:'📈', n:'Profit / Loss Calculator',
+     render:()=>`<div class="fld"><label>Cost Price (₹)</label><input type="number" id="pCost" placeholder="100"></div>
+     <div class="fld"><label>Selling Price (₹)</label><input type="number" id="pSell" placeholder="120"></div>
+     <button class="calc-btn" onclick="calcProfit()">📈 Calculate</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    },
+    {id:'bizDiscount', i:'🏷️', n:'Discount Calculator',
+     render:()=>`<div class="fld"><label>MRP (₹)</label><input type="number" id="dMrp" placeholder="1000"></div>
+     <div class="fld"><label>Discount (%)</label><input type="number" id="dPct" placeholder="20"></div>
+     <button class="calc-btn" onclick="calcDiscount()">🏷️ Calculate</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    }
+  ],
+
+  /* ============ 📸 PHOTO COPY ============ */
+  photo: [
+    {id:'photoCopy', i:'📸', n:'Photo Copy (A4 Print)',
+     render:()=>`
+      <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px;line-height:1.6">📸 Photo copy wale dukano ke liye — Photo upload karo, auto crop hoke A4 page pe multiple copies print karo.</p>
+      <div class="photo-upload-box" onclick="document.getElementById('photoCopyFiles').click()">
+        <div class="up-icon">📤</div>
+        <div class="up-text">Photo Upload Karo</div>
+        <div class="up-sub">1 ya zyada photos (JPG, PNG)</div>
+      </div>
+      <input type="file" id="photoCopyFiles" accept="image/*" multiple style="display:none" onchange="handlePhotoCopyUpload(event)">
+      <div class="photo-preview-grid" id="photoCopyGrid"></div>
+      <div class="photo-controls">
+        <div class="fld"><label>Photo Size</label><select id="photoSize"><option value="passport">Passport (35×45mm)</option><option value="stamp">Stamp (20×25mm)</option><option value="visa">Visa (51×51mm)</option></select></div>
+        <div class="fld"><label>Photo Fit Mode</label><select id="photoCropMode"><option value="auto">✂️ Auto Crop (Face Center)</option><option value="full">🖼️ Full Photo (No Crop)</option></select></div>
+        <div class="fld"><label>Border Style</label><select id="photoBorder"><option value="none">🚫 None</option><option value="thin-white">⚪ Thin White</option><option value="thin-black">⚫ Thin Black</option><option value="cut">✂️ Cutting Line</option><option value="block-color">🎨 Block Color</option></select></div>
+        <div class="fld"><label>Block Color</label><select id="photoBorderColor"><option value="white">⚪ White</option><option value="black">⚫ Black</option><option value="blue">🔵 Blue</option><option value="red">🔴 Red</option><option value="green">🟢 Green</option></select></div>
+      </div>
+      <div class="fld"><label>Kitni Photos Chahiye? (Manual)</label><input type="number" id="photoQty" placeholder="e.g. 8"></div>
+      <button class="calc-btn" onclick="generatePhotoA4()">📄 Generate A4 Sheet</button>
+      <button class="btn btn-p" style="width:100%;margin-top:10px;padding:13px" onclick="printPhotoA4()">🖨️ Print A4 Sheet</button>
+      <button class="btn btn-g" style="width:100%;margin-top:8px;padding:13px" onclick="downloadPhotoA4()">⬇️ Download A4 Image</button>
+      <div id="resultBox" class="result-box"></div>
+     `,
+     init(){ photoCopyImages = []; }
+    }
+  ],
+
+  /* ============ ⚡ BIJLI ============ */
+  bijli: [
+    {id:'elecBill', i:'💡', n:'Electricity Bill Calculator',
+     render:()=>`<div class="fld"><label>Units Consumed (kWh)</label><input type="number" id="uUnits"></div>
+     <div class="fld"><label>Rate per Unit (₹)</label><input type="number" id="uRate"></div>
+     <div class="fld"><label>Fixed Charges (₹)</label><input type="number" id="uFixed"></div>
+     <div class="fld"><label>Tax (%)</label><input type="number" id="uTax"></div>
+     <button class="calc-btn" onclick="calcElecBill()">💡 Calculate Bill</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    },
+    {id:'elecSolar', i:'☀️', n:'Solar Panel Calculator',
+     render:()=>`<div class="fld"><label>Monthly Units (kWh)</label><input type="number" id="sCons"></div>
+     <div class="fld"><label>Sun Hours/Day</label><input type="number" id="sSun" placeholder="5"></div>
+     <div class="fld"><label>Panel Watt (W)</label><input type="number" id="sPanel" placeholder="330"></div>
+     <button class="calc-btn" onclick="calcSolar()">☀️ Calculate Solar</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    },
+    {id:'elecInverter', i:'🔋', n:'Inverter Backup Time',
+     render:()=>`<div class="fld"><label>Battery Ah</label><input type="number" id="iAh"></div>
+     <div class="fld"><label>Battery Volt</label><input type="number" id="iVolt" placeholder="12"></div>
+     <div class="fld"><label>Load (Watt)</label><input type="number" id="iLoad"></div>
+     <div class="fld"><label>Efficiency (%)</label><input type="number" id="iEff" placeholder="80"></div>
+     <button class="calc-btn" onclick="calcInverter()">🔋 Calculate</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    },
+    {id:'elecAppliance', i:'🔌', n:'Appliance Power Cost',
+     render:()=>`<div class="fld"><label>Appliance Watt</label><input type="number" id="aWatt"></div>
+     <div class="fld"><label>Hours/Day</label><input type="number" id="aHours"></div>
+     <div class="fld"><label>Rate/Unit (₹)</label><input type="number" id="aRate"></div>
+     <button class="calc-btn" onclick="calcAppliance()">🔌 Calculate</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    }
+  ],
+
+  /* ============ 💼 BUSINESS ============ */
   business: [],
-  pdf: [],
-  image: [],
-  text: [],
+
+  /* ============ 📄 PDF ============ */
+  pdf: [
+    {id:'pdfImg', i:'🖼️', n:'Image to PDF',
+     render:()=>`<div class="fld"><label>Select Images</label><input type="file" id="imgs" accept="image/*" multiple></div>
+     <button class="calc-btn" onclick="runImgToPdf()">🖼️ Convert to PDF</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    }
+  ],
+
+  /* ============ 🖼️ IMAGE ============ */
+  image: [
+    {id:'imgCompress', i:'🗜️', n:'Image Compressor',
+     render:()=>`<div class="fld"><label>Image</label><input type="file" id="file" accept="image/*"></div>
+     <div class="fld"><label>Quality (10-100)</label><input type="number" id="q" placeholder="70"></div>
+     <button class="calc-btn" onclick="runImgCompress()">🗜️ Compress</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    },
+    {id:'imgPassport', i:'📸', n:'Passport Photo Maker',
+     render:()=>`<div class="fld"><label>Photo</label><input type="file" id="file" accept="image/*"></div>
+     <div class="fld"><label>Size</label><select id="size"><option value="passport">Passport (35×45mm)</option><option value="stamp">Stamp (20×25mm)</option><option value="visa">Visa (51×51mm)</option></select></div>
+     <button class="calc-btn" onclick="runPassport()">📸 Make Photo</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    },
+    {id:'imgBase64', i:'🔤', n:'Image to Base64',
+     render:()=>`<div class="fld"><label>Image</label><input type="file" id="file" accept="image/*"></div>
+     <button class="calc-btn" onclick="runImgBase64()">🔤 Convert</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    }
+  ],
+
+  /* ============ 🔤 TEXT ============ */
+  text: [
+    {id:'passGen', i:'🔐', n:'Password Generator',
+     render:()=>`<div class="fld"><label>Length</label><input type="number" id="pLen" placeholder="12"></div>
+     <div class="fld"><label>Type</label><select id="pType"><option value="all">All (Letters + Numbers + Symbols)</option><option value="alpha">Letters only</option><option value="num">Numbers only</option></select></div>
+     <button class="calc-btn" onclick="calcPassGen()">🔐 Generate</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    }
+  ],
+
+  /* ============ 💰 FINANCE ============ */
   finance: [],
-  social: [],
+
+  /* ============ 📱 SOCIAL ============ */
+  social: [
+    {id:'socQR', i:'📱', n:'QR Code Generator',
+     render:()=>`<div class="fld"><label>Text or URL</label><textarea id="t" placeholder="https://example.com"></textarea></div>
+     <button class="calc-btn" onclick="runQR()">📱 Generate QR</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    },
+    {id:'socBar', i:'▮▮▮', n:'Barcode Generator',
+     render:()=>`<div class="fld"><label>Text (koi bhi text/number)</label><input id="t" placeholder="1234567890"></div>
+     <button class="calc-btn" onclick="runBarcode()">▮▮▮ Generate Barcode</button>
+     <div id="resultBox" class="result-box"></div>`,
+     calc(){}
+    }
+  ],
+
+  /* PLACEHOLDERS for Message 3 */
   student: [],
   health: [],
   utility: [],
