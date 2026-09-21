@@ -1537,10 +1537,1021 @@ function fmtDate(iso){
    MESSAGE 2 & 3 me ye functions aayenge (placeholder)
    ============================================================ */
 /* @FUNCTIONS_START@ */
-function openPreview(){ toast('Preview — Message 3 me aayega'); }
-function downloadResult(){ toast('Download — Message 3 me aayega'); }
-function copyResult(){ toast('Copy — Message 3 me aayega'); }
-function shareResult(){ toast('Share — Message 3 me aayega'); }
+/* ============================================================
+   QUNVERO — PART A: Helpers + Shop + Photo Copy + Preview/Download
+   ============================================================ */
+
+/* ---------- HELPERS ---------- */
+function v(id){ const el=document.getElementById(id); return el ? el.value : ''; }
+function fmt(n,d){ d=d===undefined?2:d; return Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:d,minimumFractionDigits:d}); }
+function res(html, text){
+  const rb = document.getElementById('resultBox');
+  if(rb){ rb.innerHTML = html; rb.classList.add('on'); }
+  window._lastText = text || '';
+  window._lastHTML = html;
+}
+window.v = v; window.fmt = fmt; window.res = res;
+window._lastBlob = null;
+window._lastName = '';
+window._lastHTML = '';
+
+/* ============================================================
+   🏪 SHOP TOOLS (20)
+   ============================================================ */
+
+window.calcShop1 = function(){
+  const shop = v('s1_shop').trim() || 'My Shop';
+  const cust = v('s1_cust').trim() || 'Customer';
+  const raw = v('s1_items').trim();
+  const disc = parseFloat(v('s1_disc')) || 0;
+  const gst = parseFloat(v('s1_gst')) || 0;
+  if(!raw){ toast('Items daalo',1); return; }
+  const items = raw.split('\n').map(l => {
+    const p = l.split('|').map(s => s.trim());
+    return { name: p[0]||'', qty: parseFloat(p[1])||1, price: parseFloat(p[2])||0 };
+  }).filter(i => i.name);
+  if(!items.length){ toast('Valid items daalo',1); return; }
+  let sub = items.reduce((s,i) => s + i.qty*i.price, 0);
+  let ad = Math.max(0, sub - disc);
+  let ga = ad * gst / 100;
+  let total = ad + ga;
+  const bn = 'BILL-' + Date.now().toString().slice(-6);
+  const html = `<div class="result-box"><h4>🧾 Bill Summary</h4>
+    <div style="text-align:center;padding:8px 0;border-bottom:1px dashed #ccc;margin-bottom:10px">
+      <div style="font-weight:800;color:#0070f3;font-size:16px">${QV.escapeHtml(shop)}</div>
+      <div style="font-size:11px;color:#666">${bn}</div>
+    </div>
+    <div class="result-row"><span class="lb">Customer</span><span class="vl">${QV.escapeHtml(cust)}</span></div>
+    ${items.map(i => `<div class="result-row"><span class="lb">${QV.escapeHtml(i.name)} × ${i.qty}</span><span class="vl">₹${fmt(i.qty*i.price)}</span></div>`).join('')}
+    <div class="result-row"><span class="lb">Subtotal</span><span class="vl">₹${fmt(sub)}</span></div>
+    ${disc ? `<div class="result-row"><span class="lb">Discount</span><span class="vl">- ₹${fmt(disc)}</span></div>` : ''}
+    ${gst ? `<div class="result-row"><span class="lb">GST ${gst}%</span><span class="vl">+ ₹${fmt(ga)}</span></div>` : ''}
+    <div class="result-row total"><span class="lb">TOTAL</span><span class="vl">₹${fmt(total)}</span></div>
+  </div>`;
+  res(html, `${shop} · Bill ₹${fmt(total)}`);
+};
+
+window.calcShop2 = function(){
+  const shop = v('s2_shop').trim() || 'My Shop';
+  const raw = v('s2_items').trim();
+  if(!raw){ toast('Items daalo',1); return; }
+  const items = raw.split('\n').map(l => {
+    const p = l.split('|').map(s => s.trim());
+    return { name: p[0]||'', price: p[1]||'0' };
+  }).filter(i => i.name);
+  res(`<div class="result-box"><h4>📋 Rate List</h4>
+    <div style="text-align:center;font-weight:800;color:#0070f3;margin-bottom:8px">${QV.escapeHtml(shop)}</div>
+    ${items.map(i => `<div class="result-row"><span class="lb">${QV.escapeHtml(i.name)}</span><span class="vl">₹${QV.escapeHtml(i.price)}</span></div>`).join('')}
+  </div>`, `${shop} Rate List`);
+};
+
+window.calcShop3 = function(){
+  const shop = v('s3_shop').trim() || 'My Shop';
+  const from = v('s3_from').trim();
+  const amt = v('s3_amt');
+  const forr = v('s3_for').trim();
+  if(!from || !amt){ toast('From & Amount daalo',1); return; }
+  res(`<div class="result-box"><h4>🧾 Receipt</h4>
+    <div class="result-row"><span class="lb">Shop</span><span class="vl">${QV.escapeHtml(shop)}</span></div>
+    <div class="result-row"><span class="lb">Receipt No</span><span class="vl">RCP-${Date.now().toString().slice(-6)}</span></div>
+    <div class="result-row"><span class="lb">From</span><span class="vl">${QV.escapeHtml(from)}</span></div>
+    ${forr ? `<div class="result-row"><span class="lb">Purpose</span><span class="vl">${QV.escapeHtml(forr)}</span></div>` : ''}
+    <div class="result-row total"><span class="lb">Amount</span><span class="vl">₹${fmt(amt)}</span></div>
+  </div>`, `Receipt ₹${fmt(amt)} from ${from}`);
+};
+
+window.calcShop4 = function(){
+  const name = v('s4_name').trim();
+  const amt = parseFloat(v('s4_amt'));
+  const type = v('s4_type');
+  if(!name || !amt){ toast('Name & amount daalo',1); return; }
+  const list = JSON.parse(localStorage.getItem('qunvero_udhar') || '[]');
+  list.unshift({ id: Date.now(), name, amt, type, date: new Date().toLocaleDateString('en-IN') });
+  localStorage.setItem('qunvero_udhar', JSON.stringify(list));
+  const grouped = {};
+  list.forEach(e => { if(!grouped[e.name]) grouped[e.name] = {due:0,paid:0}; grouped[e.name][e.type] += e.amt; });
+  res(`<div class="result-box"><h4>📒 Udhar Khata</h4>
+    ${Object.entries(grouped).map(([n, t]) => {
+      const bal = t.due - t.paid;
+      return `<div class="result-row"><span class="lb">${QV.escapeHtml(n)}</span><span class="vl" style="color:${bal>0?'#ef4444':'#10b981'}">₹${Math.abs(bal)}${bal>0?' due':' clear'}</span></div>`;
+    }).join('')}
+  </div>`, `Entry: ${name} ₹${amt}`);
+};
+
+window.calcShop5 = function(){
+  const amt = parseFloat(v('s5_amt'));
+  const note = v('s5_note').trim();
+  if(!amt){ toast('Amount daalo',1); return; }
+  const today = new Date().toLocaleDateString('en-IN');
+  const list = JSON.parse(localStorage.getItem('qunvero_sales') || '[]');
+  list.unshift({ id: Date.now(), amt, note, date: today, time: new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'}) });
+  localStorage.setItem('qunvero_sales', JSON.stringify(list));
+  const todayList = list.filter(s => s.date === today);
+  const tot = todayList.reduce((s,i) => s + i.amt, 0);
+  res(`<div class="result-box"><h4>📈 Today's Sales</h4>
+    <div class="result-row total"><span class="lb">Total Today</span><span class="vl">₹${fmt(tot)}</span></div>
+    <div class="result-row"><span class="lb">Entries</span><span class="vl">${todayList.length}</span></div>
+  </div>`, `Sale ₹${amt}. Today: ₹${fmt(tot)}`);
+};
+
+window.calcShop6 = function(){
+  const name = v('s6_name').trim();
+  const qty = parseFloat(v('s6_qty'));
+  const price = parseFloat(v('s6_price')) || 0;
+  if(!name || !qty){ toast('Name & qty daalo',1); return; }
+  const list = JSON.parse(localStorage.getItem('qunvero_stock') || '[]');
+  const ex = list.find(i => i.name.toLowerCase() === name.toLowerCase());
+  if(ex){ ex.qty += qty; ex.price = price || ex.price; }
+  else list.unshift({ id: Date.now(), name, qty, price });
+  localStorage.setItem('qunvero_stock', JSON.stringify(list));
+  res(`<div class="result-box"><h4>📦 Stock</h4>
+    ${list.map(i => `<div class="result-row"><span class="lb">${QV.escapeHtml(i.name)}</span><span class="vl">${i.qty} pcs @ ₹${i.price}</span></div>`).join('')}
+  </div>`, `Stock: ${name} × ${qty}`);
+};
+
+window.calcShop7 = function(){
+  const shop = v('s7_shop').trim() || 'My Shop';
+  const supp = v('s7_supp').trim() || 'Supplier';
+  const raw = v('s7_items').trim();
+  if(!raw){ toast('Items daalo',1); return; }
+  const items = raw.split('\n').map(l => {
+    const p = l.split('|').map(s => s.trim());
+    return { name: p[0]||'', qty: parseFloat(p[1])||1, rate: parseFloat(p[2])||0 };
+  }).filter(i => i.name);
+  const total = items.reduce((s,i) => s + i.qty*i.rate, 0);
+  res(`<div class="result-box"><h4>📝 Purchase Order</h4>
+    <div class="result-row"><span class="lb">Shop</span><span class="vl">${QV.escapeHtml(shop)}</span></div>
+    <div class="result-row"><span class="lb">Supplier</span><span class="vl">${QV.escapeHtml(supp)}</span></div>
+    ${items.map(i => `<div class="result-row"><span class="lb">${QV.escapeHtml(i.name)} × ${i.qty}</span><span class="vl">₹${fmt(i.qty*i.rate)}</span></div>`).join('')}
+    <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(total)}</span></div>
+  </div>`, `PO Total: ₹${fmt(total)}`);
+};
+
+window.calcShop8 = function(){
+  const biz = v('s8_biz').trim() || 'Business';
+  const cli = v('s8_cli').trim() || 'Client';
+  const raw = v('s8_items').trim();
+  if(!raw){ toast('Items daalo',1); return; }
+  const items = raw.split('\n').map(l => {
+    const p = l.split('|').map(s => s.trim());
+    return { name: p[0]||'', qty: parseFloat(p[1])||1, rate: parseFloat(p[2])||0 };
+  }).filter(i => i.name);
+  const sub = items.reduce((s,i) => s + i.qty*i.rate, 0);
+  const tax = sub * 0.18;
+  const total = sub + tax;
+  res(`<div class="result-box"><h4>📄 Invoice</h4>
+    <div class="result-row"><span class="lb">Business</span><span class="vl">${QV.escapeHtml(biz)}</span></div>
+    <div class="result-row"><span class="lb">Client</span><span class="vl">${QV.escapeHtml(cli)}</span></div>
+    ${items.map(i => `<div class="result-row"><span class="lb">${QV.escapeHtml(i.name)} × ${i.qty}</span><span class="vl">₹${fmt(i.qty*i.rate)}</span></div>`).join('')}
+    <div class="result-row"><span class="lb">Subtotal</span><span class="vl">₹${fmt(sub)}</span></div>
+    <div class="result-row"><span class="lb">GST 18%</span><span class="vl">₹${fmt(tax)}</span></div>
+    <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(total)}</span></div>
+  </div>`, `Invoice ₹${fmt(total)}`);
+};
+
+window.calcShop9 = function(){
+  const amt = parseFloat(v('s9_amt'));
+  const rate = parseFloat(v('s9_rate'));
+  const type = v('s9_type');
+  if(!amt){ toast('Amount daalo',1); return; }
+  let base, gst, tot;
+  if(type === 'add'){ base = amt; gst = amt*rate/100; tot = base+gst; }
+  else { tot = amt; base = amt/(1+rate/100); gst = tot-base; }
+  res(`<div class="result-box"><h4>💹 GST ${rate}%</h4>
+    <div class="result-row"><span class="lb">Base</span><span class="vl">₹${fmt(base)}</span></div>
+    <div class="result-row"><span class="lb">GST</span><span class="vl">₹${fmt(gst)}</span></div>
+    <div class="result-row"><span class="lb">CGST</span><span class="vl">₹${fmt(gst/2)}</span></div>
+    <div class="result-row"><span class="lb">SGST</span><span class="vl">₹${fmt(gst/2)}</span></div>
+    <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div>
+  </div>`, `GST Total: ₹${fmt(tot)}`);
+};
+
+window.calcShop10 = function(){
+  const p = parseFloat(v('s10_p')) || 0;
+  const d = parseFloat(v('s10_d')) || 0;
+  if(!p || !d){ toast('Dono daalo',1); return; }
+  const save = p*d/100, fp = p-save;
+  res(`<div class="result-box"><h4>🏷️ Discount</h4>
+    <div class="result-row"><span class="lb">Original</span><span class="vl">₹${fmt(p)}</span></div>
+    <div class="result-row"><span class="lb">Save</span><span class="vl" style="color:#10b981">₹${fmt(save)}</span></div>
+    <div class="result-row total"><span class="lb">Final</span><span class="vl">₹${fmt(fp)}</span></div>
+  </div>`, `Final ₹${fmt(fp)}`);
+};
+
+window.calcShop11 = function(){
+  const cp = parseFloat(v('s11_cp')) || 0;
+  const sp = parseFloat(v('s11_sp')) || 0;
+  if(!cp || !sp){ toast('Dono daalo',1); return; }
+  const diff = sp-cp;
+  const pct = (diff/cp)*100;
+  const isP = diff >= 0;
+  res(`<div class="result-box"><h4>📊 ${isP?'Profit':'Loss'}</h4>
+    <div class="result-row"><span class="lb">Cost</span><span class="vl">₹${fmt(cp)}</span></div>
+    <div class="result-row"><span class="lb">Selling</span><span class="vl">₹${fmt(sp)}</span></div>
+    <div class="result-row total"><span class="lb">${isP?'Profit':'Loss'}</span><span class="vl">₹${fmt(Math.abs(diff))} (${fmt(pct)}%)</span></div>
+  </div>`, `${isP?'Profit':'Loss'} ₹${fmt(Math.abs(diff))}`);
+};
+
+window.calcShop12 = function(){
+  const P = parseFloat(v('s12_p')) || 0;
+  const R = parseFloat(v('s12_r'))/12/100 || 0;
+  const N = parseFloat(v('s12_n')) || 0;
+  if(!P || !N){ toast('Amount & tenure daalo',1); return; }
+  let emi = R === 0 ? P/N : P*R*Math.pow(1+R,N)/(Math.pow(1+R,N)-1);
+  const total = emi*N;
+  const interest = total-P;
+  res(`<div class="result-box"><h4>💳 EMI</h4>
+    <div class="result-row"><span class="lb">Monthly EMI</span><span class="vl">₹${fmt(emi,0)}</span></div>
+    <div class="result-row"><span class="lb">Total Interest</span><span class="vl">₹${fmt(interest,0)}</span></div>
+    <div class="result-row total"><span class="lb">Total Payment</span><span class="vl">₹${fmt(total,0)}</span></div>
+  </div>`, `EMI: ₹${fmt(emi,0)}/mo`);
+};
+
+window.calcShop13 = function(){
+  let amt = parseInt(v('s13_amt'));
+  if(!amt || amt <= 0){ toast('Amount daalo',1); return; }
+  const notes = [2000,500,200,100,50,20,10,5,2,1];
+  let rem = amt, html = '';
+  notes.forEach(n => {
+    if(rem >= n){ const c = Math.floor(rem/n); html += `<div class="result-row"><span class="lb">₹${n} × ${c}</span><span class="vl">₹${n*c}</span></div>`; rem -= c*n; }
+  });
+  res(`<div class="result-box"><h4>💵 ₹${amt}</h4>${html}<div class="result-row total"><span class="lb">Total</span><span class="vl">₹${amt}</span></div></div>`, `₹${amt}`);
+};
+
+window.calcShop14 = function(){
+  const b = parseFloat(v('s14_bill'));
+  const g = parseFloat(v('s14_given'));
+  if(!b || !g){ toast('Dono daalo',1); return; }
+  const c = g-b;
+  if(c < 0){ res(`<div class="result-box"><h4 style="color:#ef4444">❌ ₹${fmt(Math.abs(c))} kam</h4></div>`, 'Short'); return; }
+  res(`<div class="result-box"><h4>🪙 Change</h4>
+    <div class="result-row"><span class="lb">Bill</span><span class="vl">₹${fmt(b)}</span></div>
+    <div class="result-row"><span class="lb">Given</span><span class="vl">₹${fmt(g)}</span></div>
+    <div class="result-row total"><span class="lb">Change</span><span class="vl">₹${fmt(c)}</span></div>
+  </div>`, `Change: ₹${fmt(c)}`);
+};
+
+window.calcShop15 = function(){
+  const a = parseFloat(v('s15_amt')) || 0;
+  const p = parseFloat(v('s15_pct')) || 0;
+  if(!a || !p){ toast('Dono daalo',1); return; }
+  const c = a*p/100;
+  res(`<div class="result-box"><h4>💰 Commission</h4>
+    <div class="result-row"><span class="lb">Sale</span><span class="vl">₹${fmt(a)}</span></div>
+    <div class="result-row"><span class="lb">Rate</span><span class="vl">${p}%</span></div>
+    <div class="result-row total"><span class="lb">Commission</span><span class="vl">₹${fmt(c)}</span></div>
+  </div>`, `Commission ₹${fmt(c)}`);
+};
+
+window.calcShop16 = function(){
+  const a = parseFloat(v('s16_amt')) || 0;
+  const r = parseFloat(v('s16_rate')) || 1;
+  if(!a){ toast('Amount daalo',1); return; }
+  const pts = Math.floor(a/100*r);
+  res(`<div class="result-box"><h4>⭐ Loyalty Points</h4>
+    <div class="result-row total"><span class="lb">Points</span><span class="vl">⭐ ${pts}</span></div>
+  </div>`, `⭐ ${pts} points`);
+};
+
+window.calcShop17 = function(){
+  const pa = parseFloat(v('s17_pa')), qa = parseFloat(v('s17_qa'));
+  const pb = parseFloat(v('s17_pb')), qb = parseFloat(v('s17_qb'));
+  if(!pa || !qa || !pb || !qb){ toast('Sab bharo',1); return; }
+  const ua = pa/qa, ub = pb/qb;
+  const best = ua < ub ? 'A' : 'B';
+  res(`<div class="result-box"><h4>⚖️ Compare</h4>
+    <div class="result-row"><span class="lb">Product A</span><span class="vl">₹${fmt(ua)}/unit</span></div>
+    <div class="result-row"><span class="lb">Product B</span><span class="vl">₹${fmt(ub)}/unit</span></div>
+    <div class="result-row total"><span class="lb">Better</span><span class="vl">Product ${best}</span></div>
+  </div>`, `Product ${best} better`);
+};
+
+window.calcShop18 = function(){
+  const t = parseInt(v('s18_t')), p = parseInt(v('s18_p'));
+  if(!t || !p){ toast('Dono daalo',1); return; }
+  const full = Math.floor(t/p), rem = t%p, boxes = full + (rem ? 1 : 0);
+  res(`<div class="result-box"><h4>📦 Packaging</h4>
+    <div class="result-row"><span class="lb">Full Boxes</span><span class="vl">${full}</span></div>
+    ${rem ? `<div class="result-row"><span class="lb">Last Box</span><span class="vl">${rem} items</span></div>` : ''}
+    <div class="result-row total"><span class="lb">Total Boxes</span><span class="vl">${boxes}</span></div>
+  </div>`, `${boxes} boxes`);
+};
+
+window.calcShop19 = function(){
+  const val = v('s19_val').trim();
+  const fm = v('s19_fmt');
+  if(!val){ toast('Value daalo',1); return; }
+  const box = document.getElementById('resultBox');
+  box.innerHTML = `<h4>▮ Barcode</h4><svg id="bc_svg" style="max-width:100%;background:#fff;padding:10px;border-radius:8px"></svg>`;
+  box.classList.add('on');
+  try {
+    JsBarcode('#bc_svg', val, { format: fm, lineColor:'#000', width:2, height:70, displayValue:true, fontSize:14 });
+    window._lastText = `Barcode: ${val}`;
+    setTimeout(() => {
+      const svg = document.getElementById('bc_svg');
+      if(svg){
+        const s = new XMLSerializer();
+        const svgStr = s.serializeToString(svg);
+        const blob = new Blob([svgStr], {type:'image/svg+xml'});
+        window._lastBlob = blob;
+        window._lastName = 'barcode.svg';
+      }
+    }, 300);
+    toast('✅ Ready!');
+  } catch(e){ toast('Invalid barcode',1); }
+};
+
+window.calcShop20 = function(){
+  const t = v('s20_t').trim();
+  if(!t){ toast('Text daalo',1); return; }
+  const qrSize = 800;
+  const box = document.getElementById('resultBox');
+  box.innerHTML = `<h4>📱 Generating...</h4>`;
+  box.classList.add('on');
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = qrSize; c.height = qrSize;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,qrSize,qrSize);
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(img, 0, 0, qrSize, qrSize);
+    c.toBlob(b => {
+      window._lastBlob = b;
+      window._lastName = 'qrcode.png';
+      res(`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4>
+        <img src="${URL.createObjectURL(b)}" style="margin:12px auto;border-radius:10px;background:#fff;padding:10px;max-width:260px">
+      </div>`, `QR: ${t}`);
+    }, 'image/png');
+  };
+  img.src = `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(t)}&margin=20`;
+};
+
+/* ============================================================
+   📸 PHOTO COPY (20 tools — 1 real + 19 helpers)
+   ============================================================ */
+let pc1Images = [];
+window.pc1Upload = function(e){
+  const files = Array.from(e.target.files || []);
+  files.forEach(file => {
+    const r = new FileReader();
+    r.onload = ev => {
+      const img = new Image();
+      img.onload = () => {
+        const ta = 35/45;
+        const ia = img.width/img.height;
+        let sx=0, sy=0, sw=img.width, sh=img.height;
+        if(ia > ta){ sw = img.height*ta; sx = (img.width-sw)/2; }
+        else { sh = img.width/ta; sy = (img.height-sh)*0.4; }
+        const c = document.createElement('canvas');
+        c.width = 413; c.height = 531;
+        c.getContext('2d').drawImage(img, sx, sy, sw, sh, 0, 0, 413, 531);
+        pc1Images.push({ src: ev.target.result, croppedSrc: c.toDataURL('image/jpeg',0.95) });
+        pc1Render();
+      };
+      img.src = ev.target.result;
+    };
+    r.readAsDataURL(file);
+  });
+  e.target.value = '';
+};
+function pc1Render(){
+  const g = document.getElementById('pc1Grid');
+  if(!g) return;
+  g.innerHTML = pc1Images.map((p,i) => `<div class="photo-preview-item"><img src="${p.croppedSrc||p.src}"><button class="del-btn" onclick="pc1Del(${i})">✕</button></div>`).join('');
+}
+window.pc1Del = function(i){ pc1Images.splice(i,1); pc1Render(); };
+
+window.pc1Gen = function(){
+  if(!pc1Images.length){ toast('Photo upload karo',1); return; }
+  const qtyRaw = v('pc1Qty');
+  const qty = qtyRaw ? parseInt(qtyRaw) : null;
+  const size = v('pc1Size') || 'passport';
+  const mode = v('pc1Mode') || 'auto';
+  const border = v('pc1Border') || 'none';
+  const color = v('pc1Color') || 'white';
+  const sm = { passport:[35,45], stamp:[20,25], visa:[51,51] };
+  const [wMM, hMM] = sm[size];
+  const gap = 2;
+  const usableW = 210 - 20, usableH = 297 - 20;
+  const cols = Math.floor((usableW+gap)/(wMM+gap));
+  const rows = Math.floor((usableH+gap)/(hMM+gap));
+  const maxOnPage = cols * rows;
+  const total = qty ? Math.min(qty, maxOnPage) : maxOnPage;
+  let html = '';
+  for(let i=0;i<total;i++){
+    const img = pc1Images[i % pc1Images.length];
+    const src = mode === 'auto' ? (img.croppedSrc || img.src) : img.src;
+    let bStyle = '';
+    if(border === 'thin-white') bStyle = 'border:2px solid #fff;box-shadow:inset 0 0 0 1px #e2e8f0';
+    else if(border === 'thin-black') bStyle = 'border:1px solid #000';
+    else if(border === 'cut') bStyle = 'border:1px dashed #94a3b8';
+    else if(border === 'block-color'){
+      const cm = { white:'#fff', black:'#000', blue:'#0070f3', red:'#ef4444', green:'#10b981' };
+      bStyle = `border:3px solid ${cm[color]}`;
+    }
+    html += `<div class="a4-photo" style="${bStyle};background:#fff"><img src="${src}" style="width:100%;height:100%;object-fit:cover"></div>`;
+  }
+  const wrap = `<div class="photo-a4-preview" id="pc1Wrap">
+    <div class="photo-a4-page" id="pc1Page" style="grid-template-columns:repeat(${cols},1fr);grid-auto-rows:1fr">${html}</div>
+  </div>`;
+  const ex = document.getElementById('pc1Wrap');
+  if(ex) ex.outerHTML = wrap;
+  else document.getElementById('modalBody').insertAdjacentHTML('beforeend', wrap);
+  res(`<div class="result-box"><h4>📸 A4 Ready</h4>
+    <div class="result-row"><span class="lb">Photos</span><span class="vl">${total}</span></div>
+    <div class="result-row"><span class="lb">Size</span><span class="vl">${wMM}×${hMM}mm</span></div>
+    <div class="result-row total"><span class="lb">Grid</span><span class="vl">${cols} × ${rows}</span></div>
+  </div>`, `Photo Copy: ${total} photos`);
+  toast('✅ A4 ready');
+};
+
+window.pc1Print = function(){
+  const page = document.getElementById('pc1Page');
+  if(!page){ toast('Pehle Generate dabao',1); return; }
+  const w = window.open('', '_blank');
+  w.document.write(`<!DOCTYPE html><html><head><title>A4 Print</title><style>@page{size:A4;margin:0}body{margin:0;background:#fff}.photo-a4-page{width:210mm;height:297mm;display:grid;gap:2mm;padding:10mm;box-sizing:border-box;background:#fff}.photo-a4-page .a4-photo{display:flex;align-items:center;justify-content:center;overflow:hidden;background:#fff}.photo-a4-page .a4-photo img{width:100%;height:100%;object-fit:cover}</style></head><body>${page.outerHTML}<script>setTimeout(()=>window.print(),500);<\/script></body></html>`);
+  w.document.close();
+  toast('🖨️ Print dialog');
+};
+
+window.pc1Download = async function(){
+  const page = document.getElementById('pc1Page');
+  if(!page){ toast('Pehle Generate dabao',1); return; }
+  toast('⏳ Ban raha hai...');
+  const clone = page.cloneNode(true);
+  clone.style.cssText = 'position:fixed;left:-99999px;top:0;width:595px;height:842px;background:#fff;padding:24px;display:grid;gap:6px;box-sizing:border-box';
+  document.body.appendChild(clone);
+  try {
+    await new Promise(r => setTimeout(r, 400));
+    const canvas = await html2canvas(clone, { scale:3, backgroundColor:'#fff', logging:false, useCORS:true });
+    canvas.toBlob(b => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(b);
+      a.download = 'photo-copy-a4-hd.png';
+      a.click();
+      if(clone.parentElement) document.body.removeChild(clone);
+      toast('✅ Downloaded!');
+    }, 'image/png');
+  } catch(e){
+    if(clone.parentElement) document.body.removeChild(clone);
+    toast('❌ ' + e.message, 1);
+  }
+};
+
+/* Photo Copy helper tools (2-20) — basic working */
+window.pc2Crop = function(){
+  const f = document.getElementById('pc2File').files[0];
+  if(!f){ toast('Photo select karo',1); return; }
+  const ratio = parseFloat(v('pc2Ratio'));
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const ta = ratio;
+    const ia = img.width/img.height;
+    let sw = img.width, sh = img.height, sx = 0, sy = 0;
+    if(ia > ta){ sw = img.height*ta; sx = (img.width-sw)/2; }
+    else { sh = img.width/ta; sy = (img.height-sh)/2; }
+    const c = document.createElement('canvas');
+    c.width = sw; c.height = sh;
+    c.getContext('2d').drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'cropped.jpg';
+      res(`<div class="result-box"><h4>✂️ Cropped</h4><img src="${URL.createObjectURL(b)}" style="max-width:100%;border-radius:10px"></div>`, 'Cropped');
+    }, 'image/jpeg', 0.95);
+  };
+};
+
+window.pc3Add = function(){
+  const f = document.getElementById('pc3File').files[0];
+  if(!f){ toast('Photo select karo',1); return; }
+  const bw = parseInt(v('pc3W')) || 10;
+  const bc = v('pc3C') || '#000';
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width + bw*2;
+    c.height = img.height + bw*2;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = bc;
+    ctx.fillRect(0, 0, c.width, c.height);
+    ctx.drawImage(img, bw, bw);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'bordered.jpg';
+      res(`<div class="result-box"><h4>🖼️ Border Added</h4><img src="${URL.createObjectURL(b)}" style="max-width:100%;border-radius:10px"></div>`, 'Border added');
+    }, 'image/jpeg', 0.95);
+  };
+};
+
+window.pc4Rot = function(){
+  const f = document.getElementById('pc4File').files[0];
+  if(!f){ toast('Photo select karo',1); return; }
+  const deg = parseInt(v('pc4Deg'));
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const rad = deg * Math.PI / 180;
+    const swap = deg === 90 || deg === 270;
+    const c = document.createElement('canvas');
+    c.width = swap ? img.height : img.width;
+    c.height = swap ? img.width : img.height;
+    const ctx = c.getContext('2d');
+    ctx.translate(c.width/2, c.height/2);
+    ctx.rotate(rad);
+    ctx.drawImage(img, -img.width/2, -img.height/2);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'rotated.jpg';
+      res(`<div class="result-box"><h4>🔄 Rotated ${deg}°</h4><img src="${URL.createObjectURL(b)}" style="max-width:100%;border-radius:10px"></div>`, `Rotated ${deg}°`);
+    }, 'image/jpeg', 0.95);
+  };
+};
+
+window.pc5Resize = function(){
+  const f = document.getElementById('pc5File').files[0];
+  if(!f){ toast('Photo select karo',1); return; }
+  const w = parseInt(v('pc5W')) || 800;
+  const h = parseInt(v('pc5H')) || 600;
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    c.getContext('2d').drawImage(img, 0, 0, w, h);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'resized.jpg';
+      res(`<div class="result-box"><h4>📐 Resized ${w}×${h}</h4><img src="${URL.createObjectURL(b)}" style="max-width:100%;border-radius:10px"></div>`, `Resized ${w}×${h}`);
+    }, 'image/jpeg', 0.95);
+  };
+};
+
+window.pc6BW = function(){
+  const f = document.getElementById('pc6File').files[0];
+  if(!f){ toast('Photo select karo',1); return; }
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    const ctx = c.getContext('2d');
+    ctx.filter = 'grayscale(1)';
+    ctx.drawImage(img, 0, 0);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'bw.jpg';
+      res(`<div class="result-box"><h4>⚫ Black & White</h4><img src="${URL.createObjectURL(b)}" style="max-width:100%;border-radius:10px"></div>`, 'B&W done');
+    }, 'image/jpeg', 0.95);
+  };
+};
+
+window.pc7Blur = function(){
+  const f = document.getElementById('pc7File').files[0];
+  if(!f){ toast('Photo select karo',1); return; }
+  const a = parseInt(v('pc7A')) || 5;
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    const ctx = c.getContext('2d');
+    ctx.filter = `blur(${a}px)`;
+    ctx.drawImage(img, 0, 0);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'blurred.jpg';
+      res(`<div class="result-box"><h4>🌫️ Blur ${a}px</h4><img src="${URL.createObjectURL(b)}" style="max-width:100%;border-radius:10px"></div>`, 'Blur done');
+    }, 'image/jpeg', 0.95);
+  };
+};
+
+window.pc8Bright = function(){
+  const f = document.getElementById('pc8File').files[0];
+  if(!f){ toast('Photo select karo',1); return; }
+  const b = parseInt(v('pc8B')) || 120;
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    const ctx = c.getContext('2d');
+    ctx.filter = `brightness(${b}%)`;
+    ctx.drawImage(img, 0, 0);
+    c.toBlob(bl => {
+      window._lastBlob = bl; window._lastName = 'bright.jpg';
+      res(`<div class="result-box"><h4>☀️ Brightness ${b}%</h4><img src="${URL.createObjectURL(bl)}" style="max-width:100%;border-radius:10px"></div>`, `Brightness ${b}%`);
+    }, 'image/jpeg', 0.95);
+  };
+};
+
+window.pc9Mirror = function(){
+  const f = document.getElementById('pc9File').files[0];
+  if(!f){ toast('Photo select karo',1); return; }
+  const dir = v('pc9Dir');
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    const ctx = c.getContext('2d');
+    if(dir === 'h'){ ctx.translate(img.width, 0); ctx.scale(-1, 1); }
+    else { ctx.translate(0, img.height); ctx.scale(1, -1); }
+    ctx.drawImage(img, 0, 0);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'mirror.jpg';
+      res(`<div class="result-box"><h4>🔄 Mirror</h4><img src="${URL.createObjectURL(b)}" style="max-width:100%;border-radius:10px"></div>`, 'Mirror done');
+    }, 'image/jpeg', 0.95);
+  };
+};
+
+window.pc10Gen = function(){ toast('Multiple photos — basic version. Photo Copy A4 use karo.'); };
+window.pc11Reduce = function(){
+  const f = document.getElementById('pc11File').files[0];
+  if(!f){ toast('Photo select karo',1); return; }
+  const maxKB = parseInt(v('pc11KB')) || 200;
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    let q = 0.9;
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    c.getContext('2d').drawImage(img, 0, 0);
+    const tryNext = () => {
+      c.toBlob(b => {
+        if(b.size/1024 > maxKB && q > 0.1){ q -= 0.1; tryNext(); }
+        else {
+          window._lastBlob = b; window._lastName = 'reduced.jpg';
+          res(`<div class="result-box"><h4>📏 Size Reduced</h4>
+            <div class="result-row"><span class="lb">Original</span><span class="vl">${(f.size/1024).toFixed(1)} KB</span></div>
+            <div class="result-row total"><span class="lb">New</span><span class="vl">${(b.size/1024).toFixed(1)} KB</span></div>
+            <img src="${URL.createObjectURL(b)}" style="max-width:100%;border-radius:10px;margin-top:10px"></div>`, `Reduced to ${(b.size/1024).toFixed(1)} KB`);
+        }
+      }, 'image/jpeg', q);
+    };
+    tryNext();
+  };
+};
+window.pc12Water = function(){
+  const f = document.getElementById('pc12File').files[0];
+  if(!f){ toast('Photo select karo',1); return; }
+  const text = v('pc12Text') || 'Qunvero';
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    const ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    ctx.font = `bold ${Math.max(20, c.width/20)}px Arial`;
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.textAlign = 'center';
+    ctx.fillText(text, c.width/2, c.height - 30);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'watermarked.jpg';
+      res(`<div class="result-box"><h4>🏷️ Watermarked</h4><img src="${URL.createObjectURL(b)}" style="max-width:100%;border-radius:10px"></div>`, `Watermark: ${text}`);
+    }, 'image/jpeg', 0.95);
+  };
+};
+window.pc13Gen = function(){ toast('ID Card Photo — use Photo Copy A4 with passport size.'); };
+window.pc14Gen = function(){ toast('Wedding Card Photo — use Photo Copy A4.'); };
+window.pc15Gen = function(){ toast('Use Photo Copy A4 Print tool.'); };
+window.pc16Zoom = function(){
+  const f = document.getElementById('pc16File').files[0];
+  if(!f){ toast('Photo select karo',1); return; }
+  const z = parseInt(v('pc16Z')) || 150;
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width * z / 100;
+    c.height = img.height * z / 100;
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'zoomed.jpg';
+      res(`<div class="result-box"><h4>🔍 Zoom ${z}%</h4><img src="${URL.createObjectURL(b)}" style="max-width:100%;border-radius:10px"></div>`, `Zoom ${z}%`);
+    }, 'image/jpeg', 0.95);
+  };
+};
+window.pc17Apply = function(){
+  const f = document.getElementById('pc17File').files[0];
+  if(!f){ toast('Photo select karo',1); return; }
+  const fl = v('pc17F');
+  const filters = { sepia:'sepia(1)', grayscale:'grayscale(1)', invert:'invert(1)' };
+  const img = new Image();
+  img.src = URL.createObjectURL(f);
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = img.width; c.height = img.height;
+    const ctx = c.getContext('2d');
+    ctx.filter = filters[fl];
+    ctx.drawImage(img, 0, 0);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'filtered.jpg';
+      res(`<div class="result-box"><h4>🎨 Filter: ${fl}</h4><img src="${URL.createObjectURL(b)}" style="max-width:100%;border-radius:10px"></div>`, `Filter ${fl}`);
+    }, 'image/jpeg', 0.95);
+  };
+};
+window.pc18Frame = function(){ toast('Selfie Frame — Coming soon.'); };
+window.pc19Collage = function(){ toast('Collage — use Photo Copy A4.'); };
+window.pc20PDF = async function(){
+  const files = document.getElementById('pc20Files').files;
+  if(!files.length){ toast('Photos select karo',1); return; }
+  toast('⏳ Converting...');
+  try {
+    const { PDFDocument } = await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');
+    const doc = await PDFDocument.create();
+    for(const f of files){
+      const buf = await f.arrayBuffer();
+      const img = f.type.includes('png') ? await doc.embedPng(buf) : await doc.embedJpg(buf);
+      const p = doc.addPage([img.width, img.height]);
+      p.drawImage(img, { x:0, y:0, width:img.width, height:img.height });
+    }
+    const bytes = await doc.save();
+    window._lastBlob = new Blob([bytes], { type:'application/pdf' });
+    window._lastName = 'photos.pdf';
+    res(`<div class="result-box"><h4>✅ PDF Ready</h4>
+      <div class="result-row total"><span class="lb">Images</span><span class="vl">${files.length}</span></div>
+    </div>`, `${files.length} photos → PDF`);
+  } catch(e){ toast('Failed: ' + e.message, 1); }
+};
+
+/* ============================================================
+   👁️ PREVIEW / DOWNLOAD / PDF / COPY / SHARE
+   — Sirf tumhara content, koi branding nahi, koi extra space nahi
+   ============================================================ */
+
+/* Preview: sirf content, clean white */
+window.openPreview = function(){
+  const rb = document.getElementById('resultBox');
+  if(!rb || !rb.innerHTML.trim()){ toast('Pehle Calculate dabao',1); return; }
+  
+  // Clean content nikaalo — sirf rows/images/celebration
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = rb.innerHTML;
+  
+  let cleanHTML = '';
+  
+  // Age celebration type
+  const cel = tempDiv.querySelector('.age-celebration');
+  if(cel){
+    cleanHTML = cel.outerHTML;
+  } else {
+    // Images
+    const imgs = tempDiv.querySelectorAll('img');
+    if(imgs.length){
+      imgs.forEach(img => {
+        cleanHTML += `<img src="${img.src}" style="max-width:100%;display:block;margin:0 auto">`;
+      });
+    } else {
+      // Result rows
+      const rows = tempDiv.querySelectorAll('.result-row');
+      if(rows.length){
+        rows.forEach(row => {
+          const lb = row.querySelector('.lb');
+          const vl = row.querySelector('.vl');
+          const isTotal = row.classList.contains('total');
+          cleanHTML += `<div class="result-row${isTotal ? ' total' : ''}"><span class="lb">${lb ? lb.textContent : ''}</span><span class="vl">${vl ? vl.textContent : ''}</span></div>`;
+        });
+      } else {
+        // Fallback: raw text
+        cleanHTML = `<div style="padding:8px 0;font-size:14px;white-space:pre-wrap;color:#0f172a;line-height:1.6">${window._lastText || rb.innerText}</div>`;
+      }
+    }
+  }
+  
+  const modal = document.createElement('div');
+  modal.id = 'previewModal';
+  modal.style.cssText = 'position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto';
+  modal.onclick = (e) => { if(e.target === modal) closePreview(); };
+  modal.innerHTML = `
+    <div style="background:#fff;border-radius:16px;max-width:600px;width:100%;max-height:92vh;overflow-y:auto;margin:auto;position:relative">
+      <button onclick="closePreview()" style="position:absolute;top:10px;right:10px;z-index:10;background:#ef4444;color:#fff;border:none;width:32px;height:32px;border-radius:50%;font-size:15px;cursor:pointer;font-weight:700">✕</button>
+      <div id="previewContent" style="padding:24px 20px;background:#fff;color:#0f172a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif">
+        ${cleanHTML}
+      </div>
+      <button onclick="downloadPreviewImage()" style="position:absolute;bottom:14px;right:14px;background:linear-gradient(135deg,#0070f3,#7928ca);color:#fff;border:none;width:48px;height:48px;border-radius:50%;font-size:20px;cursor:pointer;box-shadow:0 6px 20px rgba(0,112,243,.5);display:grid;place-items:center" title="Download Image">⬇️</button>
+    </div>`;
+  document.body.appendChild(modal);
+  
+  // Result row styles apply
+  setTimeout(() => {
+    modal.querySelectorAll('.result-row').forEach(row => {
+      row.style.cssText = 'display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #e2e8f0;font-size:14px;gap:12px;color:#0f172a';
+      const lb = row.querySelector('.lb'); const vl = row.querySelector('.vl');
+      if(lb) lb.style.cssText = 'color:#64748b';
+      if(vl) vl.style.cssText = 'font-weight:700;text-align:right;word-break:break-word';
+      if(row.classList.contains('total')){
+        row.style.cssText = 'display:flex;justify-content:space-between;padding:14px 0 0 0;border-top:2px solid #10b981;border-bottom:none;font-size:17px;margin-top:6px';
+        if(lb) lb.style.cssText = 'color:#10b981;font-weight:800';
+        if(vl) vl.style.cssText = 'color:#10b981;font-weight:800;text-align:right';
+      }
+    });
+  }, 50);
+};
+
+window.closePreview = function(){
+  const p = document.getElementById('previewModal');
+  if(p) p.remove();
+};
+
+/* Download preview image — EXACT content size, no branding, no extra space */
+window.downloadPreviewImage = async function(){
+  const content = document.getElementById('previewContent');
+  if(!content){ toast('Preview kholo',1); return; }
+  toast('📷 Image ban raha hai...');
+  
+  // Clone karo content ko
+  const clone = content.cloneNode(true);
+  clone.style.cssText = 'position:fixed;left:-99999px;top:0;width:fit-content;max-width:700px;padding:40px 36px;background:#fff;color:#0f172a;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;box-sizing:border-box;display:inline-block;height:auto';
+  
+  // Result rows ka styling copy karo
+  clone.querySelectorAll('.result-row').forEach(row => {
+    row.style.cssText = 'display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #e2e8f0;font-size:14px;gap:12px;color:#0f172a';
+    const lb = row.querySelector('.lb'); const vl = row.querySelector('.vl');
+    if(lb) lb.style.cssText = 'color:#64748b';
+    if(vl) vl.style.cssText = 'font-weight:700;text-align:right;word-break:break-word';
+    if(row.classList.contains('total')){
+      row.style.cssText = 'display:flex;justify-content:space-between;padding:14px 0 0 0;border-top:2px solid #10b981;border-bottom:none;font-size:17px;margin-top:6px';
+      if(lb) lb.style.cssText = 'color:#10b981;font-weight:800';
+      if(vl) vl.style.cssText = 'color:#10b981;font-weight:800;text-align:right';
+    }
+  });
+  
+  clone.querySelectorAll('img').forEach(img => {
+    img.style.cssText = 'max-width:100%;height:auto;display:block;margin:0 auto';
+  });
+  
+  document.body.appendChild(clone);
+  
+  try {
+    await new Promise(r => setTimeout(r, 400));
+    const w = clone.offsetWidth;
+    const h = clone.offsetHeight;
+    const canvas = await html2canvas(clone, {
+      scale: 3,
+      backgroundColor: '#ffffff',
+      logging: false,
+      useCORS: true,
+      width: w,
+      height: h,
+      windowWidth: w,
+      windowHeight: h
+    });
+    canvas.toBlob(b => {
+      if(b){
+        const t = window._currentTool && window._currentTool.tool ? window._currentTool.tool.n : 'result';
+        const name = t.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+        const url = URL.createObjectURL(b);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = name + '.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        toast('✅ Downloaded!');
+      } else toast('❌ Failed', 1);
+      if(clone.parentElement) document.body.removeChild(clone);
+    }, 'image/png');
+  } catch(e){
+    if(clone.parentElement) document.body.removeChild(clone);
+    toast('❌ ' + e.message, 1);
+  }
+};
+
+/* Download button (main) — Blob ho to blob, warna image */
+window.downloadResult = async function(){
+  if(window._lastBlob){
+    const url = URL.createObjectURL(window._lastBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = window._lastName || 'result.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    toast('⬇️ Downloaded!');
+    return;
+  }
+  // Image nahi hai to preview-style image download karo
+  const rb = document.getElementById('resultBox');
+  if(!rb || !rb.innerHTML.trim()){ toast('Pehle Calculate dabao',1); return; }
+  // Same as preview download but directly
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = rb.innerHTML;
+  const clean = tempDiv.querySelectorAll('.result-row');
+  if(!clean.length && !tempDiv.querySelector('img') && !tempDiv.querySelector('.age-celebration')){
+    // Text fallback
+    const text = window._lastText || rb.innerText;
+    if(!text.trim()){ toast('Kuch nahi',1); return; }
+    const t = window._currentTool && window._currentTool.tool ? window._currentTool.tool.n : 'result';
+    const blob = new Blob([text], {type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = t.toLowerCase().replace(/\s+/g,'-') + '.txt';
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    toast('⬇️ Downloaded!');
+    return;
+  }
+  // Rows hain — image banao
+  const clone = document.createElement('div');
+  clone.style.cssText = 'position:fixed;left:-99999px;top:0;width:fit-content;max-width:700px;padding:40px 36px;background:#fff;color:#0f172a;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif;box-sizing:border-box;display:inline-block;height:auto';
+  let innerHTML = '';
+  tempDiv.querySelectorAll('.result-row').forEach(row => {
+    const lb = row.querySelector('.lb'); const vl = row.querySelector('.vl');
+    const isTotal = row.classList.contains('total');
+    innerHTML += `<div class="result-row${isTotal ? ' total' : ''}"><span class="lb">${lb ? lb.textContent : ''}</span><span class="vl">${vl ? vl.textContent : ''}</span></div>`;
+  });
+  if(!innerHTML) innerHTML = tempDiv.innerHTML;
+  clone.innerHTML = innerHTML;
+  clone.querySelectorAll('.result-row').forEach(row => {
+    row.style.cssText = 'display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #e2e8f0;font-size:14px;gap:12px;color:#0f172a';
+    const lb = row.querySelector('.lb'); const vl = row.querySelector('.vl');
+    if(lb) lb.style.cssText = 'color:#64748b';
+    if(vl) vl.style.cssText = 'font-weight:700;text-align:right;word-break:break-word';
+    if(row.classList.contains('total')){
+      row.style.cssText = 'display:flex;justify-content:space-between;padding:14px 0 0 0;border-top:2px solid #10b981;border-bottom:none;font-size:17px;margin-top:6px';
+      if(lb) lb.style.cssText = 'color:#10b981;font-weight:800';
+      if(vl) vl.style.cssText = 'color:#10b981;font-weight:800;text-align:right';
+    }
+  });
+  document.body.appendChild(clone);
+  toast('📷 Image ban raha hai...');
+  try {
+    await new Promise(r => setTimeout(r, 400));
+    const canvas = await html2canvas(clone, { scale:3, backgroundColor:'#fff', logging:false, useCORS:true });
+    canvas.toBlob(b => {
+      if(b){
+        const t = window._currentTool && window._currentTool.tool ? window._currentTool.tool.n : 'result';
+        const name = t.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+        const url = URL.createObjectURL(b);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = name + '.png';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+        toast('✅ Downloaded!');
+      }
+      if(clone.parentElement) document.body.removeChild(clone);
+    }, 'image/png');
+  } catch(e){
+    if(clone.parentElement) document.body.removeChild(clone);
+    toast('❌ ' + e.message, 1);
+  }
+};
+
+/* Copy result */
+window.copyResult = async function(){
+  const rb = document.getElementById('resultBox');
+  if(!rb || !rb.innerHTML.trim()){ toast('Pehle Calculate dabao',1); return; }
+  const text = window._lastText || rb.innerText;
+  if(!text.trim()){ toast('Kuch nahi',1); return; }
+  try {
+    await navigator.clipboard.writeText(text);
+    toast('📋 Copied!');
+  } catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    toast('📋 Copied!');
+  }
+};
+
+/* Share result */
+window.shareResult = async function(){
+  const t = window._currentTool && window._currentTool.tool ? window._currentTool.tool.n : 'Qunvero';
+  const text = window._lastText || '';
+  const shareText = text ? `${t}\n\n${text}` : `Check out ${t} on Qunvero`;
+  try {
+    if(navigator.share){
+      await navigator.share({ title: t, text: shareText, url: 'https://qunvero.vercel.app' });
+    } else {
+      await navigator.clipboard.writeText(shareText);
+      toast('📋 Copied!');
+    }
+  } catch(e){
+    if(e.name !== 'AbortError'){
+      try { await navigator.clipboard.writeText(shareText); toast('📋 Copied!'); } catch(err){}
+    }
+  }
+};
+
+/* Download as PDF */
+window.downloadAsPDF = function(){
+  const rb = document.getElementById('resultBox');
+  if(!rb || !rb.innerHTML.trim()){ toast('Pehle Calculate dabao',1); return; }
+  const text = window._lastText || rb.innerText;
+  const t = window._currentTool && window._currentTool.tool ? window._currentTool.tool.n : 'Result';
+  const w = window.open('', '_blank');
+  if(!w){ toast('Popup blocked',1); return; }
+  const clean = rb.innerHTML.replace(/<h4[^>]*>.*?<\/h4>/g, '');
+  w.document.write(`<!DOCTYPE html><html><head><title>${t}</title><style>body{font-family:Arial;padding:30px;color:#0f172a}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:12px}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none}.result-row.total .lb,.result-row.total .vl{color:#10b981;font-weight:800}img{max-width:100%}</style></head><body>${clean}<script>setTimeout(()=>window.print(),500);<\/script></body></html>`);
+  w.document.close();
+  toast('📄 PDF dialog khula');
+};
 /* @FUNCTIONS_END@ */
 
 /* ============================================================
