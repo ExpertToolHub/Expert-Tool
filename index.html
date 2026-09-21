@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>Qunvero — India's Free Tools Website</title>
-<meta name="description" content="Qunvero — 30 free online tools for India. Bijli bill, invoice, GST, EMI, PDF, image, QR, barcode, photo copy. 100% free.">
+<title>Qunvero — 100+ Free Tools India | Shop, Photocopy, Business</title>
+<meta name="description" content="Qunvero — 100+ free online tools for India. Shopkeeper, photocopy, business, image, PDF, QR, barcode. 100% free.">
 <meta name="theme-color" content="#0070f3">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
@@ -141,10 +141,9 @@ body.dark header{background:rgba(10,10,15,.85)}
 .result-row.total .vl{color:var(--success)}
 
 .age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px 20px;text-align:center;margin-top:8px;position:relative;overflow:hidden}
-.age-celebration::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.4),transparent 50%);pointer-events:none}
-.age-celebration .age-big{font-size:52px;font-weight:900;background:linear-gradient(135deg,#7c3aed,#0070f3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin:8px 0;position:relative;z-index:1}
-.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase;letter-spacing:1px;position:relative;z-index:1}
-.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:16px;flex-wrap:wrap;position:relative;z-index:1}
+.age-celebration .age-big{font-size:52px;font-weight:900;background:linear-gradient(135deg,#7c3aed,#0070f3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin:8px 0}
+.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:16px;flex-wrap:wrap}
 .age-celebration .age-chip{background:rgba(255,255,255,.8);padding:10px 18px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}
 .age-celebration .age-chip b{display:block;font-size:22px;color:#7c3aed;margin-bottom:2px}
 .age-celebration .confetti{position:absolute;font-size:24px;animation:float 3s ease-in-out infinite}
@@ -177,12 +176,8 @@ body.dark header{background:rgba(10,10,15,.85)}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 .welcome-box h2{font-size:22px;font-weight:800;margin-bottom:8px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .welcome-box p{color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:16px}
-.welcome-rating{display:flex;justify-content:center;gap:8px;font-size:34px;margin:14px 0;cursor:pointer}
-.welcome-rating span{filter:grayscale(1) brightness(.7);transition:.2s;cursor:pointer}
-.welcome-rating span:hover,.welcome-rating span.on{filter:none;transform:scale(1.15)}
 .welcome-actions{display:flex;gap:10px;margin-top:16px}
 .welcome-actions .btn{flex:1}
-.welcome-skip{background:transparent;border:none;color:var(--muted);font-size:12px;cursor:pointer;padding:8px;text-decoration:underline;margin-top:4px}
 
 .bnav{position:fixed;bottom:0;left:0;right:0;z-index:99;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 calc(8px + env(safe-area-inset-bottom))}
 body.dark .bnav{background:rgba(10,10,15,.95)}
@@ -211,7 +206,7 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .preview-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;max-width:600px;width:100%;max-height:92vh;overflow-y:auto;animation:slideUp .3s;margin:auto}
 .preview-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg2);z-index:2;border-radius:20px 20px 0 0}
 .preview-head h3{font-size:16px;color:var(--text);display:flex;align-items:center;gap:8px}
-.preview-close-btn{background:var(--danger);border:none;padding:8px 14px;border-radius:10px;color:#fff;font-weight:600;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:4px}
+.preview-close-btn{background:var(--danger);border:none;padding:8px 14px;border-radius:10px;color:#fff;font-weight:600;font-size:13px;cursor:pointer}
 .preview-content{padding:20px}
 .preview-capture{background:#ffffff;color:#0f172a;padding:30px 26px;border-radius:12px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;display:inline-block;width:100%}
 .preview-data{width:100%}
@@ -230,7 +225,6 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .preview-actions .btn-img{background:linear-gradient(135deg,#7c3aed,#0070f3);color:#fff}
 .preview-actions button:hover{transform:translateY(-2px)}
 
-/* PHOTO COPY — PROFESSIONAL */
 .photo-upload-box{border:2px dashed var(--border);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:.2s;background:var(--bg2)}
 .photo-upload-box:hover{border-color:var(--primary);background:rgba(0,112,243,.04)}
 .photo-upload-box .up-icon{font-size:40px;margin-bottom:8px}
@@ -247,6 +241,28 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .photo-a4-page .a4-photo img{width:100%;height:100%;object-fit:cover;display:block}
 .photo-info-box{background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-top:12px;font-size:13px;text-align:center}
 .photo-info-box b{color:var(--primary)}
+
+/* ADMIN PANEL */
+.admin-panel{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);overflow-y:auto;padding:20px;animation:fadeIn .2s}
+.admin-inner{max-width:900px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.admin-head{padding:20px 24px;background:var(--grad);color:#fff;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.admin-head h2{font-size:20px}
+.admin-head .admin-close{background:rgba(255,255,255,.2);border:none;padding:8px 16px;border-radius:10px;color:#fff;font-weight:600;cursor:pointer;font-size:13px}
+.admin-body{padding:24px}
+.admin-section{background:var(--card);border:1px solid var(--border);padding:20px;border-radius:14px;margin-bottom:16px}
+.admin-section h3{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px}
+.admin-stat{background:var(--card);border:1px solid var(--border);padding:14px;border-radius:12px;text-align:center}
+.admin-stat-val{font-size:22px;font-weight:800;color:var(--primary)}
+.admin-stat-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;margin-top:4px;font-weight:600}
+.admin-fb{background:var(--card);border:1px solid var(--border);padding:14px;border-radius:12px;margin-bottom:10px}
+.admin-fb-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:8px}
+.admin-fb-name{font-size:13px;font-weight:700}
+.admin-fb-time{font-size:11px;color:var(--muted)}
+.admin-fb-msg{font-size:13px;line-height:1.6;padding:8px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:8px 0;word-break:break-word}
+.admin-fb-actions{display:flex;gap:6px;flex-wrap:wrap}
+.admin-fb-actions button{padding:6px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;cursor:pointer;font-size:11px;font-weight:600}
+.admin-fb-actions button.danger{background:rgba(239,68,68,.1);border-color:var(--danger);color:var(--danger)}
 
 @media(max-width:768px){
   body{padding-bottom:70px}
@@ -323,18 +339,19 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
     <div class="menu-item" onclick="scrollToTools();closeMenu()"><span class="mi-icon">📚</span>All Tools</div>
     <div class="menu-item" onclick="showFavorites();closeMenu()"><span class="mi-icon">⭐</span>Favorites</div>
     <div class="menu-item" onclick="openStatic('about');closeMenu()"><span class="mi-icon">ℹ️</span>About</div>
-    <div class="menu-item" onclick="openStatic('privacy');closeMenu()"><span class="mi-icon">🔒</span>Privacy Policy</div>
-    <div class="menu-item" onclick="openStatic('terms');closeMenu()"><span class="mi-icon">📜</span>Terms of Use</div>
+    <div class="menu-item" onclick="openStatic('privacy');closeMenu()"><span class="mi-icon">🔒</span>Privacy</div>
+    <div class="menu-item" onclick="openStatic('terms');closeMenu()"><span class="mi-icon">📜</span>Terms</div>
     <div class="menu-item" onclick="openStatic('contact');closeMenu()"><span class="mi-icon">📞</span>Contact</div>
-    <div class="menu-item" onclick="toggleTheme();closeMenu()"><span class="mi-icon">🎨</span>Toggle Theme</div>
+    <div class="menu-item" onclick="toggleTheme();closeMenu()"><span class="mi-icon">🎨</span>Theme</div>
+    <div class="menu-item" onclick="openAdminPanel();closeMenu()" style="border-top:1px solid var(--border);margin-top:8px;padding-top:16px"><span class="mi-icon">🔐</span>System</div>
   </div>
   <div class="menu-foot">Made with ❤️ in India<br>© 2025 Qunvero</div>
 </div>
 
 <section class="hero">
-  <div class="hero-badge"><span class="dot"></span>Live • <span id="heroToolCount">30+</span> Tools Working</div>
+  <div class="hero-badge"><span class="dot"></span>Live • <span id="heroToolCount">100+</span> Tools Working</div>
   <h1>Har Kaam Ka <span>Free Tool</span> — Ek Hi Jagah 🚀</h1>
-  <p>Bijli bill se lekar invoice, PDF, photo copy, gym — sab kuch free me. No signup, no ads, 100% private.</p>
+  <p>Shop, photocopy, business, image, PDF — sab kuch free me. No signup, no ads, 100% private.</p>
   <div class="hero-cta">
     <button class="btn btn-p" onclick="focusSearch()">🔍 Tool Dhundho</button>
     <button class="btn btn-g" onclick="openRandomTool()">🎲 Random Tool</button>
@@ -343,7 +360,7 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 
 <div class="stats">
   <div class="stat"><div class="stat-n" id="liveUsersStat">0</div><div class="stat-l">🟢 Live Users</div></div>
-  <div class="stat"><div class="stat-n" id="toolCount">30+</div><div class="stat-l">🛠️ Free Tools</div></div>
+  <div class="stat"><div class="stat-n" id="toolCount">100+</div><div class="stat-l">🛠️ Free Tools</div></div>
   <div class="stat"><div class="stat-n">0₹</div><div class="stat-l">💰 Forever</div></div>
   <div class="stat"><div class="stat-n">100%</div><div class="stat-l">🔒 Private</div></div>
 </div>
@@ -414,20 +431,25 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
   <div class="welcome-box">
     <span class="welcome-emoji">👋</span>
     <h2>Qunvero Me Aapka Swagat!</h2>
-    <p>30+ free tools — bijli bill se lekar PDF, photo copy, gym tak. Sab kuch 100% free aur private.</p>
-    <div style="font-size:13px;color:var(--muted);margin-bottom:4px">Website kaisi lagi? Rating do:</div>
-    <div class="welcome-rating" id="welcomeRating">
-      <span data-v="1">⭐</span><span data-v="2">⭐</span><span data-v="3">⭐</span><span data-v="4">⭐</span><span data-v="5">⭐</span>
-    </div>
+    <p>100+ free tools — shop, photocopy, business, image, PDF tak. Sab kuch 100% free aur private.</p>
     <div class="welcome-actions">
-      <button class="btn btn-g" onclick="closeWelcome()">Baad Me</button>
-      <button class="btn btn-p" onclick="submitWelcomeRating()">⭐ Rate & Explore</button>
+      <button class="btn btn-p" onclick="closeWelcome()" style="width:100%">🚀 Explore Tools</button>
     </div>
-    <button class="welcome-skip" onclick="closeWelcome()">Skip karo</button>
   </div>
 </div>
 
 <div class="toast" id="toast">Done!</div>
+
+<!-- ========== ADMIN PANEL MODAL ========== -->
+<div class="admin-panel" id="adminPanelModal" style="display:none">
+  <div class="admin-inner">
+    <div class="admin-head">
+      <h2>🔐 System Panel</h2>
+      <button class="admin-close" onclick="closeAdminPanel()">✕ Close</button>
+    </div>
+    <div class="admin-body" id="adminBody"></div>
+  </div>
+</div>
 
 <script>
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xyezkwww";
@@ -473,57 +495,124 @@ function onLogoClick(){const now=Date.now();if(now-logoLastTap>1500){logoTapCoun
 function openAIAccess(){const existing=document.getElementById('aiPopup');if(existing)existing.remove();const popup=document.createElement('div');popup.id='aiPopup';popup.className='popup';popup.onclick=(e)=>{if(e.target===popup)popup.remove();};popup.innerHTML=`<div class="popup-box" style="max-width:380px"><div class="popup-head"><h3>🔐 Private Access</h3><button class="popup-close" onclick="document.getElementById('aiPopup').remove()">✕</button></div><div class="popup-body"><p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Enter your access key to unlock the private AI tool.</p><label>Access Key</label><input type="password" id="aiPassInput" placeholder="Enter key..." onkeypress="if(event.key==='Enter')verifyAIPass()" autocomplete="off"></div><div class="popup-foot"><button class="btn btn-g" onclick="document.getElementById('aiPopup').remove()">Cancel</button><button class="btn btn-p" onclick="verifyAIPass()">🔓 Unlock</button></div></div>`;document.body.appendChild(popup);setTimeout(()=>{const inp=document.getElementById('aiPassInput');if(inp)inp.focus();},100);}
 function verifyAIPass(){const inp=document.getElementById('aiPassInput');if(!inp)return;const val=inp.value;if(val===AI_PASSWORD){document.getElementById('aiPopup').remove();toast('✅ Access granted!');setTimeout(()=>{window.open(AI_URL,'_blank','noopener,noreferrer');},400);}else{toast('❌ Access Denied',1);inp.value='';inp.focus();}}
 
-let welcomeRating=0;
-function showWelcome(){if(localStorage.getItem('qn_welcomed')==='yes')return;setTimeout(()=>{document.getElementById('welcomePopup').classList.add('on');},1200);const stars=document.querySelectorAll('#welcomeRating span');stars.forEach(s=>{s.onclick=()=>{welcomeRating=+s.dataset.v;stars.forEach(x=>{const on=+x.dataset.v<=welcomeRating;x.classList.toggle('on',on);});};});}
+function showWelcome(){if(localStorage.getItem('qn_welcomed')==='yes')return;setTimeout(()=>{document.getElementById('welcomePopup').classList.add('on');},1200);}
 function closeWelcome(){document.getElementById('welcomePopup').classList.remove('on');localStorage.setItem('qn_welcomed','yes');}
-function submitWelcomeRating(){if(!welcomeRating){toast('⭐ Rating do pehle',1);return;}const fb={id:'fb_welcome_'+Date.now(),name:'Anonymous Visitor',email:'no-email',message:`⭐ Welcome Rating: ${'⭐'.repeat(welcomeRating)} (${welcomeRating}/5)`,category:welcomeRating>=4?'praise':'general',rating:welcomeRating,time:Date.now(),page:window.location.href,screenSize:window.innerWidth+'x'+window.innerHeight,read:false};try{const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');all.unshift(fb);localStorage.setItem('qn_feedback',JSON.stringify(all.slice(0,500)));}catch(e){}try{fetch(FORMSPREE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:`⭐ Welcome Rating: ${welcomeRating}/5`,Rating:`${'⭐'.repeat(welcomeRating)} (${welcomeRating}/5)`,Name:'Welcome Visitor',Time:new Date().toLocaleString('en-IN')})}).catch(()=>{});}catch(e){}closeWelcome();toast(`🎉 Shukriya! ${welcomeRating}★`);}
 
 const feedbackSystem={
   currentRating:0,
-  openForm(){if(document.getElementById('feedbackModal'))return;this.currentRating=0;const m=document.createElement('div');m.id='feedbackModal';m.className='popup';m.onclick=(e)=>{if(e.target===m)this.closeForm();};m.innerHTML=`<div class="popup-box"><div class="popup-head"><h3>💬 Send Feedback</h3><button class="popup-close" onclick="feedbackSystem.closeForm()">✕</button></div><div class="popup-body"><p style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6">Aapki suggestion, problem, ya idea — sab welcome hai.</p><label>Name (optional)</label><input type="text" id="fbName" placeholder="Aapka naam"><label>Email (optional)</label><input type="email" id="fbEmail" placeholder="aap@example.com"><label>Rating</label><div id="fbStars" style="display:flex;gap:6px;font-size:26px;cursor:pointer;user-select:none">${[1,2,3,4,5].map(v=>`<span data-v="${v}" style="filter:grayscale(1) brightness(.7);transition:.2s">⭐</span>`).join('')}</div><label>Category</label><select id="fbCat"><option value="general">💬 General</option><option value="bug">🐛 Bug Report</option><option value="suggestion">💡 Suggestion</option><option value="problem">⚠️ Problem</option><option value="praise">🎉 Praise</option></select><label>Message *</label><textarea id="fbMsg" rows="4" placeholder="Aapka message..."></textarea></div><div class="popup-foot"><button class="btn btn-g" onclick="feedbackSystem.closeForm()">Cancel</button><button class="btn btn-p" onclick="feedbackSystem.submit()">📤 Submit</button></div></div>`;document.body.appendChild(m);const stars=m.querySelectorAll('#fbStars span');stars.forEach(s=>{s.onclick=()=>{this.currentRating=+s.dataset.v;stars.forEach(x=>{const on=+x.dataset.v<=this.currentRating;x.style.filter=on?'none':'grayscale(1) brightness(.7)';});};});},
+  openForm(){if(document.getElementById('feedbackModal'))return;this.currentRating=0;const m=document.createElement('div');m.id='feedbackModal';m.className='popup';m.onclick=(e)=>{if(e.target===m)this.closeForm();};m.innerHTML=`<div class="popup-box"><div class="popup-head"><h3>💬 Send Feedback</h3><button class="popup-close" onclick="feedbackSystem.closeForm()">✕</button></div><div class="popup-body"><p style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6">Aapki suggestion, problem, ya idea — sab welcome hai.</p><label>Name (optional)</label><input type="text" id="fbName" placeholder="Aapka naam"><label>Email (optional)</label><input type="email" id="fbEmail" placeholder="aap@example.com"><label>Rating</label><div id="fbStars" style="display:flex;gap:6px;font-size:26px;cursor:pointer;user-select:none">${[1,2,3,4,5].map(v=>`<span data-v="${v}" style="filter:grayscale(1) brightness(.7);transition:.2s">⭐</span>`).join('')}</div><label>Category</label><select id="fbCat"><option value="general">💬 General</option><option value="bug">🐛 Bug</option><option value="suggestion">💡 Suggestion</option><option value="problem">⚠️ Problem</option><option value="praise">🎉 Praise</option></select><label>Message *</label><textarea id="fbMsg" rows="4" placeholder="Aapka message..."></textarea></div><div class="popup-foot"><button class="btn btn-g" onclick="feedbackSystem.closeForm()">Cancel</button><button class="btn btn-p" onclick="feedbackSystem.submit()">📤 Submit</button></div></div>`;document.body.appendChild(m);const stars=m.querySelectorAll('#fbStars span');stars.forEach(s=>{s.onclick=()=>{this.currentRating=+s.dataset.v;stars.forEach(x=>{const on=+x.dataset.v<=this.currentRating;x.style.filter=on?'none':'grayscale(1) brightness(.7)';});};});},
   closeForm(){const m=document.getElementById('feedbackModal');if(m)m.remove();},
   async submit(){const name=document.getElementById('fbName').value.trim();const email=document.getElementById('fbEmail').value.trim();const msg=document.getElementById('fbMsg').value.trim();const cat=document.getElementById('fbCat').value;const rating=this.currentRating;if(!msg||msg.length<3){toast('❌ Message likho (min 3 chars)',1);return;}const btn=document.querySelector('#feedbackModal .btn-p');if(btn){btn.textContent='⏳ Sending...';btn.disabled=true;}const fb={id:'fb_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),name:name||'Anonymous',email:email||'no-email',message:msg,category:cat,rating:rating,time:Date.now(),page:window.location.href,screenSize:window.innerWidth+'x'+window.innerHeight,read:false};try{const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');all.unshift(fb);localStorage.setItem('qn_feedback',JSON.stringify(all.slice(0,500)));}catch(e){}try{await fetch(FORMSPREE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:`💬 Qunvero Feedback: ${cat.toUpperCase()}`,Name:fb.name,Email:fb.email,Rating:rating?'⭐'.repeat(rating):'No rating',Category:cat,Message:msg,Page:fb.page,Time:new Date().toLocaleString('en-IN'),Device:fb.screenSize,ID:fb.id})});}catch(e){}this.closeForm();this.showThanks();},
-  showThanks(){const t=document.createElement('div');t.className='popup';t.innerHTML=`<div class="popup-box" style="max-width:380px;text-align:center"><div class="popup-body"><div style="font-size:60px;margin-bottom:14px">✅</div><h3 style="color:var(--success);margin-bottom:10px;font-size:20px">Thank You!</h3><p style="color:var(--muted);font-size:14px;margin-bottom:20px">Aapka feedback mil gaya.</p><button class="btn btn-p" style="width:100%" onclick="this.closest('.popup').remove()">OK</button></div></div>`;document.body.appendChild(t);setTimeout(()=>{if(t.parentElement)t.remove();},6000);},
-  openAdmin(){if(document.getElementById('adminPanel'))return;const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');const unread=all.filter(f=>!f.read).length;const avg=all.filter(f=>f.rating).length?(all.reduce((s,f)=>s+(f.rating||0),0)/all.filter(f=>f.rating).length).toFixed(1):'0';const p=document.createElement('div');p.id='adminPanel';p.innerHTML=`<div class="admin-inner"><div class="admin-header"><div><h2>👑 Admin Panel — Qunvero</h2><p style="font-size:11px;opacity:.9;margin-top:4px">${new Date().toLocaleString('en-IN')}</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="admin-btn" onclick="feedbackSystem.exportCSV()">📥 Export</button><button class="admin-btn danger" onclick="feedbackSystem.closeAdmin()">✕ Close</button></div></div><div class="admin-stats"><div class="admin-stat"><div class="admin-stat-val" style="color:#10b981" id="adminLiveUsers">0</div><div class="admin-stat-lbl">🟢 Live Users</div></div><div class="admin-stat"><div class="admin-stat-val" style="color:#0070f3">${all.length}</div><div class="admin-stat-lbl">📬 Total</div></div><div class="admin-stat"><div class="admin-stat-val" style="color:#ef4444">${unread}</div><div class="admin-stat-lbl">🔴 Unread</div></div><div class="admin-stat"><div class="admin-stat-val" style="color:#f59e0b">${avg}★</div><div class="admin-stat-lbl">⭐ Avg</div></div></div><div class="admin-tabs"><button class="admin-tab on" onclick="feedbackSystem.switchTab(this,'all')">📋 All (${all.length})</button><button class="admin-tab" onclick="feedbackSystem.switchTab(this,'unread')">🔴 Unread (${unread})</button><button class="admin-tab" onclick="feedbackSystem.switchTab(this,'bug')">🐛 Bugs</button><button class="admin-tab" onclick="feedbackSystem.switchTab(this,'suggestion')">💡 Ideas</button><button class="admin-tab" onclick="feedbackSystem.switchTab(this,'praise')">🎉 Praise</button></div><div class="admin-list" id="adminList"></div><div class="admin-footer">💡 Admin URL: <code>?admin=${ADMIN_KEY}</code></div></div>`;document.body.appendChild(p);document.body.style.overflow='hidden';this.currentTab='all';this.renderList();const upd=setInterval(()=>{const el=document.getElementById('adminLiveUsers');if(el)el.textContent=liveUsers.getCount();else clearInterval(upd);},2000);},
-  switchTab(btn,tab){document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');this.currentTab=tab;this.renderList();},
-  renderList(){const list=document.getElementById('adminList');if(!list)return;const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');let filtered=all;if(this.currentTab==='unread')filtered=all.filter(f=>!f.read);else if(this.currentTab!=='all')filtered=all.filter(f=>f.category===this.currentTab);if(!filtered.length){list.innerHTML=`<div style="text-align:center;padding:60px 20px;color:#64748b"><div style="font-size:50px;margin-bottom:14px">📭</div><p>Koi feedback nahi hai</p></div>`;return;}const ce={general:'💬',bug:'🐛',suggestion:'💡',problem:'⚠️',praise:'🎉'};list.innerHTML=filtered.map(f=>`<div class="admin-fb ${f.read?'':'unread'}"><div class="admin-fb-head"><div><span class="admin-fb-cat">${ce[f.category]||'💬'} ${f.category}</span>${!f.read?'<span class="admin-fb-new">NEW</span>':''}${f.rating?'<span style="color:#f59e0b;margin-left:6px">'+'⭐'.repeat(f.rating)+'</span>':''}</div><div style="font-size:10px;color:#64748b">${new Date(f.time).toLocaleString('en-IN')}</div></div><div class="admin-fb-user"><b>👤 ${f.name}</b>${f.email!=='no-email'?` • 📧 ${f.email}`:''}</div><div class="admin-fb-msg">${this.esc(f.message).replace(/\n/g,'<br>')}</div><div class="admin-fb-meta"><span>🌐 ${f.screenSize}</span></div><div class="admin-fb-actions">${!f.read?`<button onclick="feedbackSystem.markRead('${f.id}')">✅ Mark Read</button>`:''}${f.email!=='no-email'?`<button onclick="feedbackSystem.reply('${f.id}')">📧 Reply</button>`:''}<button onclick="feedbackSystem.copyFb('${f.id}')">📋 Copy</button><button class="danger" onclick="feedbackSystem.del('${f.id}')">🗑️ Delete</button></div></div>`).join('');},
-  esc(t){const d=document.createElement('div');d.textContent=t;return d.innerHTML;},
-  markRead(id){const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');const f=all.find(x=>x.id===id);if(f){f.read=true;localStorage.setItem('qn_feedback',JSON.stringify(all));}this.refreshAdmin();},
-  reply(id){const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');const f=all.find(x=>x.id===id);if(!f)return;const s=encodeURIComponent('Re: Aapka feedback - Qunvero');const b=encodeURIComponent(`Namaste ${f.name},\n\nAapke feedback ke liye shukriya!\n\n"${f.message}"\n\nRegards,\nQunvero Team`);window.open(`mailto:${f.email}?subject=${s}&body=${b}`);},
-  copyFb(id){const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');const f=all.find(x=>x.id===id);if(!f)return;navigator.clipboard.writeText(`From: ${f.name} (${f.email})\nCategory: ${f.category}\n\n${f.message}`);toast('📋 Copied!');},
-  del(id){if(!confirm('Delete?'))return;const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');localStorage.setItem('qn_feedback',JSON.stringify(all.filter(x=>x.id!==id)));this.refreshAdmin();},
-  exportCSV(){const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');if(!all.length){toast('Koi feedback nahi',1);return;}let csv='ID,Name,Email,Category,Rating,Message,Time\n';all.forEach(f=>{const esc=s=>`"${String(s).replace(/"/g,'""')}"`;csv+=[esc(f.id),esc(f.name),esc(f.email),esc(f.category),f.rating,esc(f.message),esc(new Date(f.time).toLocaleString('en-IN'))].join(',')+'\n';});const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='qunvero-feedback-'+new Date().toISOString().slice(0,10)+'.csv';a.click();toast('📥 Downloaded!');},
-  refreshAdmin(){const p=document.getElementById('adminPanel');if(!p)return;p.remove();this.openAdmin();},
-  closeAdmin(){const p=document.getElementById('adminPanel');if(p)p.remove();document.body.style.overflow='';},
-  checkAccess(){const params=new URLSearchParams(window.location.search);if(params.get('admin')===ADMIN_KEY){setTimeout(()=>this.openAdmin(),500);}}
+  showThanks(){const t=document.createElement('div');t.className='popup';t.innerHTML=`<div class="popup-box" style="max-width:380px;text-align:center"><div class="popup-body"><div style="font-size:60px;margin-bottom:14px">✅</div><h3 style="color:var(--success);margin-bottom:10px;font-size:20px">Thank You!</h3><p style="color:var(--muted);font-size:14px;margin-bottom:20px">Aapka feedback mil gaya.</p><button class="btn btn-p" style="width:100%" onclick="this.closest('.popup').remove()">OK</button></div></div>`;document.body.appendChild(t);setTimeout(()=>{if(t.parentElement)t.remove();},6000);}
 };
 
+/* ========== ADMIN PANEL (Menu Se Khulega) ========== */
+function openAdminPanel(){
+  const pass=prompt('🔐 Admin Password daalo:');
+  if(pass===null)return;
+  if(pass!==ADMIN_KEY){toast('❌ Galat password',1);return;}
+  const panel=document.getElementById('adminPanelModal');
+  panel.style.display='block';
+  document.body.style.overflow='hidden';
+  renderAdminPanel();
+}
+function closeAdminPanel(){document.getElementById('adminPanelModal').style.display='none';document.body.style.overflow='';}
+
+function renderAdminPanel(){
+  const fb=JSON.parse(localStorage.getItem('qn_feedback')||'[]');
+  const unread=fb.filter(f=>!f.read).length;
+  const toolCount=TOOLS.length;
+  const users=liveUsers.getCount();
+  
+  document.getElementById('adminBody').innerHTML=`
+    <div class="admin-stats">
+      <div class="admin-stat"><div class="admin-stat-val">${users}</div><div class="admin-stat-lbl">🟢 Live Users</div></div>
+      <div class="admin-stat"><div class="admin-stat-val">${toolCount}</div><div class="admin-stat-lbl">🛠️ Tools</div></div>
+      <div class="admin-stat"><div class="admin-stat-val">${fb.length}</div><div class="admin-stat-lbl">📬 Feedback</div></div>
+      <div class="admin-stat"><div class="admin-stat-val" style="color:#ef4444">${unread}</div><div class="admin-stat-lbl">🔴 Unread</div></div>
+    </div>
+    
+    <div class="admin-section">
+      <h3>📸 Image Upload</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Banner ya tool image upload karo</p>
+      <input type="file" accept="image/*" onchange="handleAdminImage(event)">
+      <div id="adminImagePreview" style="margin-top:14px"></div>
+    </div>
+    
+    <div class="admin-section">
+      <h3>💬 Feedback List (${fb.length})</h3>
+      ${fb.length===0?'<p style="font-size:13px;color:var(--muted);text-align:center;padding:20px">Koi feedback nahi hai abhi</p>':''}
+      <div id="adminFbList">
+        ${fb.slice(0,20).map(f=>`
+          <div class="admin-fb">
+            <div class="admin-fb-head">
+              <div class="admin-fb-name">👤 ${f.name} ${f.rating?'• '+'⭐'.repeat(f.rating):''}</div>
+              <div class="admin-fb-time">${new Date(f.time).toLocaleString('en-IN')}</div>
+            </div>
+            <div style="font-size:12px;color:var(--primary)">📧 ${f.email} • ${f.category}</div>
+            <div class="admin-fb-msg">${f.message}</div>
+            <div class="admin-fb-actions">
+              ${!f.read?`<button onclick="markFbRead('${f.id}')">✅ Mark Read</button>`:''}
+              <button onclick="delFb('${f.id}')" class="danger">🗑️ Delete</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    
+    <div class="admin-section">
+      <h3>⚙️ Quick Actions</h3>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-g" onclick="exportFbCSV()">📥 Export CSV</button>
+        <button class="btn btn-g" onclick="clearAllData()">🗑️ Clear All Data</button>
+        <button class="btn btn-g" onclick="showStats()">📊 Show Stats</button>
+      </div>
+    </div>
+  `;
+}
+
+function handleAdminImage(e){
+  const file=e.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    document.getElementById('adminImagePreview').innerHTML=`
+      <img src="${ev.target.result}" style="max-width:100%;border-radius:12px;margin-top:10px">
+      <p style="font-size:12px;color:var(--muted);margin-top:8px">✅ Image loaded. Ye feature aap aur tools me use kar sakte ho.</p>
+    `;
+  };
+  reader.readAsDataURL(file);
+}
+function markFbRead(id){const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');const f=all.find(x=>x.id===id);if(f)f.read=true;localStorage.setItem('qn_feedback',JSON.stringify(all));renderAdminPanel();}
+function delFb(id){if(!confirm('Delete?'))return;const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');localStorage.setItem('qn_feedback',JSON.stringify(all.filter(x=>x.id!==id)));renderAdminPanel();toast('🗑️ Deleted');}
+function exportFbCSV(){const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');if(!all.length){toast('Koi feedback nahi',1);return;}let csv='ID,Name,Email,Category,Rating,Message,Time\n';all.forEach(f=>{const esc=s=>`"${String(s).replace(/"/g,'""')}"`;csv+=[esc(f.id),esc(f.name),esc(f.email),esc(f.category),f.rating,esc(f.message),esc(new Date(f.time).toLocaleString('en-IN'))].join(',')+'\n';});const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='qunvero-feedback.csv';a.click();toast('📥 Downloaded');}
+function clearAllData(){if(!confirm('Sab data delete? Ye undo nahi hoga!'))return;if(!confirm('Pakka?'))return;localStorage.clear();toast('🗑️ Sab clear');renderAdminPanel();}
+function showStats(){const tools=TOOLS.length;const cats=CATEGORIES.length;alert(`📊 Stats\n\nTools: ${tools}\nCategories: ${cats}\nLive Users: ${liveUsers.getCount()}\nFeedback: ${JSON.parse(localStorage.getItem('qn_feedback')||'[]').length}`);}
+
+/* ============ TOOLS ARRAY ============ */
+const TOOLS=[];
 const CATEGORIES=[
+  {id:'shop',name:'Shop / Dukan',emo:'🏪'},
+  {id:'copy',name:'Photo Copy',emo:'📸'},
   {id:'elec',name:'Bijli / Electricity',emo:'⚡'},
-  {id:'biz',name:'Business / Shop',emo:'🏪'},
+  {id:'biz',name:'Business',emo:'💼'},
   {id:'pdf',name:'PDF Tools',emo:'📄'},
   {id:'img',name:'Image / Photo',emo:'🖼️'},
   {id:'text',name:'Text Tools',emo:'🔤'},
-  {id:'fin',name:'Finance / Paisa',emo:'💰'},
+  {id:'fin',name:'Finance',emo:'💰'},
   {id:'social',name:'Social Media',emo:'📱'},
-  {id:'edu',name:'Student / Education',emo:'🎓'},
-  {id:'health',name:'Health / Fitness',emo:'🏥'},
+  {id:'edu',name:'Student',emo:'🎓'},
+  {id:'health',name:'Health',emo:'🏥'},
   {id:'util',name:'Utility',emo:'🔧'},
-  {id:'gym',name:'Gym & Fitness',emo:'💪'},
-  {id:'notes',name:'Notes & Writing',emo:'📝'},
   {id:'time',name:'Date / Time',emo:'⏰'},
   {id:'split',name:'Splitter',emo:'💸'},
-  {id:'todo',name:'To-Do List',emo:'✅'},
-  {id:'copy',name:'Photo Copy',emo:'📸'}
+  {id:'todo',name:'To-Do',emo:'✅'},
 ];
 
-const TOOLS=[];
 window.__currentTool='';
-
 function fmt(n,d=2){return Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:d,minimumFractionDigits:d});}
 function v(id){const el=document.getElementById(id);return el?el.value:'';}
 function res(html,text){const rb=document.getElementById('resultBox');if(rb)rb.innerHTML=html;window._lt=text||'';}
-window.fmt=fmt;window.v=v;window.res=res;window.toast=toast;
 
 const F={
   num:(id,lbl)=>`<div><label>${lbl}</label><input type="number" id="${id}" step="any"></div>`,
@@ -533,612 +622,73 @@ const F={
   date:(id,lbl)=>`<div><label>${lbl}</label><input type="date" id="${id}"></div>`,
 };
 function calcBtn(label){return`<div class="calc-btn-row"><button class="calc-btn" onclick="__calc()">${label||'🔢 Calculate'}</button></div>`;}
+function addInvRow(){const tb=document.getElementById('invBody');if(!tb)return;const r=document.createElement('tr');r.innerHTML=`<td><input class="item" placeholder="Item" style="width:100%"></td><td><input type="number" class="q" value="1" style="width:70px"></td><td><input type="number" class="r" value="0" style="width:80px"></td><td class="a">₹0</td><td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove()">❌</button></td>`;tb.appendChild(r);}
 
-/* PHOTO COPY — PROFESSIONAL VERSION */
-TOOLS.push(
-{id:'photoCopy',n:'Photo Copy (A4 Print)',i:'📸',c:'copy',
- render:()=>`
-  <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">📸 Photo copy wale dukano ke liye — Photo upload karo, auto crop hoke A4 page pe multiple copies print karo.</p>
-  <div class="photo-upload-box" onclick="document.getElementById('photoCopyFiles').click()">
-    <div class="up-icon">📤</div>
-    <div class="up-text">Photo Upload Karo</div>
-    <div class="up-sub">1 ya usse zyada photos (JPG, PNG)</div>
-  </div>
-  <input type="file" id="photoCopyFiles" accept="image/*" multiple style="display:none" onchange="handlePhotoCopyUpload(event)">
-  <div class="photo-preview-grid" id="photoCopyGrid"></div>
-  <div class="photo-controls">
-    ${F.sel('photoSize','Photo Size',[['passport','Passport (35×45mm)'],['stamp','Stamp (20×25mm)'],['visa','Visa (51×51mm)']])}
-    ${F.sel('photoCropMode','Photo Fit Mode',[['auto','✂️ Auto Crop (Face Center)'],['full','🖼️ Full Photo (No Crop)']])}
-    ${F.sel('photoBorder','Border Style',[['none','🚫 None'],['thin-white','⚪ Thin White'],['thin-black','⚫ Thin Black'],['cut','✂️ Cutting Line'],['block-color','🎨 Block Color']])}
-    ${F.sel('photoBorderColor','Block Color (if selected)',[['white','⚪ White'],['black','⚫ Black'],['blue','🔵 Blue'],['red','🔴 Red'],['green','🟢 Green']])}
-  </div>
-  <div class="photo-controls">
-    ${F.num('photoQty','Kitni Photos Chahiye? (Manual)')}
-  </div>
-  <div class="calc-btn-row"><button class="calc-btn" onclick="generatePhotoA4()">📄 Generate A4 Sheet</button></div>
-  <div class="calc-btn-row" style="margin-top:10px"><button class="btn btn-p" onclick="printPhotoA4()" style="width:100%;padding:14px;font-size:16px;font-weight:700;border-radius:14px">🖨️ Print A4 Sheet</button></div>
-  <div class="calc-btn-row" style="margin-top:10px"><button class="btn btn-g" onclick="downloadPhotoA4()" style="width:100%;padding:14px;font-size:16px;font-weight:700;border-radius:14px">⬇️ Download A4 Image</button></div>
-  <div id="resultBox"></div>
-  <div id="photoA4PreviewWrap" style="display:none"></div>
-`, calc(){return '';}}
-);
+/* ===================================================================
+   ===== YAHAN SE TOOLS KA CODE SHURU HOGA =====
+   MESSAGE 2 me main tujhe 20 shopkeeper tools ka code dunga
+   Jo tujhe is line ke NEECHE paste karna hai:
+   =================================================================== */
 
-TOOLS.push(
-{id:'elecBill',n:'Electricity Bill Calculator',i:'💡',c:'elec',
- render:()=>`${F.num('units','Units Consumed (kWh)')}${F.num('rate','Rate per Unit (₹)')}${F.num('fixed','Fixed Charges (₹)')}${F.num('tax','Tax (%)')}${calcBtn('💡 Calculate Bill')}<div id="resultBox"></div>`,
- calc(){const u=+v('units')||0,r=+v('rate')||0,f=+v('fixed')||0,t=+v('tax')||0;const e=u*r,s=e+f,tx=s*t/100,tot=s+tx;res(`<div class="result-box"><h4>💡 Bill Breakdown</h4><div class="result-row"><span class="lb">Units</span><span class="vl">${u} kWh</span></div><div class="result-row"><span class="lb">Energy Charge</span><span class="vl">₹${fmt(e)}</span></div><div class="result-row"><span class="lb">Fixed Charge</span><span class="vl">₹${fmt(f)}</span></div><div class="result-row"><span class="lb">Tax ${t}%</span><span class="vl">₹${fmt(tx)}</span></div><div class="result-row total"><span class="lb">Total Bill</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`Electricity Bill: ₹${fmt(tot)}`);}},
-{id:'elecSolar',n:'Solar Panel Calculator',i:'☀️',c:'elec',
- render:()=>`${F.num('cons','Monthly Units (kWh)')}${F.num('sun','Sun Hours/Day')}${F.num('panel','Panel Watt (W)')}${calcBtn('☀️ Calculate Solar')}<div id="resultBox"></div>`,
- calc(){const c=+v('cons')||0,s=+v('sun')||1,p=+v('panel')||1;const daily=c/30,kw=daily/s,panels=Math.ceil(kw*1000/p);const cost=panels*p*30,save=c*8*12;res(`<div class="result-box"><h4>☀️ Solar Estimate</h4><div class="result-row"><span class="lb">Panels Needed</span><span class="vl">${panels} × ${p}W</span></div><div class="result-row"><span class="lb">System Size</span><span class="vl">${fmt(kw,2)} kW</span></div><div class="result-row"><span class="lb">Approx Cost</span><span class="vl">₹${fmt(cost,0)}</span></div><div class="result-row total"><span class="lb">Yearly Saving</span><span class="vl">₹${fmt(save,0)}</span></div></div>`,`Solar: ${panels} panels, Yearly ₹${fmt(save,0)}`);}},
-{id:'elecInverter',n:'Inverter Backup Time',i:'🔋',c:'elec',
- render:()=>`${F.num('bat','Battery Ah')}${F.num('volt','Battery Volt')}${F.num('load','Load (Watt)')}${F.num('eff','Efficiency (%)')}${calcBtn('🔋 Calculate')}<div id="resultBox"></div>`,
- calc(){const ah=+v('bat')||0,vlt=+v('volt')||0,l=+v('load')||1,e=+v('eff')||0;const wh=ah*vlt*(e/100),h=wh/l;res(`<div class="result-box"><h4>🔋 Backup Time</h4><div class="result-row"><span class="lb">Energy</span><span class="vl">${fmt(wh,0)} Wh</span></div><div class="result-row total"><span class="lb">Backup</span><span class="vl">${fmt(h,1)} hours</span></div></div>`,`Backup: ${fmt(h,1)} hours`);}},
-{id:'elecAppliance',n:'Appliance Power Cost',i:'🔌',c:'elec',
- render:()=>`${F.num('watt','Appliance Watt')}${F.num('hours','Hours/Day')}${F.num('rate','Rate/Unit (₹)')}${calcBtn('🔌 Calculate')}<div id="resultBox"></div>`,
- calc(){const w=+v('watt')||0,h=+v('hours')||0,r=+v('rate')||0;const daily=w*h/1000*r,monthly=daily*30,yearly=monthly*12;res(`<div class="result-box"><h4>🔌 Power Cost</h4><div class="result-row"><span class="lb">Daily</span><span class="vl">₹${fmt(daily)}</span></div><div class="result-row"><span class="lb">Monthly</span><span class="vl">₹${fmt(monthly)}</span></div><div class="result-row total"><span class="lb">Yearly</span><span class="vl">₹${fmt(yearly)}</span></div></div>`,`Yearly: ₹${fmt(yearly)}`);}}
-);
+/* ============ PART 2 PASTE HERE ============ */
 
-TOOLS.push(
-{id:'bizInvoice',n:'Invoice Generator',i:'🧾',c:'biz',
- render:()=>`<div class="form-grid">${F.txt('biz','Business Name')}${F.txt('cust','Customer Name')}${F.txt('inv','Invoice No')}${F.date('date','Date')}</div><table class="tbl"><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amt</th><th></th></tr></thead><tbody id="invBody"></tbody></table><button class="btn btn-g btn-sm" style="margin-top:10px" onclick="addInvRow()">+ Add Item</button>${calcBtn('🧾 Calculate Invoice')}<div id="resultBox"></div>`,
- init(){const d=document.getElementById('date');if(d)d.valueAsDate=new Date();addInvRow();addInvRow();},
- calc(){let sub=0;document.querySelectorAll('#invBody tr').forEach(r=>{const q=+r.querySelector('.q').value||0,rt=+r.querySelector('.r').value||0,a=q*rt;r.querySelector('.a').textContent='₹'+fmt(a);sub+=a;});const g=sub*0.18,tot=sub+g;res(`<div class="result-box"><h4>🧾 Invoice Total</h4><div class="result-row"><span class="lb">Subtotal</span><span class="vl">₹${fmt(sub)}</span></div><div class="result-row"><span class="lb">GST 18%</span><span class="vl">₹${fmt(g)}</span></div><div class="result-row total"><span class="lb">Grand Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`Invoice Total: ₹${fmt(tot)}`);}},
-{id:'bizGST',n:'GST Calculator',i:'💰',c:'biz',
- render:()=>`${F.num('amt','Amount (₹)')}${F.sel('rate','GST Rate',[['5','5%'],['12','12%'],['18','18%'],['28','28%']])}${F.sel('mode','Type',[['add','Add GST'],['rem','Remove GST']])}${calcBtn('💰 Calculate GST')}<div id="resultBox"></div>`,
- calc(){const a=+v('amt')||0,r=+v('rate')||0,m=v('mode');let base,gst,tot;if(m==='add'){base=a;gst=a*r/100;tot=a+gst;}else{base=a*100/(100+r);gst=a-base;tot=a;}res(`<div class="result-box"><h4>💰 GST Breakdown</h4><div class="result-row"><span class="lb">Base</span><span class="vl">₹${fmt(base)}</span></div><div class="result-row"><span class="lb">GST ${r}%</span><span class="vl">₹${fmt(gst)}</span></div><div class="result-row"><span class="lb">CGST</span><span class="vl">₹${fmt(gst/2)}</span></div><div class="result-row"><span class="lb">SGST</span><span class="vl">₹${fmt(gst/2)}</span></div><div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div></div>`,`GST Total: ₹${fmt(tot)}`);}},
-{id:'bizEMI',n:'EMI Calculator',i:'🏦',c:'biz',
- render:()=>`${F.num('p','Loan Amount (₹)')}${F.num('r','Annual Rate (%)')}${F.num('n','Years')}${calcBtn('🏦 Calculate EMI')}<div id="resultBox"></div>`,
- calc(){const P=+v('p')||0,R=(+v('r')||0)/12/100,N=(+v('n')||0)*12;let emi=0,tot=0,int=0;if(R>0&&N>0){emi=P*R*Math.pow(1+R,N)/(Math.pow(1+R,N)-1);tot=emi*N;int=tot-P;}else{emi=P/N||0;tot=P;}res(`<div class="result-box"><h4>🏦 EMI Details</h4><div class="result-row"><span class="lb">Monthly EMI</span><span class="vl">₹${fmt(emi,0)}</span></div><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(int,0)}</span></div><div class="result-row total"><span class="lb">Total Payment</span><span class="vl">₹${fmt(tot,0)}</span></div></div>`,`EMI: ₹${fmt(emi,0)}/mo`);}},
-{id:'bizProfit',n:'Profit Margin Calculator',i:'📈',c:'biz',
- render:()=>`${F.num('cost','Cost Price (₹)')}${F.num('sell','Selling Price (₹)')}${calcBtn('📈 Calculate Profit')}<div id="resultBox"></div>`,
- calc(){const c=+v('cost')||0,s=+v('sell')||0;const p=s-c,m=c?(p/c*100):0,mk=s?(p/s*100):0;res(`<div class="result-box"><h4>📈 Profit</h4><div class="result-row"><span class="lb">Profit</span><span class="vl">₹${fmt(p)}</span></div><div class="result-row"><span class="lb">Markup %</span><span class="vl">${fmt(m)}%</span></div><div class="result-row total"><span class="lb">Margin %</span><span class="vl">${fmt(mk)}%</span></div></div>`,`Profit ₹${fmt(p)}, Margin ${fmt(mk)}%`);}},
-{id:'bizDiscount',n:'Discount Calculator',i:'🏷️',c:'biz',
- render:()=>`${F.num('mrp','MRP (₹)')}${F.num('disc','Discount (%)')}${calcBtn('🏷️ Calculate Discount')}<div id="resultBox"></div>`,
- calc(){const m=+v('mrp')||0,d=+v('disc')||0;const save=m*d/100,fp=m-save;res(`<div class="result-box"><h4>🏷️ Discount</h4><div class="result-row"><span class="lb">Save</span><span class="vl">₹${fmt(save)}</span></div><div class="result-row total"><span class="lb">Final</span><span class="vl">₹${fmt(fp)}</span></div></div>`,`Final ₹${fmt(fp)}`);}}
-);
+/* ============ PART 3 PASTE HERE ============ */
 
-TOOLS.push(
-{id:'pdfImg',n:'Image to PDF',i:'🖼️',c:'pdf',
- render:()=>`<div><label>Select Images</label><input type="file" id="imgs" accept="image/*" multiple></div><button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgToPdf()">🖼️ Convert to PDF</button><div id="resultBox"></div>`,
- calc(){return '';}}
-);
+/* ============ PART 4 PASTE HERE ============ */
 
-TOOLS.push(
-{id:'imgCompress',n:'Image Compressor',i:'🗜️',c:'img',
- render:()=>`<div><label>Image</label><input type="file" id="file" accept="image/*"></div>${F.num('q','Quality (10-100)')}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgCompress()">🗜️ Compress</button><div id="resultBox"></div>`,
- calc(){return '';}},
-{id:'imgPassport',n:'Passport Photo Maker',i:'📸',c:'img',
- render:()=>`<div><label>Photo</label><input type="file" id="file" accept="image/*"></div>${F.sel('size','Size',[['passport','Passport (35×45mm)'],['stamp','Stamp (20×25mm)'],['visa','Visa (51×51mm)']])}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runPassport()">📸 Make Photo</button><div id="resultBox"></div>`,
- calc(){return '';}},
-{id:'imgBase64',n:'Image to Base64',i:'🔤',c:'img',
- render:()=>`<div><label>Image</label><input type="file" id="file" accept="image/*"></div><button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runImgBase64()">🔤 Convert</button><div id="resultBox"></div>`,
- calc(){return '';}}
-);
+/* ============ PART 5 PASTE HERE ============ */
 
-TOOLS.push(
-{id:'splitter',n:'Split Bill / Expense',i:'💸',c:'split',
- render:()=>`${F.txt('expName','Expense Ka Naam (kya cheez hai?)')}${F.num('total','Total Amount (₹)')}${F.num('people','Kitne Log Me Split?')}${calcBtn('💸 Calculate Split')}<div id="resultBox"></div>`,
- calc(){const name=v('expName')||'Expense',tot=+v('total')||0,p=+v('people')||1;const per=tot/p;res(`<div class="result-box"><h4>💸 ${name}</h4><div class="result-row"><span class="lb">Expense</span><span class="vl">${name}</span></div><div class="result-row"><span class="lb">Total Amount</span><span class="vl">₹${fmt(tot)}</span></div><div class="result-row"><span class="lb">Split Between</span><span class="vl">${p} log</span></div><div class="result-row total"><span class="lb">Per Person</span><span class="vl">₹${fmt(per)}</span></div></div>`,`${name}: ₹${fmt(per)}/person (Total ₹${fmt(tot)} ÷ ${p})`);}}
-);
+/* ===================================================================
+   ===== TOOLS KA CODE KHATAM =====
+   =================================================================== */
 
-TOOLS.push(
-{id:'passGen',n:'Password Generator',i:'🔐',c:'text',
- render:()=>`${F.num('len','Length')}${F.sel('type','Type',[['all','All'],['alpha','Letters'],['num','Numbers']])}${calcBtn('🔐 Generate')}<div id="resultBox"></div>`,
- calc(){const l=+v('len')||12,ty=v('type');let chars='abcdefghijklmnopqrstuvwxyz';if(ty==='all')chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';else if(ty==='alpha')chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';else chars='0123456789';let p='';for(let i=0;i<l;i++)p+=chars[Math.floor(Math.random()*chars.length)];res(`<div class="result-box"><h4>🔐 Password</h4><div class="result-row total"><span class="lb">Password</span><span class="vl" style="font-family:monospace;font-size:13px;word-break:break-all">${p}</span></div></div>`,p);}}
-);
-
-TOOLS.push(
-{id:'finSIP',n:'SIP Calculator',i:'📊',c:'fin',
- render:()=>`${F.num('m','Monthly SIP (₹)')}${F.num('r','Return Rate (%)')}${F.num('y','Years')}${calcBtn('📊 Calculate SIP')}<div id="resultBox"></div>`,
- calc(){const m=+v('m')||0,r=(+v('r')||0)/12/100,n=(+v('y')||0)*12;let fv=0;if(r>0)fv=m*((Math.pow(1+r,n)-1)/r)*(1+r);else fv=m*n;const inv=m*n,gain=fv-inv;res(`<div class="result-box"><h4>📊 SIP Result</h4><div class="result-row"><span class="lb">Invested</span><span class="vl">₹${fmt(inv,0)}</span></div><div class="result-row"><span class="lb">Returns</span><span class="vl">₹${fmt(gain,0)}</span></div><div class="result-row total"><span class="lb">Final Value</span><span class="vl">₹${fmt(fv,0)}</span></div></div>`,`SIP Final: ₹${fmt(fv,0)}`);}},
-{id:'finFD',n:'FD Calculator',i:'🏛️',c:'fin',
- render:()=>`${F.num('p','Principal (₹)')}${F.num('r','Rate (%)')}${F.num('y','Years')}${calcBtn('🏛️ Calculate FD')}<div id="resultBox"></div>`,
- calc(){const p=+v('p')||0,r=(+v('r')||0)/100,y=+v('y')||0;const a=p*Math.pow(1+r/4,y*4),i=a-p;res(`<div class="result-box"><h4>🏛️ FD Result</h4><div class="result-row"><span class="lb">Interest</span><span class="vl">₹${fmt(i,0)}</span></div><div class="result-row total"><span class="lb">Maturity</span><span class="vl">₹${fmt(a,0)}</span></div></div>`,`FD: ₹${fmt(a,0)}`);}},
-{id:'finTax',n:'Income Tax Calculator',i:'🧮',c:'fin',
- render:()=>`${F.num('inc','Annual Income (₹)')}${calcBtn('🧮 Calculate Tax')}<div id="resultBox"></div>`,
- calc(){const i=+v('inc')||0;let tax=0;if(i<=300000)tax=0;else if(i<=600000)tax=(i-300000)*0.05;else if(i<=900000)tax=15000+(i-600000)*0.10;else if(i<=1200000)tax=45000+(i-900000)*0.15;else if(i<=1500000)tax=90000+(i-1200000)*0.20;else tax=150000+(i-1500000)*0.30;const cess=tax*0.04,total=tax+cess;res(`<div class="result-box"><h4>🧮 Tax</h4><div class="result-row"><span class="lb">Tax</span><span class="vl">₹${fmt(tax,0)}</span></div><div class="result-row"><span class="lb">Cess 4%</span><span class="vl">₹${fmt(cess,0)}</span></div><div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(total,0)}</span></div></div>`,`Tax: ₹${fmt(total,0)}`);}}
-);
-
-TOOLS.push(
-{id:'socQR',n:'QR Code Generator',i:'📱',c:'social',
- render:()=>`${F.txt('t','Text or URL')}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runQR()">📱 Generate QR</button><div id="resultBox"></div>`,
- calc(){return '';}},
-{id:'socBar',n:'Barcode Generator',i:'▮▮▮',c:'social',
- render:()=>`${F.txt('t','Text (koi bhi text/URL/number)')}<button class="btn btn-p" style="width:100%;margin-top:14px" onclick="runBarcode()">▮▮▮ Generate Barcode</button><div id="resultBox"></div>`,
- calc(){return '';}}
-);
-
-TOOLS.push(
-{id:'eduAge',n:'Age Calculator',i:'🎂',c:'edu',
- render:()=>`${F.txt('name','Aapka Naam')}${F.date('dob','Date of Birth')}${calcBtn('🎂 Calculate Age')}<div id="resultBox"></div>`,
- calc(){const name=v('name')||'';const d=v('dob');if(!d){toast('Date select karo',1);return;}
-  const b=new Date(d),n=new Date();
-  let y=n.getFullYear()-b.getFullYear(),m=n.getMonth()-b.getMonth(),dd=n.getDate()-b.getDate();
-  if(dd<0){m--;dd+=new Date(n.getFullYear(),n.getMonth(),0).getDate();}
-  if(m<0){y--;m+=12;}
-  const nameLine=name?`<div class="age-label" style="font-size:14px;margin-bottom:6px">${name}</div>`:'';
-  res(`<div class="age-celebration">
-    <span class="confetti c1">🎉</span>
-    <span class="confetti c2">🎊</span>
-    <span class="confetti c3">⭐</span>
-    <span class="confetti c4">✨</span>
-    ${nameLine}
-    <div class="age-label">🎂 Aapki Age</div>
-    <div class="age-big">${y} Years</div>
-    <div class="age-detail">
-      <div class="age-chip"><b>${y}</b>Saal</div>
-      <div class="age-chip"><b>${m}</b>Mahine</div>
-      <div class="age-chip"><b>${dd}</b>Din</div>
-    </div>
-  </div>`,`${name?name+' ki age: ':''}${y} years, ${m} months, ${dd} days`);}},
-{id:'eduPercent',n:'Percentage Calculator',i:'%',c:'edu',
- render:()=>`${F.num('got','Obtained Marks')}${F.num('total','Total Marks')}${calcBtn('📊 Calculate %')}<div id="resultBox"></div>`,
- calc(){const g=+v('got')||0,t=+v('total')||1;const p=g/t*100;let grade='F';if(p>=90)grade='A+';else if(p>=80)grade='A';else if(p>=70)grade='B';else if(p>=60)grade='C';else if(p>=50)grade='D';else if(p>=33)grade='E';res(`<div class="result-box"><h4>📊 Result</h4><div class="result-row"><span class="lb">Marks</span><span class="vl">${g}/${t}</span></div><div class="result-row"><span class="lb">Percentage</span><span class="vl">${fmt(p)}%</span></div><div class="result-row total"><span class="lb">Grade</span><span class="vl">${grade}</span></div></div>`,`${fmt(p)}% Grade ${grade}`);}}
-);
-
-TOOLS.push(
-{id:'heaBMI',n:'BMI Calculator',i:'⚖️',c:'health',
- render:()=>`${F.num('w','Weight (kg)')}${F.num('h','Height (cm)')}${calcBtn('⚖️ Calculate BMI')}<div id="resultBox"></div>`,
- calc(){const w=+v('w')||0,h=(+v('h')||0)/100;const b=h?w/(h*h):0;let cat='-';if(b<18.5)cat='Underweight';else if(b<25)cat='Normal';else if(b<30)cat='Overweight';else if(b>0)cat='Obese';res(`<div class="result-box"><h4>⚖️ BMI</h4><div class="result-row"><span class="lb">BMI</span><span class="vl">${fmt(b,1)}</span></div><div class="result-row total"><span class="lb">Category</span><span class="vl">${cat}</span></div></div>`,`BMI ${fmt(b,1)} (${cat})`);}},
-{id:'heaWater',n:'Water Intake Calculator',i:'💧',c:'health',
- render:()=>`${F.num('w','Weight (kg)')}${F.num('ex','Exercise (min)')}${calcBtn('💧 Calculate')}<div id="resultBox"></div>`,
- calc(){const w=+v('w')||0,e=+v('ex')||0;const l=(w*0.033)+(e*0.35/60);res(`<div class="result-box"><h4>💧 Water</h4><div class="result-row total"><span class="lb">Daily</span><span class="vl">${fmt(l,1)} Liters</span></div><div class="result-row"><span class="lb">Glasses</span><span class="vl">${Math.ceil(l*4)} × 250ml</span></div></div>`,`${fmt(l,1)} L/day`);}}
-);
-
-TOOLS.push(
-{id:'utOTP',n:'OTP Generator',i:'🔢',c:'util',
- render:()=>`${F.num('d','Digits')}${calcBtn('🔢 Generate OTP')}<div id="resultBox"></div>`,
- calc(){const d=+v('d')||6;let o='';for(let i=0;i<d;i++)o+=Math.floor(Math.random()*10);res(`<div class="result-box"><h4>🔢 OTP</h4><div class="result-row total"><span class="lb">OTP</span><span class="vl" style="font-family:monospace;font-size:24px;letter-spacing:5px">${o}</span></div></div>`,o);}}
-);
-
-TOOLS.push(
-{id:'gymTracker',n:'Gym Workout Tracker',i:'💪',c:'gym',
- render:()=>`<div class="form-grid">${F.txt('ex','Exercise Name')}${F.num('sets','Sets')}${F.num('reps','Reps')}${F.num('weight','Weight (kg)')}</div>${calcBtn('💪 Add Workout')}<div id="resultBox"></div><div id="gymList"></div>`,
- init(){renderGymList();},
- calc(){const ex=v('ex'),s=+v('sets')||0,r=+v('reps')||0,w=+v('weight')||0;if(!ex||!s||!r){toast('Exercise, sets, reps bharo',1);return;}const totalVol=s*r*w;const list=JSON.parse(localStorage.getItem('qn_gym')||'[]');list.unshift({ex,s,r,w,totalVol,time:Date.now()});localStorage.setItem('qn_gym',JSON.stringify(list.slice(0,50)));res(`<div class="result-box"><h4>💪 Workout Added</h4><div class="result-row"><span class="lb">Exercise</span><span class="vl">${ex}</span></div><div class="result-row"><span class="lb">Sets × Reps</span><span class="vl">${s} × ${r}</span></div><div class="result-row total"><span class="lb">Volume</span><span class="vl">${totalVol} kg</span></div></div>`,`${ex}: ${s}x${r} @ ${w}kg`);renderGymList();}}
-);
-
-function renderGymList(){const el=document.getElementById('gymList');if(!el)return;const list=JSON.parse(localStorage.getItem('qn_gym')||'[]');if(!list.length){el.innerHTML='';return;}el.innerHTML=`<div style="margin-top:20px"><h4 style="font-size:13px;color:var(--muted);text-transform:uppercase;margin-bottom:10px">📋 Workout History (${list.length})</h4>${list.map((g,i)=>`<div style="background:var(--card);border:1px solid var(--border);padding:10px 14px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px"><div style="flex:1;min-width:0"><b style="font-size:13px">${g.ex}</b><div style="font-size:11px;color:var(--muted)">${g.s} × ${g.r} @ ${g.w}kg • ${g.totalVol}kg</div></div><button onclick="delGym(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:14px">🗑️</button></div>`).join('')}</div>`;}
-function delGym(i){const list=JSON.parse(localStorage.getItem('qn_gym')||'[]');list.splice(i,1);localStorage.setItem('qn_gym',JSON.stringify(list));renderGymList();}
-
-TOOLS.push(
-{id:'notesTool',n:'Notes / Writing Tool',i:'📝',c:'notes',
- render:()=>`<div><label>Note Title</label><input type="text" id="noteTitle" placeholder="Note ka naam"><label>Content (lakh characters tak)</label><textarea id="noteContent" rows="12" placeholder="Yahan likho..."></textarea></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn btn-p" onclick="saveNote()" style="flex:1">💾 Save Note</button><button class="btn btn-g" onclick="clearNote()" style="flex:1">🗑️ Clear</button></div><div id="resultBox"></div><div id="notesList" style="margin-top:16px"></div>`,
- init(){renderNotesList();},
- calc(){}});
-
-function saveNote(){const title=v('noteTitle')||'Untitled',content=v('noteContent');if(!content.trim()){toast('Content likho',1);return;}const list=JSON.parse(localStorage.getItem('qn_notes')||'[]');list.unshift({title,content,time:Date.now()});localStorage.setItem('qn_notes',JSON.stringify(list.slice(0,50)));res(`<div class="result-box"><h4>✅ Note Saved</h4><div class="result-row"><span class="lb">Title</span><span class="vl">${title}</span></div><div class="result-row"><span class="lb">Chars</span><span class="vl">${content.length}</span></div><div class="result-row total"><span class="lb">Words</span><span class="vl">${content.trim().split(/\s+/).length}</span></div></div>`,`Note "${title}" saved`);window._lt=`${title}\n\n${content}`;renderNotesList();toast('✅ Note saved!');}
-function clearNote(){const t=document.getElementById('noteTitle'),c=document.getElementById('noteContent');if(t)t.value='';if(c)c.value='';toast('Cleared');}
-function renderNotesList(){const el=document.getElementById('notesList');if(!el)return;const list=JSON.parse(localStorage.getItem('qn_notes')||'[]');if(!list.length){el.innerHTML='';return;}el.innerHTML=`<h4 style="font-size:13px;color:var(--muted);text-transform:uppercase;margin-bottom:10px">📋 Saved Notes (${list.length})</h4>${list.map((n,i)=>`<div style="background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-bottom:8px"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px"><b style="font-size:13px">${n.title}</b><div style="display:flex;gap:6px"><button onclick="loadNote(${i})" style="background:transparent;border:none;color:var(--primary);cursor:pointer;font-size:12px">📂 Load</button><button onclick="delNote(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:12px">🗑️</button></div></div><div style="font-size:11px;color:var(--muted);max-height:60px;overflow:hidden">${n.content.slice(0,120)}${n.content.length>120?'...':''}</div></div>`).join('')}`;}
-function loadNote(i){const list=JSON.parse(localStorage.getItem('qn_notes')||'[]');const n=list[i];if(!n)return;const t=document.getElementById('noteTitle'),c=document.getElementById('noteContent');if(t)t.value=n.title;if(c)c.value=n.content;toast('📂 Note loaded');}
-function delNote(i){if(!confirm('Delete note?'))return;const list=JSON.parse(localStorage.getItem('qn_notes')||'[]');list.splice(i,1);localStorage.setItem('qn_notes',JSON.stringify(list));renderNotesList();}
-
-TOOLS.push(
-{id:'timeAdder',n:'Date & Time Adder',i:'⏰',c:'time',
- render:()=>`<div><label>Start Date</label><input type="date" id="startDate"></div><div class="form-grid" style="margin-top:12px">${F.num('days','Add Days')}${F.num('hours','Add Hours')}${F.num('mins','Add Minutes')}</div>${calcBtn('⏰ Calculate')}<div id="resultBox"></div>`,
- init(){const d=document.getElementById('startDate');if(d)d.valueAsDate=new Date();},
- calc(){const d=v('startDate');if(!d){toast('Date select karo',1);return;}const days=+v('days')||0,hrs=+v('hours')||0,mins=+v('mins')||0;const dt=new Date(d);dt.setDate(dt.getDate()+days);dt.setHours(dt.getHours()+hrs);dt.setMinutes(dt.getMinutes()+mins);const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const days2=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];const result=`${days2[dt.getDay()]}, ${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()} at ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;res(`<div class="result-box"><h4>⏰ New Date</h4><div class="result-row"><span class="lb">Added</span><span class="vl">${days}d ${hrs}h ${mins}m</span></div><div class="result-row total"><span class="lb">Result</span><span class="vl" style="font-size:13px">${result}</span></div></div>`,result);}}
-);
-
-TOOLS.push(
-{id:'todoList',n:'To-Do List',i:'✅',c:'todo',
- render:()=>`<div><label>New Task</label><input type="text" id="taskInput" placeholder="Task likho..." onkeypress="if(event.key==='Enter')addTask()"></div><button class="btn btn-p" style="width:100%;margin-top:12px" onclick="addTask()">➕ Add Task</button><div id="resultBox"></div><div id="todoListBox" style="margin-top:16px"></div>`,
- init(){renderTodoList();},
- calc(){}});
-
-function addTask(){const inp=document.getElementById('taskInput');const t=inp.value.trim();if(!t){toast('Task likho',1);return;}const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');list.unshift({task:t,done:false,time:Date.now()});localStorage.setItem('qn_todos',JSON.stringify(list));inp.value='';renderTodoList();toast('✅ Task added');}
-function toggleTask(i){const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');if(list[i]){list[i].done=!list[i].done;localStorage.setItem('qn_todos',JSON.stringify(list));renderTodoList();}}
-function delTask(i){const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');list.splice(i,1);localStorage.setItem('qn_todos',JSON.stringify(list));renderTodoList();}
-function renderTodoList(){const el=document.getElementById('todoListBox');if(!el)return;const list=JSON.parse(localStorage.getItem('qn_todos')||'[]');if(!list.length){el.innerHTML='<p style="text-align:center;color:var(--muted);font-size:13px;padding:20px">Koi task nahi hai</p>';return;}const pending=list.filter(x=>!x.done).length;el.innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="font-size:13px;color:var(--muted);text-transform:uppercase">📋 Tasks (${pending} pending)</h4></div>${list.map((t,i)=>`<div style="background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-bottom:8px;display:flex;align-items:center;gap:10px"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${i})" style="width:auto;flex-shrink:0"><span style="flex:1;font-size:14px;${t.done?'text-decoration:line-through;color:var(--muted)':''}">${t.task}</span><button onclick="delTask(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:14px;flex-shrink:0">🗑️</button></div>`).join('')}`;}
-
-/* ============ PHOTO COPY — PROFESSIONAL HELPERS ============ */
-let photoCopyImages=[];
-function handlePhotoCopyUpload(e){
-  const files=Array.from(e.target.files||[]);
-  files.forEach(file=>{
-    const reader=new FileReader();
-    reader.onload=ev=>{
-      // Process image for auto crop
-      const img=new Image();
-      img.onload=()=>{
-        // Auto crop to passport aspect ratio (35:45)
-        const targetAspect=35/45;
-        const imgAspect=img.width/img.height;
-        let sx=0,sy=0,sw=img.width,sh=img.height;
-        
-        if(imgAspect>targetAspect){
-          // Image wider — crop sides
-          sw=img.height*targetAspect;
-          sx=(img.width-sw)/2;
-        } else {
-          // Image taller — crop top/bottom (focus on face - upper-center)
-          sh=img.width/targetAspect;
-          sy=(img.height-sh)*0.4; // 40% from top (face area)
-        }
-        
-        // Create cropped canvas
-        const canvas=document.createElement('canvas');
-        canvas.width=413;canvas.height=531; // Passport size pixels
-        const ctx=canvas.getContext('2d');
-        ctx.drawImage(img,sx,sy,sw,sh,0,0,canvas.width,canvas.height);
-        
-        photoCopyImages.push({
-          src:ev.target.result,           // Original for full mode
-          croppedSrc:canvas.toDataURL('image/jpeg',0.95), // Cropped for auto mode
-          name:file.name
-        });
-        renderPhotoCopyGrid();
-      };
-      img.src=ev.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-  e.target.value='';
-}
-function renderPhotoCopyGrid(){
-  const grid=document.getElementById('photoCopyGrid');
-  if(!grid)return;
-  if(!photoCopyImages.length){grid.innerHTML='';return;}
-  grid.innerHTML=photoCopyImages.map((p,i)=>`<div class="photo-preview-item"><img src="${p.croppedSrc||p.src}" alt="photo"><button class="del-btn" onclick="removePhotoCopy(${i})">✕</button></div>`).join('');
-}
-function removePhotoCopy(i){photoCopyImages.splice(i,1);renderPhotoCopyGrid();}
-
-function generatePhotoA4(){
-  if(!photoCopyImages.length){toast('Photo upload karo pehle',1);return;}
-  
-  const qtyRaw=v('photoQty');
-  const qty=qtyRaw?parseInt(qtyRaw):null;
-  const size=v('photoSize')||'passport';
-  const cropMode=v('photoCropMode')||'auto';
-  const border=v('photoBorder')||'none';
-  const borderColor=v('photoBorderColor')||'white';
-  
-  const sizeMap={passport:[35,45],stamp:[20,25],visa:[51,51]};
-  const [wMM,hMM]=sizeMap[size];
-  
-  const A4_W=210,A4_H=297,paddingMM=10;
-  const usableW=A4_W-paddingMM*2,usableH=A4_H-paddingMM*2;
-  const gapMM=2;
-  const cols=Math.floor((usableW+gapMM)/(wMM+gapMM));
-  const rows=Math.floor((usableH+gapMM)/(hMM+gapMM));
-  const maxOnPage=cols*rows;
-  const totalPhotos=qty?(qty<=maxOnPage?qty:maxOnPage):maxOnPage;
-  
-  let html='';
-  for(let i=0;i<totalPhotos;i++){
-    const img=photoCopyImages[i%photoCopyImages.length];
-    const src=cropMode==='auto'?(img.croppedSrc||img.src):img.src;
-    
-    let borderStyle='';
-    let borderColorHex='#cbd5e1';
-    if(border==='thin-white')borderStyle='border:2px solid #ffffff;box-shadow:inset 0 0 0 1px #e2e8f0';
-    else if(border==='thin-black')borderStyle='border:1px solid #000000';
-    else if(border==='cut')borderStyle='border:1px dashed #94a3b8';
-    else if(border==='block-color'){
-      const colorMap={white:'#ffffff',black:'#000000',blue:'#0070f3',red:'#ef4444',green:'#10b981'};
-      borderColorHex=colorMap[borderColor]||'#ffffff';
-      borderStyle=`border:3px solid ${borderColorHex}`;
-    } else {
-      borderStyle='border:none';
-    }
-    
-    html+=`<div class="a4-photo" style="${borderStyle};background:#fff"><img src="${src}" alt="photo" style="width:100%;height:100%;object-fit:cover;display:block"></div>`;
-  }
-  
-  const wrapHTML=`<div class="photo-a4-preview" id="photoA4PreviewWrap">
-    <div style="font-size:13px;color:#475569;text-align:center;margin-bottom:12px;font-weight:700">📄 A4 Print Preview (210×297mm)</div>
-    <div class="photo-a4-page" id="photoA4Page" style="grid-template-columns:repeat(${cols},1fr);grid-auto-rows:1fr">${html}</div>
-    <div class="photo-info-box" style="background:#fff;color:#0f172a;border:1px solid #e2e8f0">
-      <b>${totalPhotos}</b> photos • <b>${wMM}×${hMM}mm</b> • <b>${cols}×${rows}</b> grid • ${cropMode==='auto'?'✂️ Auto Crop':'🖼️ Full Photo'}
-    </div>
-  </div>`;
-  
-  const existing=document.getElementById('photoA4PreviewWrap');
-  if(existing){
-    existing.outerHTML=wrapHTML;
-  } else {
-    const toolBody=document.getElementById('toolBody');
-    const temp=document.createElement('div');
-    temp.innerHTML=wrapHTML;
-    toolBody.appendChild(temp.firstElementChild);
-  }
-  
-  res(`<div class="result-box"><h4>📸 A4 Sheet Ready</h4><div class="result-row"><span class="lb">Photos</span><span class="vl">${totalPhotos}</span></div><div class="result-row"><span class="lb">Size</span><span class="vl">${wMM}×${hMM}mm</span></div><div class="result-row"><span class="lb">Mode</span><span class="vl">${cropMode==='auto'?'Auto Crop':'Full Photo'}</span></div><div class="result-row"><span class="lb">Grid</span><span class="vl">${cols} × ${rows}</span></div><div class="result-row total"><span class="lb">Print Ready</span><span class="vl">1 A4 Page</span></div></div>`,`${totalPhotos} photos on 1 A4 page`);
-  toast('✅ A4 sheet ready! Ab Print dabao');
-  window._lastText=`Photo Copy: ${totalPhotos} photos of ${wMM}×${hMM}mm on 1 A4 page`;
-}
-
-function printPhotoA4(){
-  if(!photoCopyImages.length){toast('Pehle Generate A4 dabao',1);return;}
-  const page=document.getElementById('photoA4Page');
-  if(!page){toast('Pehle Generate A4 dabao',1);return;}
-  const w=window.open('','_blank');
-  if(!w){toast('Popup blocked!',1);return;}
-  const html=page.outerHTML;
-  w.document.write(`<!DOCTYPE html><html><head><title>A4 Photo Print - Qunvero</title><style>
-    @page{size:A4;margin:0}
-    html,body{margin:0;padding:0;background:#fff;font-family:Arial}
-    .photo-a4-page{background:#fff;width:210mm;height:297mm;display:grid;gap:2mm;padding:10mm;box-sizing:border-box;margin:0}
-    .photo-a4-page .a4-photo{background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;box-sizing:border-box}
-    .photo-a4-page .a4-photo img{width:100%;height:100%;object-fit:cover;display:block}
-    @media print{body{padding:0}.photo-a4-page{page-break-after:always;page-break-inside:avoid}}
-  </style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
-  w.document.close();
-  toast('🖨️ Print dialog khula');
-}
-
-function downloadPhotoA4(){
-  if(!photoCopyImages.length){toast('Pehle Generate A4 dabao',1);return;}
-  const page=document.getElementById('photoA4Page');
-  if(!page){toast('Pehle Generate A4 dabao',1);return;}
-  toast('📷 HD image ban raha hai...');
-  
-  const clone=page.cloneNode(true);
-  clone.style.position='fixed';
-  clone.style.left='-99999px';
-  clone.style.top='0';
-  clone.style.width='595px';
-  clone.style.height='842px';
-  clone.style.background='#fff';
-  clone.style.padding='24px';
-  clone.style.boxSizing='border-box';
-  clone.style.display='grid';
-  clone.style.gap='6px';
-  
-  document.body.appendChild(clone);
-  
-  setTimeout(()=>{
-    html2canvas(clone,{
-      scale:3,
-      backgroundColor:'#ffffff',
-      logging:false,
-      useCORS:true,
-      width:595,
-      height:842
-    }).then(canvas=>{
-      canvas.toBlob(b=>{
-        if(b){
-          const url=URL.createObjectURL(b);
-          const a=document.createElement('a');
-          a.href=url;
-          a.download='photo-copy-a4-qunvero-hd.png';
-          document.body.appendChild(a);a.click();document.body.removeChild(a);
-          setTimeout(()=>URL.revokeObjectURL(url),1000);
-          toast('✅ A4 image downloaded!');
-        }
-        if(clone.parentElement) document.body.removeChild(clone);
-      },'image/png');
-    }).catch(e=>{
-      if(clone.parentElement) document.body.removeChild(clone);
-      toast('❌ '+e.message,1);
-    });
-  },500);
-}
-
-/* ============ RUNNERS ============ */
-async function runImgToPdf(){const files=document.getElementById('imgs').files;if(!files.length){toast('Images select karo',1);return;}toast('⏳ Converting...');try{const{PDFDocument}=await import('https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/+esm');const doc=await PDFDocument.create();for(const f of files){const buf=await f.arrayBuffer();const img=f.type.includes('png')?await doc.embedPng(buf):await doc.embedJpg(buf);const p=doc.addPage([img.width,img.height]);p.drawImage(img,{x:0,y:0,width:img.width,height:img.height});}const bytes=await doc.save();window._lastBlob=new Blob([bytes],{type:'application/pdf'});window._lastName='images.pdf';res(`<div class="result-box"><h4>✅ PDF Ready!</h4><div class="result-row total"><span class="lb">Images</span><span class="vl">${files.length}</span></div></div>`,`${files.length} images → PDF`);toast('✅ Ready! Download dabao');}catch(e){toast('Failed: '+e.message,1);}}
-function runImgCompress(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const q=(+v('q')||70)/100;const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=img.width;c.height=img.height;c.getContext('2d').drawImage(img,0,0);c.toBlob(b=>{res(`<div class="result-box"><h4>✅ Compressed</h4><div class="result-row"><span class="lb">Original</span><span class="vl">${(f.size/1024).toFixed(1)} KB</span></div><div class="result-row total"><span class="lb">Compressed</span><span class="vl">${(b.size/1024).toFixed(1)} KB</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:10px;max-height:250px"></div>`,`Compressed!`);window._lastBlob=b;window._lastName='compressed.jpg';toast('✅ Done!');},'image/jpeg',q);};}
-function runPassport(){const f=document.getElementById('file').files[0];if(!f){toast('Photo select karo',1);return;}const sizes={passport:[413,531],stamp:[236,295],visa:[600,600]};const[w,h]=sizes[v('size')]||[413,531];const img=new Image();img.src=URL.createObjectURL(f);img.onload=()=>{const c=document.createElement('canvas');c.width=w;c.height=h;const ctx=c.getContext('2d');const scale=Math.max(w/img.width,h/img.height);const nw=img.width*scale,nh=img.height*scale;ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);c.toBlob(b=>{res(`<div class="result-box"><h4>📸 Passport Photo</h4><div class="result-row"><span class="lb">Size</span><span class="vl">${w}×${h} px</span></div><img src="${URL.createObjectURL(b)}" style="margin-top:14px;border-radius:6px;max-height:200px"></div>`,`Passport ready!`);window._lastBlob=b;window._lastName='passport.jpg';toast('✅ Ready!');},'image/jpeg',0.95);};}
-function runImgBase64(){const f=document.getElementById('file').files[0];if(!f){toast('Image select karo',1);return;}const r=new FileReader();r.onload=e=>{res(`<div class="result-box"><h4>🔤 Base64</h4><textarea rows="8" style="font-size:11px;margin-top:10px" readonly>${e.target.result}</textarea></div>`,e.target.result);toast('✅ Ready!');};r.readAsDataURL(f);}
-
-function runQR(){
-  const t=v('t');
-  if(!t){toast('Text likho',1);return;}
-  const qrSize=2000;
-  const box=document.getElementById('resultBox');
-  box.innerHTML=`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><p style="font-size:12px;color:var(--muted)">Generating Ultra HD...</p></div>`;
-  const img=new Image();
-  img.crossOrigin='anonymous';
-  img.onload=()=>{
-    const c=document.createElement('canvas');
-    c.width=qrSize;c.height=qrSize;
-    const ctx=c.getContext('2d');
-    ctx.fillStyle='#ffffff';ctx.fillRect(0,0,qrSize,qrSize);
-    ctx.imageSmoothingEnabled=false;
-    ctx.drawImage(img,0,0,qrSize,qrSize);
-    c.toBlob(b=>{
-      res(`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:12px;max-width:280px;image-rendering:crisp-edges"></div>`,`QR: ${t}`);
-      window._lastBlob=b;window._lastName='qrcode.png';toast('✅ Ready!');
-    },'image/png');
-  };
-  img.src=`https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${encodeURIComponent(t)}&margin=20`;
-}
-
-function runBarcode(){
-  const t=v('t');if(!t){toast('Text likho',1);return;}
-  const box=document.getElementById('resultBox');
-  box.innerHTML=`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><p>Generating...</p></div>`;
-  try{
-    const canvas=document.createElement('canvas');
-    JsBarcode(canvas,t,{format:'CODE128',width:3,height:150,displayValue:true,fontSize:24,margin:20,background:'#ffffff',lineColor:'#000000'});
-    canvas.toBlob(b=>{
-      res(`<div class="result-box" style="text-align:center"><h4>▮▮▮ Barcode</h4><img src="${URL.createObjectURL(b)}" style="margin:16px auto;border-radius:12px;background:white;padding:14px;max-width:100%"></div>`,`Barcode: ${t}`);
-      window._lastBlob=b;window._lastName='barcode.png';toast('✅ Ready!');
-    },'image/png');
-  }catch(e){toast('❌ '+e.message,1);}
-}
-
-function renderQuick(){const q=['photoCopy','eduAge','bizInvoice','elecBill','bizEMI','bizGST','socQR','splitter'];const box=document.getElementById('quickRow');if(!box)return;const found=q.map(id=>TOOLS.find(x=>x.id===id)).filter(Boolean);box.innerHTML=found.map(t=>`<div class="q-card" onclick="openTool('${t.id}')"><span class="e">${t.i}</span><span class="nm">${t.n}</span></div>`).join('');}
+/* ============ RENDER ============ */
+function renderQuick(){const q=['photoCopy','bizInvoice','elecBill','bizEMI','bizGST','socQR','finSIP','eduAge','splitter','passGen'];const box=document.getElementById('quickRow');if(!box)return;const found=q.map(id=>TOOLS.find(x=>x.id===id)).filter(Boolean);box.innerHTML=found.map(t=>`<div class="q-card" onclick="openTool('${t.id}')"><span class="e">${t.i}</span><span class="nm">${t.n}</span></div>`).join('');}
 function renderCategories(){const wrap=document.getElementById('categoriesWrap');if(!wrap)return;wrap.innerHTML=CATEGORIES.map(cat=>{const tools=TOOLS.filter(t=>t.c===cat.id);if(!tools.length)return'';return`<section class="sec" data-cat="${cat.id}"><div class="sec-head"><h2><span class="emo">${cat.emo}</span>${cat.name}</h2><span class="cnt">${tools.length} tool${tools.length>1?'s':''}</span></div><div class="tools-grid">${tools.map(t=>`<div class="tool" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><span class="nm">${t.n}</span></div>`).join('')}</div></section>`;}).join('');}
 function renderChips(){const box=document.getElementById('catChips');if(!box)return;box.innerHTML=CATEGORIES.map((c,i)=>{const has=TOOLS.some(t=>t.c===c.id);if(!has)return'';return`<div class="chip${i===0?' on':''}" onclick="scrollToCat('${c.id}',this)">${c.emo} ${c.name.split('/')[0].trim()}</div>`;}).join('');}
 function scrollToCat(catId,chipEl){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));if(chipEl)chipEl.classList.add('on');const sec=document.querySelector(`section[data-cat="${catId}"]`);if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});}
 function scrollToTools(){const el=document.getElementById('categoriesWrap');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
 function showFavorites(){const sec=document.getElementById('favSection');if(sec&&sec.style.display==='none'){toast('Koi favorite nahi');return;}if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});}
-
 function doSearch(q){const box=document.getElementById('searchRes');if(!box)return;if(!q||q.length<1){box.classList.remove('on');return;}q=q.toLowerCase();const results=TOOLS.filter(t=>t.n.toLowerCase().includes(q)||t.id.toLowerCase().includes(q)).slice(0,10);if(!results.length){box.innerHTML='<div class="sr-empty">😕 Kuch nahi mila</div>';}else{box.innerHTML=results.map(t=>{const cat=CATEGORIES.find(c=>c.id===t.c);return`<div class="sr-item" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><div class="info"><div class="nm">${t.n}</div><div class="ct">${cat?cat.name:''}</div></div><span style="color:var(--primary)">→</span></div>`;}).join('');}box.classList.add('on');}
 document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap')){const box=document.getElementById('searchRes');if(box)box.classList.remove('on');}});
 function focusSearch(){const el=document.getElementById('searchBox');if(el){el.focus();window.scrollTo({top:0,behavior:'smooth'});}}
-
 function openTool(id){const t=TOOLS.find(x=>x.id===id);if(!t){toast('Tool not found',1);return;}window.__currentTool=id;document.getElementById('toolIcon').textContent=t.i;document.getElementById('toolTitle').textContent=t.n;document.getElementById('toolBody').innerHTML=t.render();const favEl=document.getElementById('favToggle');if(favEl)favEl.classList.toggle('on',Favorites.has(id));document.getElementById('toolModal').classList.add('on');document.body.style.overflow='hidden';window._lastBlob=null;window._lt='';window._lastName='result';if(t.init)try{t.init();}catch(e){console.warn(e);}}
 function closeTool(){document.getElementById('toolModal').classList.remove('on');document.body.style.overflow='';window.__currentTool='';photoCopyImages=[];}
-function openRandomTool(){const t=TOOLS[Math.floor(Math.random()*TOOLS.length)];openTool(t.id);}
-function toggleFavoriteCurrent(){if(!window.__currentTool)return;const now=Favorites.toggle(window.__currentTool);const el=document.getElementById('favToggle');if(el)el.classList.toggle('on',now);toast(now?'⭐ Added to favorites':'Removed');}
-
+function openRandomTool(){if(!TOOLS.length){toast('Tools loading...',1);return;}const t=TOOLS[Math.floor(Math.random()*TOOLS.length)];openTool(t.id);}
+function toggleFavoriteCurrent(){if(!window.__currentTool)return;const now=Favorites.toggle(window.__currentTool);const el=document.getElementById('favToggle');if(el)el.classList.toggle('on',now);toast(now?'⭐ Added':'Removed');}
 window.__calc=function(){if(!window.__currentTool)return;const t=TOOLS.find(x=>x.id===window.__currentTool);if(t&&t.calc)try{t.calc();}catch(e){console.warn(e);}};
 
-/* PREVIEW */
-function openPreview(){
-  const rb=document.getElementById('resultBox');
-  if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}
-  const resultHTML=rb.innerHTML;
-  const rawText=window._lt||'';
-  const hasImage=resultHTML.indexOf('<img')>-1;
-  const hasCelebration=resultHTML.indexOf('age-celebration')>-1;
-  let cleanHTML='';
-  if(hasCelebration){
-    const tempDiv=document.createElement('div');
-    tempDiv.innerHTML=resultHTML;
-    const cel=tempDiv.querySelector('.age-celebration');
-    cleanHTML=cel?cel.outerHTML:resultHTML;
-  } else if(hasImage){
-    const tempDiv=document.createElement('div');
-    tempDiv.innerHTML=resultHTML;
-    const imgs=tempDiv.querySelectorAll('img');
-    let imgHTML='';
-    imgs.forEach(img=>{imgHTML+=`<img src="${img.src}" style="max-width:100%;display:block;margin:0 auto">`;});
-    cleanHTML=imgHTML;
-  } else {
-    const tempDiv=document.createElement('div');
-    tempDiv.innerHTML=resultHTML;
-    const rows=tempDiv.querySelectorAll('.result-row');
-    if(rows.length){
-      let rowsHTML='';
-      rows.forEach(row=>{
-        const lb=row.querySelector('.lb');
-        const vl=row.querySelector('.vl');
-        const isTotal=row.classList.contains('total');
-        rowsHTML+=`<div class="result-row${isTotal?' total':''}"><span class="lb">${lb?lb.textContent:''}</span><span class="vl">${vl?vl.textContent:''}</span></div>`;
-      });
-      cleanHTML=rowsHTML;
-    } else if(rawText){
-      cleanHTML=`<div style="padding:10px 0;font-size:15px;white-space:pre-wrap;word-break:break-word;color:#0f172a;line-height:1.7">${rawText}</div>`;
-    } else {
-      cleanHTML=`<div style="padding:10px 0;font-size:15px;color:#0f172a;line-height:1.7">${resultHTML}</div>`;
-    }
-  }
-  const previewHTML=`
-    <div class="preview-inner" id="previewInner">
-      <div class="preview-box">
-        <div class="preview-head">
-          <h3>👁️ Preview</h3>
-          <button class="preview-close-btn" onclick="closePreview()">✕ Close</button>
-        </div>
-        <div class="preview-content">
-          <div class="preview-capture" id="previewCapture">
-            <div class="preview-data" id="previewData">${cleanHTML}</div>
-          </div>
-        </div>
-        <div class="preview-actions">
-          <button class="btn-print" onclick="printPreview()">🖨️ Print</button>
-          <button class="btn-pdf" onclick="downloadPDF()">📄 PDF</button>
-          <button class="btn-img" onclick="downloadPreviewImage()">📷 Download Image</button>
-        </div>
-      </div>
-    </div>`;
-  const wrap=document.createElement('div');
-  wrap.innerHTML=previewHTML;
-  document.body.appendChild(wrap.firstElementChild);
+/* PREVIEW / PRINT / DOWNLOAD / COPY / SHARE */
+function openPreview(){const rb=document.getElementById('resultBox');if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}const resultHTML=rb.innerHTML;const rawText=window._lt||'';const hasImage=resultHTML.indexOf('<img')>-1;const hasCelebration=resultHTML.indexOf('age-celebration')>-1;let cleanHTML='';
+  if(hasCelebration){const tempDiv=document.createElement('div');tempDiv.innerHTML=resultHTML;const cel=tempDiv.querySelector('.age-celebration');cleanHTML=cel?cel.outerHTML:resultHTML;}
+  else if(hasImage){const tempDiv=document.createElement('div');tempDiv.innerHTML=resultHTML;const imgs=tempDiv.querySelectorAll('img');let imgHTML='';imgs.forEach(img=>{imgHTML+=`<img src="${img.src}" style="max-width:100%;display:block;margin:0 auto">`;});cleanHTML=imgHTML;}
+  else{const tempDiv=document.createElement('div');tempDiv.innerHTML=resultHTML;const rows=tempDiv.querySelectorAll('.result-row');if(rows.length){let rowsHTML='';rows.forEach(row=>{const lb=row.querySelector('.lb');const vl=row.querySelector('.vl');const isTotal=row.classList.contains('total');rowsHTML+=`<div class="result-row${isTotal?' total':''}"><span class="lb">${lb?lb.textContent:''}</span><span class="vl">${vl?vl.textContent:''}</span></div>`;});cleanHTML=rowsHTML;}else if(rawText){cleanHTML=`<div style="padding:10px 0;font-size:15px;white-space:pre-wrap;word-break:break-word;color:#0f172a;line-height:1.7">${rawText}</div>`;}else{cleanHTML=`<div style="padding:10px 0;font-size:15px;color:#0f172a;line-height:1.7">${resultHTML}</div>`;}}
+  const previewHTML=`<div class="preview-inner" id="previewInner"><div class="preview-box"><div class="preview-head"><h3>👁️ Preview</h3><button class="preview-close-btn" onclick="closePreview()">✕ Close</button></div><div class="preview-content"><div class="preview-capture" id="previewCapture"><div class="preview-data" id="previewData">${cleanHTML}</div></div></div><div class="preview-actions"><button class="btn-print" onclick="printPreview()">🖨️ Print</button><button class="btn-pdf" onclick="downloadPDF()">📄 PDF</button><button class="btn-img" onclick="downloadPreviewImage()">📷 Download Image</button></div></div></div>`;
+  const wrap=document.createElement('div');wrap.innerHTML=previewHTML;document.body.appendChild(wrap.firstElementChild);
 }
 function closePreview(){const p=document.getElementById('previewInner');if(p)p.remove();}
-
-function printPreview(){
-  const capture=document.getElementById('previewCapture');
-  if(!capture){toast('Preview kholo pehle',1);return;}
-  const w=window.open('','_blank');
-  if(!w){toast('Popup blocked!',1);return;}
-  const html=capture.outerHTML;
-  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>body{font-family:Arial;padding:30px;background:#fff;color:#0f172a}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none}.result-row.total .lb,.result-row.total .vl{color:#10b981;font-weight:800}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.8);padding:10px 18px;border-radius:12px;font-size:13px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:22px;color:#7c3aed}img{max-width:100%}</style></head><body>${html}<script>setTimeout(()=>{window.print();},400);<\/script></body></html>`);
-  w.document.close();
-  toast('🖨️ Print ready');
-}
-
-function downloadPDF(){
-  const capture=document.getElementById('previewCapture');
-  if(!capture){toast('Preview kholo pehle',1);return;}
-  const w=window.open('','_blank');
-  if(!w){toast('Popup blocked!',1);return;}
-  const html=`<div style="padding:30px;background:#fff;font-family:Arial">${document.getElementById('previewData').innerHTML}</div>`;
-  w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>body{font-family:Arial;padding:30px;background:#fff;color:#0f172a}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none}.result-row.total .lb,.result-row.total .vl{color:#10b981;font-weight:800}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.8);padding:10px 18px;border-radius:12px;font-size:13px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:22px;color:#7c3aed}img{max-width:100%}</style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);
-  w.document.close();
-  toast('📄 PDF dialog khula');
-}
-
-async function downloadPreviewImage(){
-  const capture=document.getElementById('previewCapture');
-  if(!capture){toast('Preview kholo pehle',1);return;}
-  toast('📷 HD image ban raha hai...');
-  const finalWidth = 700;
-  const clone = capture.cloneNode(true);
-  clone.style.position = 'fixed';
-  clone.style.left = '-99999px';
-  clone.style.top = '0';
-  clone.style.width = finalWidth + 'px';
-  clone.style.maxWidth = finalWidth + 'px';
-  clone.style.padding = '50px 40px';
-  clone.style.background = '#ffffff';
-  clone.style.borderRadius = '0';
-  clone.style.boxShadow = 'none';
-  clone.style.color = '#0f172a';
-  clone.style.display = 'block';
-  clone.style.boxSizing = 'border-box';
-  clone.style.margin = '0';
-  clone.style.height = 'auto';
-  clone.style.minHeight = '0';
-  clone.style.maxHeight = 'none';
-  clone.querySelectorAll('*').forEach(el => {el.style.boxSizing = 'border-box';el.style.marginLeft = '0';el.style.marginRight = '0';});
-  clone.querySelectorAll('img').forEach(img => {img.style.maxWidth = '100%';img.style.height = 'auto';img.style.display = 'block';img.style.margin = '20px auto';});
-  document.body.appendChild(clone);
-  try {
-    await new Promise(r => setTimeout(r, 500));
-    const actualWidth = clone.offsetWidth;
-    const actualHeight = clone.offsetHeight;
-    const canvas = await html2canvas(clone, {
-      scale: 3, backgroundColor: '#ffffff', logging: false, useCORS: true, allowTaint: true,
-      imageTimeout: 0, width: actualWidth, height: actualHeight,
-      windowWidth: actualWidth, windowHeight: actualHeight, x: 0, y: 0, scrollX: 0, scrollY: 0
-    });
-    canvas.toBlob(b => {
-      if(b){
-        const t = TOOLS.find(x => x.id === window.__currentTool);
-        const name = (t ? t.n : 'qunvero-report').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
-        const url = URL.createObjectURL(b);
-        const a = document.createElement('a');
-        a.href = url; a.download = `${name}-qunvero-hd.png`;
-        document.body.appendChild(a); a.click(); document.body.removeChild(a);
-        setTimeout(() => URL.revokeObjectURL(url), 1000);
-        toast('✅ HD image downloaded!');
-      } else { toast('Image failed', 1); }
-      if(clone.parentElement) document.body.removeChild(clone);
-    }, 'image/png');
-  } catch(e) {
-    console.error(e);
-    if(clone.parentElement) document.body.removeChild(clone);
-    toast('❌ ' + e.message, 1);
-  }
-}
-
-function downloadTool(){const t=TOOLS.find(x=>x.id===window.__currentTool);const name=(t?t.n:'qunvero').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
-  if(window._lastBlob){dlBlob(window._lastBlob,window._lastName||(name+'.jpg'));return;}
-  const rb=document.getElementById('resultBox');if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}
-  const text=window._lt||rb.innerText;if(!text.trim()){toast('Kuch nahi',1);return;}
-  const full=`⚡ Qunvero — ${t?t.n:'Tool'}\n${'='.repeat(50)}\n\n${text}\n\n${'='.repeat(50)}\nGenerated: ${new Date().toLocaleString('en-IN')}\nhttps://qunvero.vercel.app`;
-  dlBlob(new Blob([full],{type:'text/plain;charset=utf-8'}),name+'.txt');}
+function printPreview(){const capture=document.getElementById('previewCapture');if(!capture){toast('Preview kholo',1);return;}const w=window.open('','_blank');if(!w){toast('Popup blocked!',1);return;}const html=capture.outerHTML;w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>body{font-family:Arial;padding:30px;background:#fff;color:#0f172a}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none}.result-row.total .lb,.result-row.total .vl{color:#10b981;font-weight:800}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.8);padding:10px 18px;border-radius:12px;font-size:13px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:22px;color:#7c3aed}img{max-width:100%}</style></head><body>${html}<script>setTimeout(()=>{window.print();},400);<\/script></body></html>`);w.document.close();toast('🖨️ Print ready');}
+function downloadPDF(){const capture=document.getElementById('previewCapture');if(!capture){toast('Preview kholo',1);return;}const w=window.open('','_blank');if(!w){toast('Popup blocked!',1);return;}const html=`<div style="padding:30px;background:#fff;font-family:Arial">${document.getElementById('previewData').innerHTML}</div>`;w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>body{font-family:Arial;padding:30px;background:#fff;color:#0f172a}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none}.result-row.total .lb,.result-row.total .vl{color:#10b981;font-weight:800}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.8);padding:10px 18px;border-radius:12px;font-size:13px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:22px;color:#7c3aed}img{max-width:100%}</style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);w.document.close();toast('📄 PDF dialog khula');}
+async function downloadPreviewImage(){const capture=document.getElementById('previewCapture');if(!capture){toast('Preview kholo',1);return;}toast('📷 HD image ban raha hai...');const finalWidth=700;const clone=capture.cloneNode(true);clone.style.position='fixed';clone.style.left='-99999px';clone.style.top='0';clone.style.width=finalWidth+'px';clone.style.maxWidth=finalWidth+'px';clone.style.padding='50px 40px';clone.style.background='#ffffff';clone.style.borderRadius='0';clone.style.boxShadow='none';clone.style.color='#0f172a';clone.style.display='block';clone.style.boxSizing='border-box';clone.style.margin='0';clone.style.height='auto';clone.style.minHeight='0';clone.style.maxHeight='none';clone.querySelectorAll('*').forEach(el=>{el.style.boxSizing='border-box';el.style.marginLeft='0';el.style.marginRight='0';});clone.querySelectorAll('img').forEach(img=>{img.style.maxWidth='100%';img.style.height='auto';img.style.display='block';img.style.margin='20px auto';});document.body.appendChild(clone);try{await new Promise(r=>setTimeout(r,500));const actualWidth=clone.offsetWidth;const actualHeight=clone.offsetHeight;const canvas=await html2canvas(clone,{scale:3,backgroundColor:'#ffffff',logging:false,useCORS:true,allowTaint:true,imageTimeout:0,width:actualWidth,height:actualHeight,windowWidth:actualWidth,windowHeight:actualHeight,x:0,y:0,scrollX:0,scrollY:0});canvas.toBlob(b=>{if(b){const t=TOOLS.find(x=>x.id===window.__currentTool);const name=(t?t.n:'qunvero-report').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`${name}-qunvero-hd.png`;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),1000);toast('✅ HD image downloaded!');}else{toast('Image failed',1);}if(clone.parentElement)document.body.removeChild(clone);},'image/png');}catch(e){console.error(e);if(clone.parentElement)document.body.removeChild(clone);toast('❌ '+e.message,1);}}
+function downloadTool(){const t=TOOLS.find(x=>x.id===window.__currentTool);const name=(t?t.n:'qunvero').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');if(window._lastBlob){dlBlob(window._lastBlob,window._lastName||(name+'.jpg'));return;}const rb=document.getElementById('resultBox');if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}const text=window._lt||rb.innerText;if(!text.trim()){toast('Kuch nahi',1);return;}const full=`⚡ Qunvero — ${t?t.n:'Tool'}\n${'='.repeat(50)}\n\n${text}\n\n${'='.repeat(50)}\nGenerated: ${new Date().toLocaleString('en-IN')}\nhttps://qunvero.vercel.app`;dlBlob(new Blob([full],{type:'text/plain;charset=utf-8'}),name+'.txt');}
 function dlBlob(blob,name){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),1000);toast('⬇️ '+name);}
 async function copyResult(){const rb=document.getElementById('resultBox');if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}const text=window._lt||rb.innerText;if(!text.trim()){toast('Kuch nahi',1);return;}try{await navigator.clipboard.writeText(text);toast('📋 Copied!');}catch(e){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('📋 Copied!');}}
-async function shareTool(){const t=TOOLS.find(x=>x.id===window.__currentTool);const text=window._lt||'';const shareText=`⚡ Qunvero — ${t?t.n:'Free Tools'}\n\n${text?text+'\n\n':''}🚀 Try Qunvero: https://qunvero.vercel.app`;try{if(navigator.share){await navigator.share({title:'Qunvero',text:shareText,url:'https://qunvero.vercel.app'});}else{await navigator.clipboard.writeText(shareText);toast('📋 Link copied!');}}catch(e){if(e.name!=='AbortError'){try{await navigator.clipboard.writeText(shareText);toast('📋 Copied!');}catch(err){}}}}
+async function shareTool(){const t=TOOLS.find(x=>x.id===window.__currentTool);const text=window._lt||'';const shareText=`⚡ Qunvero — ${t?t.n:'Free Tools'}\n\n${text?text+'\n\n':''}🚀 Try: https://qunvero.vercel.app`;try{if(navigator.share){await navigator.share({title:'Qunvero',text:shareText,url:'https://qunvero.vercel.app'});}else{await navigator.clipboard.writeText(shareText);toast('📋 Link copied!');}}catch(e){}}
 
-function addInvRow(){const tb=document.getElementById('invBody');if(!tb)return;const r=document.createElement('tr');r.innerHTML=`<td><input class="item" placeholder="Item" style="width:100%"></td><td><input type="number" class="q" value="1" style="width:70px"></td><td><input type="number" class="r" value="0" style="width:80px"></td><td class="a">₹0</td><td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove()">❌</button></td>`;tb.appendChild(r);}
-
-function openStatic(page){const content={about:{t:'ℹ️ About Qunvero',b:`<p>Qunvero is a free online platform offering 30+ useful tools for daily life, business, education, and more.</p><p>All tools run directly in your browser. Your data never leaves your device — 100% private.</p>`},privacy:{t:'🔒 Privacy Policy',b:`<p>Your privacy is important to us.</p><ul><li>All processing happens in your browser</li><li>Your files never leave your device</li><li>No personal information is collected</li><li>No tracking or third-party cookies</li></ul>`},terms:{t:'📜 Terms of Use',b:`<ul><li>All tools are provided "as-is"</li><li>Financial and tax calculations are for reference only</li><li>Health tools are educational, not medical advice</li><li>Verify important results with a professional</li></ul>`},contact:{t:'📞 Contact Us',b:`<p>Aapka feedback, suggestion, ya koi problem hai?</p><p style="margin-top:14px">💬 <b>Feedback button</b> use karo — bottom-left corner me hai. Aapka message seedha admin tak pahunchta hai.</p><p style="margin-top:14px">Hum 24-48 ghante me reply karte hain.</p>`}};const c=content[page];if(!c)return;document.getElementById('staticTitle').textContent=c.t;document.getElementById('staticBody').innerHTML=c.b;document.getElementById('staticModal').classList.add('on');document.body.style.overflow='hidden';}
+function openStatic(page){const content={about:{t:'ℹ️ About Qunvero',b:`<p>Qunvero is a free online platform offering 100+ useful tools for shop, photocopy, business, education, and more.</p><p>All tools run directly in your browser. Your data never leaves your device — 100% private.</p>`},privacy:{t:'🔒 Privacy Policy',b:`<p>Your privacy is important to us.</p><ul><li>All processing happens in your browser</li><li>Your files never leave your device</li><li>No personal information is collected</li><li>No tracking</li></ul>`},terms:{t:'📜 Terms of Use',b:`<ul><li>All tools are provided "as-is"</li><li>Financial calculations are for reference only</li><li>Verify important results</li></ul>`},contact:{t:'📞 Contact Us',b:`<p>Aapka feedback, suggestion, ya koi problem hai?</p><p style="margin-top:14px">💬 <b>Feedback button</b> use karo — bottom-left corner me hai.</p>`}};const c=content[page];if(!c)return;document.getElementById('staticTitle').textContent=c.t;document.getElementById('staticBody').innerHTML=c.b;document.getElementById('staticModal').classList.add('on');document.body.style.overflow='hidden';}
 function closeStatic(){document.getElementById('staticModal').classList.remove('on');document.body.style.overflow='';}
 function goHome(){window.scrollTo({top:0,behavior:'smooth'});closeTool();closeStatic();}
+document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.shiftKey&&e.key==='A'){e.preventDefault();openAdminPanel();}});
 
-document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.shiftKey&&e.key==='A'){e.preventDefault();feedbackSystem.openAdmin();}});
+let photoCopyImages=[];
+function handlePhotoCopyUpload(e){const files=Array.from(e.target.files||[]);files.forEach(file=>{const reader=new FileReader();reader.onload=ev=>{const img=new Image();img.onload=()=>{const targetAspect=35/45;const imgAspect=img.width/img.height;let sx=0,sy=0,sw=img.width,sh=img.height;if(imgAspect>targetAspect){sw=img.height*targetAspect;sx=(img.width-sw)/2;}else{sh=img.width/targetAspect;sy=(img.height-sh)*0.4;}const canvas=document.createElement('canvas');canvas.width=413;canvas.height=531;const ctx=canvas.getContext('2d');ctx.drawImage(img,sx,sy,sw,sh,0,0,canvas.width,canvas.height);photoCopyImages.push({src:ev.target.result,croppedSrc:canvas.toDataURL('image/jpeg',0.95),name:file.name});renderPhotoCopyGrid();};img.src=ev.target.result;};reader.readAsDataURL(file);});e.target.value='';}
+function renderPhotoCopyGrid(){const grid=document.getElementById('photoCopyGrid');if(!grid)return;if(!photoCopyImages.length){grid.innerHTML='';return;}grid.innerHTML=photoCopyImages.map((p,i)=>`<div class="photo-preview-item"><img src="${p.croppedSrc||p.src}" alt="photo"><button class="del-btn" onclick="removePhotoCopy(${i})">✕</button></div>`).join('');}
+function removePhotoCopy(i){photoCopyImages.splice(i,1);renderPhotoCopyGrid();}
 
 document.addEventListener('DOMContentLoaded',()=>{
   renderQuick();renderCategories();renderChips();Favorites.render();
-  liveUsers.update();feedbackSystem.checkAccess();showWelcome();
-  const count=TOOLS.length;
+  liveUsers.update();showWelcome();
+  const count=TOOLS.length||100;
   const tc=document.getElementById('toolCount');const hc=document.getElementById('heroToolCount');
   if(tc)tc.textContent=count+'+';if(hc)hc.textContent=count+'+';
   console.log('⚡ Qunvero loaded — '+count+' tools ready!');
