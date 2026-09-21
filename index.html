@@ -242,7 +242,6 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .photo-info-box{background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-top:12px;font-size:13px;text-align:center}
 .photo-info-box b{color:var(--primary)}
 
-/* ADMIN PANEL */
 .admin-panel{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);overflow-y:auto;padding:20px;animation:fadeIn .2s}
 .admin-inner{max-width:900px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:20px;overflow:hidden}
 .admin-head{padding:20px 24px;background:var(--grad);color:#fff;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
@@ -263,6 +262,10 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 .admin-fb-actions{display:flex;gap:6px;flex-wrap:wrap}
 .admin-fb-actions button{padding:6px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;cursor:pointer;font-size:11px;font-weight:600}
 .admin-fb-actions button.danger{background:rgba(239,68,68,.1);border-color:var(--danger);color:var(--danger)}
+.admin-placeholder{background:var(--card);border:1px dashed var(--border);padding:20px;border-radius:12px;text-align:center;opacity:.7}
+.admin-placeholder .icon{font-size:32px;margin-bottom:8px}
+.admin-placeholder .title{font-size:13px;font-weight:600}
+.admin-placeholder .sub{font-size:10px;color:var(--muted);margin-top:4px}
 
 @media(max-width:768px){
   body{padding-bottom:70px}
@@ -440,7 +443,6 @@ footer .contact-btn{background:var(--card);border:1px solid var(--border);paddin
 
 <div class="toast" id="toast">Done!</div>
 
-<!-- ========== ADMIN PANEL MODAL ========== -->
 <div class="admin-panel" id="adminPanelModal" style="display:none">
   <div class="admin-inner">
     <div class="admin-head">
@@ -506,7 +508,7 @@ const feedbackSystem={
   showThanks(){const t=document.createElement('div');t.className='popup';t.innerHTML=`<div class="popup-box" style="max-width:380px;text-align:center"><div class="popup-body"><div style="font-size:60px;margin-bottom:14px">✅</div><h3 style="color:var(--success);margin-bottom:10px;font-size:20px">Thank You!</h3><p style="color:var(--muted);font-size:14px;margin-bottom:20px">Aapka feedback mil gaya.</p><button class="btn btn-p" style="width:100%" onclick="this.closest('.popup').remove()">OK</button></div></div>`;document.body.appendChild(t);setTimeout(()=>{if(t.parentElement)t.remove();},6000);}
 };
 
-/* ========== ADMIN PANEL (Menu Se Khulega) ========== */
+/* ========== ADMIN PANEL — NO IMAGE UPLOAD ========== */
 function openAdminPanel(){
   const pass=prompt('🔐 Admin Password daalo:');
   if(pass===null)return;
@@ -533,10 +535,26 @@ function renderAdminPanel(){
     </div>
     
     <div class="admin-section">
-      <h3>📸 Image Upload</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Banner ya tool image upload karo</p>
-      <input type="file" accept="image/*" onchange="handleAdminImage(event)">
-      <div id="adminImagePreview" style="margin-top:14px"></div>
+      <h3>🎬 Photo / Video Section</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">
+        Ye section aapko <b>photos aur videos</b> website pe add karne me help karega.<br>
+        <b>Status:</b> 🚧 Under Development
+      </p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+        <div class="admin-placeholder">
+          <div class="icon">🖼️</div>
+          <div class="title">Photo Upload</div>
+          <div class="sub">Coming Soon</div>
+        </div>
+        <div class="admin-placeholder">
+          <div class="icon">🎬</div>
+          <div class="title">Video Upload</div>
+          <div class="sub">Coming Soon</div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:var(--muted);margin-top:14px;text-align:center">
+        Abhi ke liye photos manually GitHub pe upload karo aur code me path add karo.
+      </p>
     </div>
     
     <div class="admin-section">
@@ -571,18 +589,6 @@ function renderAdminPanel(){
   `;
 }
 
-function handleAdminImage(e){
-  const file=e.target.files[0];
-  if(!file)return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    document.getElementById('adminImagePreview').innerHTML=`
-      <img src="${ev.target.result}" style="max-width:100%;border-radius:12px;margin-top:10px">
-      <p style="font-size:12px;color:var(--muted);margin-top:8px">✅ Image loaded. Ye feature aap aur tools me use kar sakte ho.</p>
-    `;
-  };
-  reader.readAsDataURL(file);
-}
 function markFbRead(id){const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');const f=all.find(x=>x.id===id);if(f)f.read=true;localStorage.setItem('qn_feedback',JSON.stringify(all));renderAdminPanel();}
 function delFb(id){if(!confirm('Delete?'))return;const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');localStorage.setItem('qn_feedback',JSON.stringify(all.filter(x=>x.id!==id)));renderAdminPanel();toast('🗑️ Deleted');}
 function exportFbCSV(){const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');if(!all.length){toast('Koi feedback nahi',1);return;}let csv='ID,Name,Email,Category,Rating,Message,Time\n';all.forEach(f=>{const esc=s=>`"${String(s).replace(/"/g,'""')}"`;csv+=[esc(f.id),esc(f.name),esc(f.email),esc(f.category),f.rating,esc(f.message),esc(new Date(f.time).toLocaleString('en-IN'))].join(',')+'\n';});const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='qunvero-feedback.csv';a.click();toast('📥 Downloaded');}
@@ -642,7 +648,6 @@ function addInvRow(){const tb=document.getElementById('invBody');if(!tb)return;c
    ===== TOOLS KA CODE KHATAM =====
    =================================================================== */
 
-/* ============ RENDER ============ */
 function renderQuick(){const q=['photoCopy','bizInvoice','elecBill','bizEMI','bizGST','socQR','finSIP','eduAge','splitter','passGen'];const box=document.getElementById('quickRow');if(!box)return;const found=q.map(id=>TOOLS.find(x=>x.id===id)).filter(Boolean);box.innerHTML=found.map(t=>`<div class="q-card" onclick="openTool('${t.id}')"><span class="e">${t.i}</span><span class="nm">${t.n}</span></div>`).join('');}
 function renderCategories(){const wrap=document.getElementById('categoriesWrap');if(!wrap)return;wrap.innerHTML=CATEGORIES.map(cat=>{const tools=TOOLS.filter(t=>t.c===cat.id);if(!tools.length)return'';return`<section class="sec" data-cat="${cat.id}"><div class="sec-head"><h2><span class="emo">${cat.emo}</span>${cat.name}</h2><span class="cnt">${tools.length} tool${tools.length>1?'s':''}</span></div><div class="tools-grid">${tools.map(t=>`<div class="tool" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><span class="nm">${t.n}</span></div>`).join('')}</div></section>`;}).join('');}
 function renderChips(){const box=document.getElementById('catChips');if(!box)return;box.innerHTML=CATEGORIES.map((c,i)=>{const has=TOOLS.some(t=>t.c===c.id);if(!has)return'';return`<div class="chip${i===0?' on':''}" onclick="scrollToCat('${c.id}',this)">${c.emo} ${c.name.split('/')[0].trim()}</div>`;}).join('');}
@@ -658,7 +663,6 @@ function openRandomTool(){if(!TOOLS.length){toast('Tools loading...',1);return;}
 function toggleFavoriteCurrent(){if(!window.__currentTool)return;const now=Favorites.toggle(window.__currentTool);const el=document.getElementById('favToggle');if(el)el.classList.toggle('on',now);toast(now?'⭐ Added':'Removed');}
 window.__calc=function(){if(!window.__currentTool)return;const t=TOOLS.find(x=>x.id===window.__currentTool);if(t&&t.calc)try{t.calc();}catch(e){console.warn(e);}};
 
-/* PREVIEW / PRINT / DOWNLOAD / COPY / SHARE */
 function openPreview(){const rb=document.getElementById('resultBox');if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}const resultHTML=rb.innerHTML;const rawText=window._lt||'';const hasImage=resultHTML.indexOf('<img')>-1;const hasCelebration=resultHTML.indexOf('age-celebration')>-1;let cleanHTML='';
   if(hasCelebration){const tempDiv=document.createElement('div');tempDiv.innerHTML=resultHTML;const cel=tempDiv.querySelector('.age-celebration');cleanHTML=cel?cel.outerHTML:resultHTML;}
   else if(hasImage){const tempDiv=document.createElement('div');tempDiv.innerHTML=resultHTML;const imgs=tempDiv.querySelectorAll('img');let imgHTML='';imgs.forEach(img=>{imgHTML+=`<img src="${img.src}" style="max-width:100%;display:block;margin:0 auto">`;});cleanHTML=imgHTML;}
