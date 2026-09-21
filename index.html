@@ -3229,6 +3229,590 @@ window.calcF8 = function(){
     <div class="result-row total"><span class="lb">Maturity</span><span class="vl">₹${fmt(fv,0)}</span></div>
   </div>`, `PPF Maturity: ₹${fmt(fv,0)}`);
 };
+/* ============================================================
+   QUNVERO — PART C: Social + Student + Health + Utility + DateTime
+   + Math + Convert + Web + Fun + Split + Todo
+   ============================================================ */
+
+/* ============================================================
+   📱 SOCIAL (5 tools)
+   ============================================================ */
+window.calcSo1 = function(){
+  const t = v('so1_t').trim();
+  if(!t){ toast('Text daalo',1); return; }
+  const size = 800;
+  const box = document.getElementById('resultBox');
+  box.innerHTML = `<h4>📱 Generating...</h4>`;
+  box.classList.add('on');
+  box.style.display = 'block';
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => {
+    const c = document.createElement('canvas');
+    c.width = size; c.height = size;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0,0,size,size);
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(img, 0, 0, size, size);
+    c.toBlob(b => {
+      window._lastBlob = b; window._lastName = 'qrcode.png';
+      res(`<div class="result-box" style="text-align:center"><h4>📱 QR Code</h4>
+        <img src="${URL.createObjectURL(b)}" style="margin:12px auto;border-radius:10px;background:#fff;padding:10px;max-width:260px">
+      </div>`, `QR: ${t}`);
+    }, 'image/png');
+  };
+  img.src = `https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(t)}&margin=20`;
+};
+window.calcSo2 = function(){
+  const t = v('so2_t').trim();
+  if(!t){ toast('Text daalo',1); return; }
+  const box = document.getElementById('resultBox');
+  box.innerHTML = `<h4>▮ Barcode</h4><svg id="so2_svg" style="max-width:100%;background:#fff;padding:10px;border-radius:8px"></svg>`;
+  box.classList.add('on');
+  box.style.display = 'block';
+  try {
+    JsBarcode('#so2_svg', t, { format:'CODE128', lineColor:'#000', width:2, height:70, displayValue:true, fontSize:14 });
+    window._lastText = `Barcode: ${t}`;
+    toast('✅ Ready!');
+  } catch(e){ toast('Invalid barcode',1); }
+};
+window.calcSo3 = function(){
+  const k = v('so3_k').trim();
+  if(!k){ toast('Keyword daalo',1); return; }
+  const tags = [k, k+'life', k+'gram', k+'daily', 'insta'+k, k+'lover', k+'addict', k+'world', k+'vibes', 'best'+k, k+'2025', 'reel'+k];
+  const r = tags.map(t => '#' + t.replace(/\s+/g,'')).join(' ');
+  res(`<div class="result-box"><h4>#️⃣ Hashtags</h4>
+    <div style="padding:10px;background:#f5f5f5;border-radius:8px;word-break:break-word;font-size:13px">${QV.escapeHtml(r)}</div>
+  </div>`, r);
+};
+window.calcSo4 = function(){
+  const n = v('so4_n').trim() || 'User';
+  const p = v('so4_p').trim() || 'Creator';
+  const bio = `✨ ${n}\n💼 ${p}\n🚀 Dream big, work hard\n📍 India\n⬇️ Link below`;
+  res(`<div class="result-box"><h4>📝 Bio</h4>
+    <div style="padding:10px;background:#f5f5f5;border-radius:8px;white-space:pre-wrap;font-size:13px">${QV.escapeHtml(bio)}</div>
+  </div>`, bio);
+};
+window.calcSo5 = function(){
+  const l = parseFloat(v('so5_l')) || 0;
+  const c = parseFloat(v('so5_c')) || 0;
+  const f = parseFloat(v('so5_f')) || 1;
+  const rate = ((l+c)/f)*100;
+  res(`<div class="result-box"><h4>📊 Engagement Rate</h4>
+    <div class="result-row"><span class="lb">Likes</span><span class="vl">${l}</span></div>
+    <div class="result-row"><span class="lb">Comments</span><span class="vl">${c}</span></div>
+    <div class="result-row"><span class="lb">Followers</span><span class="vl">${f}</span></div>
+    <div class="result-row total"><span class="lb">Engagement</span><span class="vl">${fmt(rate)}%</span></div>
+  </div>`, `Engagement: ${fmt(rate)}%`);
+};
+
+/* ============================================================
+   🎓 STUDENT (5 tools)
+   ============================================================ */
+window.calcSt1 = function(){
+  const name = v('st1_n').trim();
+  const d = v('st1_d');
+  if(!d){ toast('Date select karo',1); return; }
+  const b = new Date(d), n = new Date();
+  let y = n.getFullYear()-b.getFullYear();
+  let m = n.getMonth()-b.getMonth();
+  let dd = n.getDate()-b.getDate();
+  if(dd < 0){ m--; dd += new Date(n.getFullYear(), n.getMonth(), 0).getDate(); }
+  if(m < 0){ y--; m += 12; }
+  const nameLine = name ? `<div class="age-label" style="font-size:13px;margin-bottom:4px">${QV.escapeHtml(name)}</div>` : '';
+  res(`<div class="age-celebration">
+    <span class="confetti c1">🎉</span>
+    <span class="confetti c2">🎊</span>
+    <span class="confetti c3">⭐</span>
+    <span class="confetti c4">✨</span>
+    ${nameLine}
+    <div class="age-label">🎂 Aapki Age</div>
+    <div class="age-big">${y} Years</div>
+    <div class="age-detail">
+      <div class="age-chip"><b>${y}</b>Saal</div>
+      <div class="age-chip"><b>${m}</b>Mahine</div>
+      <div class="age-chip"><b>${dd}</b>Din</div>
+    </div>
+  </div>`, `${name ? name + ': ' : ''}${y} years, ${m} months, ${dd} days`);
+};
+window.calcSt2 = function(){
+  const g = parseFloat(v('st2_g')) || 0;
+  const t = parseFloat(v('st2_t')) || 1;
+  const p = g/t*100;
+  let grade = 'F';
+  if(p >= 90) grade = 'A+';
+  else if(p >= 80) grade = 'A';
+  else if(p >= 70) grade = 'B';
+  else if(p >= 60) grade = 'C';
+  else if(p >= 50) grade = 'D';
+  else if(p >= 33) grade = 'E';
+  res(`<div class="result-box"><h4>📊 Percentage</h4>
+    <div class="result-row"><span class="lb">Marks</span><span class="vl">${g}/${t}</span></div>
+    <div class="result-row"><span class="lb">Percentage</span><span class="vl">${fmt(p)}%</span></div>
+    <div class="result-row total"><span class="lb">Grade</span><span class="vl">${grade}</span></div>
+  </div>`, `${fmt(p)}% Grade ${grade}`);
+};
+window.calcSt3 = function(){
+  const p = parseFloat(v('st3_p')) || 0;
+  const c = parseFloat(v('st3_c')) || 1;
+  const cgpa = p/c;
+  const pct = cgpa * 9.5;
+  res(`<div class="result-box"><h4>📈 CGPA</h4>
+    <div class="result-row"><span class="lb">Grade Points</span><span class="vl">${p}</span></div>
+    <div class="result-row"><span class="lb">Credits</span><span class="vl">${c}</span></div>
+    <div class="result-row"><span class="lb">CGPA</span><span class="vl">${fmt(cgpa)}</span></div>
+    <div class="result-row total"><span class="lb">Percentage</span><span class="vl">${fmt(pct)}%</span></div>
+  </div>`, `CGPA: ${fmt(cgpa)} (${fmt(pct)}%)`);
+};
+window.calcSt4 = function(){
+  const s = v('st4_s').trim() || 'Subject';
+  const h = parseFloat(v('st4_h')) || 0;
+  const d = parseFloat(v('st4_d')) || 7;
+  const total = h*d;
+  res(`<div class="result-box"><h4>⏱️ Study Time</h4>
+    <div class="result-row"><span class="lb">Subject</span><span class="vl">${QV.escapeHtml(s)}</span></div>
+    <div class="result-row"><span class="lb">Hours/Day</span><span class="vl">${h}</span></div>
+    <div class="result-row"><span class="lb">Days</span><span class="vl">${d}</span></div>
+    <div class="result-row total"><span class="lb">Total Hours</span><span class="vl">${total} hours</span></div>
+  </div>`, `${total} hours for ${s}`);
+};
+window.calcSt5 = function(){
+  const n = v('st5_n').trim() || 'Exam';
+  const d = v('st5_d');
+  if(!d){ toast('Date daalo',1); return; }
+  const exam = new Date(d);
+  const now = new Date();
+  const days = Math.ceil((exam-now)/(1000*60*60*24));
+  res(`<div class="result-box"><h4>📅 Exam Countdown</h4>
+    <div class="result-row"><span class="lb">Exam</span><span class="vl">${QV.escapeHtml(n)}</span></div>
+    <div class="result-row"><span class="lb">Date</span><span class="vl">${exam.toLocaleDateString('en-IN')}</span></div>
+    <div class="result-row total"><span class="lb">Days Left</span><span class="vl">${days > 0 ? days : 'Done!'}</span></div>
+  </div>`, `${days} days left`);
+};
+
+/* ============================================================
+   🏥 HEALTH (5 tools)
+   ============================================================ */
+window.calcH1 = function(){
+  const w = parseFloat(v('h1_w')) || 0;
+  const h = (parseFloat(v('h1_h')) || 0)/100;
+  if(!w || !h){ toast('Weight & height daalo',1); return; }
+  const bmi = w/(h*h);
+  let cat = 'Normal';
+  if(bmi < 18.5) cat = 'Underweight';
+  else if(bmi < 25) cat = 'Normal';
+  else if(bmi < 30) cat = 'Overweight';
+  else cat = 'Obese';
+  res(`<div class="result-box"><h4>⚖️ BMI</h4>
+    <div class="result-row"><span class="lb">BMI</span><span class="vl">${fmt(bmi,1)}</span></div>
+    <div class="result-row total"><span class="lb">Category</span><span class="vl">${cat}</span></div>
+  </div>`, `BMI: ${fmt(bmi,1)} (${cat})`);
+};
+window.calcH2 = function(){
+  const w = parseFloat(v('h2_w')) || 0;
+  const e = parseFloat(v('h2_e')) || 0;
+  if(!w){ toast('Weight daalo',1); return; }
+  const l = (w*0.033) + (e*0.35/60);
+  res(`<div class="result-box"><h4>💧 Water Intake</h4>
+    <div class="result-row"><span class="lb">Daily</span><span class="vl">${fmt(l,1)} Liters</span></div>
+    <div class="result-row total"><span class="lb">Glasses</span><span class="vl">${Math.ceil(l*4)} × 250ml</span></div>
+  </div>`, `${fmt(l,1)} L/day`);
+};
+window.calcH3 = function(){
+  const a = parseFloat(v('h3_a')) || 0;
+  const w = parseFloat(v('h3_w')) || 0;
+  const h = parseFloat(v('h3_h')) || 0;
+  const g = v('h3_g');
+  if(!a || !w || !h){ toast('Sab daalo',1); return; }
+  let bmr;
+  if(g === 'm') bmr = 10*w + 6.25*h - 5*a + 5;
+  else bmr = 10*w + 6.25*h - 5*a - 161;
+  const maintain = bmr * 1.55;
+  const lose = maintain - 500;
+  const gain = maintain + 500;
+  res(`<div class="result-box"><h4>🔥 Calories</h4>
+    <div class="result-row"><span class="lb">BMR</span><span class="vl">${fmt(bmr,0)} kcal</span></div>
+    <div class="result-row"><span class="lb">Maintain</span><span class="vl">${fmt(maintain,0)} kcal</span></div>
+    <div class="result-row"><span class="lb">Lose Weight</span><span class="vl">${fmt(lose,0)} kcal</span></div>
+    <div class="result-row total"><span class="lb">Gain Weight</span><span class="vl">${fmt(gain,0)} kcal</span></div>
+  </div>`, `Maintain: ${fmt(maintain,0)} kcal`);
+};
+window.calcH4 = function(){
+  const w = parseFloat(v('h4_w')) || 0;
+  const h = parseFloat(v('h4_h')) || 0;
+  const a = parseFloat(v('h4_a')) || 0;
+  if(!w || !h || !a){ toast('Sab daalo',1); return; }
+  const bmi = w/Math.pow(h/100, 2);
+  const bmr = 10*w + 6.25*h - 5*a + 5;
+  res(`<div class="result-box"><h4>💊 Advanced</h4>
+    <div class="result-row"><span class="lb">BMI</span><span class="vl">${fmt(bmi,1)}</span></div>
+    <div class="result-row total"><span class="lb">BMR</span><span class="vl">${fmt(bmr,0)} kcal</span></div>
+  </div>`, `BMI: ${fmt(bmi,1)} · BMR: ${fmt(bmr,0)}`);
+};
+window.calcH5 = function(){
+  const a = parseFloat(v('h5_a')) || 0;
+  if(!a){ toast('Age daalo',1); return; }
+  const max = 220-a;
+  res(`<div class="result-box"><h4>❤️ Heart Rate Zones</h4>
+    <div class="result-row"><span class="lb">Max HR</span><span class="vl">${max} bpm</span></div>
+    <div class="result-row"><span class="lb">Zone 1 (Warm up)</span><span class="vl">${Math.round(max*0.5)}-${Math.round(max*0.6)} bpm</span></div>
+    <div class="result-row"><span class="lb">Zone 2 (Fat burn)</span><span class="vl">${Math.round(max*0.6)}-${Math.round(max*0.7)} bpm</span></div>
+    <div class="result-row"><span class="lb">Zone 3 (Cardio)</span><span class="vl">${Math.round(max*0.7)}-${Math.round(max*0.8)} bpm</span></div>
+    <div class="result-row total"><span class="lb">Zone 4 (Peak)</span><span class="vl">${Math.round(max*0.8)}-${Math.round(max*0.9)} bpm</span></div>
+  </div>`, `Max HR: ${max} bpm`);
+};
+
+/* ============================================================
+   🔧 UTILITY (5 tools)
+   ============================================================ */
+window.calcU1 = function(){
+  const d = parseInt(v('u1_d')) || 6;
+  let otp = '';
+  for(let i=0;i<d;i++) otp += Math.floor(Math.random()*10);
+  res(`<div class="result-box"><h4>🔢 OTP</h4>
+    <div class="result-row total"><span class="lb">OTP</span><span class="vl" style="font-family:monospace;font-size:22px;letter-spacing:5px">${otp}</span></div>
+  </div>`, otp);
+};
+window.calcU2 = function(){
+  const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = Math.random()*16|0;
+    const v = c === 'x' ? r : (r&0x3|0x8);
+    return v.toString(16);
+  });
+  res(`<div class="result-box"><h4>🆔 UUID</h4>
+    <div class="result-row total"><span class="lb">UUID</span><span class="vl" style="font-family:monospace;font-size:12px;word-break:break-all">${uuid}</span></div>
+  </div>`, uuid);
+};
+window.calcU3 = function(){
+  const min = parseInt(v('u3_min')) || 1;
+  const max = parseInt(v('u3_max')) || 100;
+  const n = Math.floor(Math.random()*(max-min+1)) + min;
+  res(`<div class="result-box"><h4>🎲 Random</h4>
+    <div class="result-row total"><span class="lb">Number</span><span class="vl">${n}</span></div>
+  </div>`, `${n}`);
+};
+window.calcU4 = function(){
+  const l = parseInt(v('u4_l')) || 4;
+  let pin = '';
+  for(let i=0;i<l;i++) pin += Math.floor(Math.random()*10);
+  res(`<div class="result-box"><h4>🔐 PIN</h4>
+    <div class="result-row total"><span class="lb">PIN</span><span class="vl" style="font-family:monospace;font-size:22px;letter-spacing:5px">${pin}</span></div>
+  </div>`, pin);
+};
+window.calcU5 = function(){
+  const a = v('u5_a'), b = v('u5_b');
+  if(!a || !b){ toast('Dono dates daalo',1); return; }
+  const d1 = new Date(a), d2 = new Date(b);
+  const days = Math.abs(Math.ceil((d2-d1)/(1000*60*60*24)));
+  res(`<div class="result-box"><h4>📅 Days Between</h4>
+    <div class="result-row total"><span class="lb">Days</span><span class="vl">${days}</span></div>
+  </div>`, `${days} days`);
+};
+
+/* ============================================================
+   ⏰ DATE/TIME (5 tools)
+   ============================================================ */
+window.calcDt1 = function(){
+  const a = v('dt1_a'), b = v('dt1_b');
+  if(!a || !b){ toast('Dono dates daalo',1); return; }
+  const d1 = new Date(a), d2 = new Date(b);
+  const diff = Math.abs(d2-d1);
+  const days = Math.floor(diff/(1000*60*60*24));
+  const months = Math.floor(days/30);
+  const years = Math.floor(days/365);
+  res(`<div class="result-box"><h4>📅 Date Difference</h4>
+    <div class="result-row"><span class="lb">Days</span><span class="vl">${days}</span></div>
+    <div class="result-row"><span class="lb">Months</span><span class="vl">${months}</span></div>
+    <div class="result-row total"><span class="lb">Years</span><span class="vl">${years}</span></div>
+  </div>`, `${days} days`);
+};
+window.calcDt2 = function(){
+  const d = v('dt2_d');
+  const n = parseInt(v('dt2_n')) || 0;
+  if(!d){ toast('Date daalo',1); return; }
+  const dt = new Date(d);
+  dt.setDate(dt.getDate() + n);
+  res(`<div class="result-box"><h4>➕ Date Added</h4>
+    <div class="result-row"><span class="lb">Start</span><span class="vl">${new Date(d).toLocaleDateString('en-IN')}</span></div>
+    <div class="result-row"><span class="lb">Added</span><span class="vl">${n} days</span></div>
+    <div class="result-row total"><span class="lb">Result</span><span class="vl">${dt.toLocaleDateString('en-IN')}</span></div>
+  </div>`, `${dt.toLocaleDateString('en-IN')}`);
+};
+window.calcDt3 = function(){
+  const t = v('dt3_t');
+  const off = parseFloat(v('dt3_o')) || 0;
+  if(!t){ toast('Time daalo',1); return; }
+  const [h, m] = t.split(':').map(Number);
+  const totalMin = h*60 + m + off*60;
+  const nh = Math.floor((totalMin % 1440 + 1440) % 1440 / 60);
+  const nm = Math.round(((totalMin % 60) + 60) % 60);
+  const result = `${String(nh).padStart(2,'0')}:${String(nm).padStart(2,'0')}`;
+  res(`<div class="result-box"><h4>⏰ Timezone</h4>
+    <div class="result-row"><span class="lb">Input</span><span class="vl">${t}</span></div>
+    <div class="result-row"><span class="lb">Offset</span><span class="vl">${off} hours</span></div>
+    <div class="result-row total"><span class="lb">Converted</span><span class="vl">${result}</span></div>
+  </div>`, result);
+};
+window.calcDt4 = function(){
+  const d = v('dt4_d');
+  if(!d){ toast('Date daalo',1); return; }
+  const dt = new Date(d);
+  const start = new Date(dt.getFullYear(), 0, 1);
+  const days = Math.floor((dt-start)/(1000*60*60*24));
+  const week = Math.ceil((days + start.getDay() + 1) / 7);
+  res(`<div class="result-box"><h4>📆 Week Number</h4>
+    <div class="result-row total"><span class="lb">Week</span><span class="vl">${week}</span></div>
+  </div>`, `Week ${week}`);
+};
+window.calcDt5 = function(){
+  const d = v('dt5_d');
+  if(!d){ toast('Birth date daalo',1); return; }
+  const b = new Date(d);
+  const n = new Date();
+  const days = Math.floor((n-b)/(1000*60*60*24));
+  res(`<div class="result-box"><h4>🎂 Age in Days</h4>
+    <div class="result-row total"><span class="lb">Days</span><span class="vl">${days}</span></div>
+  </div>`, `${days} days old`);
+};
+
+/* ============================================================
+   🔢 MATH (5 tools)
+   ============================================================ */
+window.calcM1 = function(){
+  const n = parseFloat(v('m1_n')) || 0;
+  const p = parseFloat(v('m1_p')) || 0;
+  const r = n*p/100;
+  res(`<div class="result-box"><h4>% Percentage</h4>
+    <div class="result-row"><span class="lb">${p}% of ${n}</span><span class="vl">${fmt(r)}</span></div>
+    <div class="result-row total"><span class="lb">Result</span><span class="vl">${fmt(r)}</span></div>
+  </div>`, `${p}% of ${n} = ${fmt(r)}`);
+};
+window.calcM2 = function(){
+  const n = parseFloat(v('m2_n')) || 0;
+  if(n < 0){ toast('Negative ka sqrt nahi',1); return; }
+  const r = Math.sqrt(n);
+  res(`<div class="result-box"><h4>√ Square Root</h4>
+    <div class="result-row"><span class="lb">Input</span><span class="vl">${n}</span></div>
+    <div class="result-row total"><span class="lb">√${n}</span><span class="vl">${fmt(r,6)}</span></div>
+  </div>`, `√${n} = ${fmt(r,6)}`);
+};
+window.calcM3 = function(){
+  const b = parseFloat(v('m3_b')) || 0;
+  const p = parseFloat(v('m3_p')) || 0;
+  const r = Math.pow(b, p);
+  res(`<div class="result-box"><h4>x² Power</h4>
+    <div class="result-row"><span class="lb">${b}^${p}</span><span class="vl">${fmt(r,6)}</span></div>
+    <div class="result-row total"><span class="lb">Result</span><span class="vl">${fmt(r,6)}</span></div>
+  </div>`, `${b}^${p} = ${fmt(r,6)}`);
+};
+window.calcM4 = function(){
+  const n = parseInt(v('m4_n')) || 0;
+  if(n < 0 || n > 170){ toast('0-170 ke beech daalo',1); return; }
+  let r = 1;
+  for(let i=2;i<=n;i++) r *= i;
+  res(`<div class="result-box"><h4>f Factorial</h4>
+    <div class="result-row"><span class="lb">${n}!</span><span class="vl">${r.toLocaleString('en-IN')}</span></div>
+    <div class="result-row total"><span class="lb">Result</span><span class="vl">${r.toLocaleString('en-IN')}</span></div>
+  </div>`, `${n}! = ${r}`);
+};
+window.calcM5 = function(){
+  const raw = v('m5_n').trim();
+  if(!raw){ toast('Numbers daalo',1); return; }
+  const nums = raw.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+  if(!nums.length){ toast('Valid numbers daalo',1); return; }
+  const sum = nums.reduce((a,b) => a+b, 0);
+  const avg = sum/nums.length;
+  const max = Math.max(...nums);
+  const min = Math.min(...nums);
+  res(`<div class="result-box"><h4>∑ Statistics</h4>
+    <div class="result-row"><span class="lb">Count</span><span class="vl">${nums.length}</span></div>
+    <div class="result-row"><span class="lb">Sum</span><span class="vl">${fmt(sum)}</span></div>
+    <div class="result-row"><span class="lb">Min</span><span class="vl">${fmt(min)}</span></div>
+    <div class="result-row"><span class="lb">Max</span><span class="vl">${fmt(max)}</span></div>
+    <div class="result-row total"><span class="lb">Average</span><span class="vl">${fmt(avg)}</span></div>
+  </div>`, `Avg: ${fmt(avg)}`);
+};
+
+/* ============================================================
+   🔄 CONVERTERS (5 tools)
+   ============================================================ */
+window.calcC1 = function(){
+  const val = parseFloat(v('c1_v')) || 0;
+  const from = v('c1_f'), to = v('c1_t');
+  const toM = { m:1, cm:0.01, km:1000, ft:0.3048, in:0.0254 };
+  const r = val * toM[from] / toM[to];
+  res(`<div class="result-box"><h4>📏 Length</h4>
+    <div class="result-row total"><span class="lb">${val} ${from}</span><span class="vl">${fmt(r,4)} ${to}</span></div>
+  </div>`, `${val} ${from} = ${fmt(r,4)} ${to}`);
+};
+window.calcC2 = function(){
+  const val = parseFloat(v('c2_v')) || 0;
+  const from = v('c2_f'), to = v('c2_t');
+  const toG = { kg:1000, g:1, lb:453.592 };
+  const r = val * toG[from] / toG[to];
+  res(`<div class="result-box"><h4>⚖️ Weight</h4>
+    <div class="result-row total"><span class="lb">${val} ${from}</span><span class="vl">${fmt(r,4)} ${to}</span></div>
+  </div>`, `${val} ${from} = ${fmt(r,4)} ${to}`);
+};
+window.calcC3 = function(){
+  const val = parseFloat(v('c3_v')) || 0;
+  const from = v('c3_f'), to = v('c3_t');
+  let c;
+  if(from === 'C') c = val;
+  else if(from === 'F') c = (val-32)*5/9;
+  else c = val-273.15;
+  let r;
+  if(to === 'C') r = c;
+  else if(to === 'F') r = c*9/5+32;
+  else r = c+273.15;
+  res(`<div class="result-box"><h4>🌡️ Temperature</h4>
+    <div class="result-row total"><span class="lb">${val}°${from}</span><span class="vl">${fmt(r,2)}°${to}</span></div>
+  </div>`, `${val}°${from} = ${fmt(r,2)}°${to}`);
+};
+window.calcC4 = function(){
+  const val = parseFloat(v('c4_v')) || 0;
+  const from = v('c4_f'), to = v('c4_t');
+  const toM = { sqm:1, sqft:0.0929, acre:4046.86 };
+  const r = val * toM[from] / toM[to];
+  res(`<div class="result-box"><h4>📐 Area</h4>
+    <div class="result-row total"><span class="lb">${val} ${from}</span><span class="vl">${fmt(r,4)} ${to}</span></div>
+  </div>`, `${val} ${from} = ${fmt(r,4)} ${to}`);
+};
+window.calcC5 = function(){
+  const val = parseFloat(v('c5_v')) || 0;
+  const from = v('c5_f'), to = v('c5_t');
+  const toB = { kb:1024, mb:1024*1024, gb:1024*1024*1024 };
+  const r = val * toB[from] / toB[to];
+  res(`<div class="result-box"><h4>💾 Data</h4>
+    <div class="result-row total"><span class="lb">${val} ${from}</span><span class="vl">${fmt(r,6)} ${to}</span></div>
+  </div>`, `${val} ${from} = ${fmt(r,6)} ${to}`);
+};
+
+/* ============================================================
+   💻 WEB/CODE (3 tools)
+   ============================================================ */
+window.calcW1 = function(){
+  const t = v('w1_t');
+  const m = v('w1_m');
+  if(!t){ toast('Text daalo',1); return; }
+  let r;
+  try {
+    if(m === 'enc') r = btoa(unescape(encodeURIComponent(t)));
+    else r = decodeURIComponent(escape(atob(t)));
+  } catch(e){ toast('Invalid input',1); return; }
+  res(`<div class="result-box"><h4>🔐 Base64</h4>
+    <div style="padding:10px;background:#f5f5f5;border-radius:8px;word-break:break-all;font-family:monospace;font-size:12px">${QV.escapeHtml(r)}</div>
+  </div>`, r);
+};
+window.calcW2 = function(){
+  const t = v('w2_t');
+  const m = v('w2_m');
+  if(!t){ toast('Text daalo',1); return; }
+  let r;
+  try {
+    if(m === 'enc') r = encodeURIComponent(t);
+    else r = decodeURIComponent(t);
+  } catch(e){ toast('Invalid',1); return; }
+  res(`<div class="result-box"><h4>🔗 URL</h4>
+    <div style="padding:10px;background:#f5f5f5;border-radius:8px;word-break:break-all;font-size:12px">${QV.escapeHtml(r)}</div>
+  </div>`, r);
+};
+window.calcW3 = function(){
+  const t = v('w3_t').trim();
+  if(!t){ toast('JSON daalo',1); return; }
+  try {
+    const obj = JSON.parse(t);
+    const r = JSON.stringify(obj, null, 2);
+    res(`<div class="result-box"><h4>📋 Formatted JSON</h4>
+      <pre style="padding:10px;background:#f5f5f5;border-radius:8px;font-size:11px;overflow:auto;max-height:300px;white-space:pre-wrap;word-break:break-all">${QV.escapeHtml(r)}</pre>
+    </div>`, r);
+  } catch(e){ toast('Invalid JSON: ' + e.message,1); }
+};
+
+/* ============================================================
+   🎲 FUN (3 tools)
+   ============================================================ */
+window.calcFu1 = function(){
+  const n = Math.floor(Math.random()*6) + 1;
+  const faces = ['⚀','⚁','⚂','⚃','⚄','⚅'];
+  res(`<div class="result-box" style="text-align:center"><h4>🎲 Dice</h4>
+    <div style="font-size:60px;margin:10px 0">${faces[n-1]}</div>
+    <div style="font-size:22px;font-weight:800;color:#0070f3">${n}</div>
+  </div>`, `Dice: ${n}`);
+};
+window.calcFu2 = function(){
+  const r = Math.random() < 0.5 ? 'Heads' : 'Tails';
+  const em = r === 'Heads' ? '👑' : '🪙';
+  res(`<div class="result-box" style="text-align:center"><h4>🪙 Coin</h4>
+    <div style="font-size:50px;margin:10px 0">${em}</div>
+    <div style="font-size:22px;font-weight:800;color:#0070f3">${r}</div>
+  </div>`, r);
+};
+window.calcFu3 = function(){
+  const raw = v('fu3_o').trim();
+  if(!raw){ toast('Options daalo',1); return; }
+  const opts = raw.split(',').map(s => s.trim()).filter(Boolean);
+  if(!opts.length){ toast('Valid options',1); return; }
+  const pick = opts[Math.floor(Math.random()*opts.length)];
+  res(`<div class="result-box" style="text-align:center"><h4>🎯 Picked</h4>
+    <div style="font-size:20px;font-weight:800;color:#0070f3;padding:12px 0">${QV.escapeHtml(pick)}</div>
+    <div style="font-size:11px;color:#888">out of ${opts.length} options</div>
+  </div>`, pick);
+};
+
+/* ============================================================
+   💸 SPLITTER (2 tools)
+   ============================================================ */
+window.calcSp1 = function(){
+  const t = parseFloat(v('sp1_t')) || 0;
+  const p = parseFloat(v('sp1_p')) || 1;
+  if(!t || !p){ toast('Amount & people daalo',1); return; }
+  const per = t/p;
+  res(`<div class="result-box"><h4>💸 Split Bill</h4>
+    <div class="result-row"><span class="lb">Total</span><span class="vl">₹${fmt(t)}</span></div>
+    <div class="result-row"><span class="lb">People</span><span class="vl">${p}</span></div>
+    <div class="result-row total"><span class="lb">Per Person</span><span class="vl">₹${fmt(per)}</span></div>
+  </div>`, `₹${fmt(per)}/person`);
+};
+window.calcSp2 = function(){
+  const t = parseFloat(v('sp2_t')) || 0;
+  const p = parseFloat(v('sp2_p')) || 1;
+  const tip = parseFloat(v('sp2_tip')) || 0;
+  if(!t || !p){ toast('Amount & people daalo',1); return; }
+  const tipAmt = t*tip/100;
+  const total = t + tipAmt;
+  const per = total/p;
+  res(`<div class="result-box"><h4>💰 Group Expense</h4>
+    <div class="result-row"><span class="lb">Bill</span><span class="vl">₹${fmt(t)}</span></div>
+    <div class="result-row"><span class="lb">Tip ${tip}%</span><span class="vl">₹${fmt(tipAmt)}</span></div>
+    <div class="result-row"><span class="lb">Total</span><span class="vl">₹${fmt(total)}</span></div>
+    <div class="result-row total"><span class="lb">Per Person</span><span class="vl">₹${fmt(per)}</span></div>
+  </div>`, `₹${fmt(per)}/person (incl. tip)`);
+};
+
+/* ============================================================
+   ✅ TO-DO (2 tools)
+   ============================================================ */
+window.calcTd1 = function(){
+  const t = v('td1_t').trim();
+  if(!t){ toast('Task likho',1); return; }
+  const list = JSON.parse(localStorage.getItem('qunvero_todos') || '[]');
+  list.unshift({ id: Date.now(), t, done: false });
+  localStorage.setItem('qunvero_todos', JSON.stringify(list));
+  res(`<div class="result-box"><h4>✅ To-Do (${list.length})</h4>
+    ${list.slice(0,10).map(i => `<div class="result-row"><span class="lb">${i.done?'✅':'⬜'} ${QV.escapeHtml(i.t)}</span><span class="vl" style="font-size:10px">${new Date(i.id).toLocaleDateString('en-IN')}</span></div>`).join('')}
+  </div>`, `${t} added`);
+};
+window.calcTd2 = function(){
+  const t = v('td2_t').trim();
+  if(!t){ toast('Note likho',1); return; }
+  const list = JSON.parse(localStorage.getItem('qunvero_quicknotes') || '[]');
+  list.unshift({ id: Date.now(), t, date: new Date().toLocaleDateString('en-IN') });
+  localStorage.setItem('qunvero_quicknotes', JSON.stringify(list));
+  res(`<div class="result-box"><h4>📝 Notes (${list.length})</h4>
+    ${list.slice(0,5).map(n => `<div class="result-row"><span class="lb">${QV.escapeHtml(n.t.slice(0,40))}${n.t.length>40?'...':''}</span><span class="vl" style="font-size:10px">${n.date}</span></div>`).join('')}
+  </div>`, 'Note saved');
+};
 /* @FUNCTIONS_END@ */
 
 /* ============================================================
