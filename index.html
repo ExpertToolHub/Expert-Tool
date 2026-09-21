@@ -631,7 +631,791 @@ const CATEGORIES = [
 /* ---------- TOOLS DATA (fill in Parts 2-5) ---------- */
 const TOOLS = {
   /* ============ PART 2 PASTE HERE (Shop tools) ============ */
-  shop: [],
+  shop: [ /* ============ PART 2: SHOP TOOLS (20) ============ */
+shop: [
+  /* ---------- 1. BILL GENERATOR ---------- */
+  {
+    icon:'🧾', name:'Bill Generator',
+    render: () => `
+      <div class="fld"><label>Shop Name</label><input id="bg_shop" placeholder="e.g. Sharma General Store"></div>
+      <div class="fld"><label>Customer Name</label><input id="bg_cust" placeholder="Customer name"></div>
+      <div class="fld"><label>Items (Name | Qty | Price)</label>
+        <textarea id="bg_items" style="min-height:120px" placeholder="Rice | 2 | 120&#10;Sugar | 1 | 45&#10;Oil | 1 | 180"></textarea>
+      </div>
+      <div class="fld"><label>Discount (₹)</label><input id="bg_disc" type="number" placeholder="0"></div>
+      <div class="fld"><label>GST %</label>
+        <select id="bg_gst"><option value="0">0%</option><option value="5">5%</option><option value="12">12%</option><option value="18">18%</option><option value="28">28%</option></select>
+      </div>
+      <button class="btn btn-primary" style="width:100%" onclick="bgCalc()">🧮 Generate Bill</button>
+      <div id="bg_result" class="result-box"></div>
+    `,
+    init: () => { window.bgCalc = function(){
+      const shop = document.getElementById('bg_shop').value.trim() || 'My Shop';
+      const cust = document.getElementById('bg_cust').value.trim() || 'Customer';
+      const raw = document.getElementById('bg_items').value.trim();
+      const disc = parseFloat(document.getElementById('bg_disc').value) || 0;
+      const gst = parseFloat(document.getElementById('bg_gst').value) || 0;
+      if (!raw){ toast('❌ Items add karo'); return; }
+      const items = raw.split('\n').map(l => {
+        const p = l.split('|').map(s => s.trim());
+        return { name: p[0]||'', qty: parseFloat(p[1])||1, price: parseFloat(p[2])||0 };
+      }).filter(i => i.name);
+      if (!items.length){ toast('❌ Valid items daalo'); return; }
+      let sub = items.reduce((s, i) => s + i.qty*i.price, 0);
+      let afterDisc = Math.max(0, sub - disc);
+      let gstAmt = afterDisc * gst / 100;
+      let total = afterDisc + gstAmt;
+      const dt = new Date().toLocaleString('en-IN');
+      const billNo = 'BILL-' + Date.now().toString().slice(-6);
+      const html = `
+        <div style="text-align:center;margin-bottom:14px;padding-bottom:12px;border-bottom:2px dashed #4f46e5">
+          <div style="font-size:22px;font-weight:900;color:#4f46e5">${QV.escapeHtml(shop)}</div>
+          <div style="font-size:11px;color:#666;margin-top:4px">Bill No: ${billNo}</div>
+          <div style="font-size:11px;color:#666">Date: ${dt}</div>
+        </div>
+        <div style="font-size:13px;margin-bottom:12px"><b>Customer:</b> ${QV.escapeHtml(cust)}</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:14px">
+          <thead><tr style="background:#4f46e5;color:#fff">
+            <th style="padding:8px;text-align:left">Item</th>
+            <th style="padding:8px;text-align:center">Qty</th>
+            <th style="padding:8px;text-align:right">Rate</th>
+            <th style="padding:8px;text-align:right">Total</th>
+          </tr></thead>
+          <tbody>
+            ${items.map(i => `<tr style="border-bottom:1px solid #eee">
+              <td style="padding:8px">${QV.escapeHtml(i.name)}</td>
+              <td style="padding:8px;text-align:center">${i.qty}</td>
+              <td style="padding:8px;text-align:right">₹${i.price.toFixed(2)}</td>
+              <td style="padding:8px;text-align:right">₹${(i.qty*i.price).toFixed(2)}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+        <div style="font-size:13px;line-height:2;border-top:2px solid #4f46e5;padding-top:10px">
+          <div style="display:flex;justify-content:space-between"><span>Subtotal:</span><b>₹${sub.toFixed(2)}</b></div>
+          ${disc ? `<div style="display:flex;justify-content:space-between;color:#10b981"><span>Discount:</span><b>- ₹${disc.toFixed(2)}</b></div>` : ''}
+          ${gst ? `<div style="display:flex;justify-content:space-between"><span>GST (${gst}%):</span><b>+ ₹${gstAmt.toFixed(2)}</b></div>` : ''}
+          <div style="display:flex;justify-content:space-between;font-size:18px;font-weight:900;color:#4f46e5;border-top:2px solid #4f46e5;margin-top:8px;padding-top:8px"><span>GRAND TOTAL:</span><span>₹${total.toFixed(2)}</span></div>
+        </div>
+        <div style="text-align:center;margin-top:16px;font-size:11px;color:#888">Thank you! Visit again 🙏</div>
+      `;
+      const box = document.getElementById('bg_result');
+      box.innerHTML = html;
+      box.classList.add('show');
+      box.innerHTML += `<div class="btn-row"><button class="btn btn-secondary" onclick="QV.printElement(document.getElementById('bg_result'))">🖨️ Print</button><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('bg_result'),'bill')">⬇️ Download</button></div>`;
+    }; }
+  },
+
+  /* ---------- 2. QR CODE GENERATOR ---------- */
+  {
+    icon:'📱', name:'QR Code Generator',
+    render: () => `
+      <div class="fld"><label>Text / URL / UPI ID</label><textarea id="qr_text" placeholder="https://example.com&#10;upi://pay?pa=merchant@upi"></textarea></div>
+      <div class="fld"><label>Size (px)</label><input id="qr_size" type="number" value="300" min="100" max="800"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="qrGen()">🎨 Generate QR</button>
+      <div id="qr_result" class="result-box" style="text-align:center"></div>
+    `,
+    init: () => {
+      if (!document.getElementById('qr_lib')){
+        const s = document.createElement('script');
+        s.id = 'qr_lib';
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+        document.head.appendChild(s);
+      }
+      window.qrGen = function(){
+        const txt = document.getElementById('qr_text').value.trim();
+        const sz = parseInt(document.getElementById('qr_size').value) || 300;
+        if (!txt){ toast('❌ Text daalo'); return; }
+        const box = document.getElementById('qr_result');
+        box.innerHTML = '<div id="qr_canvas" style="display:inline-block;padding:16px;background:#fff;border-radius:12px"></div><div id="qr_actions"></div>';
+        box.classList.add('show');
+        setTimeout(() => {
+          const c = document.getElementById('qr_canvas');
+          c.innerHTML = '';
+          try {
+            new QRCode(c, { text: txt, width: sz, height: sz, colorDark:'#1a1f36', colorLight:'#ffffff' });
+            setTimeout(() => {
+              document.getElementById('qr_actions').innerHTML = `<div class="btn-row"><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('qr_result'),'qrcode')">⬇️ Download</button><button class="btn btn-secondary" onclick="QV.printElement(document.getElementById('qr_result'))">🖨️ Print</button></div>`;
+            }, 300);
+          } catch(e){ toast('❌ QR failed'); }
+        }, 100);
+      };
+    }
+  },
+
+  /* ---------- 3. BARCODE GENERATOR ---------- */
+  {
+    icon:'▮▯', name:'Barcode Generator',
+    render: () => `
+      <div class="fld"><label>Barcode Value (numbers/letters)</label><input id="bc_val" placeholder="e.g. 1234567890"></div>
+      <div class="fld"><label>Format</label><select id="bc_fmt"><option>CODE128</option><option>EAN13</option><option>UPC</option><option>CODE39</option></select></div>
+      <button class="btn btn-primary" style="width:100%" onclick="bcGen()">▮ Generate Barcode</button>
+      <div id="bc_result" class="result-box" style="text-align:center"></div>
+    `,
+    init: () => { window.bcGen = function(){
+      const val = document.getElementById('bc_val').value.trim();
+      const fmt = document.getElementById('bc_fmt').value;
+      if (!val){ toast('❌ Value daalo'); return; }
+      const box = document.getElementById('bc_result');
+      box.innerHTML = '<svg id="bc_svg" style="max-width:100%;background:#fff;padding:16px;border-radius:12px"></svg><div id="bc_actions"></div>';
+      box.classList.add('show');
+      try {
+        JsBarcode('#bc_svg', val, { format: fmt, lineColor:'#000', width:2, height:80, displayValue:true, fontSize:16 });
+        document.getElementById('bc_actions').innerHTML = `<div class="btn-row"><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('bc_result'),'barcode')">⬇️ Download</button><button class="btn btn-secondary" onclick="QV.printElement(document.getElementById('bc_result'))">🖨️ Print</button></div>`;
+      } catch(e){ toast('❌ Invalid barcode value'); }
+    }; }
+  },
+
+  /* ---------- 4. GST CALCULATOR ---------- */
+  {
+    icon:'💹', name:'GST Calculator',
+    render: () => `
+      <div class="fld"><label>Amount (₹)</label><input id="gst_amt" type="number" placeholder="1000"></div>
+      <div class="fld"><label>GST Rate</label><select id="gst_rate"><option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option></select></div>
+      <div class="fld"><label>Type</label><select id="gst_type"><option value="add">Add GST (Exclusive)</option><option value="rem">Remove GST (Inclusive)</option></select></div>
+      <button class="btn btn-primary" style="width:100%" onclick="gstCalc()">🧮 Calculate</button>
+      <div id="gst_result" class="result-box"></div>
+    `,
+    init: () => { window.gstCalc = function(){
+      const amt = parseFloat(document.getElementById('gst_amt').value);
+      const rate = parseFloat(document.getElementById('gst_rate').value);
+      const type = document.getElementById('gst_type').value;
+      if (!amt || amt <= 0){ toast('❌ Amount daalo'); return; }
+      let base, gst, total;
+      if (type === 'add'){ base = amt; gst = amt*rate/100; total = base+gst; }
+      else { total = amt; base = amt/(1+rate/100); gst = total-base; }
+      const box = document.getElementById('gst_result');
+      box.innerHTML = `
+        <div style="text-align:center;padding-bottom:10px;border-bottom:1px solid #eee;margin-bottom:12px"><b style="font-size:16px">GST Calculation</b></div>
+        <div style="font-size:14px;line-height:2.2">
+          <div style="display:flex;justify-content:space-between"><span>Base Amount:</span><b>₹${base.toFixed(2)}</b></div>
+          <div style="display:flex;justify-content:space-between"><span>GST @ ${rate}%:</span><b>₹${gst.toFixed(2)}</b></div>
+          <div style="display:flex;justify-content:space-between;font-size:18px;color:#4f46e5;border-top:2px solid #4f46e5;margin-top:8px;padding-top:8px"><b>Total:</b><b>₹${total.toFixed(2)}</b></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-secondary" onclick="QV.copyText('Base: ₹${base.toFixed(2)}\\nGST: ₹${gst.toFixed(2)}\\nTotal: ₹${total.toFixed(2)}')">📋 Copy</button><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('gst_result'),'gst')">⬇️ Download</button></div>
+      `;
+      box.classList.add('show');
+    }; }
+  },
+
+  /* ---------- 5. DISCOUNT CALCULATOR ---------- */
+  {
+    icon:'🏷️', name:'Discount Calculator',
+    render: () => `
+      <div class="fld"><label>Original Price (₹)</label><input id="dc_price" type="number"></div>
+      <div class="fld"><label>Discount %</label><input id="dc_pct" type="number"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="dcCalc()">🧮 Calculate</button>
+      <div id="dc_result" class="result-box"></div>
+    `,
+    init: () => { window.dcCalc = function(){
+      const p = parseFloat(document.getElementById('dc_price').value);
+      const d = parseFloat(document.getElementById('dc_pct').value);
+      if (!p || !d){ toast('❌ Dono daalo'); return; }
+      const save = p*d/100;
+      const final = p-save;
+      const box = document.getElementById('dc_result');
+      box.innerHTML = `
+        <div style="text-align:center;font-size:15px;margin-bottom:12px"><b>Discount Result</b></div>
+        <div style="font-size:15px;line-height:2.2">
+          <div style="display:flex;justify-content:space-between"><span>Original:</span><b>₹${p.toFixed(2)}</b></div>
+          <div style="display:flex;justify-content:space-between;color:#10b981"><span>You Save:</span><b>₹${save.toFixed(2)}</b></div>
+          <div style="display:flex;justify-content:space-between;font-size:20px;color:#4f46e5;border-top:2px solid #4f46e5;margin-top:8px;padding-top:8px"><b>Final Price:</b><b>₹${final.toFixed(2)}</b></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('dc_result'),'discount')">⬇️ Download</button></div>
+      `;
+      box.classList.add('show');
+    }; }
+  },
+
+  /* ---------- 6. PROFIT / LOSS ---------- */
+  {
+    icon:'📊', name:'Profit / Loss Calculator',
+    render: () => `
+      <div class="fld"><label>Cost Price (₹)</label><input id="pl_cp" type="number"></div>
+      <div class="fld"><label>Selling Price (₹)</label><input id="pl_sp" type="number"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="plCalc()">🧮 Calculate</button>
+      <div id="pl_result" class="result-box"></div>
+    `,
+    init: () => { window.plCalc = function(){
+      const cp = parseFloat(document.getElementById('pl_cp').value);
+      const sp = parseFloat(document.getElementById('pl_sp').value);
+      if (!cp || !sp){ toast('❌ Dono daalo'); return; }
+      const diff = sp-cp;
+      const pct = (diff/cp*100);
+      const isProfit = diff >= 0;
+      const box = document.getElementById('pl_result');
+      box.innerHTML = `
+        <div style="text-align:center;font-size:18px;font-weight:900;color:${isProfit?'#10b981':'#ef4444'};margin-bottom:14px">${isProfit?'✅ PROFIT':'❌ LOSS'}</div>
+        <div style="font-size:15px;line-height:2.2">
+          <div style="display:flex;justify-content:space-between"><span>Cost Price:</span><b>₹${cp.toFixed(2)}</b></div>
+          <div style="display:flex;justify-content:space-between"><span>Selling Price:</span><b>₹${sp.toFixed(2)}</b></div>
+          <div style="display:flex;justify-content:space-between;color:${isProfit?'#10b981':'#ef4444'};font-size:18px;border-top:2px solid #4f46e5;margin-top:8px;padding-top:8px"><b>${isProfit?'Profit':'Loss'}:</b><b>₹${Math.abs(diff).toFixed(2)} (${pct.toFixed(2)}%)</b></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-secondary" onclick="QV.copyText('CP: ₹${cp}  SP: ₹${sp}  ${isProfit?'Profit':'Loss'}: ₹${Math.abs(diff).toFixed(2)} (${pct.toFixed(2)}%)')">📋 Copy</button><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('pl_result'),'profitloss')">⬇️ Download</button></div>
+      `;
+      box.classList.add('show');
+    }; }
+  },
+
+  /* ---------- 7. RATE LIST MAKER ---------- */
+  {
+    icon:'📋', name:'Rate List Maker',
+    render: () => `
+      <div class="fld"><label>Shop Name</label><input id="rl_shop" placeholder="My Shop"></div>
+      <div class="fld"><label>Items (Name | Price) — ek line ek item</label>
+        <textarea id="rl_items" style="min-height:140px" placeholder="Rice 1kg | 80&#10;Sugar 1kg | 45&#10;Oil 1L | 180"></textarea>
+      </div>
+      <button class="btn btn-primary" style="width:100%" onclick="rlGen()">📋 Generate Rate List</button>
+      <div id="rl_result" class="result-box"></div>
+    `,
+    init: () => { window.rlGen = function(){
+      const shop = document.getElementById('rl_shop').value.trim() || 'My Shop';
+      const raw = document.getElementById('rl_items').value.trim();
+      if (!raw){ toast('❌ Items daalo'); return; }
+      const items = raw.split('\n').map(l => {
+        const p = l.split('|').map(s=>s.trim());
+        return { name: p[0]||'', price: p[1]||'0' };
+      }).filter(i=>i.name);
+      if (!items.length){ toast('❌ Valid items daalo'); return; }
+      const box = document.getElementById('rl_result');
+      box.innerHTML = `
+        <div style="text-align:center;padding-bottom:12px;border-bottom:2px solid #4f46e5;margin-bottom:14px">
+          <div style="font-size:22px;font-weight:900;color:#4f46e5">${QV.escapeHtml(shop)}</div>
+          <div style="font-size:12px;color:#666;margin-top:4px">📋 RATE LIST — ${new Date().toLocaleDateString('en-IN')}</div>
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:13px">
+          <thead><tr style="background:#4f46e5;color:#fff">
+            <th style="padding:10px;text-align:left">Item</th>
+            <th style="padding:10px;text-align:right">Price</th>
+          </tr></thead>
+          <tbody>
+            ${items.map(i=>`<tr style="border-bottom:1px dashed #ddd">
+              <td style="padding:10px">${QV.escapeHtml(i.name)}</td>
+              <td style="padding:10px;text-align:right;font-weight:700;color:#4f46e5">₹${QV.escapeHtml(i.price)}</td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+        <div style="text-align:center;margin-top:14px;font-size:11px;color:#888">Prices subject to change</div>
+      `;
+      box.classList.add('show');
+      box.innerHTML += `<div class="btn-row"><button class="btn btn-secondary" onclick="QV.printElement(document.getElementById('rl_result'))">🖨️ Print</button><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('rl_result'),'ratelist')">⬇️ Download</button></div>`;
+    }; }
+  },
+
+  /* ---------- 8. RECEIPT MAKER ---------- */
+  {
+    icon:'🧾', name:'Receipt Maker',
+    render: () => `
+      <div class="fld"><label>Shop Name</label><input id="rc_shop" placeholder="My Shop"></div>
+      <div class="fld"><label>Received From</label><input id="rc_from" placeholder="Customer name"></div>
+      <div class="fld"><label>Amount (₹)</label><input id="rc_amt" type="number"></div>
+      <div class="fld"><label>For (Purpose)</label><input id="rc_for" placeholder="e.g. Grocery purchase"></div>
+      <div class="fld"><label>Payment Mode</label><select id="rc_mode"><option>Cash</option><option>UPI</option><option>Card</option><option>Cheque</option></select></div>
+      <button class="btn btn-primary" style="width:100%" onclick="rcGen()">🧾 Generate Receipt</button>
+      <div id="rc_result" class="result-box"></div>
+    `,
+    init: () => { window.rcGen = function(){
+      const shop = document.getElementById('rc_shop').value.trim() || 'My Shop';
+      const from = document.getElementById('rc_from').value.trim();
+      const amt = document.getElementById('rc_amt').value;
+      const forr = document.getElementById('rc_for').value.trim();
+      const mode = document.getElementById('rc_mode').value;
+      if (!from || !amt){ toast('❌ From & Amount daalo'); return; }
+      const box = document.getElementById('rc_result');
+      box.innerHTML = `
+        <div style="text-align:center;padding:14px;border-bottom:2px solid #4f46e5;margin-bottom:16px">
+          <div style="font-size:22px;font-weight:900;color:#4f46e5">${QV.escapeHtml(shop)}</div>
+          <div style="font-size:12px;color:#666;margin-top:4px">RECEIPT</div>
+        </div>
+        <div style="font-size:14px;line-height:2.2">
+          <div style="display:flex;justify-content:space-between"><span>Receipt No:</span><b>RCP-${Date.now().toString().slice(-6)}</b></div>
+          <div style="display:flex;justify-content:space-between"><span>Date:</span><b>${new Date().toLocaleDateString('en-IN')}</b></div>
+          <div style="display:flex;justify-content:space-between"><span>Received From:</span><b>${QV.escapeHtml(from)}</b></div>
+          ${forr?`<div style="display:flex;justify-content:space-between"><span>Purpose:</span><b>${QV.escapeHtml(forr)}</b></div>`:''}
+          <div style="display:flex;justify-content:space-between"><span>Payment Mode:</span><b>${mode}</b></div>
+          <div style="display:flex;justify-content:space-between;font-size:20px;color:#4f46e5;border-top:2px solid #4f46e5;margin-top:12px;padding-top:10px"><b>Amount:</b><b>₹${parseFloat(amt).toFixed(2)}</b></div>
+        </div>
+        <div style="text-align:center;margin-top:20px;font-size:12px;color:#888">Signature: ______________</div>
+      `;
+      box.classList.add('show');
+      box.innerHTML += `<div class="btn-row"><button class="btn btn-secondary" onclick="QV.printElement(document.getElementById('rc_result'))">🖨️ Print</button><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('rc_result'),'receipt')">⬇️ Download</button></div>`;
+    }; }
+  },
+
+  /* ---------- 9. EMI CALCULATOR ---------- */
+  {
+    icon:'💳', name:'EMI Calculator',
+    render: () => `
+      <div class="fld"><label>Loan Amount (₹)</label><input id="emi_p" type="number" placeholder="100000"></div>
+      <div class="fld"><label>Interest Rate (% per year)</label><input id="emi_r" type="number" placeholder="10"></div>
+      <div class="fld"><label>Tenure (months)</label><input id="emi_n" type="number" placeholder="12"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="emiCalc()">🧮 Calculate EMI</button>
+      <div id="emi_result" class="result-box"></div>
+    `,
+    init: () => { window.emiCalc = function(){
+      const P = parseFloat(document.getElementById('emi_p').value);
+      const R = parseFloat(document.getElementById('emi_r').value)/12/100;
+      const N = parseFloat(document.getElementById('emi_n').value);
+      if (!P || !N){ toast('❌ Amount & tenure daalo'); return; }
+      let emi;
+      if (R === 0) emi = P/N;
+      else emi = P*R*Math.pow(1+R,N)/(Math.pow(1+R,N)-1);
+      const total = emi*N;
+      const interest = total-P;
+      const box = document.getElementById('emi_result');
+      box.innerHTML = `
+        <div style="text-align:center;font-size:15px;margin-bottom:14px"><b>EMI Calculation</b></div>
+        <div style="text-align:center;font-size:28px;font-weight:900;color:#4f46e5;margin-bottom:16px">₹${emi.toFixed(0)}<div style="font-size:12px;font-weight:500;color:#888">per month</div></div>
+        <div style="font-size:14px;line-height:2.2">
+          <div style="display:flex;justify-content:space-between"><span>Principal:</span><b>₹${P.toFixed(0)}</b></div>
+          <div style="display:flex;justify-content:space-between"><span>Total Interest:</span><b style="color:#f59e0b">₹${interest.toFixed(0)}</b></div>
+          <div style="display:flex;justify-content:space-between;border-top:2px solid #4f46e5;margin-top:8px;padding-top:8px;font-size:16px"><b>Total Payment:</b><b>₹${total.toFixed(0)}</b></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('emi_result'),'emi')">⬇️ Download</button></div>
+      `;
+      box.classList.add('show');
+    }; }
+  },
+
+  /* ---------- 10. UDHAR KHATA ---------- */
+  {
+    icon:'📒', name:'Udhar Khata',
+    render: () => `
+      <div class="fld"><label>Customer Name</label><input id="uk_name" placeholder="Customer name"></div>
+      <div class="fld"><label>Amount (₹)</label><input id="uk_amt" type="number"></div>
+      <div class="fld"><label>Type</label><select id="uk_type"><option value="due">Udhar Diya (Due)</option><option value="paid">Paid</option></select></div>
+      <div class="fld"><label>Note (optional)</label><input id="uk_note" placeholder="e.g. Rice 2kg"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="ukAdd()">➕ Add Entry</button>
+      <div id="uk_list" style="margin-top:14px"></div>
+    `,
+    init: () => { window.ukAdd = function(){
+      const name = document.getElementById('uk_name').value.trim();
+      const amt = parseFloat(document.getElementById('uk_amt').value);
+      const type = document.getElementById('uk_type').value;
+      const note = document.getElementById('uk_note').value.trim();
+      if (!name || !amt){ toast('❌ Name & amount daalo'); return; }
+      const list = JSON.parse(localStorage.getItem('qunvero_udhar') || '[]');
+      list.unshift({ id: Date.now(), name, amt, type, note, date: new Date().toLocaleDateString('en-IN') });
+      localStorage.setItem('qunvero_udhar', JSON.stringify(list));
+      document.getElementById('uk_name').value = '';
+      document.getElementById('uk_amt').value = '';
+      document.getElementById('uk_note').value = '';
+      window.ukRender();
+      toast('✅ Entry added');
+    };
+    window.ukRender = function(){
+      const list = JSON.parse(localStorage.getItem('qunvero_udhar') || '[]');
+      const box = document.getElementById('uk_list');
+      if (!list.length){ box.innerHTML = '<div class="empty-state"><span class="es-emoji">📭</span>No entries yet</div>'; return; }
+      const grouped = {};
+      list.forEach(e => { if (!grouped[e.name]) grouped[e.name] = {due:0,paid:0}; grouped[e.name][e.type] += e.amt; });
+      box.innerHTML = Object.entries(grouped).map(([name, t]) => {
+        const bal = t.due - t.paid;
+        return `<div style="background:#fff;border-radius:10px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;color:#1a1f36;border-left:4px solid ${bal>0?'#ef4444':'#10b981'}">
+          <div><b>${QV.escapeHtml(name)}</b><div style="font-size:11px;color:#888">Due: ₹${t.due} | Paid: ₹${t.paid}</div></div>
+          <div style="font-size:18px;font-weight:900;color:${bal>0?'#ef4444':'#10b981'}">₹${Math.abs(bal)}${bal>0?' due':' clear'}</div>
+        </div>`;
+      }).join('');
+    };
+    window.ukRender();
+    window.ukClear = function(){ if (confirm('Clear all udhar data?')) { localStorage.removeItem('qunvero_udhar'); window.ukRender(); } };
+    setTimeout(() => {
+      const box = document.getElementById('uk_list');
+      if (box && !document.getElementById('uk_clear_btn')){
+        const btn = document.createElement('button');
+        btn.id = 'uk_clear_btn';
+        btn.className = 'btn btn-danger';
+        btn.textContent = '🗑 Clear All';
+        btn.style.marginTop = '12px';
+        btn.onclick = () => window.ukClear();
+        box.parentNode.appendChild(btn);
+      }
+    }, 100);
+    }
+  },
+
+  /* ---------- 11. INVOICE MAKER ---------- */
+  {
+    icon:'📄', name:'Invoice Maker',
+    render: () => `
+      <div class="fld"><label>Business Name</label><input id="inv_biz" placeholder="Your Business"></div>
+      <div class="fld"><label>Client Name</label><input id="inv_cli" placeholder="Client"></div>
+      <div class="fld"><label>Items (Name | Qty | Rate)</label><textarea id="inv_items" style="min-height:110px" placeholder="Service A | 1 | 500&#10;Product B | 2 | 300"></textarea></div>
+      <div class="fld"><label>Tax %</label><input id="inv_tax" type="number" placeholder="18" value="18"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="invGen()">📄 Generate Invoice</button>
+      <div id="inv_result" class="result-box"></div>
+    `,
+    init: () => { window.invGen = function(){
+      const biz = document.getElementById('inv_biz').value.trim() || 'Business';
+      const cli = document.getElementById('inv_cli').value.trim() || 'Client';
+      const raw = document.getElementById('inv_items').value.trim();
+      const tax = parseFloat(document.getElementById('inv_tax').value) || 0;
+      if (!raw){ toast('❌ Items daalo'); return; }
+      const items = raw.split('\n').map(l => {
+        const p = l.split('|').map(s=>s.trim());
+        return { name: p[0]||'', qty: parseFloat(p[1])||1, rate: parseFloat(p[2])||0 };
+      }).filter(i=>i.name);
+      if (!items.length){ toast('❌ Valid items daalo'); return; }
+      const sub = items.reduce((s,i)=>s+i.qty*i.rate, 0);
+      const taxAmt = sub*tax/100;
+      const total = sub+taxAmt;
+      const box = document.getElementById('inv_result');
+      box.innerHTML = `
+        <div style="display:flex;justify-content:space-between;padding-bottom:12px;border-bottom:2px solid #4f46e5;margin-bottom:16px">
+          <div><div style="font-size:20px;font-weight:900;color:#4f46e5">${QV.escapeHtml(biz)}</div><div style="font-size:11px;color:#888">INVOICE</div></div>
+          <div style="text-align:right;font-size:12px"><b>INV-${Date.now().toString().slice(-6)}</b><br>${new Date().toLocaleDateString('en-IN')}</div>
+        </div>
+        <div style="font-size:13px;margin-bottom:12px"><b>Bill To:</b> ${QV.escapeHtml(cli)}</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:14px">
+          <thead><tr style="background:#4f46e5;color:#fff">
+            <th style="padding:8px;text-align:left">Item</th><th style="padding:8px;text-align:center">Qty</th><th style="padding:8px;text-align:right">Rate</th><th style="padding:8px;text-align:right">Amt</th>
+          </tr></thead>
+          <tbody>${items.map(i=>`<tr style="border-bottom:1px solid #eee">
+            <td style="padding:8px">${QV.escapeHtml(i.name)}</td>
+            <td style="padding:8px;text-align:center">${i.qty}</td>
+            <td style="padding:8px;text-align:right">₹${i.rate.toFixed(2)}</td>
+            <td style="padding:8px;text-align:right">₹${(i.qty*i.rate).toFixed(2)}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+        <div style="font-size:13px;line-height:2">
+          <div style="display:flex;justify-content:space-between"><span>Subtotal:</span><b>₹${sub.toFixed(2)}</b></div>
+          ${tax?`<div style="display:flex;justify-content:space-between"><span>Tax (${tax}%):</span><b>₹${taxAmt.toFixed(2)}</b></div>`:''}
+          <div style="display:flex;justify-content:space-between;font-size:18px;color:#4f46e5;border-top:2px solid #4f46e5;margin-top:8px;padding-top:8px"><b>TOTAL:</b><b>₹${total.toFixed(2)}</b></div>
+        </div>
+      `;
+      box.classList.add('show');
+      box.innerHTML += `<div class="btn-row"><button class="btn btn-secondary" onclick="QV.printElement(document.getElementById('inv_result'))">🖨️ Print</button><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('inv_result'),'invoice')">⬇️ Download</button></div>`;
+    }; }
+  },
+
+  /* ---------- 12. STOCK MANAGER ---------- */
+  {
+    icon:'📦', name:'Stock Manager',
+    render: () => `
+      <div class="fld"><label>Item Name</label><input id="sm_name" placeholder="e.g. Rice 1kg"></div>
+      <div class="fld"><label>Quantity</label><input id="sm_qty" type="number"></div>
+      <div class="fld"><label>Price (₹)</label><input id="sm_price" type="number"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="smAdd()">➕ Add Stock</button>
+      <div id="sm_list" style="margin-top:14px"></div>
+    `,
+    init: () => { window.smAdd = function(){
+      const n = document.getElementById('sm_name').value.trim();
+      const q = parseFloat(document.getElementById('sm_qty').value);
+      const p = parseFloat(document.getElementById('sm_price').value) || 0;
+      if (!n || !q){ toast('❌ Name & qty daalo'); return; }
+      const list = JSON.parse(localStorage.getItem('qunvero_stock') || '[]');
+      const ex = list.find(i => i.name.toLowerCase() === n.toLowerCase());
+      if (ex){ ex.qty += q; ex.price = p || ex.price; }
+      else list.unshift({ id: Date.now(), name: n, qty: q, price: p });
+      localStorage.setItem('qunvero_stock', JSON.stringify(list));
+      document.getElementById('sm_name').value = '';
+      document.getElementById('sm_qty').value = '';
+      document.getElementById('sm_price').value = '';
+      window.smRender();
+      toast('✅ Stock added');
+    };
+    window.smRender = function(){
+      const list = JSON.parse(localStorage.getItem('qunvero_stock') || '[]');
+      const box = document.getElementById('sm_list');
+      if (!list.length){ box.innerHTML = '<div class="empty-state"><span class="es-emoji">📭</span>No items yet</div>'; return; }
+      box.innerHTML = list.map((i, idx) => `
+        <div style="background:#fff;border-radius:10px;padding:12px;margin-bottom:8px;color:#1a1f36">
+          <div style="display:flex;justify-content:space-between"><b>${QV.escapeHtml(i.name)}</b><span style="color:#4f46e5;font-weight:700">₹${i.price}</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+            <span style="font-size:12px;color:#888">Qty: <b style="color:${i.qty < 5 ? '#ef4444' : '#10b981'}">${i.qty}</b></span>
+            <div><button onclick="smQty(${idx},-1)" style="padding:3px 10px;border-radius:6px;background:#ef4444;color:#fff;font-weight:700">−</button><button onclick="smQty(${idx},1)" style="padding:3px 10px;border-radius:6px;background:#10b981;color:#fff;font-weight:700;margin-left:4px">+</button><button onclick="smDel(${idx})" style="padding:3px 10px;border-radius:6px;background:#ddd;color:#333;margin-left:4px">🗑</button></div>
+          </div>
+        </div>
+      `).join('');
+    };
+    window.smQty = function(i, d){
+      const list = JSON.parse(localStorage.getItem('qunvero_stock') || '[]');
+      list[i].qty = Math.max(0, list[i].qty + d);
+      localStorage.setItem('qunvero_stock', JSON.stringify(list));
+      window.smRender();
+    };
+    window.smDel = function(i){
+      const list = JSON.parse(localStorage.getItem('qunvero_stock') || '[]');
+      list.splice(i, 1);
+      localStorage.setItem('qunvero_stock', JSON.stringify(list));
+      window.smRender();
+    };
+    window.smRender();
+    }
+  },
+
+  /* ---------- 13. PACKAGING CALCULATOR ---------- */
+  {
+    icon:'📦', name:'Packaging Calculator',
+    render: () => `
+      <div class="fld"><label>Total Items</label><input id="pk_items" type="number" placeholder="100"></div>
+      <div class="fld"><label>Items per Box</label><input id="pk_per" type="number" placeholder="12"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="pkCalc()">🧮 Calculate</button>
+      <div id="pk_result" class="result-box"></div>
+    `,
+    init: () => { window.pkCalc = function(){
+      const t = parseInt(document.getElementById('pk_items').value);
+      const p = parseInt(document.getElementById('pk_per').value);
+      if (!t || !p){ toast('❌ Dono daalo'); return; }
+      const full = Math.floor(t/p);
+      const rem = t%p;
+      const boxes = full + (rem ? 1 : 0);
+      const box = document.getElementById('pk_result');
+      box.innerHTML = `
+        <div style="text-align:center;font-size:15px;margin-bottom:14px"><b>Packaging Result</b></div>
+        <div style="text-align:center;font-size:32px;font-weight:900;color:#4f46e5;margin-bottom:12px">${boxes}<div style="font-size:12px;color:#888">boxes needed</div></div>
+        <div style="font-size:14px;line-height:2">
+          <div style="display:flex;justify-content:space-between"><span>Full boxes:</span><b>${full}</b></div>
+          ${rem?`<div style="display:flex;justify-content:space-between;color:#f59e0b"><span>Last box (partial):</span><b>${rem} items</b></div>`:''}
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('pk_result'),'packaging')">⬇️ Download</button></div>
+      `;
+      box.classList.add('show');
+    }; }
+  },
+
+  /* ---------- 14. UNIT PRICE COMPARE ---------- */
+  {
+    icon:'⚖️', name:'Unit Price Compare',
+    render: () => `
+      <div class="fld"><label>Product A — Price (₹)</label><input id="up_pa" type="number"></div>
+      <div class="fld"><label>Product A — Quantity</label><input id="up_qa" type="number"></div>
+      <div class="fld"><label>Product B — Price (₹)</label><input id="up_pb" type="number"></div>
+      <div class="fld"><label>Product B — Quantity</label><input id="up_qb" type="number"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="upCalc()">⚖️ Compare</button>
+      <div id="up_result" class="result-box"></div>
+    `,
+    init: () => { window.upCalc = function(){
+      const pa = parseFloat(document.getElementById('up_pa').value);
+      const qa = parseFloat(document.getElementById('up_qa').value);
+      const pb = parseFloat(document.getElementById('up_pb').value);
+      const qb = parseFloat(document.getElementById('up_qb').value);
+      if (!pa || !qa || !pb || !qb){ toast('❌ Sab fields bharo'); return; }
+      const ua = pa/qa, ub = pb/qb;
+      const best = ua < ub ? 'A' : 'B';
+      const box = document.getElementById('up_result');
+      box.innerHTML = `
+        <div style="text-align:center;font-size:16px;font-weight:900;color:#10b981;margin-bottom:14px">🏆 Product ${best} is better value!</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:14px">
+          <div style="background:#f8f9ff;padding:12px;border-radius:10px;text-align:center;border:2px solid ${best==='A'?'#10b981':'#ddd'}">
+            <b>Product A</b><div style="font-size:20px;color:#4f46e5;font-weight:900;margin-top:6px">₹${ua.toFixed(2)}</div><div style="font-size:11px;color:#888">per unit</div>
+          </div>
+          <div style="background:#f8f9ff;padding:12px;border-radius:10px;text-align:center;border:2px solid ${best==='B'?'#10b981':'#ddd'}">
+            <b>Product B</b><div style="font-size:20px;color:#4f46e5;font-weight:900;margin-top:6px">₹${ub.toFixed(2)}</div><div style="font-size:11px;color:#888">per unit</div>
+          </div>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('up_result'),'compare')">⬇️ Download</button></div>
+      `;
+      box.classList.add('show');
+    }; }
+  },
+
+  /* ---------- 15. CASH DENOMINATION ---------- */
+  {
+    icon:'💵', name:'Cash Denomination',
+    render: () => `
+      <div class="fld"><label>Amount (₹)</label><input id="cd_amt" type="number" placeholder="5000"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="cdCalc()">💵 Calculate Notes</button>
+      <div id="cd_result" class="result-box"></div>
+    `,
+    init: () => { window.cdCalc = function(){
+      let amt = parseInt(document.getElementById('cd_amt').value);
+      if (!amt || amt <= 0){ toast('❌ Amount daalo'); return; }
+      const notes = [2000, 500, 200, 100, 50, 20, 10, 5, 2, 1];
+      const result = [];
+      let rem = amt;
+      notes.forEach(n => { if (rem >= n){ const c = Math.floor(rem/n); result.push({ n, c }); rem -= c*n; } });
+      const box = document.getElementById('cd_result');
+      box.innerHTML = `
+        <div style="text-align:center;font-size:15px;margin-bottom:14px"><b>₹${amt} Denomination</b></div>
+        <div style="font-size:14px;line-height:2.2">
+          ${result.map(r=>`<div style="display:flex;justify-content:space-between;border-bottom:1px dashed #eee;padding:6px 0"><span>₹${r.n} × ${r.c}</span><b>₹${r.n*r.c}</b></div>`).join('')}
+          <div style="display:flex;justify-content:space-between;font-size:16px;color:#4f46e5;border-top:2px solid #4f46e5;margin-top:8px;padding-top:8px"><b>Total:</b><b>₹${amt}</b></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('cd_result'),'cash')">⬇️ Download</button></div>
+      `;
+      box.classList.add('show');
+    }; }
+  },
+
+  /* ---------- 16. DAILY SALES ---------- */
+  {
+    icon:'📈', name:'Daily Sales Tracker',
+    render: () => `
+      <div class="fld"><label>Sale Amount (₹)</label><input id="ds_amt" type="number"></div>
+      <div class="fld"><label>Note (optional)</label><input id="ds_note" placeholder="e.g. Morning sales"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="dsAdd()">➕ Add Sale</button>
+      <div id="ds_list" style="margin-top:14px"></div>
+    `,
+    init: () => { window.dsAdd = function(){
+      const a = parseFloat(document.getElementById('ds_amt').value);
+      const n = document.getElementById('ds_note').value.trim();
+      if (!a){ toast('❌ Amount daalo'); return; }
+      const today = new Date().toLocaleDateString('en-IN');
+      const list = JSON.parse(localStorage.getItem('qunvero_sales') || '[]');
+      list.unshift({ id: Date.now(), amt: a, note: n, date: today, time: new Date().toLocaleTimeString('en-IN', {hour:'2-digit',minute:'2-digit'}) });
+      localStorage.setItem('qunvero_sales', JSON.stringify(list));
+      document.getElementById('ds_amt').value = '';
+      document.getElementById('ds_note').value = '';
+      window.dsRender();
+      toast('✅ Sale added');
+    };
+    window.dsRender = function(){
+      const list = JSON.parse(localStorage.getItem('qunvero_sales') || '[]');
+      const today = new Date().toLocaleDateString('en-IN');
+      const todayList = list.filter(s => s.date === today);
+      const todayTotal = todayList.reduce((s, i) => s + i.amt, 0);
+      const box = document.getElementById('ds_list');
+      box.innerHTML = `
+        <div style="background:#4f46e5;color:#fff;border-radius:12px;padding:16px;text-align:center;margin-bottom:12px">
+          <div style="font-size:12px;opacity:.8">Today's Total</div>
+          <div style="font-size:32px;font-weight:900">₹${todayTotal.toFixed(2)}</div>
+          <div style="font-size:11px;opacity:.8">${todayList.length} sales</div>
+        </div>
+        ${list.slice(0,15).map(s=>`<div style="background:#fff;border-radius:10px;padding:10px 12px;margin-bottom:6px;color:#1a1f36;display:flex;justify-content:space-between;align-items:center;font-size:13px">
+          <div>${QV.escapeHtml(s.note||'Sale')}<div style="font-size:10px;color:#888">${s.date} · ${s.time}</div></div>
+          <b style="color:#4f46e5">₹${s.amt.toFixed(2)}</b>
+        </div>`).join('')}
+      `;
+    };
+    window.dsRender();
+    }
+  },
+
+  /* ---------- 17. COMMISSION CALCULATOR ---------- */
+  {
+    icon:'💰', name:'Commission Calculator',
+    render: () => `
+      <div class="fld"><label>Sale Amount (₹)</label><input id="cm_amt" type="number"></div>
+      <div class="fld"><label>Commission %</label><input id="cm_pct" type="number"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="cmCalc()">🧮 Calculate</button>
+      <div id="cm_result" class="result-box"></div>
+    `,
+    init: () => { window.cmCalc = function(){
+      const a = parseFloat(document.getElementById('cm_amt').value);
+      const p = parseFloat(document.getElementById('cm_pct').value);
+      if (!a || !p){ toast('❌ Dono daalo'); return; }
+      const c = a*p/100;
+      const box = document.getElementById('cm_result');
+      box.innerHTML = `
+        <div style="text-align:center;font-size:15px;margin-bottom:12px"><b>Commission Result</b></div>
+        <div style="text-align:center;font-size:32px;font-weight:900;color:#10b981;margin-bottom:14px">₹${c.toFixed(2)}</div>
+        <div style="font-size:14px;line-height:2">
+          <div style="display:flex;justify-content:space-between"><span>Sale Amount:</span><b>₹${a.toFixed(2)}</b></div>
+          <div style="display:flex;justify-content:space-between"><span>Commission %:</span><b>${p}%</b></div>
+        </div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('cm_result'),'commission')">⬇️ Download</button></div>
+      `;
+      box.classList.add('show');
+    }; }
+  },
+
+  /* ---------- 18. LOYALTY POINTS ---------- */
+  {
+    icon:'⭐', name:'Loyalty Points Calc',
+    render: () => `
+      <div class="fld"><label>Purchase Amount (₹)</label><input id="lp_amt" type="number"></div>
+      <div class="fld"><label>Points per ₹100</label><input id="lp_rate" type="number" value="1"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="lpCalc()">⭐ Calculate Points</button>
+      <div id="lp_result" class="result-box"></div>
+    `,
+    init: () => { window.lpCalc = function(){
+      const a = parseFloat(document.getElementById('lp_amt').value);
+      const r = parseFloat(document.getElementById('lp_rate').value) || 1;
+      if (!a){ toast('❌ Amount daalo'); return; }
+      const pts = Math.floor(a/100*r);
+      const box = document.getElementById('lp_result');
+      box.innerHTML = `
+        <div style="text-align:center;font-size:15px;margin-bottom:12px"><b>Loyalty Points</b></div>
+        <div style="text-align:center;font-size:36px;font-weight:900;color:#f59e0b;margin-bottom:8px">⭐ ${pts}</div>
+        <div style="text-align:center;font-size:13px;color:#666">points earned on ₹${a}</div>
+        <div class="btn-row"><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('lp_result'),'loyalty')">⬇️ Download</button></div>
+      `;
+      box.classList.add('show');
+    }; }
+  },
+
+  /* ---------- 19. CHANGE CALCULATOR ---------- */
+  {
+    icon:'🪙', name:'Change Calculator',
+    render: () => `
+      <div class="fld"><label>Bill Amount (₹)</label><input id="cg_bill" type="number"></div>
+      <div class="fld"><label>Cash Given (₹)</label><input id="cg_given" type="number"></div>
+      <button class="btn btn-primary" style="width:100%" onclick="cgCalc()">🪙 Calculate Change</button>
+      <div id="cg_result" class="result-box"></div>
+    `,
+    init: () => { window.cgCalc = function(){
+      const b = parseFloat(document.getElementById('cg_bill').value);
+      const g = parseFloat(document.getElementById('cg_given').value);
+      if (!b || !g){ toast('❌ Dono daalo'); return; }
+      const c = g-b;
+      const box = document.getElementById('cg_result');
+      if (c < 0){
+        box.innerHTML = `<div style="text-align:center;font-size:15px;color:#ef4444"><b>❌ ₹${Math.abs(c).toFixed(2)} kam hai</b></div>`;
+      } else {
+        const notes = [500, 200, 100, 50, 20, 10, 5, 2, 1];
+        let rem = Math.round(c);
+        const result = [];
+        notes.forEach(n => { if (rem >= n){ const ct = Math.floor(rem/n); result.push({n, ct}); rem -= ct*n; } });
+        box.innerHTML = `
+          <div style="text-align:center;font-size:15px;margin-bottom:12px"><b>Change to Return</b></div>
+          <div style="text-align:center;font-size:34px;font-weight:900;color:#10b981;margin-bottom:14px">₹${c.toFixed(2)}</div>
+          <div style="font-size:13px;line-height:2;background:#f8f9ff;padding:12px;border-radius:10px">
+            ${result.map(r=>`<div style="display:flex;justify-content:space-between"><span>₹${r.n} × ${r.ct}</span><b>₹${r.n*r.ct}</b></div>`).join('')}
+          </div>
+        `;
+      }
+      box.classList.add('show');
+    }; }
+  },
+
+  /* ---------- 20. PURCHASE ORDER ---------- */
+  {
+    icon:'📝', name:'Purchase Order Maker',
+    render: () => `
+      <div class="fld"><label>Your Shop Name</label><input id="po_shop" placeholder="My Shop"></div>
+      <div class="fld"><label>Supplier Name</label><input id="po_supp" placeholder="Supplier"></div>
+      <div class="fld"><label>Items (Name | Qty | Rate)</label><textarea id="po_items" style="min-height:110px" placeholder="Item A | 10 | 50&#10;Item B | 20 | 30"></textarea></div>
+      <button class="btn btn-primary" style="width:100%" onclick="poGen()">📝 Generate PO</button>
+      <div id="po_result" class="result-box"></div>
+    `,
+    init: () => { window.poGen = function(){
+      const shop = document.getElementById('po_shop').value.trim() || 'My Shop';
+      const supp = document.getElementById('po_supp').value.trim() || 'Supplier';
+      const raw = document.getElementById('po_items').value.trim();
+      if (!raw){ toast('❌ Items daalo'); return; }
+      const items = raw.split('\n').map(l => {
+        const p = l.split('|').map(s=>s.trim());
+        return { name: p[0]||'', qty: parseFloat(p[1])||1, rate: parseFloat(p[2])||0 };
+      }).filter(i=>i.name);
+      if (!items.length){ toast('❌ Valid items daalo'); return; }
+      const total = items.reduce((s,i)=>s+i.qty*i.rate, 0);
+      const box = document.getElementById('po_result');
+      box.innerHTML = `
+        <div style="text-align:center;padding-bottom:12px;border-bottom:2px solid #4f46e5;margin-bottom:16px">
+          <div style="font-size:20px;font-weight:900;color:#4f46e5">${QV.escapeHtml(shop)}</div>
+          <div style="font-size:12px;color:#666;margin-top:4px">PURCHASE ORDER · PO-${Date.now().toString().slice(-6)}</div>
+        </div>
+        <div style="font-size:13px;margin-bottom:12px"><b>To Supplier:</b> ${QV.escapeHtml(supp)}</div>
+        <div style="font-size:12px;margin-bottom:10px">Date: ${new Date().toLocaleDateString('en-IN')}</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px">
+          <thead><tr style="background:#4f46e5;color:#fff">
+            <th style="padding:8px;text-align:left">Item</th><th style="padding:8px;text-align:center">Qty</th><th style="padding:8px;text-align:right">Rate</th><th style="padding:8px;text-align:right">Amount</th>
+          </tr></thead>
+          <tbody>${items.map(i=>`<tr style="border-bottom:1px solid #eee">
+            <td style="padding:8px">${QV.escapeHtml(i.name)}</td>
+            <td style="padding:8px;text-align:center">${i.qty}</td>
+            <td style="padding:8px;text-align:right">₹${i.rate.toFixed(2)}</td>
+            <td style="padding:8px;text-align:right">₹${(i.qty*i.rate).toFixed(2)}</td>
+          </tr>`).join('')}</tbody>
+        </table>
+        <div style="text-align:right;font-size:18px;font-weight:900;color:#4f46e5;margin-top:12px;padding-top:10px;border-top:2px solid #4f46e5">Total: ₹${total.toFixed(2)}</div>
+        <div style="margin-top:20px;font-size:12px;color:#888">Authorized Signature: ______________</div>
+      `;
+      box.classList.add('show');
+      box.innerHTML += `<div class="btn-row"><button class="btn btn-secondary" onclick="QV.printElement(document.getElementById('po_result'))">🖨️ Print</button><button class="btn btn-primary" onclick="QV.downloadImage(document.getElementById('po_result'),'purchase-order')">⬇️ Download</button></div>`;
+    }; }
+  }
+], ],
 
   /* ============ PART 3 PASTE HERE (Photocopy + General) ============ */
   photo: [],
