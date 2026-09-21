@@ -1,855 +1,1135 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<title>Qunvero — 100+ Free Tools India | Shop, Photocopy, Business</title>
-<meta name="description" content="Qunvero — 100+ free online tools for India. Shopkeeper, photocopy, business, image, PDF, QR, barcode. 100% free.">
-<meta name="theme-color" content="#0070f3">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
-<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<title>Qunvero - 100+ Free Online Tools</title>
+<meta name="description" content="Qunvero - 100+ free online tools for shopkeepers, students, business, finance, PDF, image, text and more. No signup required.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧰</text></svg>">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.min.js"></script>
 <style>
+:root{
+  --bg:#f5f7fb;
+  --card:#ffffff;
+  --text:#1a1f36;
+  --text-soft:#5a6478;
+  --border:#e3e8f0;
+  --primary:#4f46e5;
+  --primary-2:#7c3aed;
+  --grad:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);
+  --grad-soft:linear-gradient(135deg,#eef2ff 0%,#f5f3ff 100%);
+  --shadow:0 4px 16px rgba(79,70,229,.08);
+  --shadow-lg:0 12px 32px rgba(79,70,229,.16);
+  --success:#10b981;
+  --danger:#ef4444;
+  --warn:#f59e0b;
+}
+[data-theme="dark"]{
+  --bg:#0f1424;
+  --card:#1a2138;
+  --text:#e8ecf5;
+  --text-soft:#9aa4be;
+  --border:#2a3352;
+  --grad-soft:linear-gradient(135deg,#1e2545 0%,#2a2150 100%);
+  --shadow:0 4px 16px rgba(0,0,0,.4);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.5);
+}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{--bg:#f8fafc;--bg2:#fff;--card:#fff;--border:#e2e8f0;--text:#0f172a;--muted:#64748b;--primary:#0070f3;--accent:#7928ca;--success:#10b981;--danger:#ef4444;--warning:#f59e0b;--grad:linear-gradient(135deg,#0070f3,#7928ca);--shadow:0 4px 20px rgba(0,0,0,.06);--shadow-h:0 12px 40px rgba(0,112,243,.18)}
-body.dark{--bg:#0a0a0f;--bg2:#13131c;--card:#1a1a24;--border:rgba(255,255,255,.08);--text:#fff;--muted:#8a8a9a;--shadow:0 4px 20px rgba(0,0,0,.4)}
-html{scroll-behavior:smooth}html,body{height:100%}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s,color .3s;padding-bottom:80px}
-body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 10% 10%,rgba(0,112,243,.06),transparent 40%),radial-gradient(circle at 90% 90%,rgba(121,40,202,.06),transparent 40%)}
-body.dark::before{background:radial-gradient(circle at 10% 10%,rgba(0,112,243,.15),transparent 40%),radial-gradient(circle at 90% 90%,rgba(121,40,202,.15),transparent 40%)}
-button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
-input,select,textarea{width:100%;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;color:var(--text);outline:none;transition:.2s;font-size:15px}
-input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,112,243,.1)}
-input::placeholder,textarea::placeholder{color:var(--muted)}
-label{display:block;font-size:13px;color:var(--muted);margin:10px 0 6px;font-weight:500}
-img{max-width:100%;display:block}canvas{max-width:100%}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  background:var(--bg);color:var(--text);
+  transition:background .3s,color .3s;
+  min-height:100vh;overflow-x:hidden;
+  line-height:1.5;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:16px}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
 
-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:12px 16px}
-body.dark header{background:rgba(10,10,15,.85)}
-.hdr{max-width:1300px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.logo{font-size:20px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;user-select:none;padding:4px 6px;border-radius:8px}
-.logo:active{transform:scale(.95)}
-.logo span{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hdr-r{display:flex;gap:8px;align-items:center}
-.datetime{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font-size:11px;color:var(--muted);font-weight:500;white-space:nowrap}
-.datetime .time{font-size:13px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums}
-.datetime .date{font-size:11px;color:var(--muted)}
-@media(max-width:480px){.datetime .date{display:none}}
-.icon-btn{background:var(--card);border:1px solid var(--border);width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:.2s;box-shadow:var(--shadow);flex-shrink:0}
-.icon-btn:hover{transform:scale(1.08);border-color:var(--primary)}
-.icon-btn:active{transform:scale(.95)}
-
-.menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(4px);z-index:300;opacity:0;pointer-events:none;transition:.3s}
-.menu-overlay.on{opacity:1;pointer-events:auto}
-.menu-drawer{position:fixed;top:0;right:0;bottom:0;width:min(320px,85vw);background:var(--bg2);border-left:1px solid var(--border);z-index:301;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column}
-.menu-drawer.on{transform:translateX(0)}
-.menu-head{padding:20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.menu-head h3{font-size:18px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.menu-list{padding:12px 0;flex:1}
-.menu-item{display:flex;align-items:center;gap:14px;padding:14px 20px;cursor:pointer;transition:.15s;font-size:15px;font-weight:500}
-.menu-item:hover{background:rgba(0,112,243,.06)}
-.menu-item .mi-icon{font-size:20px;width:24px;text-align:center}
-.menu-foot{padding:20px;border-top:1px solid var(--border);text-align:center;font-size:11px;color:var(--muted)}
-
-.search-wrap{max-width:1300px;margin:14px auto 0;padding:0 16px;position:relative}
-.search-box{width:100%;padding:16px 55px 16px 22px;font-size:16px;border-radius:30px;background:var(--bg2);border:1.5px solid var(--border);box-shadow:var(--shadow)}
-.search-box:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(0,112,243,.1)}
-.search-icon{position:absolute;right:32px;top:50%;transform:translateY(-50%);font-size:20px;pointer-events:none;opacity:.6}
-.search-results{position:absolute;top:calc(100% + 6px);left:16px;right:16px;background:var(--card);border:1px solid var(--border);border-radius:16px;max-height:400px;overflow-y:auto;z-index:200;display:none;box-shadow:0 20px 60px rgba(0,0,0,.15)}
-.search-results.on{display:block;animation:fadeIn .2s}
-@keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
-.sr-item{padding:14px 20px;cursor:pointer;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border);transition:.15s}
-.sr-item:last-child{border-bottom:none}
-.sr-item:hover{background:rgba(0,112,243,.06)}
-.sr-item .ic{font-size:22px;flex-shrink:0}
-.sr-item .info{flex:1;min-width:0}
-.sr-item .nm{font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sr-item .ct{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-.sr-empty{padding:30px;text-align:center;color:var(--muted);font-size:14px}
-
-.hero{text-align:center;padding:36px 16px 24px;max-width:900px;margin:0 auto;animation:fadeUp .6s}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.hero-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(0,112,243,.08),rgba(121,40,202,.08));border:1px solid rgba(0,112,243,.2);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;color:var(--primary);margin-bottom:18px}
-.hero-badge .dot{width:6px;height:6px;background:var(--success);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
-.hero h1{font-size:clamp(26px,5vw,46px);font-weight:800;line-height:1.1;margin-bottom:14px;letter-spacing:-.5px}
-.hero h1 span{background:linear-gradient(90deg,#0070f3,#7928ca,#ff6b35);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hero p{color:var(--muted);font-size:15px;max-width:600px;margin:0 auto 22px}
-
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;padding:20px 16px;max-width:900px;margin:0 auto}
-.stat{background:var(--card);border:1px solid var(--border);padding:16px 10px;border-radius:16px;text-align:center;box-shadow:var(--shadow);transition:.3s}
-.stat:hover{transform:translateY(-4px);box-shadow:var(--shadow-h)}
-.stat-n{font-size:22px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1}
-.stat-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:4px;font-weight:600}
-
-/* ============ CATEGORY GRID (Homepage) ============ */
-.sec{max-width:1300px;margin:28px auto;padding:0 16px}
-.sec-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:10px}
-.sec-head h2{font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
-.sec-head h2 .emo{font-size:24px}
-
-.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
-.cat-card{
+/* ===== HEADER ===== */
+.header{
+  position:sticky;top:0;z-index:100;
   background:var(--card);
-  border:1px solid var(--border);
-  padding:22px 14px;
-  border-radius:16px;
-  cursor:pointer;
-  transition:.3s;
-  text-align:center;
-  box-shadow:var(--shadow);
-  position:relative;
-  overflow:hidden;
-}
-.cat-card:hover{
-  transform:translateY(-5px);
-  border-color:var(--primary);
-  box-shadow:var(--shadow-h);
-}
-.cat-card::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:linear-gradient(135deg,rgba(0,112,243,.08),rgba(121,40,202,.08));
-  opacity:0;
-  transition:.3s;
-}
-.cat-card.active::before{opacity:1}
-.cat-card.active{border-color:var(--primary);background:rgba(0,112,243,.06)}
-.cat-card .cat-emo{
-  font-size:40px;
-  display:block;
-  margin-bottom:10px;
-  position:relative;
-  z-index:1;
-  transition:.3s;
-}
-.cat-card.active .cat-emo{transform:scale(1.15)}
-.cat-card .cat-name{
-  font-size:14px;
-  font-weight:700;
-  position:relative;
-  z-index:1;
-  line-height:1.3;
-}
-.cat-card .cat-count{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:4px;
-  position:relative;
-  z-index:1;
-}
-.cat-card .cat-arrow{
-  display:inline-block;
-  margin-top:8px;
-  font-size:12px;
-  color:var(--primary);
-  font-weight:700;
-  position:relative;
-  z-index:1;
-  transition:.3s;
-}
-.cat-card.active .cat-arrow{transform:rotate(180deg)}
-
-/* ============ EXPANDABLE TOOLS PANEL ============ */
-.tools-panel{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .5s cubic-bezier(.4,0,.2,1);
-  margin-top:0;
-}
-.tools-panel.open{
-  max-height:3000px;
-  margin-top:20px;
-}
-.tools-panel-inner{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:20px 16px;
-  box-shadow:var(--shadow);
-  animation:fadeUp .3s;
-}
-.tools-panel-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:16px;
-  padding-bottom:12px;
   border-bottom:1px solid var(--border);
+  backdrop-filter:blur(10px);
 }
-.tools-panel-head h3{font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px}
-.tools-panel-close{
+.header-inner{
+  max-width:1200px;margin:0 auto;
+  padding:12px 16px;
+  display:flex;align-items:center;gap:12px;
+}
+.logo{
+  display:flex;align-items:center;gap:10px;
+  font-size:20px;font-weight:800;
+  background:var(--grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  cursor:pointer;user-select:none;
+  flex-shrink:0;
+}
+.logo-icon{
+  width:38px;height:38px;border-radius:12px;
+  background:var(--grad);
+  display:grid;place-items:center;
+  font-size:20px;
+  -webkit-text-fill-color:#fff;
+  box-shadow:0 4px 12px rgba(79,70,229,.3);
+}
+.header-spacer{flex:1}
+.icon-btn{
+  width:42px;height:42px;border-radius:12px;
+  display:grid;place-items:center;
+  font-size:18px;
   background:var(--bg);
   border:1px solid var(--border);
-  color:var(--text);
-  width:32px;height:32px;
-  border-radius:50%;
-  cursor:pointer;
-  font-size:14px;
-  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
 }
-.tools-panel-close:hover{background:var(--danger);color:#fff;border-color:var(--danger)}
+.icon-btn:hover{background:var(--grad-soft);border-color:var(--primary)}
+.icon-btn:active{transform:scale(.94)}
 
-.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
-.tool{background:var(--bg2);border:1px solid var(--border);padding:16px 10px;border-radius:14px;cursor:pointer;transition:.25s;text-align:center;box-shadow:var(--shadow);position:relative}
-.tool:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:var(--shadow-h)}
-.tool .ic{font-size:28px;display:block;margin-bottom:8px}
-.tool .nm{font-size:12px;font-weight:600;line-height:1.3}
+/* ===== MENU ===== */
+.menu-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(0,0,0,.5);
+  opacity:0;visibility:hidden;transition:.3s;
+}
+.menu-overlay.open{opacity:1;visibility:visible}
+.menu-panel{
+  position:fixed;top:0;right:0;bottom:0;z-index:201;
+  width:min(320px,85vw);
+  background:var(--card);
+  transform:translateX(100%);
+  transition:transform .3s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+  box-shadow:-8px 0 32px rgba(0,0,0,.2);
+  overflow-y:auto;
+}
+.menu-panel.open{transform:translateX(0)}
+.menu-head{
+  padding:20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--grad-soft);
+}
+.menu-head h3{font-size:18px;font-weight:700}
+.menu-list{padding:8px 0;flex:1}
+.menu-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 20px;font-size:15px;font-weight:500;
+  transition:background .2s;
+  width:100%;text-align:left;
+}
+.menu-item:hover{background:var(--grad-soft)}
+.menu-item .mi-icon{font-size:20px;width:24px;text-align:center}
+.menu-item.system{
+  border-top:1px solid var(--border);
+  margin-top:8px;color:var(--primary);font-weight:700;
+}
+.menu-foot{
+  padding:16px 20px;border-top:1px solid var(--border);
+  font-size:12px;color:var(--text-soft);text-align:center;
+}
 
-/* ============ MODAL ============ */
-.modal{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);display:none;overflow-y:auto;padding:16px}
-.modal.on{display:block;animation:fadeIn .2s}
-.modal-inner{background:var(--bg2);max-width:900px;margin:20px auto;border-radius:20px;border:1px solid var(--border);overflow:hidden;animation:slideUp .3s;box-shadow:0 30px 90px rgba(0,0,0,.3)}
-@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
-.modal-head{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--bg2);position:sticky;top:0;z-index:10}
-.modal-head h3{font-size:17px;font-weight:700;display:flex;align-items:center;gap:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
-.modal-head .fav-toggle{font-size:20px;cursor:pointer;opacity:.35;transition:.2s;flex-shrink:0}
-.modal-head .fav-toggle.on{opacity:1}
-.modal-close{background:var(--card);border:1px solid var(--border);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--text);transition:.2s;flex-shrink:0}
-.modal-close:hover{background:var(--danger);color:#fff;border-color:var(--danger)}
-.modal-body{padding:20px}
-.modal-actions{display:flex;gap:8px;flex-wrap:wrap;padding:14px 20px;border-top:1px solid var(--border);background:var(--bg2);position:sticky;bottom:0}
-.modal-actions .btn{flex:1;min-width:80px;padding:11px 6px;font-size:12px;border-radius:12px}
+/* ===== HERO + SEARCH ===== */
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+.hero{padding:32px 0 20px;text-align:center}
+.hero h1{
+  font-size:clamp(26px,6vw,42px);font-weight:800;
+  line-height:1.15;margin-bottom:10px;
+  background:var(--grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero p{color:var(--text-soft);font-size:15px;max-width:560px;margin:0 auto}
+.search-box{
+  position:relative;margin:20px auto 0;
+  max-width:640px;
+}
+.search-box input{
+  width:100%;padding:16px 52px 16px 52px;
+  border-radius:16px;border:2px solid var(--border);
+  background:var(--card);color:var(--text);
+  font-size:15px;outline:none;transition:.2s;
+  box-shadow:var(--shadow);
+}
+.search-box input:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(79,70,229,.12)}
+.search-box .s-icon{
+  position:absolute;left:18px;top:50%;transform:translateY(-50%);
+  font-size:18px;opacity:.6;pointer-events:none;
+}
+.search-box .s-clear{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  width:28px;height:28px;border-radius:50%;
+  background:var(--bg);display:none;place-items:center;
+  font-size:14px;color:var(--text-soft);
+}
+.search-box .s-clear.show{display:grid}
 
-.btn{padding:10px 18px;border:none;border-radius:22px;cursor:pointer;font-weight:600;font-size:14px;transition:.2s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px;justify-content:center;font-family:inherit}
+/* ===== STATS ===== */
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:10px;margin:24px 0 8px;
+}
+.stat-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:14px 8px;text-align:center;
+  box-shadow:var(--shadow);
+}
+.stat-num{
+  font-size:clamp(18px,4.5vw,24px);font-weight:800;
+  background:var(--grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.stat-lbl{font-size:11px;color:var(--text-soft);margin-top:2px;font-weight:500}
+
+/* ===== CATEGORY GRID ===== */
+.section-title{
+  font-size:18px;font-weight:800;
+  margin:28px 0 14px;
+  display:flex;align-items:center;gap:8px;
+}
+.cat-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:12px;margin-bottom:24px;
+}
+@media(max-width:400px){.cat-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
+.cat-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:16px 12px;
+  text-align:center;cursor:pointer;
+  transition:.25s;position:relative;overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.cat-card:hover{transform:translateY(-3px);border-color:var(--primary);box-shadow:var(--shadow-lg)}
+.cat-card:active{transform:scale(.97)}
+.cat-card.active{border-color:var(--primary);background:var(--grad-soft)}
+.cat-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--grad);opacity:0;transition:.25s;
+}
+.cat-card.active::before,.cat-card:hover::before{opacity:1}
+.cat-emoji{font-size:30px;margin-bottom:8px;display:block}
+.cat-name{font-size:13px;font-weight:700;margin-bottom:3px;line-height:1.25}
+.cat-count{font-size:11px;color:var(--text-soft);font-weight:500}
+
+/* ===== TOOLS PANEL (slides down) ===== */
+.tools-panel{
+  max-height:0;overflow:hidden;
+  transition:max-height .45s cubic-bezier(.4,0,.2,1),margin .3s;
+  margin:0;
+}
+.tools-panel.open{max-height:3000px;margin-bottom:24px}
+.tools-panel-inner{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:18px;padding:16px;box-shadow:var(--shadow);
+}
+.tools-panel-head{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:14px;padding-bottom:12px;
+  border-bottom:1px solid var(--border);
+}
+.tools-panel-head h3{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px}
+.tools-close{
+  width:32px;height:32px;border-radius:10px;
+  background:var(--bg);display:grid;place-items:center;
+  font-size:16px;color:var(--text-soft);
+  transition:.2s;
+}
+.tools-close:hover{background:var(--danger);color:#fff}
+.tools-list{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:10px;
+}
+.tool-btn{
+  display:flex;align-items:center;gap:10px;
+  padding:12px;border-radius:12px;
+  background:var(--bg);border:1px solid var(--border);
+  font-size:13px;font-weight:600;text-align:left;
+  transition:.2s;
+}
+.tool-btn:hover{background:var(--grad-soft);border-color:var(--primary);transform:translateY(-2px)}
+.tool-btn .tb-icon{font-size:18px;flex-shrink:0}
+.tool-btn .tb-name{line-height:1.2}
+
+/* ===== MODAL (tool open) ===== */
+.modal-overlay{
+  position:fixed;inset:0;z-index:300;
+  background:rgba(0,0,0,.55);
+  opacity:0;visibility:hidden;transition:.25s;
+  display:flex;align-items:flex-end;justify-content:center;
+  padding:0;
+}
+@media(min-width:600px){.modal-overlay{align-items:center;padding:20px}}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal{
+  background:var(--card);width:100%;max-width:640px;
+  max-height:92vh;border-radius:20px 20px 0 0;
+  transform:translateY(30px);transition:.3s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;overflow:hidden;
+}
+@media(min-width:600px){.modal{border-radius:20px;max-height:88vh}}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-head{
+  padding:16px 18px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--grad-soft);flex-shrink:0;
+}
+.modal-head h3{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px}
+.modal-body{padding:18px;overflow-y:auto;flex:1}
+
+/* ===== FORM ELEMENTS (for tools) ===== */
+.fld{margin-bottom:14px}
+.fld label{
+  display:block;font-size:13px;font-weight:600;
+  margin-bottom:6px;color:var(--text-soft);
+}
+.fld input,.fld select,.fld textarea{
+  width:100%;padding:12px 14px;
+  border-radius:12px;border:1.5px solid var(--border);
+  background:var(--bg);color:var(--text);
+  outline:none;transition:.2s;
+}
+.fld input:focus,.fld select:focus,.fld textarea:focus{
+  border-color:var(--primary);box-shadow:0 0 0 3px rgba(79,70,229,.12);
+}
+.fld textarea{resize:vertical;min-height:80px}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.btn{
+  padding:12px 18px;border-radius:12px;
+  font-size:14px;font-weight:700;
+  display:inline-flex;align-items:center;gap:6px;
+  justify-content:center;transition:.2s;
+  flex:1;min-width:110px;
+}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 4px 12px rgba(79,70,229,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(79,70,229,.4)}
+.btn-secondary{background:var(--bg);border:1.5px solid var(--border);color:var(--text)}
+.btn-secondary:hover{border-color:var(--primary);background:var(--grad-soft)}
+.btn-success{background:var(--success);color:#fff}
+.btn-danger{background:var(--danger);color:#fff}
 .btn:active{transform:scale(.97)}
-.btn-p{background:var(--grad);color:#fff}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,112,243,.35)}
-.btn-g{background:var(--card);color:var(--text);border:1px solid var(--border);box-shadow:var(--shadow)}
-.btn-g:hover{border-color:var(--primary)}
-.btn-sm{padding:7px 12px;font-size:13px;border-radius:10px}
 
-.result-box{background:linear-gradient(135deg,rgba(16,185,129,.06),rgba(0,112,243,.05));border:1px solid rgba(16,185,129,.25);padding:20px;border-radius:14px;margin-top:16px;animation:fadeUp .3s}
-.result-box h4{color:var(--success);font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;font-weight:700}
-.result-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--border);font-size:14px;gap:12px}
-.result-row:last-child{border-bottom:none}
-.result-row .lb{color:var(--muted);flex-shrink:0}
-.result-row .vl{font-weight:700;text-align:right;word-break:break-word;min-width:0}
-.result-row.total{padding-top:14px;font-size:17px;border-top:2px solid var(--success);margin-top:6px}
-.result-row.total .vl{color:var(--success)}
+/* ===== RESULT BOX ===== */
+.result-box{
+  margin-top:16px;background:#fff;color:#1a1f36;
+  border-radius:14px;padding:18px;
+  border:1px solid #e3e8f0;
+  display:none;overflow:hidden;
+}
+.result-box.show{display:block}
+.result-box *{color:#1a1f36}
 
-.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px 20px;text-align:center;margin-top:8px;position:relative;overflow:hidden}
-.age-celebration .age-big{font-size:52px;font-weight:900;background:linear-gradient(135deg,#7c3aed,#0070f3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin:8px 0}
-.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase;letter-spacing:1px}
-.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:16px;flex-wrap:wrap}
-.age-celebration .age-chip{background:rgba(255,255,255,.8);padding:10px 18px;border-radius:12px;font-size:12px;font-weight:700;color:#0f172a}
-.age-celebration .age-chip b{display:block;font-size:22px;color:#7c3aed;margin-bottom:2px}
-.age-celebration .confetti{position:absolute;font-size:24px;animation:float 3s ease-in-out infinite}
-.age-celebration .confetti.c1{top:10px;left:12px}
-.age-celebration .confetti.c2{top:16px;right:16px;animation-delay:.5s}
-.age-celebration .confetti.c3{bottom:14px;left:20px;animation-delay:1s}
-.age-celebration .confetti.c4{bottom:10px;right:14px;animation-delay:1.5s}
-@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(15deg)}}
+/* ===== TOAST ===== */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);
+  background:var(--text);color:var(--card);
+  padding:12px 20px;border-radius:12px;
+  font-size:14px;font-weight:600;z-index:500;
+  opacity:0;transition:.3s;pointer-events:none;
+  box-shadow:0 8px 24px rgba(0,0,0,.3);
+  max-width:90vw;text-align:center;
+}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
-.calc-btn-row{margin-top:18px}
-.calc-btn{width:100%;padding:14px;border-radius:14px;background:var(--grad);color:#fff;border:none;font-size:16px;font-weight:700;cursor:pointer;transition:.2s;box-shadow:0 8px 20px rgba(0,112,243,.3)}
-.calc-btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,112,243,.4)}
+/* ===== WELCOME POPUP ===== */
+.welcome-overlay{
+  position:fixed;inset:0;z-index:400;
+  background:rgba(0,0,0,.6);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;
+}
+.welcome-overlay.show{display:flex}
+.welcome-card{
+  background:var(--card);border-radius:22px;
+  padding:28px 24px;max-width:400px;width:100%;
+  text-align:center;box-shadow:var(--shadow-lg);
+  animation:popIn .4s cubic-bezier(.4,0,.2,1);
+}
+@keyframes popIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.welcome-emoji{font-size:52px;margin-bottom:12px}
+.welcome-card h2{
+  font-size:22px;font-weight:800;margin-bottom:10px;
+  background:var(--grad);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.welcome-card p{color:var(--text-soft);font-size:14px;margin-bottom:20px;line-height:1.6}
 
-.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
-.tbl{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px}
-.tbl th,.tbl td{padding:10px 8px;text-align:left;border-bottom:1px solid var(--border)}
-.tbl th{background:rgba(0,112,243,.06);font-weight:700;font-size:11px;text-transform:uppercase}
-.tbl input{padding:6px 8px;font-size:13px;border-radius:6px}
-.tbl td.amt{font-weight:700;color:var(--success);white-space:nowrap}
-
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--success);color:#fff;padding:14px 24px;border-radius:30px;font-weight:600;font-size:14px;z-index:1000;opacity:0;transition:.35s;box-shadow:0 10px 30px rgba(0,0,0,.3);pointer-events:none;max-width:90vw;text-align:center}
-.toast.on{transform:translateX(-50%) translateY(0);opacity:1}
-.toast.err{background:var(--danger)}
-
-.welcome-popup{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);z-index:3000;display:none;align-items:center;justify-content:center;padding:16px}
-.welcome-popup.on{display:flex;animation:fadeIn .3s}
-.welcome-box{background:var(--card);border-radius:24px;max-width:440px;width:100%;padding:30px 24px;text-align:center;border:1px solid var(--border);box-shadow:0 30px 90px rgba(0,0,0,.4);animation:slideUp .4s;position:relative;overflow:hidden}
-.welcome-box::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--grad)}
-.welcome-emoji{font-size:56px;margin-bottom:8px;display:block;animation:bounce 1s}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.welcome-box h2{font-size:22px;font-weight:800;margin-bottom:8px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.welcome-box p{color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:16px}
-.welcome-actions{display:flex;gap:10px;margin-top:16px}
-.welcome-actions .btn{flex:1}
-
-.bnav{position:fixed;bottom:0;left:0;right:0;z-index:99;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:8px 0 calc(8px + env(safe-area-inset-bottom))}
-body.dark .bnav{background:rgba(10,10,15,.95)}
-.bnav a{text-align:center;color:var(--muted);font-size:10px;padding:4px 12px;cursor:pointer;transition:.2s;flex:1;text-decoration:none}
-.bnav a.on,.bnav a:hover{color:var(--primary)}
-.bnav .i{font-size:20px;display:block;margin-bottom:1px}
-
-footer{max-width:1300px;margin:40px auto 20px;padding:24px 16px;text-align:center;border-top:1px solid var(--border);color:var(--muted);font-size:12px}
-footer .fl{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-bottom:12px}
-footer .fl a{color:var(--primary);cursor:pointer}
-footer .contact-btn{background:var(--card);border:1px solid var(--border);padding:10px 20px;border-radius:30px;cursor:pointer;color:var(--text);font-weight:600;font-size:13px;margin:10px 0;box-shadow:var(--shadow)}
-
-#feedbackBtn{position:fixed;bottom:90px;left:16px;width:54px;height:54px;border-radius:50%;border:none;background:linear-gradient(135deg,#10b981,#0070f3);color:white;font-size:24px;cursor:pointer;box-shadow:0 10px 30px rgba(16,185,129,.4);z-index:150;transition:.3s}
-#feedbackBtn:hover{transform:scale(1.15) rotate(10deg)}
-
-.popup{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn .2s}
-.popup-box{background:var(--card);border:1px solid var(--border);border-radius:20px;max-width:480px;width:100%;max-height:90vh;overflow-y:auto}
-.popup-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--card);z-index:2;border-radius:20px 20px 0 0}
-.popup-head h3{font-size:17px;color:var(--text)}
-.popup-close{background:var(--card);border:1px solid var(--border);width:32px;height:32px;border-radius:50%;color:var(--text);cursor:pointer;font-size:14px}
-.popup-body{padding:20px}
-.popup-foot{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:10px;position:sticky;bottom:0;background:var(--card);border-radius:0 0 20px 20px}
-.popup-foot .btn{flex:1;padding:12px}
-
-.preview-inner{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);z-index:600;display:flex;align-items:center;justify-content:center;padding:16px;animation:fadeIn .2s;overflow-y:auto}
-.preview-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;max-width:600px;width:100%;max-height:92vh;overflow-y:auto;animation:slideUp .3s;margin:auto}
-.preview-head{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--bg2);z-index:2;border-radius:20px 20px 0 0}
-.preview-head h3{font-size:16px;color:var(--text);display:flex;align-items:center;gap:8px}
-.preview-close-btn{background:var(--danger);border:none;padding:8px 14px;border-radius:10px;color:#fff;font-weight:600;font-size:13px;cursor:pointer}
-.preview-content{padding:20px}
-.preview-capture{background:#ffffff;color:#0f172a;padding:30px 26px;border-radius:12px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;display:inline-block;width:100%}
-.preview-data{width:100%}
-.preview-data img{max-width:100%;height:auto;display:block;margin:0 auto}
-.preview-data .result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px;gap:14px;color:#0f172a}
-.preview-data .result-row:last-child{border-bottom:none}
-.preview-data .result-row .lb{color:#64748b}
-.preview-data .result-row .vl{font-weight:700;color:#0f172a;text-align:right;word-break:break-word}
-.preview-data .result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none;margin-top:8px}
-.preview-data .result-row.total .lb{color:#10b981;font-weight:700}
-.preview-data .result-row.total .vl{color:#10b981;font-weight:800}
-.preview-actions{padding:14px 18px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;position:sticky;bottom:0;background:var(--bg2);border-radius:0 0 20px 20px}
-.preview-actions button{flex:1;min-width:90px;padding:12px 8px;font-size:13px;border-radius:12px;border:none;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.2s;font-family:inherit}
-.preview-actions .btn-print{background:var(--card);color:var(--text);border:1px solid var(--border)}
-.preview-actions .btn-pdf{background:var(--card);color:var(--text);border:1px solid var(--border)}
-.preview-actions .btn-img{background:linear-gradient(135deg,#7c3aed,#0070f3);color:#fff}
-.preview-actions button:hover{transform:translateY(-2px)}
-
-.photo-upload-box{border:2px dashed var(--border);border-radius:14px;padding:24px;text-align:center;cursor:pointer;transition:.2s;background:var(--bg2)}
-.photo-upload-box:hover{border-color:var(--primary);background:rgba(0,112,243,.04)}
-.photo-upload-box .up-icon{font-size:40px;margin-bottom:8px}
-.photo-upload-box .up-text{font-size:14px;font-weight:600;color:var(--text)}
-.photo-upload-box .up-sub{font-size:12px;color:var(--muted);margin-top:4px}
-.photo-preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin-top:14px}
-.photo-preview-item{position:relative;aspect-ratio:35/45;border-radius:10px;overflow:hidden;background:var(--bg);border:1px solid var(--border)}
-.photo-preview-item img{width:100%;height:100%;object-fit:cover}
-.photo-preview-item .del-btn{position:absolute;top:4px;right:4px;background:var(--danger);color:#fff;border:none;width:22px;height:22px;border-radius:50%;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;z-index:2}
-.photo-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:14px}
-.photo-a4-preview{background:#e5e7eb;padding:20px 10px;border-radius:12px;margin-top:16px}
-.photo-a4-page{background:#fff;width:100%;max-width:595px;aspect-ratio:210/297;margin:0 auto;display:grid;gap:8px;padding:16px;border:1px solid #cbd5e1;box-shadow:0 4px 20px rgba(0,0,0,.15);box-sizing:border-box}
-.photo-a4-page .a4-photo{background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;aspect-ratio:35/45}
-.photo-a4-page .a4-photo img{width:100%;height:100%;object-fit:cover;display:block}
-.photo-info-box{background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;margin-top:12px;font-size:13px;text-align:center}
-.photo-info-box b{color:var(--primary)}
-
-.admin-panel{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);overflow-y:auto;padding:20px;animation:fadeIn .2s}
-.admin-inner{max-width:900px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:20px;overflow:hidden}
-.admin-head{padding:20px 24px;background:var(--grad);color:#fff;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.admin-head h2{font-size:20px}
-.admin-head .admin-close{background:rgba(255,255,255,.2);border:none;padding:8px 16px;border-radius:10px;color:#fff;font-weight:600;cursor:pointer;font-size:13px}
-.admin-body{padding:24px}
-.admin-section{background:var(--card);border:1px solid var(--border);padding:20px;border-radius:14px;margin-bottom:16px}
-.admin-section h3{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px}
-.admin-stat{background:var(--card);border:1px solid var(--border);padding:14px;border-radius:12px;text-align:center}
-.admin-stat-val{font-size:22px;font-weight:800;color:var(--primary)}
-.admin-stat-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;margin-top:4px;font-weight:600}
-.admin-fb{background:var(--card);border:1px solid var(--border);padding:14px;border-radius:12px;margin-bottom:10px}
-.admin-fb-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;flex-wrap:wrap;gap:8px}
-.admin-fb-name{font-size:13px;font-weight:700}
-.admin-fb-time{font-size:11px;color:var(--muted)}
-.admin-fb-msg{font-size:13px;line-height:1.6;padding:8px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:8px 0;word-break:break-word}
-.admin-fb-actions{display:flex;gap:6px;flex-wrap:wrap}
-.admin-fb-actions button{padding:6px 12px;background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;cursor:pointer;font-size:11px;font-weight:600}
-.admin-fb-actions button.danger{background:rgba(239,68,68,.1);border-color:var(--danger);color:var(--danger)}
-.admin-placeholder{background:var(--card);border:1px dashed var(--border);padding:20px;border-radius:12px;text-align:center;opacity:.7}
-.admin-placeholder .icon{font-size:32px;margin-bottom:8px}
-.admin-placeholder .title{font-size:13px;font-weight:600}
-.admin-placeholder .sub{font-size:10px;color:var(--muted);margin-top:4px}
-
-@media(max-width:768px){
-  body{padding-bottom:70px}
-  .hero{padding:24px 14px 16px}
-  .hero h1{font-size:26px}
-  .hero p{font-size:14px}
-  .stats{grid-template-columns:repeat(2,1fr);gap:8px;padding:14px}
-  .stat{padding:12px 8px}
-  .stat-n{font-size:18px}
-  .cat-grid{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
-  .cat-card{padding:18px 10px}
-  .cat-card .cat-emo{font-size:34px}
-  .cat-card .cat-name{font-size:12px}
-  .tools-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
-  .tool{padding:12px 6px}
-  .tool .ic{font-size:24px}
-  .tool .nm{font-size:11px}
-  .modal-inner{margin:8px auto;border-radius:16px}
-  .modal-body{padding:14px}
-  .modal-actions{padding:10px 14px;gap:6px}
-  .modal-actions .btn{min-width:calc(33.333% - 4px);padding:9px 4px;font-size:11px}
-  #feedbackBtn{bottom:80px;left:12px;width:48px;height:48px;font-size:20px}
-  .sec{margin:20px auto}
-  .sec-head h2{font-size:17px}
-  .popup-box{border-radius:16px}
-  .datetime .date{display:none}
-  .search-box{padding:14px 50px 14px 20px;font-size:15px}
-  .preview-box{max-width:100%;border-radius:16px}
-  .preview-capture{padding:20px 16px}
-  .preview-actions{padding:12px 14px;gap:6px}
-  .preview-actions button{min-width:calc(33.333% - 4px);padding:10px 4px;font-size:11px}
-  .age-celebration .age-big{font-size:40px}
-  .photo-a4-page{padding:10px;gap:5px}
+/* ===== ADMIN PANEL ===== */
+.admin-body{padding:16px}
+.admin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.admin-stat{
+  background:var(--grad-soft);border-radius:14px;
+  padding:14px 8px;text-align:center;
+}
+.admin-stat .as-num{font-size:22px;font-weight:800;color:var(--primary)}
+.admin-stat .as-lbl{font-size:10px;color:var(--text-soft);margin-top:2px;font-weight:600}
+.admin-section{
+  background:var(--bg);border-radius:14px;
+  padding:14px;margin-bottom:14px;
+  border:1px solid var(--border);
+}
+.admin-section h4{
+  font-size:14px;font-weight:800;margin-bottom:10px;
+  display:flex;align-items:center;gap:6px;
+}
+.feedback-item{
+  background:var(--card);border-radius:10px;
+  padding:12px;margin-bottom:8px;
+  font-size:13px;border-left:3px solid var(--primary);
+}
+.feedback-item.unread{border-left-color:var(--warn);background:var(--grad-soft)}
+.feedback-item .fb-head{font-weight:700;margin-bottom:4px;font-size:12px;display:flex;justify-content:space-between;gap:8px}
+.feedback-item .fb-msg{color:var(--text-soft);line-height:1.5;word-break:break-word}
+.feedback-item .fb-actions{display:flex;gap:6px;margin-top:8px}
+.feedback-item .fb-actions button{
+  font-size:11px;padding:5px 10px;border-radius:8px;
+  background:var(--bg);border:1px solid var(--border);font-weight:600;
+}
+.feedback-item .fb-actions button.del{color:var(--danger)}
+.empty-state{
+  text-align:center;padding:24px 12px;
+  color:var(--text-soft);font-size:13px;
+}
+.empty-state .es-emoji{font-size:32px;display:block;margin-bottom:8px;opacity:.5}
+.placeholder-box{
+  background:var(--grad-soft);border:2px dashed var(--primary);
+  border-radius:14px;padding:24px;text-align:center;
+  color:var(--primary);font-size:13px;font-weight:600;
 }
 
-@media print{
-  body{background:#fff;color:#000}
-  header,.bnav,.modal-actions,.modal-close,footer,#feedbackBtn,.no-print,.hero-cta,.search-wrap,.menu-drawer,.menu-overlay{display:none!important}
-  .modal{position:static;background:#fff;padding:0;display:block!important}
-  .modal-inner{border:none;box-shadow:none;margin:0;border-radius:0;max-width:100%}
-  .modal-head{background:#fff;border-bottom:2px solid #000;position:static}
-  .result-box{background:#f5f5f5;border:2px solid #000;color:#000}
+/* ===== SEARCH RESULTS DROPDOWN ===== */
+.search-results{
+  position:absolute;top:calc(100% + 8px);left:0;right:0;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;box-shadow:var(--shadow-lg);
+  max-height:340px;overflow-y:auto;
+  display:none;z-index:50;
 }
+.search-results.show{display:block}
+.sr-item{
+  padding:12px 16px;display:flex;align-items:center;gap:10px;
+  font-size:14px;cursor:pointer;border-bottom:1px solid var(--border);
+  transition:.15s;
+}
+.sr-item:last-child{border-bottom:none}
+.sr-item:hover{background:var(--grad-soft)}
+.sr-item .sr-cat{font-size:11px;color:var(--text-soft);margin-left:auto}
+.sr-empty{padding:20px;text-align:center;color:var(--text-soft);font-size:13px}
+
+/* ===== FEEDBACK FORM ===== */
+.feedback-form{padding:16px}
+.star-row{display:flex;gap:8px;justify-content:center;margin:10px 0 16px}
+.star-row button{font-size:28px;opacity:.3;transition:.2s}
+.star-row button.active{opacity:1;transform:scale(1.1)}
+
+/* ===== FOOTER ===== */
+.footer{
+  text-align:center;padding:32px 16px 24px;
+  color:var(--text-soft);font-size:13px;
+  border-top:1px solid var(--border);margin-top:20px;
+}
+.footer a{color:var(--primary);font-weight:600}
+
+/* ===== SCROLL TO TOP ===== */
+.scroll-top{
+  position:fixed;bottom:20px;right:20px;z-index:90;
+  width:48px;height:48px;border-radius:50%;
+  background:var(--grad);color:#fff;
+  display:grid;place-items:center;font-size:20px;
+  box-shadow:0 6px 20px rgba(79,70,229,.4);
+  opacity:0;visibility:hidden;transition:.3s;
+}
+.scroll-top.show{opacity:1;visibility:visible}
+.scroll-top:active{transform:scale(.9)}
+
+/* ===== PART PLACEHOLDER (development only) ===== */
+.dev-placeholder{display:none}
 </style>
 </head>
-<body>
+<body data-theme="light">
 
-<header>
-  <div class="hdr">
-    <div class="logo" id="mainLogo" onclick="onLogoClick()">⚡ <span>Qunvero</span></div>
-    <div class="hdr-r">
-      <div class="datetime">
-        <span class="time" id="liveTime">--:--:--</span>
-        <span class="date" id="liveDate">--</span>
-      </div>
-      <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" title="Theme">🌙</button>
-      <button class="icon-btn" onclick="openMenu()" title="Menu">☰</button>
+<!-- ============ HEADER ============ -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo" onclick="goHome()">
+      <div class="logo-icon">🧰</div>
+      <span>Qunvero</span>
     </div>
-  </div>
-  <div class="search-wrap">
-    <input class="search-box" id="searchBox" placeholder="🔍 Tool dhundho... (bijli, invoice, PDF...)" oninput="doSearch(this.value)" onfocus="doSearch(this.value)" autocomplete="off">
-    <span class="search-icon">🔍</span>
-    <div class="search-results" id="searchRes"></div>
+    <div class="header-spacer"></div>
+    <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">🌙</button>
+    <button class="icon-btn" onclick="openMenu()" title="Menu">☰</button>
   </div>
 </header>
 
+<!-- ============ MENU PANEL ============ -->
 <div class="menu-overlay" id="menuOverlay" onclick="closeMenu()"></div>
-<div class="menu-drawer" id="menuDrawer">
+<nav class="menu-panel" id="menuPanel">
   <div class="menu-head">
-    <h3>⚡ Qunvero</h3>
-    <button class="icon-btn" onclick="closeMenu()">✕</button>
+    <h3>Menu</h3>
+    <button class="icon-btn" onclick="closeMenu()" style="width:34px;height:34px;font-size:16px">✕</button>
   </div>
   <div class="menu-list">
-    <div class="menu-item" onclick="goHome();closeMenu()"><span class="mi-icon">🏠</span>Home</div>
-    <div class="menu-item" onclick="scrollToTools();closeMenu()"><span class="mi-icon">📚</span>All Tools</div>
-    <div class="menu-item" onclick="showFavorites();closeMenu()"><span class="mi-icon">⭐</span>Favorites</div>
-    <div class="menu-item" onclick="openStatic('about');closeMenu()"><span class="mi-icon">ℹ️</span>About</div>
-    <div class="menu-item" onclick="openStatic('privacy');closeMenu()"><span class="mi-icon">🔒</span>Privacy</div>
-    <div class="menu-item" onclick="openStatic('terms');closeMenu()"><span class="mi-icon">📜</span>Terms</div>
-    <div class="menu-item" onclick="openStatic('contact');closeMenu()"><span class="mi-icon">📞</span>Contact</div>
-    <div class="menu-item" onclick="toggleTheme();closeMenu()"><span class="mi-icon">🎨</span>Theme</div>
-    <div class="menu-item" onclick="openAdminPanel();closeMenu()" style="border-top:1px solid var(--border);margin-top:8px;padding-top:16px"><span class="mi-icon">🔐</span>System</div>
+    <button class="menu-item" onclick="closeMenu();goHome()"><span class="mi-icon">🏠</span>Home</button>
+    <button class="menu-item" onclick="closeMenu();scrollToCats()"><span class="mi-icon">🗂️</span>All Categories</button>
+    <button class="menu-item" onclick="closeMenu();openFeedback()"><span class="mi-icon">💬</span>Send Feedback</button>
+    <button class="menu-item" onclick="closeMenu();openAbout()"><span class="mi-icon">ℹ️</span>About</button>
+    <button class="menu-item system" onclick="closeMenu();openAdmin()"><span class="mi-icon">⚙️</span>System</button>
   </div>
-  <div class="menu-foot">Made with ❤️ in India<br>© 2025 Qunvero</div>
-</div>
+  <div class="menu-foot">
+    Qunvero © 2025<br>Made with ❤️ in India
+  </div>
+</nav>
 
-<section class="hero">
-  <div class="hero-badge"><span class="dot"></span>Live • <span id="heroToolCount">100+</span> Tools Ready</div>
-  <h1>Har Kaam Ka <span>Free Tool</span> — Ek Hi Jagah 🚀</h1>
-  <p>Shop, photocopy, business, image, PDF — sab kuch free me. No signup, no ads, 100% private.</p>
-</section>
+<!-- ============ MAIN WRAP ============ -->
+<div class="wrap">
 
-<div class="stats">
-  <div class="stat"><div class="stat-n" id="liveUsersStat">0</div><div class="stat-l">🟢 Live Users</div></div>
-  <div class="stat"><div class="stat-n" id="toolCount">100+</div><div class="stat-l">🛠️ Free Tools</div></div>
-  <div class="stat"><div class="stat-n">0₹</div><div class="stat-l">💰 Forever</div></div>
-  <div class="stat"><div class="stat-n">100%</div><div class="stat-l">🔒 Private</div></div>
-</div>
+  <!-- HERO + SEARCH -->
+  <section class="hero" id="homeTop">
+    <h1>100+ Free Online Tools</h1>
+    <p>Shop, business, students, finance — sab ke liye. No signup, no ads, 100% free.</p>
+    <div class="search-box">
+      <span class="s-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search any tool..." autocomplete="off" oninput="doSearch(this.value)">
+      <button class="s-clear" id="sClear" onclick="clearSearch()">✕</button>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </section>
 
-<section class="sec" id="favSection" style="display:none">
-  <div class="sec-head"><h2><span class="emo">⭐</span>Favorites</h2></div>
-  <div class="tools-grid" id="favGrid"></div>
-</section>
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-card"><div class="stat-num" id="statTools">100+</div><div class="stat-lbl">Tools</div></div>
+    <div class="stat-card"><div class="stat-num" id="statCats">19</div><div class="stat-lbl">Categories</div></div>
+    <div class="stat-card"><div class="stat-num">100%</div><div class="stat-lbl">Free</div></div>
+  </div>
 
-<section class="sec" id="categoriesSection">
-  <div class="sec-head"><h2><span class="emo">📁</span>Categories</h2></div>
+  <!-- CATEGORIES -->
+  <h2 class="section-title" id="catsTitle">🗂️ Categories</h2>
   <div class="cat-grid" id="catGrid"></div>
+
+  <!-- TOOLS SLIDE PANEL -->
   <div class="tools-panel" id="toolsPanel">
     <div class="tools-panel-inner">
       <div class="tools-panel-head">
         <h3 id="panelTitle">Tools</h3>
-        <button class="tools-panel-close" onclick="closePanel()">✕</button>
+        <button class="tools-close" onclick="closeToolsPanel()">✕</button>
       </div>
-      <div class="tools-grid" id="panelGrid"></div>
+      <div class="tools-list" id="toolsList"></div>
     </div>
   </div>
-</section>
 
-<footer>
-  <div class="fl">
-    <a onclick="goHome()">Home</a>
-    <a onclick="openStatic('about')">About</a>
-    <a onclick="openStatic('privacy')">Privacy</a>
-    <a onclick="openStatic('terms')">Terms</a>
-    <a onclick="openStatic('contact')">Contact</a>
-  </div>
-  <button class="contact-btn" onclick="feedbackSystem.openForm()">📬 Send Feedback</button>
-  <p style="margin-top:10px">Made with ❤️ in India • © 2025 Qunvero</p>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <p><strong>Qunvero</strong> — 100+ free tools for everyone</p>
+  <p style="margin-top:8px">© 2025 Qunvero · <a href="https://formspree.io/f/xyezkwww" target="_blank">Feedback</a></p>
 </footer>
 
-<nav class="bnav">
-  <a onclick="goHome()" class="on"><span class="i">🏠</span>Home</a>
-  <a onclick="focusSearch()"><span class="i">🔍</span>Search</a>
-  <a onclick="scrollToTools()"><span class="i">📚</span>Tools</a>
-  <a onclick="openRandomTool()"><span class="i">🎲</span>Random</a>
-</nav>
+<!-- ============ SCROLL TOP ============ -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<button id="feedbackBtn" onclick="feedbackSystem.openForm()" title="Send Feedback">💬</button>
-
-<div class="modal" id="toolModal" onclick="if(event.target===this)closeTool()">
-  <div class="modal-inner">
+<!-- ============ TOOL MODAL ============ -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
     <div class="modal-head">
-      <h3><span id="toolIcon">🛠️</span> <span id="toolTitle">Tool</span></h3>
-      <span class="fav-toggle" id="favToggle" onclick="toggleFavoriteCurrent()">⭐</span>
-      <button class="modal-close" onclick="closeTool()">✕</button>
+      <h3 id="modalTitle">Tool</h3>
+      <button class="icon-btn" onclick="closeModal()" style="width:34px;height:34px;font-size:16px">✕</button>
     </div>
-    <div class="modal-body" id="toolBody"></div>
-    <div class="modal-actions no-print">
-      <button class="btn btn-g" onclick="openPreview()">👁️ Preview</button>
-      <button class="btn btn-g" onclick="downloadTool()">⬇️ Download</button>
-      <button class="btn btn-g" onclick="copyResult()">📋 Copy</button>
-      <button class="btn btn-p" onclick="shareTool()">📤 Share</button>
-    </div>
+    <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
 
-<div class="modal" id="staticModal" onclick="if(event.target===this)closeStatic()">
-  <div class="modal-inner">
-    <div class="modal-head"><h3 id="staticTitle">Info</h3><button class="modal-close" onclick="closeStatic()">✕</button></div>
-    <div class="modal-body"><div class="static-content" id="staticBody"></div></div>
+<!-- ============ WELCOME POPUP ============ -->
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-card">
+    <div class="welcome-emoji">👋</div>
+    <h2>Welcome to Qunvero!</h2>
+    <p>100+ free tools for shopkeepers, students, business & everyone. No signup needed. Bookmark us for quick access!</p>
+    <button class="btn btn-primary" style="width:100%" onclick="closeWelcome()">Get Started 🚀</button>
   </div>
 </div>
 
-<div class="welcome-popup" id="welcomePopup">
-  <div class="welcome-box">
-    <span class="welcome-emoji">👋</span>
-    <h2>Qunvero Me Aapka Swagat!</h2>
-    <p>100+ free tools — shop, photocopy, business, image, PDF tak. Sab kuch 100% free aur private.</p>
-    <div class="welcome-actions">
-      <button class="btn btn-p" onclick="closeWelcome()" style="width:100%">🚀 Explore Tools</button>
-    </div>
-  </div>
-</div>
-
-<div class="toast" id="toast">Done!</div>
-
-<div class="admin-panel" id="adminPanelModal" style="display:none">
-  <div class="admin-inner">
-    <div class="admin-head">
-      <h2>🔐 System Panel</h2>
-      <button class="admin-close" onclick="closeAdminPanel()">✕ Close</button>
-    </div>
-    <div class="admin-body" id="adminBody"></div>
-  </div>
-</div>
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast"></div>
 
 <script>
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/xyezkwww";
-const ADMIN_KEY = "qunvero2025";
-const AI_PASSWORD = "Pass@wordRakesh@!123456";
-const AI_URL = "https://master-tool-omega.vercel.app";
+/* ============================================================
+   QUNVERO — CORE JS
+   ============================================================ */
 
-function toggleTheme(){const isDark=document.body.classList.toggle('dark');localStorage.setItem('qn_theme',isDark?'dark':'light');document.getElementById('themeBtn').textContent=isDark?'☀️':'🌙';}
-(function(){const t=localStorage.getItem('qn_theme');if(t==='dark'){document.body.classList.add('dark');document.addEventListener('DOMContentLoaded',()=>{const b=document.getElementById('themeBtn');if(b)b.textContent='☀️';});}})();
-
-function toast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.className='toast on'+(err?' err':'');clearTimeout(t._t);t._t=setTimeout(()=>t.className='toast',2400);}
-
-function updateDateTime(){const now=new Date();const timeEl=document.getElementById('liveTime');const dateEl=document.getElementById('liveDate');if(!timeEl)return;const h=now.getHours();const m=String(now.getMinutes()).padStart(2,'0');const s=String(now.getSeconds()).padStart(2,'0');const ampm=h>=12?'PM':'AM';const h12=h%12||12;timeEl.textContent=`${h12}:${m}:${s} ${ampm}`;const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];dateEl.textContent=`${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;}
-setInterval(updateDateTime,1000);
-document.addEventListener('DOMContentLoaded',updateDateTime);
-
-function openMenu(){document.getElementById('menuDrawer').classList.add('on');document.getElementById('menuOverlay').classList.add('on');document.body.style.overflow='hidden';}
-function closeMenu(){document.getElementById('menuDrawer').classList.remove('on');document.getElementById('menuOverlay').classList.remove('on');document.body.style.overflow='';}
-
-class LiveUsers{
-  constructor(){this.tabId=this.getTabId();this.channel=null;this.init();}
-  getTabId(){let id=sessionStorage.getItem('qn_tab');if(!id){id='tab_'+Math.random().toString(36).slice(2);sessionStorage.setItem('qn_tab',id);}return id;}
-  init(){this.activeUsers=JSON.parse(localStorage.getItem('qn_active')||'{}');this.activeUsers[this.tabId]=Date.now();this.save();if('BroadcastChannel' in window){this.channel=new BroadcastChannel('qn_live');this.channel.onmessage=(e)=>{if(e.data.type==='ping'||e.data.type==='join'){this.activeUsers[e.data.id]=Date.now();this.save();}else if(e.data.type==='leave'){delete this.activeUsers[e.data.id];this.save();}};this.announce('join');setInterval(()=>this.announce('ping'),5000);window.addEventListener('beforeunload',()=>this.announce('leave'));}setInterval(()=>{this.cleanup();this.update();},3000);this.update();}
-  announce(t){if(this.channel)this.channel.postMessage({type:t,id:this.tabId});}
-  cleanup(){const now=Date.now();const fresh={};Object.keys(this.activeUsers).forEach(id=>{if(now-this.activeUsers[id]<30000)fresh[id]=this.activeUsers[id];});this.activeUsers=fresh;this.save();}
-  save(){localStorage.setItem('qn_active',JSON.stringify(this.activeUsers));}
-  getCount(){this.cleanup();const real=Object.keys(this.activeUsers).length;const hour=new Date().getHours();const base=(hour>=9&&hour<=22)?3:(hour>=0&&hour<=6)?1:2;return base+real;}
-  update(){const el=document.getElementById('liveUsersStat');if(el)el.textContent=this.getCount().toLocaleString('en-IN');}
-}
-const liveUsers=new LiveUsers();
-
-const Favorites={
-  get(){try{return JSON.parse(localStorage.getItem('qn_favs')||'[]');}catch(e){return[];}},
-  save(arr){localStorage.setItem('qn_favs',JSON.stringify(arr));},
-  has(id){return this.get().includes(id);},
-  toggle(id){let arr=this.get();if(arr.includes(id))arr=arr.filter(x=>x!==id);else arr.unshift(id);this.save(arr);this.render();return arr.includes(id);},
-  render(){const arr=this.get();const sec=document.getElementById('favSection');const grid=document.getElementById('favGrid');if(!sec||!grid)return;if(!arr.length){sec.style.display='none';return;}sec.style.display='';grid.innerHTML=arr.map(id=>{const t=TOOLS.find(x=>x.id===id);if(!t)return'';return`<div class="tool" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><span class="nm">${t.n}</span></div>`;}).join('');}
-};
-
-let logoTapCount=0;
-let logoLastTap=0;
-function onLogoClick(){const now=Date.now();if(now-logoLastTap>1500){logoTapCount=0;}logoLastTap=now;logoTapCount++;if(logoTapCount>=5){logoTapCount=0;setTimeout(()=>openAIAccess(),100);}}
-function openAIAccess(){const existing=document.getElementById('aiPopup');if(existing)existing.remove();const popup=document.createElement('div');popup.id='aiPopup';popup.className='popup';popup.onclick=(e)=>{if(e.target===popup)popup.remove();};popup.innerHTML=`<div class="popup-box" style="max-width:380px"><div class="popup-head"><h3>🔐 Private Access</h3><button class="popup-close" onclick="document.getElementById('aiPopup').remove()">✕</button></div><div class="popup-body"><p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Enter your access key to unlock the private AI tool.</p><label>Access Key</label><input type="password" id="aiPassInput" placeholder="Enter key..." onkeypress="if(event.key==='Enter')verifyAIPass()" autocomplete="off"></div><div class="popup-foot"><button class="btn btn-g" onclick="document.getElementById('aiPopup').remove()">Cancel</button><button class="btn btn-p" onclick="verifyAIPass()">🔓 Unlock</button></div></div>`;document.body.appendChild(popup);setTimeout(()=>{const inp=document.getElementById('aiPassInput');if(inp)inp.focus();},100);}
-function verifyAIPass(){const inp=document.getElementById('aiPassInput');if(!inp)return;const val=inp.value;if(val===AI_PASSWORD){document.getElementById('aiPopup').remove();toast('✅ Access granted!');setTimeout(()=>{window.open(AI_URL,'_blank','noopener,noreferrer');},400);}else{toast('❌ Access Denied',1);inp.value='';inp.focus();}}
-
-function showWelcome(){if(localStorage.getItem('qn_welcomed')==='yes')return;setTimeout(()=>{document.getElementById('welcomePopup').classList.add('on');},1200);}
-function closeWelcome(){document.getElementById('welcomePopup').classList.remove('on');localStorage.setItem('qn_welcomed','yes');}
-
-const feedbackSystem={
-  currentRating:0,
-  openForm(){if(document.getElementById('feedbackModal'))return;this.currentRating=0;const m=document.createElement('div');m.id='feedbackModal';m.className='popup';m.onclick=(e)=>{if(e.target===m)this.closeForm();};m.innerHTML=`<div class="popup-box"><div class="popup-head"><h3>💬 Send Feedback</h3><button class="popup-close" onclick="feedbackSystem.closeForm()">✕</button></div><div class="popup-body"><p style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6">Aapki suggestion, problem, ya idea — sab welcome hai.</p><label>Name (optional)</label><input type="text" id="fbName" placeholder="Aapka naam"><label>Email (optional)</label><input type="email" id="fbEmail" placeholder="aap@example.com"><label>Rating</label><div id="fbStars" style="display:flex;gap:6px;font-size:26px;cursor:pointer;user-select:none">${[1,2,3,4,5].map(v=>`<span data-v="${v}" style="filter:grayscale(1) brightness(.7);transition:.2s">⭐</span>`).join('')}</div><label>Category</label><select id="fbCat"><option value="general">💬 General</option><option value="bug">🐛 Bug</option><option value="suggestion">💡 Suggestion</option><option value="problem">⚠️ Problem</option><option value="praise">🎉 Praise</option></select><label>Message *</label><textarea id="fbMsg" rows="4" placeholder="Aapka message..."></textarea></div><div class="popup-foot"><button class="btn btn-g" onclick="feedbackSystem.closeForm()">Cancel</button><button class="btn btn-p" onclick="feedbackSystem.submit()">📤 Submit</button></div></div>`;document.body.appendChild(m);const stars=m.querySelectorAll('#fbStars span');stars.forEach(s=>{s.onclick=()=>{this.currentRating=+s.dataset.v;stars.forEach(x=>{const on=+x.dataset.v<=this.currentRating;x.style.filter=on?'none':'grayscale(1) brightness(.7)';});};});},
-  closeForm(){const m=document.getElementById('feedbackModal');if(m)m.remove();},
-  async submit(){const name=document.getElementById('fbName').value.trim();const email=document.getElementById('fbEmail').value.trim();const msg=document.getElementById('fbMsg').value.trim();const cat=document.getElementById('fbCat').value;const rating=this.currentRating;if(!msg||msg.length<3){toast('❌ Message likho (min 3 chars)',1);return;}const btn=document.querySelector('#feedbackModal .btn-p');if(btn){btn.textContent='⏳ Sending...';btn.disabled=true;}const fb={id:'fb_'+Date.now()+'_'+Math.random().toString(36).slice(2,7),name:name||'Anonymous',email:email||'no-email',message:msg,category:cat,rating:rating,time:Date.now(),page:window.location.href,screenSize:window.innerWidth+'x'+window.innerHeight,read:false};try{const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');all.unshift(fb);localStorage.setItem('qn_feedback',JSON.stringify(all.slice(0,500)));}catch(e){}try{await fetch(FORMSPREE_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({_subject:`💬 Qunvero Feedback: ${cat.toUpperCase()}`,Name:fb.name,Email:fb.email,Rating:rating?'⭐'.repeat(rating):'No rating',Category:cat,Message:msg,Page:fb.page,Time:new Date().toLocaleString('en-IN'),Device:fb.screenSize,ID:fb.id})});}catch(e){}this.closeForm();this.showThanks();},
-  showThanks(){const t=document.createElement('div');t.className='popup';t.innerHTML=`<div class="popup-box" style="max-width:380px;text-align:center"><div class="popup-body"><div style="font-size:60px;margin-bottom:14px">✅</div><h3 style="color:var(--success);margin-bottom:10px;font-size:20px">Thank You!</h3><p style="color:var(--muted);font-size:14px;margin-bottom:20px">Aapka feedback mil gaya.</p><button class="btn btn-p" style="width:100%" onclick="this.closest('.popup').remove()">OK</button></div></div>`;document.body.appendChild(t);setTimeout(()=>{if(t.parentElement)t.remove();},6000);}
-};
-
-function openAdminPanel(){const pass=prompt('🔐 Admin Password daalo:');if(pass===null)return;if(pass!==ADMIN_KEY){toast('❌ Galat password',1);return;}const panel=document.getElementById('adminPanelModal');panel.style.display='block';document.body.style.overflow='hidden';renderAdminPanel();}
-function closeAdminPanel(){document.getElementById('adminPanelModal').style.display='none';document.body.style.overflow='';}
-
-function renderAdminPanel(){
-  const fb=JSON.parse(localStorage.getItem('qn_feedback')||'[]');
-  const unread=fb.filter(f=>!f.read).length;
-  const toolCount=TOOLS.length;
-  const users=liveUsers.getCount();
-  document.getElementById('adminBody').innerHTML=`
-    <div class="admin-stats">
-      <div class="admin-stat"><div class="admin-stat-val">${users}</div><div class="admin-stat-lbl">🟢 Live Users</div></div>
-      <div class="admin-stat"><div class="admin-stat-val">${toolCount}</div><div class="admin-stat-lbl">🛠️ Tools</div></div>
-      <div class="admin-stat"><div class="admin-stat-val">${fb.length}</div><div class="admin-stat-lbl">📬 Feedback</div></div>
-      <div class="admin-stat"><div class="admin-stat-val" style="color:#ef4444">${unread}</div><div class="admin-stat-lbl">🔴 Unread</div></div>
-    </div>
-    <div class="admin-section">
-      <h3>🎬 Photo / Video Section</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">Ye section aapko <b>photos aur videos</b> website pe add karne me help karega. <b>Status:</b> 🚧 Under Development</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
-        <div class="admin-placeholder"><div class="icon">🖼️</div><div class="title">Photo Upload</div><div class="sub">Coming Soon</div></div>
-        <div class="admin-placeholder"><div class="icon">🎬</div><div class="title">Video Upload</div><div class="sub">Coming Soon</div></div>
-      </div>
-    </div>
-    <div class="admin-section">
-      <h3>💬 Feedback List (${fb.length})</h3>
-      ${fb.length===0?'<p style="font-size:13px;color:var(--muted);text-align:center;padding:20px">Koi feedback nahi hai abhi</p>':''}
-      <div>${fb.slice(0,20).map(f=>`<div class="admin-fb"><div class="admin-fb-head"><div class="admin-fb-name">👤 ${f.name} ${f.rating?'• '+'⭐'.repeat(f.rating):''}</div><div class="admin-fb-time">${new Date(f.time).toLocaleString('en-IN')}</div></div><div style="font-size:12px;color:var(--primary)">📧 ${f.email} • ${f.category}</div><div class="admin-fb-msg">${f.message}</div><div class="admin-fb-actions">${!f.read?`<button onclick="markFbRead('${f.id}')">✅ Mark Read</button>`:''}<button onclick="delFb('${f.id}')" class="danger">🗑️ Delete</button></div></div>`).join('')}</div>
-    </div>
-    <div class="admin-section">
-      <h3>⚙️ Quick Actions</h3>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-g" onclick="exportFbCSV()">📥 Export CSV</button>
-        <button class="btn btn-g" onclick="clearAllData()">🗑️ Clear All Data</button>
-        <button class="btn btn-g" onclick="showStats()">📊 Show Stats</button>
-      </div>
-    </div>`;
-}
-function markFbRead(id){const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');const f=all.find(x=>x.id===id);if(f)f.read=true;localStorage.setItem('qn_feedback',JSON.stringify(all));renderAdminPanel();}
-function delFb(id){if(!confirm('Delete?'))return;const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');localStorage.setItem('qn_feedback',JSON.stringify(all.filter(x=>x.id!==id)));renderAdminPanel();toast('🗑️ Deleted');}
-function exportFbCSV(){const all=JSON.parse(localStorage.getItem('qn_feedback')||'[]');if(!all.length){toast('Koi feedback nahi',1);return;}let csv='ID,Name,Email,Category,Rating,Message,Time\n';all.forEach(f=>{const esc=s=>`"${String(s).replace(/"/g,'""')}"`;csv+=[esc(f.id),esc(f.name),esc(f.email),esc(f.category),f.rating,esc(f.message),esc(new Date(f.time).toLocaleString('en-IN'))].join(',')+'\n';});const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='qunvero-feedback.csv';a.click();toast('📥 Downloaded');}
-function clearAllData(){if(!confirm('Sab data delete? Ye undo nahi hoga!'))return;if(!confirm('Pakka?'))return;localStorage.clear();toast('🗑️ Sab clear');renderAdminPanel();}
-function showStats(){alert(`📊 Stats\n\nTools: ${TOOLS.length}\nCategories: ${CATEGORIES.length}\nLive Users: ${liveUsers.getCount()}\nFeedback: ${JSON.parse(localStorage.getItem('qn_feedback')||'[]').length}`);}
-
-/* ============ TOOLS ============ */
-const TOOLS=[];
-const CATEGORIES=[
-  {id:'shop',name:'Shop / Dukan',emo:'🏪'},
-  {id:'copy',name:'Photo Copy',emo:'📸'},
-  {id:'elec',name:'Bijli',emo:'⚡'},
-  {id:'biz',name:'Business',emo:'💼'},
-  {id:'pdf',name:'PDF Tools',emo:'📄'},
-  {id:'img',name:'Image',emo:'🖼️'},
-  {id:'text',name:'Text Tools',emo:'🔤'},
-  {id:'fin',name:'Finance',emo:'💰'},
-  {id:'social',name:'Social Media',emo:'📱'},
-  {id:'edu',name:'Student',emo:'🎓'},
-  {id:'health',name:'Health',emo:'🏥'},
-  {id:'util',name:'Utility',emo:'🔧'},
-  {id:'time',name:'Date / Time',emo:'⏰'},
-  {id:'split',name:'Splitter',emo:'💸'},
-  {id:'todo',name:'To-Do',emo:'✅'},
+/* ---------- CATEGORIES DATA ---------- */
+const CATEGORIES = [
+  {id:'shop',    emoji:'🏪', name:'Shop / Dukan',      count:20},
+  {id:'photo',   emoji:'📸', name:'Photo Copy',        count:15},
+  {id:'bijli',   emoji:'⚡', name:'Bijli / Electricity',count:5},
+  {id:'business',emoji:'💼', name:'Business',          count:10},
+  {id:'pdf',     emoji:'📄', name:'PDF Tools',         count:10},
+  {id:'image',   emoji:'🖼️', name:'Image / Photo',     count:10},
+  {id:'text',    emoji:'🔤', name:'Text Tools',        count:8},
+  {id:'finance', emoji:'💰', name:'Finance',           count:8},
+  {id:'social',  emoji:'📱', name:'Social Media',      count:5},
+  {id:'student', emoji:'🎓', name:'Student',           count:5},
+  {id:'health',  emoji:'🏥', name:'Health',            count:5},
+  {id:'utility', emoji:'🔧', name:'Utility',           count:5},
+  {id:'datetime',emoji:'⏰', name:'Date / Time',       count:5},
+  {id:'math',    emoji:'🔢', name:'Math',              count:5},
+  {id:'convert', emoji:'🔄', name:'Converters',        count:5},
+  {id:'web',     emoji:'💻', name:'Web / Code',        count:3},
+  {id:'fun',     emoji:'🎲', name:'Fun',               count:3},
+  {id:'split',   emoji:'💸', name:'Splitter',          count:2},
+  {id:'todo',    emoji:'✅', name:'To-Do',             count:2}
 ];
 
-window.__currentTool='';
-function fmt(n,d=2){return Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:d,minimumFractionDigits:d});}
-function v(id){const el=document.getElementById(id);return el?el.value:'';}
-function res(html,text){const rb=document.getElementById('resultBox');if(rb)rb.innerHTML=html;window._lt=text||'';}
+/* ---------- TOOLS DATA (fill in Parts 2-5) ---------- */
+const TOOLS = {
+  /* ============ PART 2 PASTE HERE (Shop tools) ============ */
+  shop: [],
 
-const F={
-  num:(id,lbl,def='')=>`<div><label>${lbl}</label><input type="number" id="${id}" value="${def}" step="any"></div>`,
-  txt:(id,lbl,def='')=>`<div><label>${lbl}</label><input type="text" id="${id}" value="${def}"></div>`,
-  area:(id,lbl,def='')=>`<div><label>${lbl}</label><textarea id="${id}" rows="4">${def}</textarea></div>`,
-  sel:(id,lbl,opts)=>`<div><label>${lbl}</label><select id="${id}">${opts.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join('')}</select></div>`,
-  date:(id,lbl)=>`<div><label>${lbl}</label><input type="date" id="${id}"></div>`,
+  /* ============ PART 3 PASTE HERE (Photocopy + General) ============ */
+  photo: [],
+
+  /* ============ PART 4 PASTE HERE (more tools) ============ */
+  pdf: [], image: [], text: [], finance: [],
+
+  /* ============ PART 5 PASTE HERE (final tools) ============ */
+  bijli: [], business: [], social: [], student: [],
+  health: [], utility: [], datetime: [], math: [],
+  convert: [], web: [], fun: [], split: [], todo: []
 };
-function calcBtn(label){return`<div class="calc-btn-row"><button class="calc-btn" onclick="__calc()">${label||'🔢 Calculate'}</button></div>`;}
-window.__calc=function(){if(!window.__currentTool)return;const t=TOOLS.find(x=>x.id===window.__currentTool);if(t&&t.calc)try{t.calc();}catch(e){console.warn(e);}};
 
-/* ===================================================================
-   ===== TOOLS PASTE HERE =====
-   =================================================================== */
+/* ---------- STATE ---------- */
+let currentCat = null;
+let totalTools = 0;
 
-/* ============ PART 2 PASTE HERE ============ */
+/* ---------- INIT ---------- */
+document.addEventListener('DOMContentLoaded', () => {
+  renderCategories();
+  updateStats();
+  initTheme();
+  checkWelcome();
+  window.addEventListener('scroll', onScroll);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeModal(); closeMenu(); }
+  });
+});
 
-/* ============ PART 3 PASTE HERE ============ */
-
-/* ============ PART 4 PASTE HERE ============ */
-
-/* ============ PART 5 PASTE HERE ============ */
-
-/* ===================================================================
-   ===== TOOLS PASTE END =====
-   =================================================================== */
-
-/* ============ RENDER HOMEPAGE (CATEGORIES) ============ */
+/* ---------- RENDER CATEGORIES ---------- */
 function renderCategories(){
-  const grid=document.getElementById('catGrid');
-  if(!grid)return;
-  grid.innerHTML=CATEGORIES.map(cat=>{
-    const tools=TOOLS.filter(t=>t.c===cat.id);
-    if(!tools.length)return '';
-    return `<div class="cat-card" data-cat="${cat.id}" onclick="toggleCategory('${cat.id}',this)">
-      <span class="cat-emo">${cat.emo}</span>
-      <div class="cat-name">${cat.name}</div>
-      <div class="cat-count">${tools.length} tools</div>
-      <div class="cat-arrow">▼ Show</div>
-    </div>`;
-  }).join('');
+  const grid = document.getElementById('catGrid');
+  grid.innerHTML = CATEGORIES.map(c => `
+    <button class="cat-card" data-cat="${c.id}" onclick="toggleCategory('${c.id}')">
+      <span class="cat-emoji">${c.emoji}</span>
+      <div class="cat-name">${c.name}</div>
+      <div class="cat-count">${getToolCount(c.id)} tools</div>
+    </button>
+  `).join('');
 }
 
-let currentOpenCat=null;
-function toggleCategory(catId, el){
-  if(currentOpenCat===catId){
-    closePanel();
+function getToolCount(catId){
+  const arr = TOOLS[catId];
+  if (!arr || !arr.length) return 0;
+  return arr.length;
+}
+
+function updateStats(){
+  totalTools = Object.values(TOOLS).reduce((sum, arr) => sum + (arr?.length || 0), 0);
+  const el = document.getElementById('statTools');
+  if (el) el.textContent = totalTools >= 100 ? '100+' : (totalTools || '100+');
+  const catsEl = document.getElementById('statCats');
+  if (catsEl) catsEl.textContent = CATEGORIES.length;
+}
+
+/* ---------- CATEGORY TOGGLE ---------- */
+function toggleCategory(catId){
+  const panel = document.getElementById('toolsPanel');
+  const isOpen = panel.classList.contains('open');
+  const isSame = currentCat === catId;
+
+  document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
+
+  if (isOpen && isSame){
+    panel.classList.remove('open');
+    currentCat = null;
     return;
   }
-  // Remove active from others
-  document.querySelectorAll('.cat-card').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
-  const cat=CATEGORIES.find(c=>c.id===catId);
-  const tools=TOOLS.filter(t=>t.c===catId);
-  document.getElementById('panelTitle').innerHTML=`${cat.emo} ${cat.name} <span style="font-size:12px;color:var(--muted);font-weight:500">(${tools.length})</span>`;
-  document.getElementById('panelGrid').innerHTML=tools.map(t=>`<div class="tool" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><span class="nm">${t.n}</span></div>`).join('');
-  const panel=document.getElementById('toolsPanel');
+
+  currentCat = catId;
+  const cat = CATEGORIES.find(c => c.id === catId);
+  const catCard = document.querySelector(`.cat-card[data-cat="${catId}"]`);
+  if (catCard) catCard.classList.add('active');
+
+  document.getElementById('panelTitle').textContent = `${cat.emoji} ${cat.name}`;
+  renderToolsList(catId);
+
   panel.classList.add('open');
-  // Update arrow
-  el.querySelector('.cat-arrow').textContent='▲ Hide';
-  // Scroll to panel
-  setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'nearest'}),150);
-  currentOpenCat=catId;
+  setTimeout(() => {
+    panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }, 200);
 }
 
-function closePanel(){
-  document.querySelectorAll('.cat-card').forEach(c=>{
-    c.classList.remove('active');
-    const arrow=c.querySelector('.cat-arrow');
-    if(arrow)arrow.textContent='▼ Show';
-  });
+function closeToolsPanel(){
   document.getElementById('toolsPanel').classList.remove('open');
-  currentOpenCat=null;
+  document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('active'));
+  currentCat = null;
 }
 
-function scrollToTools(){
-  const el=document.getElementById('categoriesSection');
-  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+function renderToolsList(catId){
+  const list = document.getElementById('toolsList');
+  const arr = TOOLS[catId] || [];
+
+  if (!arr.length){
+    list.innerHTML = `
+      <div class="empty-state" style="grid-column:1/-1">
+        <span class="es-emoji">🚧</span>
+        <div>Tools coming soon in this category</div>
+        <div style="margin-top:6px;font-size:11px;opacity:.7">Next update me add honge</div>
+      </div>`;
+    return;
+  }
+
+  list.innerHTML = arr.map((t, i) => `
+    <button class="tool-btn" onclick="openTool('${catId}', ${i})">
+      <span class="tb-icon">${t.icon || '🔧'}</span>
+      <span class="tb-name">${t.name}</span>
+    </button>
+  `).join('');
 }
 
-/* ============ SEARCH ============ */
+/* ---------- OPEN TOOL ---------- */
+function openTool(catId, idx){
+  const tool = TOOLS[catId]?.[idx];
+  if (!tool) return;
+
+  document.getElementById('modalTitle').innerHTML = `${tool.icon || '🔧'} ${tool.name}`;
+  const body = document.getElementById('modalBody');
+  body.innerHTML = '';
+  try {
+    if (typeof tool.render === 'function'){
+      body.innerHTML = tool.render();
+      if (typeof tool.init === 'function') tool.init();
+    } else {
+      body.innerHTML = `<div class="placeholder-box">Tool "${tool.name}" coming soon</div>`;
+    }
+  } catch(err){
+    console.error(err);
+    body.innerHTML = `<div class="placeholder-box">Error loading tool</div>`;
+  }
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ---------- SEARCH ---------- */
 function doSearch(q){
-  const box=document.getElementById('searchRes');
-  if(!box)return;
-  if(!q||q.length<1){box.classList.remove('on');return;}
-  q=q.toLowerCase();
-  const results=TOOLS.filter(t=>t.n.toLowerCase().includes(q)||t.id.toLowerCase().includes(q)).slice(0,10);
-  if(!results.length){box.innerHTML='<div class="sr-empty">😕 Kuch nahi mila</div>';}
-  else{box.innerHTML=results.map(t=>{const cat=CATEGORIES.find(c=>c.id===t.c);return`<div class="sr-item" onclick="openTool('${t.id}')"><span class="ic">${t.i}</span><div class="info"><div class="nm">${t.n}</div><div class="ct">${cat?cat.name:''}</div></div><span style="color:var(--primary)">→</span></div>`;}).join('');}
-  box.classList.add('on');
+  const results = document.getElementById('searchResults');
+  const clearBtn = document.getElementById('sClear');
+  q = (q || '').trim().toLowerCase();
+
+  if (!q){
+    results.classList.remove('show');
+    clearBtn.classList.remove('show');
+    return;
+  }
+  clearBtn.classList.add('show');
+
+  const matches = [];
+  CATEGORIES.forEach(cat => {
+    (TOOLS[cat.id] || []).forEach((t, i) => {
+      if (t.name.toLowerCase().includes(q)){
+        matches.push({catId:cat.id, idx:i, tool:t, catName:cat.name, catEmoji:cat.emoji});
+      }
+    });
+  });
+
+  if (!matches.length){
+    results.innerHTML = `<div class="sr-empty">No tools found for "${q}"</div>`;
+  } else {
+    results.innerHTML = matches.slice(0, 20).map(m => `
+      <div class="sr-item" onclick="openSearchResult('${m.catId}', ${m.idx})">
+        <span>${m.tool.icon || '🔧'}</span>
+        <span>${m.tool.name}</span>
+        <span class="sr-cat">${m.catEmoji} ${m.catName}</span>
+      </div>
+    `).join('');
+  }
+  results.classList.add('show');
 }
-document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap')){const box=document.getElementById('searchRes');if(box)box.classList.remove('on');}});
-function focusSearch(){const el=document.getElementById('searchBox');if(el){el.focus();window.scrollTo({top:0,behavior:'smooth'});}}
 
-/* ============ TOOL OPEN/CLOSE ============ */
-function openTool(id){
-  const t=TOOLS.find(x=>x.id===id);
-  if(!t){toast('Tool not found',1);return;}
-  window.__currentTool=id;
-  document.getElementById('toolIcon').textContent=t.i;
-  document.getElementById('toolTitle').textContent=t.n;
-  document.getElementById('toolBody').innerHTML=t.render();
-  const favEl=document.getElementById('favToggle');
-  if(favEl)favEl.classList.toggle('on',Favorites.has(id));
-  document.getElementById('toolModal').classList.add('on');
-  document.body.style.overflow='hidden';
-  window._lastBlob=null;window._lt='';window._lastName='result';
-  if(t.init)try{t.init();}catch(e){console.warn(e);}
+function openSearchResult(catId, idx){
+  document.getElementById('searchResults').classList.remove('show');
+  document.getElementById('searchInput').value = '';
+  document.getElementById('sClear').classList.remove('show');
+  openTool(catId, idx);
 }
-function closeTool(){document.getElementById('toolModal').classList.remove('on');document.body.style.overflow='';window.__currentTool='';photoCopyImages=[];}
-function openRandomTool(){if(!TOOLS.length){toast('Tools loading...',1);return;}const t=TOOLS[Math.floor(Math.random()*TOOLS.length)];openTool(t.id);}
-function toggleFavoriteCurrent(){if(!window.__currentTool)return;const now=Favorites.toggle(window.__currentTool);const el=document.getElementById('favToggle');if(el)el.classList.toggle('on',now);toast(now?'⭐ Added':'Removed');}
 
-/* ============ PREVIEW / PRINT / DOWNLOAD / COPY / SHARE ============ */
-function openPreview(){
-  const rb=document.getElementById('resultBox');
-  if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}
-  const resultHTML=rb.innerHTML;
-  const rawText=window._lt||'';
-  const hasImage=resultHTML.indexOf('<img')>-1;
-  const hasCelebration=resultHTML.indexOf('age-celebration')>-1;
-  let cleanHTML='';
-  if(hasCelebration){const td=document.createElement('div');td.innerHTML=resultHTML;const cel=td.querySelector('.age-celebration');cleanHTML=cel?cel.outerHTML:resultHTML;}
-  else if(hasImage){const td=document.createElement('div');td.innerHTML=resultHTML;const imgs=td.querySelectorAll('img');let h='';imgs.forEach(img=>{h+=`<img src="${img.src}" style="max-width:100%;display:block;margin:0 auto">`;});cleanHTML=h;}
-  else{const td=document.createElement('div');td.innerHTML=resultHTML;const rows=td.querySelectorAll('.result-row');
-    if(rows.length){let h='';rows.forEach(row=>{const lb=row.querySelector('.lb');const vl=row.querySelector('.vl');const isT=row.classList.contains('total');h+=`<div class="result-row${isT?' total':''}"><span class="lb">${lb?lb.textContent:''}</span><span class="vl">${vl?vl.textContent:''}</span></div>`;});cleanHTML=h;}
-    else if(rawText){cleanHTML=`<div style="padding:10px 0;font-size:15px;white-space:pre-wrap;word-break:break-word;color:#0f172a;line-height:1.7">${rawText}</div>`;}
-    else{cleanHTML=`<div style="padding:10px 0;font-size:15px;color:#0f172a;line-height:1.7">${resultHTML}</div>`;}}
-  const html=`<div class="preview-inner" id="previewInner"><div class="preview-box"><div class="preview-head"><h3>👁️ Preview</h3><button class="preview-close-btn" onclick="closePreview()">✕ Close</button></div><div class="preview-content"><div class="preview-capture" id="previewCapture"><div class="preview-data" id="previewData">${cleanHTML}</div></div></div><div class="preview-actions"><button class="btn-print" onclick="printPreview()">🖨️ Print</button><button class="btn-pdf" onclick="downloadPDF()">📄 PDF</button><button class="btn-img" onclick="downloadPreviewImage()">📷 Download Image</button></div></div></div>`;
-  const w=document.createElement('div');w.innerHTML=html;document.body.appendChild(w.firstElementChild);
+function clearSearch(){
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchResults').classList.remove('show');
+  document.getElementById('sClear').classList.remove('show');
+  document.getElementById('searchInput').focus();
 }
-function closePreview(){const p=document.getElementById('previewInner');if(p)p.remove();}
-function printPreview(){const cap=document.getElementById('previewCapture');if(!cap){toast('Preview kholo',1);return;}const w=window.open('','_blank');if(!w){toast('Popup blocked!',1);return;}const html=cap.outerHTML;w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>body{font-family:Arial;padding:30px;background:#fff;color:#0f172a}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none}.result-row.total .lb,.result-row.total .vl{color:#10b981;font-weight:800}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.8);padding:10px 18px;border-radius:12px;font-size:13px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:22px;color:#7c3aed}img{max-width:100%}</style></head><body>${html}<script>setTimeout(()=>{window.print();},400);<\/script></body></html>`);w.document.close();toast('🖨️ Print ready');}
-function downloadPDF(){const cap=document.getElementById('previewCapture');if(!cap){toast('Preview kholo',1);return;}const w=window.open('','_blank');if(!w){toast('Popup blocked!',1);return;}const html=`<div style="padding:30px;background:#fff;font-family:Arial">${document.getElementById('previewData').innerHTML}</div>`;w.document.write(`<!DOCTYPE html><html><head><title>Qunvero</title><style>body{font-family:Arial;padding:30px;background:#fff;color:#0f172a}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed #e2e8f0;font-size:15px}.result-row .lb{color:#64748b}.result-row .vl{font-weight:700;text-align:right}.result-row.total{padding-top:16px;font-size:18px;border-top:2px solid #10b981;border-bottom:none}.result-row.total .lb,.result-row.total .vl{color:#10b981;font-weight:800}.age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:16px;padding:24px;text-align:center}.age-celebration .age-big{font-size:48px;font-weight:900;color:#7c3aed;margin:8px 0}.age-celebration .age-label{font-size:13px;color:#475569;font-weight:600;text-transform:uppercase}.age-celebration .age-detail{display:flex;justify-content:center;gap:14px;margin-top:14px;flex-wrap:wrap}.age-celebration .age-chip{background:rgba(255,255,255,.8);padding:10px 18px;border-radius:12px;font-size:13px;font-weight:700;color:#0f172a}.age-celebration .age-chip b{display:block;font-size:22px;color:#7c3aed}img{max-width:100%}</style></head><body>${html}<script>setTimeout(()=>{window.print();},600);<\/script></body></html>`);w.document.close();toast('📄 PDF dialog khula');}
-async function downloadPreviewImage(){
-  const cap=document.getElementById('previewCapture');if(!cap){toast('Preview kholo',1);return;}
-  toast('📷 HD image ban raha hai...');
-  const fw=700;const clone=cap.cloneNode(true);
-  clone.style.position='fixed';clone.style.left='-99999px';clone.style.top='0';
-  clone.style.width=fw+'px';clone.style.maxWidth=fw+'px';
-  clone.style.padding='50px 40px';clone.style.background='#ffffff';
-  clone.style.borderRadius='0';clone.style.boxShadow='none';clone.style.color='#0f172a';
-  clone.style.display='block';clone.style.boxSizing='border-box';clone.style.margin='0';
-  clone.style.height='auto';clone.style.minHeight='0';clone.style.maxHeight='none';
-  clone.querySelectorAll('*').forEach(el=>{el.style.boxSizing='border-box';el.style.marginLeft='0';el.style.marginRight='0';});
-  clone.querySelectorAll('img').forEach(img=>{img.style.maxWidth='100%';img.style.height='auto';img.style.display='block';img.style.margin='20px auto';});
-  document.body.appendChild(clone);
-  try{
-    await new Promise(r=>setTimeout(r,500));
-    const aw=clone.offsetWidth;const ah=clone.offsetHeight;
-    const canvas=await html2canvas(clone,{scale:3,backgroundColor:'#ffffff',logging:false,useCORS:true,allowTaint:true,imageTimeout:0,width:aw,height:ah,windowWidth:aw,windowHeight:ah,x:0,y:0,scrollX:0,scrollY:0});
-    canvas.toBlob(b=>{
-      if(b){const t=TOOLS.find(x=>x.id===window.__currentTool);const name=(t?t.n:'qunvero-report').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');const url=URL.createObjectURL(b);const a=document.createElement('a');a.href=url;a.download=`${name}-qunvero-hd.png`;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),1000);toast('✅ HD image downloaded!');}
-      else toast('Image failed',1);
-      if(clone.parentElement)document.body.removeChild(clone);
-    },'image/png');
-  }catch(e){console.error(e);if(clone.parentElement)document.body.removeChild(clone);toast('❌ '+e.message,1);}
-}
-function downloadTool(){const t=TOOLS.find(x=>x.id===window.__currentTool);const name=(t?t.n:'qunvero').toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');if(window._lastBlob){dlBlob(window._lastBlob,window._lastName||(name+'.jpg'));return;}const rb=document.getElementById('resultBox');if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}const text=window._lt||rb.innerText;if(!text.trim()){toast('Kuch nahi',1);return;}const full=`⚡ Qunvero — ${t?t.n:'Tool'}\n${'='.repeat(50)}\n\n${text}\n\n${'='.repeat(50)}\nGenerated: ${new Date().toLocaleString('en-IN')}\nhttps://qunvero.vercel.app`;dlBlob(new Blob([full],{type:'text/plain;charset=utf-8'}),name+'.txt');}
-function dlBlob(blob,name){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),1000);toast('⬇️ '+name);}
-async function copyResult(){const rb=document.getElementById('resultBox');if(!rb||!rb.innerHTML.trim()){toast('Pehle Calculate dabao',1);return;}const text=window._lt||rb.innerText;if(!text.trim()){toast('Kuch nahi',1);return;}try{await navigator.clipboard.writeText(text);toast('📋 Copied!');}catch(e){const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('📋 Copied!');}}
-async function shareTool(){const t=TOOLS.find(x=>x.id===window.__currentTool);const text=window._lt||'';const shareText=`⚡ Qunvero — ${t?t.n:'Free Tools'}\n\n${text?text+'\n\n':''}🚀 Try: https://qunvero.vercel.app`;try{if(navigator.share){await navigator.share({title:'Qunvero',text:shareText,url:'https://qunvero.vercel.app'});}else{await navigator.clipboard.writeText(shareText);toast('📋 Link copied!');}}catch(e){}}
 
-function openStatic(page){const content={about:{t:'ℹ️ About Qunvero',b:`<p>Qunvero is a free online platform offering 100+ useful tools for shop, photocopy, business, education, and more.</p><p>All tools run directly in your browser. Your data never leaves your device — 100% private.</p>`},privacy:{t:'🔒 Privacy Policy',b:`<p>Your privacy is important to us.</p><ul><li>All processing happens in your browser</li><li>Your files never leave your device</li><li>No personal information is collected</li><li>No tracking</li></ul>`},terms:{t:'📜 Terms of Use',b:`<ul><li>All tools are provided "as-is"</li><li>Financial calculations are for reference only</li><li>Verify important results</li></ul>`},contact:{t:'📞 Contact Us',b:`<p>Aapka feedback, suggestion, ya koi problem hai?</p><p style="margin-top:14px">💬 <b>Feedback button</b> use karo — bottom-left corner me hai.</p>`}};const c=content[page];if(!c)return;document.getElementById('staticTitle').textContent=c.t;document.getElementById('staticBody').innerHTML=c.b;document.getElementById('staticModal').classList.add('on');document.body.style.overflow='hidden';}
-function closeStatic(){document.getElementById('staticModal').classList.remove('on');document.body.style.overflow='';}
-function goHome(){window.scrollTo({top:0,behavior:'smooth'});closeTool();closeStatic();}
-document.addEventListener('keydown',e=>{if(e.ctrlKey&&e.shiftKey&&e.key==='A'){e.preventDefault();openAdminPanel();}});
-
-/* ============ PHOTO COPY HELPERS ============ */
-let photoCopyImages=[];
-function handlePhotoCopyUpload(e){const files=Array.from(e.target.files||[]);files.forEach(file=>{const reader=new FileReader();reader.onload=ev=>{const img=new Image();img.onload=()=>{const ta=35/45;const ia=img.width/img.height;let sx=0,sy=0,sw=img.width,sh=img.height;if(ia>ta){sw=img.height*ta;sx=(img.width-sw)/2;}else{sh=img.width/ta;sy=(img.height-sh)*0.4;}const c=document.createElement('canvas');c.width=413;c.height=531;const ctx=c.getContext('2d');ctx.drawImage(img,sx,sy,sw,sh,0,0,c.width,c.height);photoCopyImages.push({src:ev.target.result,croppedSrc:c.toDataURL('image/jpeg',0.95),name:file.name});renderPhotoCopyGrid();};img.src=ev.target.result;};reader.readAsDataURL(file);});e.target.value='';}
-function renderPhotoCopyGrid(){const grid=document.getElementById('photoCopyGrid');if(!grid)return;if(!photoCopyImages.length){grid.innerHTML='';return;}grid.innerHTML=photoCopyImages.map((p,i)=>`<div class="photo-preview-item"><img src="${p.croppedSrc||p.src}" alt="photo"><button class="del-btn" onclick="removePhotoCopy(${i})">✕</button></div>`).join('');}
-function removePhotoCopy(i){photoCopyImages.splice(i,1);renderPhotoCopyGrid();}
-
-/* ============ INIT ============ */
-document.addEventListener('DOMContentLoaded',()=>{
-  renderCategories();
-  Favorites.render();
-  liveUsers.update();
-  showWelcome();
-  const count=TOOLS.length||100;
-  const tc=document.getElementById('toolCount');
-  const hc=document.getElementById('heroToolCount');
-  if(tc)tc.textContent=count+'+';
-  if(hc)hc.textContent=count+'+';
-  console.log('⚡ Qunvero loaded — '+count+' tools ready!');
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-box')){
+    document.getElementById('searchResults')?.classList.remove('show');
+  }
 });
+
+/* ---------- MENU ---------- */
+function openMenu(){
+  document.getElementById('menuOverlay').classList.add('open');
+  document.getElementById('menuPanel').classList.add('open');
+}
+function closeMenu(){
+  document.getElementById('menuOverlay').classList.remove('open');
+  document.getElementById('menuPanel').classList.remove('open');
+}
+
+/* ---------- THEME ---------- */
+function initTheme(){
+  const saved = localStorage.getItem('qunvero-theme') || 'light';
+  document.body.setAttribute('data-theme', saved);
+  updateThemeIcon(saved);
+}
+function toggleTheme(){
+  const cur = document.body.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.body.setAttribute('data-theme', next);
+  localStorage.setItem('qunvero-theme', next);
+  updateThemeIcon(next);
+}
+function updateThemeIcon(theme){
+  const btn = document.getElementById('themeBtn');
+  if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
+/* ---------- WELCOME POPUP (first time only) ---------- */
+function checkWelcome(){
+  if (!localStorage.getItem('qunvero-welcome-shown')){
+    setTimeout(() => {
+      document.getElementById('welcomeOverlay').classList.add('show');
+    }, 600);
+  }
+}
+function closeWelcome(){
+  document.getElementById('welcomeOverlay').classList.remove('show');
+  localStorage.setItem('qunvero-welcome-shown', '1');
+  if (typeof trackVisit === 'function') trackVisit();
+}
+
+/* ---------- TOAST ---------- */
+let toastTimer;
+function toast(msg, dur){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), dur || 2200);
+}
+
+/* ---------- NAV ---------- */
+function goHome(){
+  closeToolsPanel();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+function scrollToCats(){
+  document.getElementById('catsTitle')?.scrollIntoView({behavior:'smooth'});
+}
+
+/* ---------- SCROLL TOP ---------- */
+function onScroll(){
+  const btn = document.getElementById('scrollTop');
+  if (window.scrollY > 400) btn.classList.add('show');
+  else btn.classList.remove('show');
+}
+
+/* ---------- ABOUT / FEEDBACK ---------- */
+function openAbout(){
+  document.getElementById('modalTitle').innerHTML = 'ℹ️ About Qunvero';
+  document.getElementById('modalBody').innerHTML = `
+    <div style="text-align:center;padding:8px 0">
+      <div style="font-size:52px;margin-bottom:12px">🧰</div>
+      <h3 style="margin-bottom:8px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:20px;font-weight:800">Qunvero</h3>
+      <p style="color:var(--text-soft);font-size:14px;line-height:1.7;margin-bottom:16px">
+        100+ free online tools for shopkeepers, students, businesses, and everyone.
+        No signup, no ads, 100% free forever.
+      </p>
+      <div style="background:var(--bg);border-radius:12px;padding:14px;text-align:left;font-size:13px;line-height:1.9">
+        <div>🌐 <strong>Website:</strong> qunvero.vercel.app</div>
+        <div>💬 <strong>Feedback:</strong> Formspree</div>
+        <div>📅 <strong>Version:</strong> 2.0</div>
+      </div>
+      <button class="btn btn-primary" style="margin-top:16px;width:100%" onclick="closeModal();openFeedback()">💬 Send Feedback</button>
+    </div>`;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function openFeedback(){
+  document.getElementById('modalTitle').innerHTML = '💬 Send Feedback';
+  document.getElementById('modalBody').innerHTML = `
+    <form class="feedback-form" id="fbForm" onsubmit="submitFeedback(event)">
+      <div class="fld">
+        <label>Your Name</label>
+        <input type="text" name="name" required placeholder="Enter your name">
+      </div>
+      <div class="fld">
+        <label>Email (optional)</label>
+        <input type="email" name="email" placeholder="you@example.com">
+      </div>
+      <div class="fld">
+        <label>Your Message / Suggestion</label>
+        <textarea name="message" required placeholder="Tell us what you think..."></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%">📤 Send Feedback</button>
+    </form>`;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+async function submitFeedback(e){
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
+  const orig = btn.textContent;
+  btn.textContent = '⏳ Sending...';
+  btn.disabled = true;
+  try {
+    const res = await fetch(form.action || 'https://formspree.io/f/xyezkwww', {
+      method:'POST',
+      body: new FormData(form),
+      headers:{'Accept':'application/json'}
+    });
+    if (res.ok){
+      saveFeedbackLocal(form);
+      toast('✅ Feedback bhej diya! Thank you 🙏');
+      closeModal();
+    } else {
+      toast('❌ Failed. Please try again.');
+    }
+  } catch(err){
+    toast('❌ Network error. Try again.');
+  }
+  btn.textContent = orig;
+  btn.disabled = false;
+}
+
+function saveFeedbackLocal(form){
+  try {
+    const fd = new FormData(form);
+    const list = JSON.parse(localStorage.getItem('qunvero-feedback') || '[]');
+    list.unshift({
+      name: fd.get('name'),
+      email: fd.get('email') || '',
+      message: fd.get('message'),
+      date: new Date().toISOString(),
+      read: false
+    });
+    localStorage.setItem('qunvero-feedback', JSON.stringify(list.slice(0, 100)));
+  } catch(e){}
+}
+
+/* ============================================================
+   ADMIN PANEL
+   ============================================================ */
+const ADMIN_PASS = 'qunvero2025';
+
+function openAdmin(){
+  document.getElementById('modalTitle').innerHTML = '⚙️ System Panel';
+  document.getElementById('modalBody').innerHTML = `
+    <div class="admin-body">
+      <div class="fld">
+        <label>🔐 Enter Admin Password</label>
+        <input type="password" id="adminPass" placeholder="Password" onkeydown="if(event.key==='Enter')verifyAdmin()">
+      </div>
+      <button class="btn btn-primary" style="width:100%" onclick="verifyAdmin()">🔓 Unlock</button>
+    </div>`;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('adminPass')?.focus(), 100);
+}
+
+function verifyAdmin(){
+  const pass = document.getElementById('adminPass')?.value;
+  if (pass === ADMIN_PASS){
+    renderAdminPanel();
+  } else {
+    toast('❌ Wrong password');
+  }
+}
+
+function renderAdminPanel(){
+  const feedback = JSON.parse(localStorage.getItem('qunvero-feedback') || '[]');
+  const unread = feedback.filter(f => !f.read).length;
+
+  document.getElementById('modalTitle').innerHTML = '⚙️ Admin Dashboard';
+  document.getElementById('modalBody').innerHTML = `
+    <div class="admin-body">
+      <div class="admin-grid">
+        <div class="admin-stat"><div class="as-num">${totalTools || 0}</div><div class="as-lbl">TOOLS</div></div>
+        <div class="admin-stat"><div class="as-num">${CATEGORIES.length}</div><div class="as-lbl">CATEGORIES</div></div>
+        <div class="admin-stat"><div class="as-num">${unread}</div><div class="as-lbl">NEW FEEDBACK</div></div>
+      </div>
+
+      <div class="admin-section">
+        <h4>📸 Photo / Video Manager</h4>
+        <div class="placeholder-box">🚧 Coming Soon</div>
+      </div>
+
+      <div class="admin-section">
+        <h4>💬 Feedback (${feedback.length})</h4>
+        <div id="adminFeedbackList">
+          ${feedback.length ? feedback.map((f, i) => `
+            <div class="feedback-item ${f.read ? '' : 'unread'}">
+              <div class="fb-head">
+                <span>${escapeHtml(f.name || 'Anonymous')}</span>
+                <span style="color:var(--text-soft);font-weight:500">${fmtDate(f.date)}</span>
+              </div>
+              ${f.email ? `<div style="font-size:11px;color:var(--text-soft);margin-bottom:4px">${escapeHtml(f.email)}</div>` : ''}
+              <div class="fb-msg">${escapeHtml(f.message || '')}</div>
+              <div class="fb-actions">
+                ${f.read ? '' : `<button onclick="markFeedbackRead(${i})">✓ Mark Read</button>`}
+                <button class="del" onclick="deleteFeedback(${i})">🗑 Delete</button>
+              </div>
+            </div>
+          `).join('') : `<div class="empty-state"><span class="es-emoji">📭</span>No feedback yet</div>`}
+        </div>
+      </div>
+
+      <div class="admin-section">
+        <h4>⚡ Quick Actions</h4>
+        <div class="btn-row">
+          <button class="btn btn-secondary" onclick="exportFeedbackCSV()">📥 Export CSV</button>
+          <button class="btn btn-secondary" onclick="showStats()">📊 Show Stats</button>
+          <button class="btn btn-danger" onclick="clearAllData()" style="flex:1">🗑 Clear Data</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function markFeedbackRead(i){
+  const list = JSON.parse(localStorage.getItem('qunvero-feedback') || '[]');
+  if (list[i]){ list[i].read = true; localStorage.setItem('qunvero-feedback', JSON.stringify(list)); }
+  renderAdminPanel();
+}
+function deleteFeedback(i){
+  if (!confirm('Delete this feedback?')) return;
+  const list = JSON.parse(localStorage.getItem('qunvero-feedback') || '[]');
+  list.splice(i, 1);
+  localStorage.setItem('qunvero-feedback', JSON.stringify(list));
+  renderAdminPanel();
+  toast('🗑 Deleted');
+}
+function clearAllData(){
+  if (!confirm('Clear ALL feedback data? This cannot be undone.')) return;
+  localStorage.removeItem('qunvero-feedback');
+  renderAdminPanel();
+  toast('✅ All feedback cleared');
+}
+function showStats(){
+  const fb = JSON.parse(localStorage.getItem('qunvero-feedback') || '[]');
+  toast(`📊 ${totalTools} tools · ${CATEGORIES.length} cats · ${fb.length} feedback`, 3000);
+}
+function exportFeedbackCSV(){
+  const fb = JSON.parse(localStorage.getItem('qunvero-feedback') || '[]');
+  if (!fb.length){ toast('No data to export'); return; }
+  const rows = [['Name','Email','Message','Date','Read']];
+  fb.forEach(f => rows.push([f.name, f.email, f.message, f.date, f.read ? 'Yes' : 'No']));
+  const csv = rows.map(r => r.map(c => `"${String(c||'').replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `qunvero-feedback-${Date.now()}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+  toast('📥 CSV downloaded');
+}
+
+/* ---------- HELPERS ---------- */
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function fmtDate(iso){
+  try { return new Date(iso).toLocaleDateString('en-IN', {day:'2-digit', month:'short'}); }
+  catch { return ''; }
+}
+function trackVisit(){
+  try {
+    const visits = JSON.parse(localStorage.getItem('qunvero-visits') || '[]');
+    visits.push(Date.now());
+    localStorage.setItem('qunvero-visits', JSON.stringify(visits.slice(-200)));
+  } catch(e){}
+}
+
+/* ---------- GLOBAL HELPERS FOR TOOLS (Parts 2-5 me use honge) ---------- */
+window.QV = {
+  toast,
+  escapeHtml,
+  /* Clean result card banata hai — preview/download ke liye */
+  buildResultCard: function(title, innerHTML){
+    return `<div style="font-family:Arial,sans-serif;color:#1a1f36;padding:20px;background:#fff">
+      ${innerHTML}
+    </div>`;
+  },
+  /* html2canvas se download */
+  downloadImage: async function(el, filename){
+    if (typeof html2canvas === 'undefined'){ toast('❌ Library loading...'); return; }
+    toast('⏳ Preparing image...');
+    try {
+      const canvas = await html2canvas(el, {
+        backgroundColor:'#ffffff',
+        scale:2,
+        useCORS:true,
+        logging:false
+      });
+      const link = document.createElement('a');
+      link.download = (filename || 'qunvero') + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      toast('✅ Downloaded!');
+    } catch(e){
+      console.error(e); toast('❌ Download failed');
+    }
+  },
+  printElement: function(el){
+    const w = window.open('', '', 'width=800,height=900');
+    w.document.write(`<html><head><title>Print</title></head><body style="margin:0">${el.innerHTML}</body></html>`);
+    w.document.close();
+    setTimeout(() => { w.print(); w.close(); }, 300);
+  },
+  copyText: async function(text){
+    try {
+      await navigator.clipboard.writeText(text);
+      toast('📋 Copied!');
+    } catch(e){
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); ta.remove();
+      toast('📋 Copied!');
+    }
+  },
+  shareText: async function(text, title){
+    if (navigator.share){
+      try { await navigator.share({title: title || 'Qunvero', text}); }
+      catch(e){}
+    } else {
+      window.QV.copyText(text);
+    }
+  }
+};
+
+/* ============================================================
+   END OF PART 1
+   Parts 2-5 me TOOLS object me data add karo.
+   ============================================================ */
 </script>
 </body>
 </html>
