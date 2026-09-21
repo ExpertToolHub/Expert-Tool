@@ -637,6 +637,509 @@ function addInvRow(){const tb=document.getElementById('invBody');if(!tb)return;c
    =================================================================== */
 
 /* ============ PART 2 PASTE HERE ============ */
+/* ================================================================
+   PART 2 — 20 SHOPKEEPER TOOLS
+   ================================================================ */
+
+TOOLS.push(
+/* ---------- 1. RECEIPT MAKER ---------- */
+{id:'shopReceipt',n:'Receipt Maker',i:'🧾',c:'shop',
+ render:()=>`<div class="form-grid">
+   ${F.txt('shop','Shop Name','')}
+   ${F.txt('addr','Address','')}
+   ${F.txt('cust','Customer Name','')}
+   ${F.date('date','Date')}
+   ${F.txt('inv','Receipt No','RCP-001')}
+   ${F.sel('mode','Payment Mode',[['Cash','Cash'],['UPI','UPI'],['Card','Card'],['Cheque','Cheque']])}
+  </div>
+  <table class="tbl"><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amt</th><th></th></tr></thead><tbody id="rcpBody"></tbody></table>
+  <button class="btn btn-g btn-sm" style="margin-top:10px" onclick="addRcpRow()">+ Add Item</button>
+  ${calcBtn('🧾 Generate Receipt')}
+  <div id="resultBox"></div>`,
+ init(){const d=document.getElementById('date');if(d)d.valueAsDate=new Date();addRcpRow();addRcpRow();},
+ calc(){let sub=0;document.querySelectorAll('#rcpBody tr').forEach(r=>{const q=+r.querySelector('.q').value||0,rt=+r.querySelector('.r').value||0,a=q*rt;r.querySelector('.a').textContent='₹'+fmt(a);sub+=a;});
+  const shop=v('shop')||'Shop',cust=v('cust')||'Customer',mode=v('mode'),inv=v('inv'),date=v('date');
+  res(`<div class="result-box"><h4>🧾 Receipt</h4>
+   <div class="result-row"><span class="lb">Shop</span><span class="vl">${shop}</span></div>
+   <div class="result-row"><span class="lb">Customer</span><span class="vl">${cust}</span></div>
+   <div class="result-row"><span class="lb">Receipt No</span><span class="vl">${inv}</span></div>
+   <div class="result-row"><span class="lb">Date</span><span class="vl">${date}</span></div>
+   <div class="result-row"><span class="lb">Payment Mode</span><span class="vl">${mode}</span></div>
+   <div class="result-row total"><span class="lb">Total Received</span><span class="vl">₹${fmt(sub)}</span></div>
+  </div>`,`Receipt ${inv}: ₹${fmt(sub)} from ${cust} via ${mode}`);}},
+
+/* ---------- 2. QUOTATION MAKER ---------- */
+{id:'shopQuotation',n:'Quotation Maker',i:'📋',c:'shop',
+ render:()=>`<div class="form-grid">
+   ${F.txt('from','From (Your Business)','')}
+   ${F.txt('to','To (Customer)','')}
+   ${F.txt('qn','Quotation No','QT-001')}
+   ${F.date('qd','Date')}
+   ${F.date('valid','Valid Till')}
+  </div>
+  <table class="tbl"><thead><tr><th>Description</th><th>Qty</th><th>Rate</th><th>Amount</th><th></th></tr></thead><tbody id="qBody"></tbody></table>
+  <button class="btn btn-g btn-sm" style="margin-top:10px" onclick="addQRow()">+ Add Row</button>
+  ${calcBtn('📋 Generate Quotation')}
+  <div id="resultBox"></div>`,
+ init(){const d=document.getElementById('qd');if(d)d.valueAsDate=new Date();const v2=document.getElementById('valid');if(v2){const f=new Date();f.setDate(f.getDate()+15);v2.valueAsDate=f;}addQRow();},
+ calc(){let tot=0;document.querySelectorAll('#qBody tr').forEach(r=>{const q=+r.querySelector('.q').value||0,rt=+r.querySelector('.r').value||0,a=q*rt;r.querySelector('.a').textContent='₹'+fmt(a);tot+=a;});
+  res(`<div class="result-box"><h4>📋 Quotation</h4>
+   <div class="result-row"><span class="lb">From</span><span class="vl">${v('from')||'-'}</span></div>
+   <div class="result-row"><span class="lb">To</span><span class="vl">${v('to')||'-'}</span></div>
+   <div class="result-row"><span class="lb">Quotation No</span><span class="vl">${v('qn')}</span></div>
+   <div class="result-row"><span class="lb">Valid Till</span><span class="vl">${v('valid')}</span></div>
+   <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div>
+  </div>`,`Quotation Total: ₹${fmt(tot)}`);}},
+
+/* ---------- 3. PURCHASE ORDER ---------- */
+{id:'shopPO',n:'Purchase Order',i:'🛒',c:'shop',
+ render:()=>`<div class="form-grid">
+   ${F.txt('po','PO Number','PO-001')}
+   ${F.txt('sup','Supplier Name','')}
+   ${F.txt('addr','Supplier Address','')}
+   ${F.date('pod','Date')}
+  </div>
+  <table class="tbl"><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amount</th><th></th></tr></thead><tbody id="poBody"></tbody></table>
+  <button class="btn btn-g btn-sm" style="margin-top:10px" onclick="addPORow()">+ Add Item</button>
+  ${calcBtn('🛒 Generate PO')}
+  <div id="resultBox"></div>`,
+ init(){const d=document.getElementById('pod');if(d)d.valueAsDate=new Date();addPORow();},
+ calc(){let tot=0;document.querySelectorAll('#poBody tr').forEach(r=>{const q=+r.querySelector('.q').value||0,rt=+r.querySelector('.r').value||0,a=q*rt;r.querySelector('.a').textContent='₹'+fmt(a);tot+=a;});
+  res(`<div class="result-box"><h4>🛒 Purchase Order</h4>
+   <div class="result-row"><span class="lb">PO No</span><span class="vl">${v('po')}</span></div>
+   <div class="result-row"><span class="lb">Supplier</span><span class="vl">${v('sup')||'-'}</span></div>
+   <div class="result-row"><span class="lb">Date</span><span class="vl">${v('pod')}</span></div>
+   <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div>
+  </div>`,`PO Total: ₹${fmt(tot)}`);}},
+
+/* ---------- 4. DELIVERY CHALLAN ---------- */
+{id:'shopChallan',n:'Delivery Challan',i:'🚚',c:'shop',
+ render:()=>`<div class="form-grid">
+   ${F.txt('cn','Challan No','DC-001')}
+   ${F.txt('cust','Customer','')}
+   ${F.txt('addr','Delivery Address','')}
+   ${F.date('cd','Date')}
+   ${F.txt('driver','Driver Name','')}
+   ${F.txt('vehicle','Vehicle No','')}
+  </div>
+  <table class="tbl"><thead><tr><th>Item</th><th>Qty</th><th></th></tr></thead><tbody id="dcBody"></tbody></table>
+  <button class="btn btn-g btn-sm" style="margin-top:10px" onclick="addDCRow()">+ Add Item</button>
+  ${calcBtn('🚚 Generate Challan')}
+  <div id="resultBox"></div>`,
+ init(){const d=document.getElementById('cd');if(d)d.valueAsDate=new Date();addDCRow();},
+ calc(){let qty=0;document.querySelectorAll('#dcBody tr').forEach(r=>{qty+=+r.querySelector('.q').value||0;});
+  res(`<div class="result-box"><h4>🚚 Delivery Challan</h4>
+   <div class="result-row"><span class="lb">Challan No</span><span class="vl">${v('cn')}</span></div>
+   <div class="result-row"><span class="lb">Customer</span><span class="vl">${v('cust')||'-'}</span></div>
+   <div class="result-row"><span class="lb">Address</span><span class="vl">${v('addr')||'-'}</span></div>
+   <div class="result-row"><span class="lb">Driver</span><span class="vl">${v('driver')||'-'}</span></div>
+   <div class="result-row"><span class="lb">Vehicle</span><span class="vl">${v('vehicle')||'-'}</span></div>
+   <div class="result-row total"><span class="lb">Total Qty</span><span class="vl">${qty}</span></div>
+  </div>`,`Challan Total Qty: ${qty}`);}},
+
+/* ---------- 5. VISITING CARD MAKER ---------- */
+{id:'shopVCard',n:'Visiting Card Maker',i:'💳',c:'shop',
+ render:()=>`<div class="form-grid">
+   ${F.txt('name','Name','')}
+   ${F.txt('biz','Business Name','')}
+   ${F.txt('desg','Designation','')}
+   ${F.txt('phone','Phone','')}
+   ${F.txt('email','Email','')}
+   ${F.txt('web','Website','')}
+   ${F.txt('addr','Address','')}
+   ${F.sel('color','Card Color',[['#0070f3','Blue'],['#7928ca','Purple'],['#10b981','Green'],['#ef4444','Red'],['#0f172a','Dark']])}
+  </div>
+  ${calcBtn('💳 Generate Card')}
+  <div id="resultBox"></div>`,
+ calc(){const n=v('name')||'Your Name',b=v('biz')||'Business',d=v('desg')||'Owner',p=v('phone')||'+91 XXXXX',e=v('email')||'email@example.com',w=v('web')||'www.example.com',a=v('addr')||'Address',c=v('color');
+  res(`<div style="background:${c};color:#fff;padding:30px;border-radius:16px;text-align:left;box-shadow:0 10px 30px rgba(0,0,0,.2)">
+   <div style="font-size:22px;font-weight:800;margin-bottom:4px">${n}</div>
+   <div style="font-size:13px;opacity:.9;margin-bottom:14px">${d} • ${b}</div>
+   <div style="font-size:12px;line-height:1.8;opacity:.95">
+     📞 ${p}<br>📧 ${e}<br>🌐 ${w}<br>📍 ${a}
+   </div>
+  </div>`,`Visiting Card: ${n} - ${b}`);}},
+
+/* ---------- 6. ID CARD MAKER ---------- */
+{id:'shopIDCard',n:'ID Card Maker',i:'🆔',c:'shop',
+ render:()=>`<div class="form-grid">
+   ${F.txt('name','Name','')}
+   ${F.txt('desg','Designation','')}
+   ${F.txt('id','ID Number','')}
+   ${F.txt('dept','Department','')}
+   ${F.txt('phone','Phone','')}
+   ${F.txt('blood','Blood Group','')}
+   ${F.date('valid','Valid Till')}
+   ${F.sel('theme','Theme',[['#0070f3','Blue'],['#10b981','Green'],['#ef4444','Red'],['#7928ca','Purple']])}
+  </div>
+  ${calcBtn('🆔 Generate ID Card')}
+  <div id="resultBox"></div>`,
+ init(){const d=document.getElementById('valid');if(d){const f=new Date();f.setFullYear(f.getFullYear()+1);d.valueAsDate=f;}},
+ calc(){const n=v('name')||'Name',d=v('desg')||'Student',i=v('id')||'ID-001',dp=v('dept')||'General',p=v('phone')||'-',b=v('blood')||'-',val=v('valid'),t=v('theme');
+  res(`<div style="background:#fff;border-radius:16px;overflow:hidden;max-width:380px;margin:0 auto;box-shadow:0 10px 30px rgba(0,0,0,.2);border:1px solid #e2e8f0">
+   <div style="background:${t};color:#fff;padding:16px;text-align:center">
+     <div style="font-size:16px;font-weight:800">🆔 ID CARD</div>
+   </div>
+   <div style="padding:20px;color:#0f172a">
+     <div style="font-size:18px;font-weight:800;margin-bottom:4px">${n}</div>
+     <div style="font-size:12px;color:#64748b;margin-bottom:14px">${d}</div>
+     <div style="font-size:12px;line-height:1.9">
+       <b>ID:</b> ${i}<br><b>Dept:</b> ${dp}<br><b>Phone:</b> ${p}<br><b>Blood:</b> ${b}<br><b>Valid:</b> ${val}
+     </div>
+   </div>
+  </div>`,`ID Card: ${n} (${i})`);}},
+
+/* ---------- 7. RATE LIST MAKER ---------- */
+{id:'shopRateList',n:'Rate List Maker',i:'📊',c:'shop',
+ render:()=>`${F.txt('shop','Shop Name','')}${F.date('date','Date')}
+  <table class="tbl"><thead><tr><th>Service / Item</th><th>Rate (₹)</th><th></th></tr></thead><tbody id="rlBody"></tbody></table>
+  <button class="btn btn-g btn-sm" style="margin-top:10px" onclick="addRLRow()">+ Add Item</button>
+  ${calcBtn('📊 Generate Rate List')}
+  <div id="resultBox"></div>`,
+ init(){addRLRow('Photocopy A4');addRLRow('Photocopy Legal');addRLRow('Color Print');addRLRow('Lamination');},
+ calc(){const rows=[];
+  document.querySelectorAll('#rlBody tr').forEach(r=>{rows.push({n:r.querySelector('.n').value,r:r.querySelector('.r').value});});
+  let html='';
+  rows.forEach((row,i)=>{html+=`<div class="result-row"><span class="lb">${i+1}. ${row.n||'Item'}</span><span class="vl">₹${fmt(+row.r)}</span></div>`;});
+  res(`<div class="result-box"><h4>📊 Rate List - ${v('shop')||'Shop'}</h4>${html}</div>`,`Rate List: ${rows.length} items`);}},
+
+/* ---------- 8. CUSTOMER KHATA ---------- */
+{id:'shopKhata',n:'Customer Khata',i:'📔',c:'shop',
+ render:()=>`${F.txt('cust','Customer Name','')}${F.num('amt','Amount (₹)','0')}${F.sel('type','Type',[['credit','Customer Ne Diya (Credit)'],['debit','Customer Ko Diya (Debit)']])}${F.txt('note','Note (optional)','')}
+  ${calcBtn('📔 Add Entry')}
+  <div id="resultBox"></div>
+  <div id="khataList" style="margin-top:16px"></div>`,
+ init(){renderKhataList();},
+ calc(){const cust=v('cust'),amt=+v('amt'),type=v('type'),note=v('note');if(!cust||!amt){toast('Customer + Amount daalo',1);return;}
+  const list=JSON.parse(localStorage.getItem('qn_khata')||'[]');
+  list.unshift({cust,amt,type,note,time:Date.now()});
+  localStorage.setItem('qn_khata',JSON.stringify(list.slice(0,200)));
+  res(`<div class="result-box"><h4>✅ Entry Added</h4>
+   <div class="result-row"><span class="lb">Customer</span><span class="vl">${cust}</span></div>
+   <div class="result-row"><span class="lb">Type</span><span class="vl">${type==='credit'?'Customer Ne Diya':'Customer Ko Diya'}</span></div>
+   <div class="result-row total"><span class="lb">Amount</span><span class="vl">₹${fmt(amt)}</span></div>
+  </div>`,`${cust}: ₹${fmt(amt)} (${type})`);
+  renderKhataList();}},
+
+/* ---------- 9. STOCK MANAGER ---------- */
+{id:'shopStock',n:'Stock Manager',i:'📦',c:'shop',
+ render:()=>`<div class="form-grid">
+   ${F.txt('item','Item Name','')}
+   ${F.num('qty','Quantity','0')}
+   ${F.num('price','Price/Unit (₹)','0')}
+   ${F.txt('cat','Category','')}
+  </div>
+  ${calcBtn('📦 Add to Stock')}
+  <div id="resultBox"></div>
+  <div id="stockList" style="margin-top:16px"></div>`,
+ init(){renderStockList();},
+ calc(){const item=v('item'),qty=+v('qty'),price=+v('price'),cat=v('cat');if(!item){toast('Item name daalo',1);return;}
+  const list=JSON.parse(localStorage.getItem('qn_stock')||'[]');
+  list.unshift({item,qty,price,cat,time:Date.now()});
+  localStorage.setItem('qn_stock',JSON.stringify(list.slice(0,500)));
+  const totalValue=qty*price;
+  res(`<div class="result-box"><h4>📦 Stock Added</h4>
+   <div class="result-row"><span class="lb">Item</span><span class="vl">${item}</span></div>
+   <div class="result-row"><span class="lb">Quantity</span><span class="vl">${qty}</span></div>
+   <div class="result-row"><span class="lb">Value</span><span class="vl">₹${fmt(totalValue)}</span></div>
+  </div>`,`${item}: ${qty} units worth ₹${fmt(totalValue)}`);
+  renderStockList();}},
+
+/* ---------- 10. PROFIT CALCULATOR ---------- */
+{id:'shopProfit',n:'Shop Profit Calculator',i:'💰',c:'shop',
+ render:()=>`<div class="form-grid">
+   ${F.num('sales','Daily Sales (₹)','0')}
+   ${F.num('cost','Daily Cost (₹)','0')}
+   ${F.num('days','Days','30')}
+  </div>
+  ${calcBtn('💰 Calculate Profit')}
+  <div id="resultBox"></div>`,
+ calc(){const s=+v('sales'),c=+v('cost'),d=+v('days');
+  const dailyP=s-c, monthlyP=dailyP*d, yearlyP=monthlyP*12;
+  const margin=s?((dailyP/s)*100):0;
+  res(`<div class="result-box"><h4>💰 Profit Analysis</h4>
+   <div class="result-row"><span class="lb">Daily Profit</span><span class="vl">₹${fmt(dailyP)}</span></div>
+   <div class="result-row"><span class="lb">Monthly (${d}d)</span><span class="vl">₹${fmt(monthlyP)}</span></div>
+   <div class="result-row"><span class="lb">Margin</span><span class="vl">${fmt(margin)}%</span></div>
+   <div class="result-row total"><span class="lb">Yearly</span><span class="vl">₹${fmt(yearlyP)}</span></div>
+  </div>`,`Monthly Profit: ₹${fmt(monthlyP)}`);}},
+
+/* ---------- 11. BILL BOOK MAKER ---------- */
+{id:'shopBillBook',n:'Bill Book Maker',i:'📖',c:'shop',
+ render:()=>`<div class="form-grid">
+   ${F.txt('shop','Shop Name','')}
+   ${F.txt('phone','Phone','')}
+   ${F.txt('cust','Customer','')}
+   ${F.date('date','Date')}
+   ${F.txt('bill','Bill No','B-001')}
+  </div>
+  <table class="tbl"><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amt</th><th></th></tr></thead><tbody id="bbBody"></tbody></table>
+  <button class="btn btn-g btn-sm" style="margin-top:10px" onclick="addBBRow()">+ Add Item</button>
+  ${calcBtn('📖 Generate Bill')}
+  <div id="resultBox"></div>`,
+ init(){const d=document.getElementById('date');if(d)d.valueAsDate=new Date();addBBRow();},
+ calc(){let tot=0;document.querySelectorAll('#bbBody tr').forEach(r=>{const q=+r.querySelector('.q').value||0,rt=+r.querySelector('.r').value||0,a=q*rt;r.querySelector('.a').textContent='₹'+fmt(a);tot+=a;});
+  res(`<div class="result-box"><h4>📖 Bill - ${v('shop')||'Shop'}</h4>
+   <div class="result-row"><span class="lb">Bill No</span><span class="vl">${v('bill')}</span></div>
+   <div class="result-row"><span class="lb">Customer</span><span class="vl">${v('cust')||'-'}</span></div>
+   <div class="result-row"><span class="lb">Date</span><span class="vl">${v('date')}</span></div>
+   <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div>
+  </div>`,`Bill Total: ₹${fmt(tot)}`);}},
+
+/* ---------- 12. LEDGER / CREDIT BOOK ---------- */
+{id:'shopLedger',n:'Credit / Debit Ledger',i:'📒',c:'shop',
+ render:()=>`${F.txt('party','Party Name','')}${F.sel('type','Type',[['credit','Credit (Mila)'],['debit','Debit (Diya)']])}${F.num('amt','Amount (₹)','0')}${F.txt('note','Note','')}
+  ${calcBtn('📒 Add Entry')}
+  <div id="resultBox"></div>
+  <div id="ledgerList" style="margin-top:16px"></div>`,
+ init(){renderLedgerList();},
+ calc(){const party=v('party'),type=v('type'),amt=+v('amt'),note=v('note');if(!party||!amt){toast('Party + Amount daalo',1);return;}
+  const list=JSON.parse(localStorage.getItem('qn_ledger')||'[]');
+  list.unshift({party,type,amt,note,time:Date.now()});
+  localStorage.setItem('qn_ledger',JSON.stringify(list.slice(0,500)));
+  // Calculate total balance
+  let bal=0;list.forEach(e=>{bal+=e.type==='credit'?e.amt:-e.amt;});
+  res(`<div class="result-box"><h4>📒 Ledger Updated</h4>
+   <div class="result-row"><span class="lb">Party</span><span class="vl">${party}</span></div>
+   <div class="result-row"><span class="lb">Type</span><span class="vl">${type==='credit'?'Credit (+₹)':'Debit (-₹)'}</span></div>
+   <div class="result-row total"><span class="lb">Balance</span><span class="vl">₹${fmt(bal)}</span></div>
+  </div>`,`${party}: ₹${fmt(amt)} (${type}) • Balance ₹${fmt(bal)}`);
+  renderLedgerList();}},
+
+/* ---------- 13. ORDER TRACKER ---------- */
+{id:'shopOrderTracker',n:'Order Tracker',i:'📋',c:'shop',
+ render:()=>`${F.txt('cust','Customer Name','')}${F.txt('item','Order Item','')}${F.num('amt','Amount (₹)','0')}${F.sel('status','Status',[['pending','⏳ Pending'],['ready','✅ Ready'],['delivered','🚚 Delivered'],['cancelled','❌ Cancelled']])}
+  ${calcBtn('📋 Add Order')}
+  <div id="resultBox"></div>
+  <div id="orderList" style="margin-top:16px"></div>`,
+ init(){renderOrderList();},
+ calc(){const cust=v('cust'),item=v('item'),amt=+v('amt'),status=v('status');if(!cust||!item){toast('Customer + Item daalo',1);return;}
+  const list=JSON.parse(localStorage.getItem('qn_orders')||'[]');
+  list.unshift({cust,item,amt,status,time:Date.now()});
+  localStorage.setItem('qn_orders',JSON.stringify(list.slice(0,200)));
+  res(`<div class="result-box"><h4>✅ Order Added</h4>
+   <div class="result-row"><span class="lb">Customer</span><span class="vl">${cust}</span></div>
+   <div class="result-row"><span class="lb">Item</span><span class="vl">${item}</span></div>
+   <div class="result-row"><span class="lb">Status</span><span class="vl">${status}</span></div>
+   <div class="result-row total"><span class="lb">Amount</span><span class="vl">₹${fmt(amt)}</span></div>
+  </div>`,`Order: ${cust} - ${item} (₹${fmt(amt)})`);
+  renderOrderList();}},
+
+/* ---------- 14. DISCOUNT CALCULATOR ---------- */
+{id:'shopDiscount',n:'Discount Calculator',i:'🏷️',c:'shop',
+ render:()=>`${F.num('mrp','MRP (₹)','0')}${F.num('disc','Discount (%)','0')}<div class="calc-btn-row"><button class="calc-btn" onclick="__calc()">🏷️ Calculate</button></div><div id="resultBox"></div>`,
+ calc(){const m=+v('mrp'),d=+v('disc');const save=m*d/100,fp=m-save;
+  res(`<div class="result-box"><h4>🏷️ Discount</h4>
+   <div class="result-row"><span class="lb">MRP</span><span class="vl">₹${fmt(m)}</span></div>
+   <div class="result-row"><span class="lb">Discount ${d}%</span><span class="vl">-₹${fmt(save)}</span></div>
+   <div class="result-row total"><span class="lb">Final</span><span class="vl">₹${fmt(fp)}</span></div>
+  </div>`,`Final Price: ₹${fmt(fp)}`);}},
+
+/* ---------- 15. LAMINATION CALCULATOR ---------- */
+{id:'shopLamination',n:'Lamination Calculator',i:'📄',c:'shop',
+ render:()=>`<div class="form-grid">
+   ${F.sel('size','Size',[['a4','A4 (210×297mm)'],['a3','A3 (297×420mm)'],['id','ID Card'],['legal','Legal'],['custom','Custom']])}
+   ${F.num('qty','Quantity','1')}
+   ${F.num('paperCost','Paper + Print Cost (₹)','2')}
+   ${F.num('lamCost','Lamination Cost (₹)','5')}
+   ${F.num('profit','Profit (%)','30')}
+  </div>
+  ${calcBtn('📄 Calculate')}
+  <div id="resultBox"></div>`,
+ calc(){const q=+v('qty'),p=+v('paperCost'),l=+v('lamCost'),pr=+v('profit');
+  const totalCost=(p+l)*q, sellPrice=totalCost*(1+pr/100), totalProfit=sellPrice-totalCost;
+  res(`<div class="result-box"><h4>📄 Lamination</h4>
+   <div class="result-row"><span class="lb">Total Cost</span><span class="vl">₹${fmt(totalCost)}</span></div>
+   <div class="result-row"><span class="lb">Selling Price</span><span class="vl">₹${fmt(sellPrice)}</span></div>
+   <div class="result-row"><span class="lb">Per Piece</span><span class="vl">₹${fmt(sellPrice/q)}</span></div>
+   <div class="result-row total"><span class="lb">Profit</span><span class="vl">₹${fmt(totalProfit)}</span></div>
+  </div>`,`Sell at ₹${fmt(sellPrice)} (Profit ₹${fmt(totalProfit)})`);}},
+
+/* ---------- 16. BINDING CALCULATOR ---------- */
+{id:'shopBinding',n:'Binding Calculator',i:'📚',c:'shop',
+ render:()=>`<div class="form-grid">
+   ${F.sel('type','Binding Type',[['spiral','Spiral'],['hard','Hard Binding'],['tape','Tape Binding'],['staple','Staple']])}
+   ${F.num('pages','Total Pages','100')}
+   ${F.num('copies','Copies','1')}
+   ${F.num('rate','Rate per Copy (₹)','50')}
+  </div>
+  ${calcBtn('📚 Calculate')}
+  <div id="resultBox"></div>`,
+ calc(){const p=+v('pages'),c=+v('copies'),r=+v('rate'),t=v('type');
+  const total=r*c;
+  res(`<div class="result-box"><h4>📚 Binding</h4>
+   <div class="result-row"><span class="lb">Type</span><span class="vl">${t}</span></div>
+   <div class="result-row"><span class="lb">Pages</span><span class="vl">${p}</span></div>
+   <div class="result-row"><span class="lb">Copies</span><span class="vl">${c}</span></div>
+   <div class="result-row total"><span class="lb">Total Charges</span><span class="vl">₹${fmt(total)}</span></div>
+  </div>`,`Binding Total: ₹${fmt(total)}`);}},
+
+/* ---------- 17. GST INVOICE (ADVANCED) ---------- */
+{id:'shopGSTInvoice',n:'GST Invoice (Advanced)',i:'📑',c:'shop',
+ render:()=>`<div class="form-grid">
+   ${F.txt('biz','Business Name','')}
+   ${F.txt('gstin','GSTIN','')}
+   ${F.txt('cust','Customer','')}
+   ${F.txt('cgstin','Customer GSTIN','')}
+   ${F.txt('inv','Invoice No','GST-001')}
+   ${F.date('date','Date')}
+  </div>
+  <table class="tbl"><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>GST%</th><th>Amt</th><th></th></tr></thead><tbody id="giBody"></tbody></table>
+  <button class="btn btn-g btn-sm" style="margin-top:10px" onclick="addGIRow()">+ Add</button>
+  ${calcBtn('📑 Calculate')}
+  <div id="resultBox"></div>`,
+ init(){const d=document.getElementById('date');if(d)d.valueAsDate=new Date();addGIRow();},
+ calc(){let sub=0,gst=0;document.querySelectorAll('#giBody tr').forEach(r=>{const q=+r.querySelector('.q').value||0,rt=+r.querySelector('.r').value||0,g=+r.querySelector('.g').value||0,a=q*rt;const gAmt=a*g/100;
+   r.querySelector('.a').textContent='₹'+fmt(a+gAmt);sub+=a;gst+=gAmt;});
+  const tot=sub+gst;
+  res(`<div class="result-box"><h4>📑 GST Invoice</h4>
+   <div class="result-row"><span class="lb">Business</span><span class="vl">${v('biz')||'-'}</span></div>
+   <div class="result-row"><span class="lb">GSTIN</span><span class="vl">${v('gstin')||'-'}</span></div>
+   <div class="result-row"><span class="lb">Subtotal</span><span class="vl">₹${fmt(sub)}</span></div>
+   <div class="result-row"><span class="lb">Total GST</span><span class="vl">₹${fmt(gst)}</span></div>
+   <div class="result-row total"><span class="lb">Grand Total</span><span class="vl">₹${fmt(tot)}</span></div>
+  </div>`,`GST Invoice Total: ₹${fmt(tot)} (GST ₹${fmt(gst)})`);}},
+
+/* ---------- 18. SHOP OPEN/CLOSE CALCULATOR ---------- */
+{id:'shopOpenClose',n:'Shop Timing Calculator',i:'🕐',c:'shop',
+ render:()=>`${F.txt('open','Open Time','09:00')}${F.txt('close','Close Time','21:00')}${F.num('break','Break (minutes)','60')}<div class="calc-btn-row"><button class="calc-btn" onclick="__calc()">🕐 Calculate</button></div><div id="resultBox"></div>`,
+ calc(){const o=v('open'),c=v('close'),b=+v('break');
+  const [oh,om]=o.split(':').map(Number);const [ch,cm]=c.split(':').map(Number);
+  const totalMin=(ch*60+cm)-(oh*60+om)-b;
+  const h=Math.floor(totalMin/60),m=totalMin%60;
+  res(`<div class="result-box"><h4>🕐 Shop Hours</h4>
+   <div class="result-row"><span class="lb">Open</span><span class="vl">${o}</span></div>
+   <div class="result-row"><span class="lb">Close</span><span class="vl">${c}</span></div>
+   <div class="result-row"><span class="lb">Break</span><span class="vl">${b} min</span></div>
+   <div class="result-row total"><span class="lb">Working Hours</span><span class="vl">${h}h ${m}m</span></div>
+  </div>`,`Working: ${h}h ${m}m`);}},
+
+/* ---------- 19. DAILY SALES CALCULATOR ---------- */
+{id:'shopDailySales',n:'Daily Sales Calculator',i:'📈',c:'shop',
+ render:()=>`${F.num('morning','Morning Sale (₹)','0')}${F.num('afternoon','Afternoon (₹)','0')}${F.num('evening','Evening (₹)','0')}${F.num('night','Night (₹)','0')}<div class="calc-btn-row"><button class="calc-btn" onclick="__calc()">📈 Calculate</button></div><div id="resultBox"></div>`,
+ calc(){const m=+v('morning'),a=+v('afternoon'),e=+v('evening'),n=+v('night');
+  const tot=m+a+e+n;
+  const best=Math.max(m,a,e,n);const bestTime=m===best?'Morning':a===best?'Afternoon':e===best?'Evening':'Night';
+  res(`<div class="result-box"><h4>📈 Daily Sales</h4>
+   <div class="result-row"><span class="lb">Morning</span><span class="vl">₹${fmt(m)}</span></div>
+   <div class="result-row"><span class="lb">Afternoon</span><span class="vl">₹${fmt(a)}</span></div>
+   <div class="result-row"><span class="lb">Evening</span><span class="vl">₹${fmt(e)}</span></div>
+   <div class="result-row"><span class="lb">Night</span><span class="vl">₹${fmt(n)}</span></div>
+   <div class="result-row total"><span class="lb">Total</span><span class="vl">₹${fmt(tot)}</span></div>
+  </div>`,`Total: ₹${fmt(tot)} • Best: ${bestTime}`);}},
+
+/* ---------- 20. SHOP EXPENSE TRACKER ---------- */
+{id:'shopExpense',n:'Shop Expense Tracker',i:'💸',c:'shop',
+ render:()=>`${F.txt('cat','Category','')}${F.num('amt','Amount (₹)','0')}${F.txt('note','Note','')}
+  <div class="calc-btn-row"><button class="calc-btn" onclick="addShopExpense()">💸 Add Expense</button></div>
+  <div id="resultBox"></div>
+  <div id="expenseList" style="margin-top:16px"></div>`,
+ init(){renderExpenseList();},
+ calc(){}},
+
+{id:'shopIncome',n:'Shop Income Tracker',i:'💵',c:'shop',
+ render:()=>`${F.txt('src','Source','')}${F.num('amt','Amount (₹)','0')}${F.txt('note','Note','')}
+  <div class="calc-btn-row"><button class="calc-btn" onclick="addShopIncome()">💵 Add Income</button></div>
+  <div id="resultBox"></div>
+  <div id="incomeList" style="margin-top:16px"></div>`,
+ init(){renderIncomeList();},
+ calc(){}},
+);
+
+/* ============ SHOP TOOLS HELPERS ============ */
+function addRcpRow(){const tb=document.getElementById('rcpBody');if(!tb)return;const r=document.createElement('tr');r.innerHTML=`<td><input class="item" placeholder="Item" style="width:100%"></td><td><input type="number" class="q" value="1" style="width:60px"></td><td><input type="number" class="r" value="0" style="width:70px"></td><td class="a">₹0</td><td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove()">❌</button></td>`;tb.appendChild(r);}
+function addQRow(){const tb=document.getElementById('qBody');if(!tb)return;const r=document.createElement('tr');r.innerHTML=`<td><input class="item" placeholder="Desc" style="width:100%"></td><td><input type="number" class="q" value="1" style="width:60px"></td><td><input type="number" class="r" value="0" style="width:70px"></td><td class="a">₹0</td><td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove()">❌</button></td>`;tb.appendChild(r);}
+function addPORow(){const tb=document.getElementById('poBody');if(!tb)return;const r=document.createElement('tr');r.innerHTML=`<td><input class="item" placeholder="Item" style="width:100%"></td><td><input type="number" class="q" value="1" style="width:60px"></td><td><input type="number" class="r" value="0" style="width:70px"></td><td class="a">₹0</td><td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove()">❌</button></td>`;tb.appendChild(r);}
+function addDCRow(){const tb=document.getElementById('dcBody');if(!tb)return;const r=document.createElement('tr');r.innerHTML=`<td><input class="item" placeholder="Item" style="width:100%"></td><td><input type="number" class="q" value="1" style="width:80px"></td><td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove()">❌</button></td>`;tb.appendChild(r);}
+function addRLRow(n=''){const tb=document.getElementById('rlBody');if(!tb)return;const r=document.createElement('tr');r.innerHTML=`<td><input class="n" value="${n}" placeholder="Service" style="width:100%"></td><td><input type="number" class="r" value="0" style="width:90px"></td><td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove()">❌</button></td>`;tb.appendChild(r);}
+function addBBRow(){const tb=document.getElementById('bbBody');if(!tb)return;const r=document.createElement('tr');r.innerHTML=`<td><input class="item" placeholder="Item" style="width:100%"></td><td><input type="number" class="q" value="1" style="width:60px"></td><td><input type="number" class="r" value="0" style="width:70px"></td><td class="a">₹0</td><td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove()">❌</button></td>`;tb.appendChild(r);}
+function addGIRow(){const tb=document.getElementById('giBody');if(!tb)return;const r=document.createElement('tr');r.innerHTML=`<td><input class="item" placeholder="Item" style="width:100%"></td><td><input type="number" class="q" value="1" style="width:50px"></td><td><input type="number" class="r" value="0" style="width:60px"></td><td><input type="number" class="g" value="18" style="width:50px"></td><td class="a">₹0</td><td><button class="btn btn-g btn-sm" onclick="this.closest('tr').remove()">❌</button></td>`;tb.appendChild(r);}
+
+function renderKhataList(){
+  const el=document.getElementById('khataList');if(!el)return;
+  const list=JSON.parse(localStorage.getItem('qn_khata')||'[]');
+  if(!list.length){el.innerHTML='';return;}
+  let html='<h4 style="font-size:13px;color:var(--muted);text-transform:uppercase;margin-bottom:10px">📔 Recent Entries</h4>';
+  list.slice(0,10).forEach((e,i)=>{html+=`<div style="background:var(--card);border:1px solid var(--border);padding:10px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px"><div><b style="font-size:13px">${e.cust}</b><div style="font-size:11px;color:var(--muted)">${e.type==='credit'?'Credit':'Debit'} • ${new Date(e.time).toLocaleDateString('en-IN')}</div></div><div style="display:flex;gap:8px;align-items:center"><b style="color:${e.type==='credit'?'#10b981':'#ef4444'}">₹${fmt(e.amt)}</b><button onclick="delKhata(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer">🗑️</button></div></div>`;});
+  el.innerHTML=html;
+}
+function delKhata(i){const list=JSON.parse(localStorage.getItem('qn_khata')||'[]');list.splice(i,1);localStorage.setItem('qn_khata',JSON.stringify(list));renderKhataList();}
+
+function renderStockList(){
+  const el=document.getElementById('stockList');if(!el)return;
+  const list=JSON.parse(localStorage.getItem('qn_stock')||'[]');
+  if(!list.length){el.innerHTML='';return;}
+  let html='<h4 style="font-size:13px;color:var(--muted);text-transform:uppercase;margin-bottom:10px">📦 Stock Items</h4>';
+  list.slice(0,10).forEach((e,i)=>{html+=`<div style="background:var(--card);border:1px solid var(--border);padding:10px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px"><div><b style="font-size:13px">${e.item}</b><div style="font-size:11px;color:var(--muted)">${e.cat||'General'} • ₹${fmt(e.price)}/unit</div></div><div style="display:flex;gap:8px;align-items:center"><b style="color:var(--primary)">${e.qty} pcs</b><button onclick="delStock(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer">🗑️</button></div></div>`;});
+  el.innerHTML=html;
+}
+function delStock(i){const list=JSON.parse(localStorage.getItem('qn_stock')||'[]');list.splice(i,1);localStorage.setItem('qn_stock',JSON.stringify(list));renderStockList();}
+
+function renderLedgerList(){
+  const el=document.getElementById('ledgerList');if(!el)return;
+  const list=JSON.parse(localStorage.getItem('qn_ledger')||'[]');
+  if(!list.length){el.innerHTML='';return;}
+  let bal=0;list.forEach(e=>{bal+=e.type==='credit'?e.amt:-e.amt;});
+  let html=`<h4 style="font-size:13px;color:var(--muted);text-transform:uppercase;margin-bottom:10px">📒 Balance: ₹${fmt(bal)}</h4>`;
+  list.slice(0,10).forEach((e,i)=>{html+=`<div style="background:var(--card);border:1px solid var(--border);padding:10px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px"><div><b style="font-size:13px">${e.party}</b><div style="font-size:11px;color:var(--muted)">${e.type==='credit'?'Credit':'Debit'} • ${new Date(e.time).toLocaleDateString('en-IN')}</div></div><div style="display:flex;gap:8px;align-items:center"><b style="color:${e.type==='credit'?'#10b981':'#ef4444'}">${e.type==='credit'?'+':'-'}₹${fmt(e.amt)}</b><button onclick="delLedger(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer">🗑️</button></div></div>`;});
+  el.innerHTML=html;
+}
+function delLedger(i){const list=JSON.parse(localStorage.getItem('qn_ledger')||'[]');list.splice(i,1);localStorage.setItem('qn_ledger',JSON.stringify(list));renderLedgerList();}
+
+function renderOrderList(){
+  const el=document.getElementById('orderList');if(!el)return;
+  const list=JSON.parse(localStorage.getItem('qn_orders')||'[]');
+  if(!list.length){el.innerHTML='';return;}
+  const emoji={pending:'⏳',ready:'✅',delivered:'🚚',cancelled:'❌'};
+  let html='<h4 style="font-size:13px;color:var(--muted);text-transform:uppercase;margin-bottom:10px">📋 Recent Orders</h4>';
+  list.slice(0,10).forEach((e,i)=>{html+=`<div style="background:var(--card);border:1px solid var(--border);padding:10px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:10px"><div><b style="font-size:13px">${emoji[e.status]||'📦'} ${e.cust}</b><div style="font-size:11px;color:var(--muted)">${e.item} • ₹${fmt(e.amt)}</div></div><button onclick="delOrder(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer">🗑️</button></div>`;});
+  el.innerHTML=html;
+}
+function delOrder(i){const list=JSON.parse(localStorage.getItem('qn_orders')||'[]');list.splice(i,1);localStorage.setItem('qn_orders',JSON.stringify(list));renderOrderList();}
+
+function addShopExpense(){
+  const cat=v('cat'),amt=+v('amt'),note=v('note');
+  if(!cat||!amt){toast('Category + Amount daalo',1);return;}
+  const list=JSON.parse(localStorage.getItem('qn_expense')||'[]');
+  list.unshift({cat,amt,note,time:Date.now()});
+  localStorage.setItem('qn_expense',JSON.stringify(list.slice(0,500)));
+  res(`<div class="result-box"><h4>💸 Expense Added</h4>
+   <div class="result-row"><span class="lb">Category</span><span class="vl">${cat}</span></div>
+   <div class="result-row total"><span class="lb">Amount</span><span class="vl">₹${fmt(amt)}</span></div></div>`,`Expense: ₹${fmt(amt)}`);
+  renderExpenseList();
+}
+function renderExpenseList(){
+  const el=document.getElementById('expenseList');if(!el)return;
+  const list=JSON.parse(localStorage.getItem('qn_expense')||'[]');
+  if(!list.length){el.innerHTML='';return;}
+  const total=list.reduce((s,e)=>s+e.amt,0);
+  let html=`<h4 style="font-size:13px;color:var(--muted);text-transform:uppercase;margin-bottom:10px">💸 Total Expense: ₹${fmt(total)}</h4>`;
+  list.slice(0,10).forEach((e,i)=>{html+=`<div style="background:var(--card);border:1px solid var(--border);padding:10px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center"><div><b style="font-size:13px">${e.cat}</b><div style="font-size:11px;color:var(--muted)">${e.note||'-'}</div></div><div style="display:flex;gap:8px;align-items:center"><b style="color:#ef4444">₹${fmt(e.amt)}</b><button onclick="delExpense(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer">🗑️</button></div></div>`;});
+  el.innerHTML=html;
+}
+function delExpense(i){const list=JSON.parse(localStorage.getItem('qn_expense')||'[]');list.splice(i,1);localStorage.setItem('qn_expense',JSON.stringify(list));renderExpenseList();}
+
+function addShopIncome(){
+  const src=v('src'),amt=+v('amt'),note=v('note');
+  if(!src||!amt){toast('Source + Amount daalo',1);return;}
+  const list=JSON.parse(localStorage.getItem('qn_income')||'[]');
+  list.unshift({src,amt,note,time:Date.now()});
+  localStorage.setItem('qn_income',JSON.stringify(list.slice(0,500)));
+  res(`<div class="result-box"><h4>💵 Income Added</h4>
+   <div class="result-row"><span class="lb">Source</span><span class="vl">${src}</span></div>
+   <div class="result-row total"><span class="lb">Amount</span><span class="vl">₹${fmt(amt)}</span></div></div>`,`Income: ₹${fmt(amt)}`);
+  renderIncomeList();
+}
+function renderIncomeList(){
+  const el=document.getElementById('incomeList');if(!el)return;
+  const list=JSON.parse(localStorage.getItem('qn_income')||'[]');
+  if(!list.length){el.innerHTML='';return;}
+  const total=list.reduce((s,e)=>s+e.amt,0);
+  let html=`<h4 style="font-size:13px;color:var(--muted);text-transform:uppercase;margin-bottom:10px">💵 Total Income: ₹${fmt(total)}</h4>`;
+  list.slice(0,10).forEach((e,i)=>{html+=`<div style="background:var(--card);border:1px solid var(--border);padding:10px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center"><div><b style="font-size:13px">${e.src}</b><div style="font-size:11px;color:var(--muted)">${e.note||'-'}</div></div><div style="display:flex;gap:8px;align-items:center"><b style="color:#10b981">₹${fmt(e.amt)}</b><button onclick="delIncome(${i})" style="background:transparent;border:none;color:var(--danger);cursor:pointer">🗑️</button></div></div>`;});
+  el.innerHTML=html;
+}
+function delIncome(i){const list=JSON.parse(localStorage.getItem('qn_income')||'[]');list.splice(i,1);localStorage.setItem('qn_income',JSON.stringify(list));renderIncomeList();}
 
 /* ============ PART 3 PASTE HERE ============ */
 
