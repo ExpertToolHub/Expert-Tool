@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Qunvero — Free Online Tools</title>
-<meta name="description" content="Qunvero — 100+ free online tools for India. Shop, business, bijli, PDF, image, finance, aur bahut kuch. 100% free.">
+<meta name="description" content="Qunvero — 100+ free online tools for India. Shop, business, bijli, PDF, image, finance. 100% free.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.min.js"></script>
@@ -22,7 +22,6 @@ input,select,textarea{font-family:inherit;font-size:16px}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
-/* HEADER */
 .hdr{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
 [data-theme="dark"] .hdr{background:rgba(10,10,15,.85)}
 .hdr-in{max-width:1200px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px}
@@ -37,7 +36,6 @@ img{max-width:100%;display:block}
 .icon-btn:hover{border-color:var(--primary)}
 .icon-btn:active{transform:scale(.94)}
 
-/* MENU */
 .menu-ov{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:.3s}
 .menu-ov.on{opacity:1;visibility:visible}
 .menu-panel{position:fixed;top:0;right:0;bottom:0;z-index:201;width:min(300px,85vw);background:var(--card);transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 32px rgba(0,0,0,.2);overflow-y:auto}
@@ -51,7 +49,6 @@ img{max-width:100%;display:block}
 .menu-item.sys{border-top:1px solid var(--border);margin-top:8px;color:var(--primary);font-weight:700}
 .menu-foot{padding:14px 20px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);text-align:center}
 
-/* SEARCH */
 .search-wrap{max-width:1200px;margin:12px auto 0;padding:0 16px;position:relative}
 .search-box{width:100%;padding:14px 50px 14px 46px;border-radius:14px;background:var(--card);border:1.5px solid var(--border);color:var(--text);font-size:15px;outline:none;transition:.2s;box-shadow:var(--shadow)}
 .search-box:focus{border-color:var(--primary);box-shadow:0 0 0 4px rgba(0,112,243,.1)}
@@ -68,7 +65,6 @@ img{max-width:100%;display:block}
 .sr-item .sr-cat{font-size:11px;color:var(--muted);text-transform:uppercase}
 .sr-empty{padding:24px;text-align:center;color:var(--muted);font-size:13px}
 
-/* HERO + STATS */
 .wrap{max-width:1200px;margin:0 auto;padding:0 16px}
 .hero{text-align:center;padding:24px 0 12px}
 .hero h1{font-size:clamp(22px,5.5vw,36px);font-weight:800;line-height:1.15;margin-bottom:8px;letter-spacing:-.3px}
@@ -79,10 +75,8 @@ img{max-width:100%;display:block}
 .stat-n{font-size:clamp(16px,4vw,22px);font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.1}
 .stat-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:3px;font-weight:600}
 
-/* SECTION TITLE */
 .sec-title{font-size:16px;font-weight:800;margin:22px 0 12px;display:flex;align-items:center;gap:7px}
 
-/* CATEGORIES GRID */
 .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:20px}
 @media(max-width:420px){.cat-grid{grid-template-columns:repeat(2,1fr);gap:8px}}
 .cat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 10px;text-align:center;cursor:pointer;transition:.25s;box-shadow:var(--shadow);min-height:105px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden}
@@ -94,9 +88,8 @@ img{max-width:100%;display:block}
 .cat-ic{font-size:32px;line-height:1}
 .cat-nm{font-size:13px;font-weight:700;line-height:1.25}
 
-/* TOOLS PANEL (slide down) */
 .tools-panel{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1),margin .3s;margin:0}
-.tools-panel.on{max-height:4000px;margin-bottom:24px}
+.tools-panel.on{max-height:5000px;margin-bottom:24px}
 .tools-panel-in{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;box-shadow:var(--shadow)}
 .tp-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)}
 .tp-head h3{font-size:15px;font-weight:800;display:flex;align-items:center;gap:7px}
@@ -108,7 +101,6 @@ img{max-width:100%;display:block}
 .tool-btn .tb-ic{font-size:17px;flex-shrink:0}
 .tool-btn .tb-nm{line-height:1.2;overflow:hidden}
 
-/* MODAL (tool open) */
 .modal-ov{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:.25s;display:flex;align-items:flex-end;justify-content:center}
 @media(min-width:600px){.modal-ov{align-items:center;padding:20px}}
 .modal-ov.on{opacity:1;visibility:visible}
@@ -119,7 +111,6 @@ img{max-width:100%;display:block}
 .modal-head h3{font-size:15px;font-weight:800;display:flex;align-items:center;gap:7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .modal-body{padding:16px;overflow-y:auto;flex:1}
 
-/* FORM */
 .fld{margin-bottom:13px}
 .fld label{display:block;font-size:12.5px;font-weight:600;margin-bottom:5px;color:var(--muted)}
 .fld input,.fld select,.fld textarea{width:100%;padding:11px 13px;border-radius:11px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);outline:none;transition:.2s;font-size:15px}
@@ -145,22 +136,18 @@ img{max-width:100%;display:block}
 .result-row.total{padding-top:14px;font-size:17px;border-top:2px solid #10b981;margin-top:6px}
 .result-row.total .vl{color:#10b981}
 
-/* FEEDBACK FLOAT */
 .fb-float{position:fixed;bottom:18px;left:18px;z-index:95;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#06b6d4,#3b82f6);color:#fff;display:grid;place-items:center;box-shadow:0 8px 24px rgba(59,130,246,.5);transition:.25s;animation:fbP 2.5s infinite}
 .fb-float:hover{transform:scale(1.08)}
 .fb-float:active{transform:scale(.94)}
 .fb-float svg{width:26px;height:26px;fill:#fff}
 @keyframes fbP{0%,100%{box-shadow:0 8px 24px rgba(59,130,246,.5),0 0 0 0 rgba(59,130,246,.6)}50%{box-shadow:0 8px 24px rgba(59,130,246,.5),0 0 0 12px rgba(59,130,246,0)}}
 
-/* SCROLL TOP */
 .scroll-top{position:fixed;bottom:18px;right:18px;z-index:95;width:44px;height:44px;border-radius:50%;background:var(--grad);color:#fff;display:grid;place-items:center;font-size:18px;box-shadow:0 6px 20px rgba(0,112,243,.4);opacity:0;visibility:hidden;transition:.3s}
 .scroll-top.on{opacity:1;visibility:visible}
 
-/* TOAST */
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--text);color:var(--card);padding:11px 20px;border-radius:12px;font-size:13.5px;font-weight:600;z-index:500;opacity:0;transition:.3s;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:90vw;text-align:center}
 .toast.on{transform:translateX(-50%) translateY(0);opacity:1}
 
-/* WELCOME */
 .welcome-ov{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.6);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:20px}
 .welcome-ov.on{display:flex}
 .welcome-card{background:var(--card);border-radius:20px;padding:26px 22px;max-width:380px;width:100%;text-align:center;box-shadow:var(--shadow-lg);animation:popIn .4s cubic-bezier(.4,0,.2,1);position:relative;overflow:hidden}
@@ -170,7 +157,6 @@ img{max-width:100%;display:block}
 .welcome-card h2{font-size:20px;font-weight:800;margin-bottom:8px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .welcome-card p{color:var(--muted);font-size:13.5px;margin-bottom:18px;line-height:1.6}
 
-/* ADMIN */
 .admin-body{padding:14px}
 .admin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 .admin-stat{background:var(--grad-soft);border-radius:12px;padding:12px 6px;text-align:center}
@@ -189,11 +175,9 @@ img{max-width:100%;display:block}
 .empty-st{text-align:center;padding:20px 12px;color:var(--muted);font-size:12.5px}
 .empty-st .es-e{font-size:30px;display:block;margin-bottom:6px;opacity:.5}
 
-/* FOOTER */
 .footer{text-align:center;padding:26px 16px 90px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--border);margin-top:16px}
 .footer strong{color:var(--text)}
 
-/* HELPERS FOR TOOLS (keep existing tool CSS) */
 .age-celebration{background:linear-gradient(135deg,#fef3c7,#fde68a,#fca5a5,#a5b4fc);border-radius:14px;padding:22px 18px;text-align:center;position:relative;overflow:hidden}
 .age-celebration .age-big{font-size:46px;font-weight:900;background:linear-gradient(135deg,#7c3aed,#0070f3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin:6px 0}
 .age-celebration .age-label{font-size:12px;color:#475569;font-weight:600;text-transform:uppercase;letter-spacing:1px}
@@ -206,6 +190,7 @@ img{max-width:100%;display:block}
 .age-celebration .confetti.c3{bottom:12px;left:18px;animation-delay:1s}
 .age-celebration .confetti.c4{bottom:8px;right:12px;animation-delay:1.5s}
 @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(15deg)}}
+
 .photo-upload-box{border:2px dashed var(--border);border-radius:13px;padding:22px;text-align:center;cursor:pointer;transition:.2s;background:var(--bg)}
 .photo-upload-box:hover{border-color:var(--primary);background:var(--grad-soft)}
 .photo-upload-box .up-icon{font-size:36px;margin-bottom:7px}
@@ -229,7 +214,6 @@ img{max-width:100%;display:block}
 .tbl td.amt{font-weight:700;color:var(--success);white-space:nowrap}
 .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:11px}
 
-/* PREVIEW */
 .preview-inner{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);z-index:600;display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
 .preview-box{background:var(--card);border:1px solid var(--border);border-radius:18px;max-width:600px;width:100%;max-height:92vh;overflow-y:auto;margin:auto}
 .preview-head{padding:13px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--card);z-index:2}
@@ -244,7 +228,7 @@ img{max-width:100%;display:block}
 .preview-data .result-row.total{padding-top:14px;font-size:17px;border-top:2px solid #10b981;border-bottom:none;margin-top:6px}
 .preview-data .result-row.total .lb,.preview-data .result-row.total .vl{color:#10b981;font-weight:800}
 .preview-actions{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:7px;flex-wrap:wrap;position:sticky;bottom:0;background:var(--card)}
-.preview-actions button{flex:1;min-width:90px;padding:11px 8px;font-size:12.5px;border-radius:11px;border:none;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;background:var(--bg);border:1px solid var(--border);color:var(--text);transition:.2s}
+.preview-actions button{flex:1;min-width:90px;padding:11px 8px;font-size:12.5px;border-radius:11px;border:1px solid var(--border);font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;background:var(--bg);color:var(--text);transition:.2s}
 .preview-actions button:hover{transform:translateY(-2px);border-color:var(--primary)}
 .preview-actions .btn-img{background:var(--grad);color:#fff;border-color:transparent}
 
@@ -278,13 +262,11 @@ img{max-width:100%;display:block}
   .hdr,.fb-float,.scroll-top,.modal-actions,.preview-actions,.menu-ov,.menu-panel,.tools-panel,.cat-grid,.stats,.hero,.footer,.search-wrap,.toast,.welcome-ov{display:none!important}
   .modal-ov,.preview-inner{position:static;background:#fff;padding:0;visibility:visible;opacity:1}
   .modal,.preview-box{border:none;box-shadow:none;max-width:100%;border-radius:0;max-height:none}
-  .modal-head,.preview-head{background:#fff;border-bottom:2px solid #000}
 }
 </style>
 </head>
 <body data-theme="light">
 
-<!-- HEADER -->
 <header class="hdr">
   <div class="hdr-in">
     <div class="logo" id="logoTrigger" onclick="handleLogoTap()">
@@ -304,7 +286,6 @@ img{max-width:100%;display:block}
   </div>
 </header>
 
-<!-- MENU -->
 <div class="menu-ov" id="menuOv" onclick="closeMenu()"></div>
 <nav class="menu-panel" id="menuPanel">
   <div class="menu-head">
@@ -321,7 +302,6 @@ img{max-width:100%;display:block}
   <div class="menu-foot">Qunvero © 2025<br>Made with ❤️ in India</div>
 </nav>
 
-<!-- MAIN -->
 <div class="wrap">
   <section class="hero" id="homeTop">
     <h1>Har Kaam Ka <span>Free Tool</span> 🚀</h1>
@@ -330,7 +310,7 @@ img{max-width:100%;display:block}
 
   <div class="stats">
     <div class="stat"><div class="stat-n" id="statTools">100+</div><div class="stat-l">Tools</div></div>
-    <div class="stat"><div class="stat-n" id="statCats">17</div><div class="stat-l">Categories</div></div>
+    <div class="stat"><div class="stat-n" id="statCats">19</div><div class="stat-l">Categories</div></div>
     <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Free</div></div>
   </div>
 
@@ -348,21 +328,17 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer class="footer">
   <p><strong>Qunvero</strong> — 100+ free tools for everyone</p>
   <p style="margin-top:6px">© 2025 Qunvero</p>
 </footer>
 
-<!-- FLOATING FEEDBACK -->
 <button class="fb-float" onclick="openFeedback()" title="Send Feedback">
   <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 10h-6c-.6 0-1-.4-1-1s.4-1 1-1h6c.6 0 1 .4 1 1s-.4 1-1 1zm0-4H6c-.6 0-1-.4-1-1s.4-1 1-1h12c.6 0 1 .4 1 1s-.4 1-1 1z"/></svg>
 </button>
 
-<!-- SCROLL TOP -->
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-<!-- TOOL MODAL -->
 <div class="modal-ov" id="modalOv" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-head">
@@ -379,26 +355,22 @@ img{max-width:100%;display:block}
   </div>
 </div>
 
-<!-- WELCOME -->
 <div class="welcome-ov" id="welcomeOv">
   <div class="welcome-card">
     <span class="welcome-e">👋</span>
     <h2>Welcome to Qunvero!</h2>
-    <p>100+ free tools for shopkeepers, students, business & everyone. No signup needed. Bookmark us for quick access!</p>
+    <p>100+ free tools for shopkeepers, students, business & everyone. No signup needed. Bookmark us!</p>
     <button class="btn btn-p" style="width:100%" onclick="closeWelcome()">Get Started 🚀</button>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
 /* ============================================================
-   QUNVERO — MESSAGE 1 (base structure)
-   Message 2 & 3 me TOOLS data aur saare functions add honge
+   QUNVERO — MESSAGE 1: BASE STRUCTURE
    ============================================================ */
 
-/* CATEGORIES */
 const CATEGORIES=[
   {id:'shop',    e:'🏪', n:'Shop / Dukan'},
   {id:'photo',   e:'📸', n:'Photo Copy'},
@@ -412,212 +384,43 @@ const CATEGORIES=[
   {id:'student', e:'🎓', n:'Student'},
   {id:'health',  e:'🏥', n:'Health'},
   {id:'utility', e:'🔧', n:'Utility'},
-  {id:'gym',     e:'💪', n:'Gym & Fitness'},
-  {id:'notes',   e:'📝', n:'Notes'},
-  {id:'time',    e:'⏰', n:'Date / Time'},
+  {id:'datetime',e:'⏰', n:'Date / Time'},
+  {id:'math',    e:'🔢', n:'Math'},
+  {id:'convert', e:'🔄', n:'Converters'},
+  {id:'web',     e:'💻', n:'Web / Code'},
+  {id:'fun',     e:'🎲', n:'Fun'},
   {id:'split',   e:'💸', n:'Splitter'},
   {id:'todo',    e:'✅', n:'To-Do'}
 ];
 
-/* TOOLS REGISTRY — Message 2 me tools bharenge */
-/* TOOLS REGISTRY */
+/* TOOLS REGISTRY — Message 2 & 3 me tools bharenge */
+/* @TOOLS_START@ */
 const TOOLS = {
-  /* ============ 🏪 SHOP ============ */
-  shop: [
-    {id:'bizInvoice', i:'🧾', n:'Invoice Generator',
-     render:()=>`<div class="form-grid">
-       <div class="fld"><label>Business Name</label><input id="biz" placeholder="My Business"></div>
-       <div class="fld"><label>Customer Name</label><input id="cust" placeholder="Customer"></div>
-       <div class="fld"><label>Invoice No</label><input id="inv" placeholder="INV-001"></div>
-       <div class="fld"><label>Date</label><input type="date" id="date"></div>
-     </div>
-     <table class="tbl"><thead><tr><th>Item</th><th>Qty</th><th>Rate</th><th>Amt</th><th></th></tr></thead><tbody id="invBody"></tbody></table>
-     <button class="btn btn-g" style="margin-top:10px;width:100%" onclick="addInvRow()">+ Add Item</button>
-     <button class="calc-btn" onclick="calcInv()">🧾 Calculate Invoice</button>
-     <div id="resultBox" class="result-box"></div>`,
-     init(){const d=document.getElementById('date');if(d)d.valueAsDate=new Date();addInvRow();addInvRow();}
-    },
-    {id:'bizGST', i:'💰', n:'GST Calculator',
-     render:()=>`<div class="fld"><label>Amount (₹)</label><input type="number" id="gstAmt" placeholder="1000"></div>
-     <div class="fld"><label>GST Rate</label><select id="gstRate"><option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option></select></div>
-     <div class="fld"><label>Type</label><select id="gstMode"><option value="add">Add GST (Exclusive)</option><option value="rem">Remove GST (Inclusive)</option></select></div>
-     <button class="calc-btn" onclick="calcGST()">💰 Calculate GST</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    },
-    {id:'bizEMI', i:'🏦', n:'EMI Calculator',
-     render:()=>`<div class="fld"><label>Loan Amount (₹)</label><input type="number" id="emiP" placeholder="100000"></div>
-     <div class="fld"><label>Annual Interest Rate (%)</label><input type="number" id="emiR" placeholder="10"></div>
-     <div class="fld"><label>Tenure (Years)</label><input type="number" id="emiN" placeholder="5"></div>
-     <button class="calc-btn" onclick="calcEMI()">🏦 Calculate EMI</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    },
-    {id:'bizProfit', i:'📈', n:'Profit / Loss Calculator',
-     render:()=>`<div class="fld"><label>Cost Price (₹)</label><input type="number" id="pCost" placeholder="100"></div>
-     <div class="fld"><label>Selling Price (₹)</label><input type="number" id="pSell" placeholder="120"></div>
-     <button class="calc-btn" onclick="calcProfit()">📈 Calculate</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    },
-    {id:'bizDiscount', i:'🏷️', n:'Discount Calculator',
-     render:()=>`<div class="fld"><label>MRP (₹)</label><input type="number" id="dMrp" placeholder="1000"></div>
-     <div class="fld"><label>Discount (%)</label><input type="number" id="dPct" placeholder="20"></div>
-     <button class="calc-btn" onclick="calcDiscount()">🏷️ Calculate</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    }
-  ],
-
-  /* ============ 📸 PHOTO COPY ============ */
-  photo: [
-    {id:'photoCopy', i:'📸', n:'Photo Copy (A4 Print)',
-     render:()=>`
-      <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px;line-height:1.6">📸 Photo copy wale dukano ke liye — Photo upload karo, auto crop hoke A4 page pe multiple copies print karo.</p>
-      <div class="photo-upload-box" onclick="document.getElementById('photoCopyFiles').click()">
-        <div class="up-icon">📤</div>
-        <div class="up-text">Photo Upload Karo</div>
-        <div class="up-sub">1 ya zyada photos (JPG, PNG)</div>
-      </div>
-      <input type="file" id="photoCopyFiles" accept="image/*" multiple style="display:none" onchange="handlePhotoCopyUpload(event)">
-      <div class="photo-preview-grid" id="photoCopyGrid"></div>
-      <div class="photo-controls">
-        <div class="fld"><label>Photo Size</label><select id="photoSize"><option value="passport">Passport (35×45mm)</option><option value="stamp">Stamp (20×25mm)</option><option value="visa">Visa (51×51mm)</option></select></div>
-        <div class="fld"><label>Photo Fit Mode</label><select id="photoCropMode"><option value="auto">✂️ Auto Crop (Face Center)</option><option value="full">🖼️ Full Photo (No Crop)</option></select></div>
-        <div class="fld"><label>Border Style</label><select id="photoBorder"><option value="none">🚫 None</option><option value="thin-white">⚪ Thin White</option><option value="thin-black">⚫ Thin Black</option><option value="cut">✂️ Cutting Line</option><option value="block-color">🎨 Block Color</option></select></div>
-        <div class="fld"><label>Block Color</label><select id="photoBorderColor"><option value="white">⚪ White</option><option value="black">⚫ Black</option><option value="blue">🔵 Blue</option><option value="red">🔴 Red</option><option value="green">🟢 Green</option></select></div>
-      </div>
-      <div class="fld"><label>Kitni Photos Chahiye? (Manual)</label><input type="number" id="photoQty" placeholder="e.g. 8"></div>
-      <button class="calc-btn" onclick="generatePhotoA4()">📄 Generate A4 Sheet</button>
-      <button class="btn btn-p" style="width:100%;margin-top:10px;padding:13px" onclick="printPhotoA4()">🖨️ Print A4 Sheet</button>
-      <button class="btn btn-g" style="width:100%;margin-top:8px;padding:13px" onclick="downloadPhotoA4()">⬇️ Download A4 Image</button>
-      <div id="resultBox" class="result-box"></div>
-     `,
-     init(){ photoCopyImages = []; }
-    }
-  ],
-
-  /* ============ ⚡ BIJLI ============ */
-  bijli: [
-    {id:'elecBill', i:'💡', n:'Electricity Bill Calculator',
-     render:()=>`<div class="fld"><label>Units Consumed (kWh)</label><input type="number" id="uUnits"></div>
-     <div class="fld"><label>Rate per Unit (₹)</label><input type="number" id="uRate"></div>
-     <div class="fld"><label>Fixed Charges (₹)</label><input type="number" id="uFixed"></div>
-     <div class="fld"><label>Tax (%)</label><input type="number" id="uTax"></div>
-     <button class="calc-btn" onclick="calcElecBill()">💡 Calculate Bill</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    },
-    {id:'elecSolar', i:'☀️', n:'Solar Panel Calculator',
-     render:()=>`<div class="fld"><label>Monthly Units (kWh)</label><input type="number" id="sCons"></div>
-     <div class="fld"><label>Sun Hours/Day</label><input type="number" id="sSun" placeholder="5"></div>
-     <div class="fld"><label>Panel Watt (W)</label><input type="number" id="sPanel" placeholder="330"></div>
-     <button class="calc-btn" onclick="calcSolar()">☀️ Calculate Solar</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    },
-    {id:'elecInverter', i:'🔋', n:'Inverter Backup Time',
-     render:()=>`<div class="fld"><label>Battery Ah</label><input type="number" id="iAh"></div>
-     <div class="fld"><label>Battery Volt</label><input type="number" id="iVolt" placeholder="12"></div>
-     <div class="fld"><label>Load (Watt)</label><input type="number" id="iLoad"></div>
-     <div class="fld"><label>Efficiency (%)</label><input type="number" id="iEff" placeholder="80"></div>
-     <button class="calc-btn" onclick="calcInverter()">🔋 Calculate</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    },
-    {id:'elecAppliance', i:'🔌', n:'Appliance Power Cost',
-     render:()=>`<div class="fld"><label>Appliance Watt</label><input type="number" id="aWatt"></div>
-     <div class="fld"><label>Hours/Day</label><input type="number" id="aHours"></div>
-     <div class="fld"><label>Rate/Unit (₹)</label><input type="number" id="aRate"></div>
-     <button class="calc-btn" onclick="calcAppliance()">🔌 Calculate</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    }
-  ],
-
-  /* ============ 💼 BUSINESS ============ */
+  shop: [],
+  photo: [],
+  bijli: [],
   business: [],
-
-  /* ============ 📄 PDF ============ */
-  pdf: [
-    {id:'pdfImg', i:'🖼️', n:'Image to PDF',
-     render:()=>`<div class="fld"><label>Select Images</label><input type="file" id="imgs" accept="image/*" multiple></div>
-     <button class="calc-btn" onclick="runImgToPdf()">🖼️ Convert to PDF</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    }
-  ],
-
-  /* ============ 🖼️ IMAGE ============ */
-  image: [
-    {id:'imgCompress', i:'🗜️', n:'Image Compressor',
-     render:()=>`<div class="fld"><label>Image</label><input type="file" id="file" accept="image/*"></div>
-     <div class="fld"><label>Quality (10-100)</label><input type="number" id="q" placeholder="70"></div>
-     <button class="calc-btn" onclick="runImgCompress()">🗜️ Compress</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    },
-    {id:'imgPassport', i:'📸', n:'Passport Photo Maker',
-     render:()=>`<div class="fld"><label>Photo</label><input type="file" id="file" accept="image/*"></div>
-     <div class="fld"><label>Size</label><select id="size"><option value="passport">Passport (35×45mm)</option><option value="stamp">Stamp (20×25mm)</option><option value="visa">Visa (51×51mm)</option></select></div>
-     <button class="calc-btn" onclick="runPassport()">📸 Make Photo</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    },
-    {id:'imgBase64', i:'🔤', n:'Image to Base64',
-     render:()=>`<div class="fld"><label>Image</label><input type="file" id="file" accept="image/*"></div>
-     <button class="calc-btn" onclick="runImgBase64()">🔤 Convert</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    }
-  ],
-
-  /* ============ 🔤 TEXT ============ */
-  text: [
-    {id:'passGen', i:'🔐', n:'Password Generator',
-     render:()=>`<div class="fld"><label>Length</label><input type="number" id="pLen" placeholder="12"></div>
-     <div class="fld"><label>Type</label><select id="pType"><option value="all">All (Letters + Numbers + Symbols)</option><option value="alpha">Letters only</option><option value="num">Numbers only</option></select></div>
-     <button class="calc-btn" onclick="calcPassGen()">🔐 Generate</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    }
-  ],
-
-  /* ============ 💰 FINANCE ============ */
+  pdf: [],
+  image: [],
+  text: [],
   finance: [],
-
-  /* ============ 📱 SOCIAL ============ */
-  social: [
-    {id:'socQR', i:'📱', n:'QR Code Generator',
-     render:()=>`<div class="fld"><label>Text or URL</label><textarea id="t" placeholder="https://example.com"></textarea></div>
-     <button class="calc-btn" onclick="runQR()">📱 Generate QR</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    },
-    {id:'socBar', i:'▮▮▮', n:'Barcode Generator',
-     render:()=>`<div class="fld"><label>Text (koi bhi text/number)</label><input id="t" placeholder="1234567890"></div>
-     <button class="calc-btn" onclick="runBarcode()">▮▮▮ Generate Barcode</button>
-     <div id="resultBox" class="result-box"></div>`,
-     calc(){}
-    }
-  ],
-
-  /* PLACEHOLDERS for Message 3 */
+  social: [],
   student: [],
   health: [],
   utility: [],
-  gym: [],
-  notes: [],
-  time: [],
+  datetime: [],
+  math: [],
+  convert: [],
+  web: [],
+  fun: [],
   split: [],
   todo: []
 };
+/* @TOOLS_END@ */
 
-/* STATE */
 let currentCat = null;
 let totalTools = 0;
 
-/* INIT */
 document.addEventListener('DOMContentLoaded', () => {
   renderCategories();
   updateStats();
@@ -634,7 +437,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-/* RENDER CATEGORIES */
 function renderCategories(){
   const grid = document.getElementById('catGrid');
   if (!grid) return;
@@ -654,32 +456,20 @@ function updateStats(){
   if (c) c.textContent = CATEGORIES.length;
 }
 
-/* CATEGORY TOGGLE */
 function toggleCategory(catId){
   const panel = document.getElementById('toolsPanel');
   const isOpen = panel.classList.contains('on');
   const isSame = currentCat === catId;
-
   document.querySelectorAll('.cat-card').forEach(c => c.classList.remove('on'));
-
-  if (isOpen && isSame){
-    panel.classList.remove('on');
-    currentCat = null;
-    return;
-  }
-
+  if (isOpen && isSame){ panel.classList.remove('on'); currentCat = null; return; }
   currentCat = catId;
   const cat = CATEGORIES.find(c => c.id === catId);
   const card = document.querySelector(`.cat-card[data-cat="${catId}"]`);
   if (card) card.classList.add('on');
-
   document.getElementById('panelTitle').textContent = `${cat.e} ${cat.n}`;
   renderToolsList(catId);
-
   panel.classList.add('on');
-  setTimeout(() => {
-    panel.scrollIntoView({behavior:'smooth', block:'nearest'});
-  }, 200);
+  setTimeout(() => { panel.scrollIntoView({behavior:'smooth', block:'nearest'}); }, 200);
 }
 
 function closeToolsPanel(){
@@ -691,16 +481,10 @@ function closeToolsPanel(){
 function renderToolsList(catId){
   const list = document.getElementById('toolsList');
   const arr = TOOLS[catId] || [];
-
   if (!arr.length){
-    list.innerHTML = `
-      <div class="empty-st" style="grid-column:1/-1">
-        <span class="es-e">🚧</span>
-        <div>Tools coming soon in this category</div>
-      </div>`;
+    list.innerHTML = `<div class="empty-st" style="grid-column:1/-1"><span class="es-e">🚧</span><div>Tools coming soon</div></div>`;
     return;
   }
-
   list.innerHTML = arr.map((t, i) => `
     <button class="tool-btn" onclick="openTool('${catId}', ${i})">
       <span class="tb-ic">${t.i || '🔧'}</span>
@@ -709,17 +493,16 @@ function renderToolsList(catId){
   `).join('');
 }
 
-/* OPEN TOOL */
 function openTool(catId, idx){
   const tool = TOOLS[catId]?.[idx];
   if (!tool) return;
-
   document.getElementById('modalTitle').innerHTML = `${tool.i || '🔧'} ${tool.n}`;
   const body = document.getElementById('modalBody');
   body.innerHTML = '';
   window._currentTool = { catId, idx, tool };
   window._lastText = '';
-
+  window._lastBlob = null;
+  window._lastName = '';
   try {
     if (typeof tool.render === 'function'){
       body.innerHTML = tool.render();
@@ -742,19 +525,12 @@ function closeModal(){
   window._lastBlob = null;
 }
 
-/* SEARCH */
 function doSearch(q){
   const res = document.getElementById('searchRes');
   const clr = document.getElementById('searchClear');
   q = (q || '').trim().toLowerCase();
-
-  if (!q){
-    res.classList.remove('on');
-    clr.classList.remove('on');
-    return;
-  }
+  if (!q){ res.classList.remove('on'); clr.classList.remove('on'); return; }
   clr.classList.add('on');
-
   const matches = [];
   CATEGORIES.forEach(cat => {
     (TOOLS[cat.id] || []).forEach((t, i) => {
@@ -763,7 +539,6 @@ function doSearch(q){
       }
     });
   });
-
   if (!matches.length){
     res.innerHTML = `<div class="sr-empty">No tools found for "${q}"</div>`;
   } else {
@@ -792,7 +567,6 @@ function clearSearch(){
   document.getElementById('searchBox').focus();
 }
 
-/* MENU */
 function openMenu(){
   document.getElementById('menuOv').classList.add('on');
   document.getElementById('menuPanel').classList.add('on');
@@ -802,7 +576,6 @@ function closeMenu(){
   document.getElementById('menuPanel').classList.remove('on');
 }
 
-/* THEME */
 function initTheme(){
   const saved = localStorage.getItem('qunvero-theme') || 'light';
   document.body.setAttribute('data-theme', saved);
@@ -820,12 +593,9 @@ function updateThemeIcon(theme){
   if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
 }
 
-/* WELCOME */
 function checkWelcome(){
   if (!localStorage.getItem('qunvero-welcome-shown')){
-    setTimeout(() => {
-      document.getElementById('welcomeOv').classList.add('on');
-    }, 600);
+    setTimeout(() => { document.getElementById('welcomeOv').classList.add('on'); }, 600);
   }
 }
 function closeWelcome(){
@@ -833,7 +603,6 @@ function closeWelcome(){
   localStorage.setItem('qunvero-welcome-shown', '1');
 }
 
-/* TOAST */
 let toastTimer;
 function toast(msg, dur){
   const t = document.getElementById('toast');
@@ -843,7 +612,6 @@ function toast(msg, dur){
   toastTimer = setTimeout(() => t.classList.remove('on'), dur || 2200);
 }
 
-/* NAV */
 function goHome(){ closeToolsPanel(); window.scrollTo({top:0, behavior:'smooth'}); }
 function scrollToCats(){ document.getElementById('catsTitle')?.scrollIntoView({behavior:'smooth'}); }
 function onScroll(){
@@ -851,7 +619,6 @@ function onScroll(){
   if (btn) btn.classList.toggle('on', window.scrollY > 400);
 }
 
-/* 5-TAP LOGO → AI */
 let tapCount = 0, tapTimer = null;
 const AI_PASSWORD = 'Pass@wordRakesh@!123456';
 const AI_URL = 'https://master-tool-omega.vercel.app';
@@ -860,36 +627,24 @@ function handleLogoTap(){
   tapCount++;
   clearTimeout(tapTimer);
   const logo = document.getElementById('logoTrigger');
-  if (logo){
-    logo.style.transform = 'scale(0.9)';
-    setTimeout(() => logo.style.transform = '', 120);
-  }
+  if (logo){ logo.style.transform = 'scale(0.9)'; setTimeout(() => logo.style.transform = '', 120); }
   if (tapCount >= 5){ tapCount = 0; askAIPassword(); return; }
   tapTimer = setTimeout(() => { tapCount = 0; }, 1500);
 }
-
 function askAIPassword(){
   const pass = prompt('🔐 Enter AI Tool Password:');
   if (pass === null) return;
-  if (pass === AI_PASSWORD){
-    toast('✅ Access granted!');
-    setTimeout(() => window.open(AI_URL, '_blank'), 400);
-  } else {
-    toast('❌ Wrong password');
-  }
+  if (pass === AI_PASSWORD){ toast('✅ Access granted!'); setTimeout(() => window.open(AI_URL, '_blank'), 400); }
+  else toast('❌ Wrong password');
 }
 
-/* ABOUT */
 function openAbout(){
   document.getElementById('modalTitle').innerHTML = 'ℹ️ About Qunvero';
   document.getElementById('modalBody').innerHTML = `
     <div style="text-align:center;padding:6px 0">
       <div style="font-size:48px;margin-bottom:10px">⚡</div>
       <h3 style="margin-bottom:8px;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-size:19px;font-weight:800">Qunvero</h3>
-      <p style="color:var(--muted);font-size:13.5px;line-height:1.7;margin-bottom:14px">
-        100+ free online tools for shopkeepers, students, businesses, and everyone.
-        No signup, no ads, 100% free forever.
-      </p>
+      <p style="color:var(--muted);font-size:13.5px;line-height:1.7;margin-bottom:14px">100+ free online tools for shopkeepers, students, businesses, and everyone. No signup, 100% free forever.</p>
       <div style="background:var(--bg);border-radius:11px;padding:12px;text-align:left;font-size:12.5px;line-height:1.9">
         <div>🌐 <strong>Website:</strong> qunvero.vercel.app</div>
         <div>📅 <strong>Version:</strong> 2.0</div>
@@ -900,7 +655,6 @@ function openAbout(){
   document.body.style.overflow = 'hidden';
 }
 
-/* FEEDBACK */
 function openFeedback(){
   document.getElementById('modalTitle').innerHTML = '💬 Send Feedback';
   document.getElementById('modalBody').innerHTML = `
@@ -927,16 +681,9 @@ async function submitFeedback(e){
       body: new FormData(form),
       headers:{'Accept':'application/json'}
     });
-    if (res.ok){
-      saveFeedbackLocal(form);
-      toast('✅ Feedback bhej diya! Thank you 🙏');
-      closeModal();
-    } else {
-      toast('❌ Failed. Try again.');
-    }
-  } catch(err){
-    toast('❌ Network error.');
-  }
+    if (res.ok){ saveFeedbackLocal(form); toast('✅ Feedback bhej diya! Thank you 🙏'); closeModal(); }
+    else toast('❌ Failed. Try again.');
+  } catch(err){ toast('❌ Network error.'); }
   btn.textContent = orig;
   btn.disabled = false;
 }
@@ -945,18 +692,11 @@ function saveFeedbackLocal(form){
   try {
     const fd = new FormData(form);
     const list = JSON.parse(localStorage.getItem('qunvero-feedback') || '[]');
-    list.unshift({
-      name: fd.get('name'),
-      email: fd.get('email') || '',
-      message: fd.get('message'),
-      date: new Date().toISOString(),
-      read: false
-    });
+    list.unshift({ name: fd.get('name'), email: fd.get('email') || '', message: fd.get('message'), date: new Date().toISOString(), read: false });
     localStorage.setItem('qunvero-feedback', JSON.stringify(list.slice(0, 100)));
   } catch(e){}
 }
 
-/* ADMIN */
 const ADMIN_PASS = 'qunvero2025';
 
 function openAdmin(){
@@ -980,7 +720,6 @@ function verifyAdmin(){
 function renderAdminPanel(){
   const feedback = JSON.parse(localStorage.getItem('qunvero-feedback') || '[]');
   const unread = feedback.filter(f => !f.read).length;
-
   document.getElementById('modalTitle').innerHTML = '⚙️ Admin Dashboard';
   document.getElementById('modalBody').innerHTML = `
     <div class="admin-body">
@@ -1029,7 +768,7 @@ function markFeedbackRead(i){
   renderAdminPanel();
 }
 function deleteFeedback(i){
-  if (!confirm('Delete this feedback?')) return;
+  if (!confirm('Delete?')) return;
   const list = JSON.parse(localStorage.getItem('qunvero-feedback') || '[]');
   list.splice(i, 1);
   localStorage.setItem('qunvero-feedback', JSON.stringify(list));
@@ -1060,7 +799,6 @@ function exportFeedbackCSV(){
   toast('📥 CSV downloaded');
 }
 
-/* HELPERS */
 function escapeHtml(s){
   return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
@@ -1069,16 +807,20 @@ function fmtDate(iso){
   catch { return ''; }
 }
 
-/* PLACEHOLDERS for Message 2 & 3 (do not delete) */
-function openPreview(){ toast('Preview — Message 2 me activate hoga'); }
-function downloadResult(){ toast('Download — Message 2 me activate hoga'); }
-function copyResult(){ toast('Copy — Message 2 me activate hoga'); }
-function shareResult(){ toast('Share — Message 2 me activate hoga'); }
+/* ============================================================
+   MESSAGE 2 & 3 me ye functions aayenge (placeholder)
+   ============================================================ */
+/* @FUNCTIONS_START@ */
+function openPreview(){ toast('Preview — Message 3 me aayega'); }
+function downloadResult(){ toast('Download — Message 3 me aayega'); }
+function copyResult(){ toast('Copy — Message 3 me aayega'); }
+function shareResult(){ toast('Share — Message 3 me aayega'); }
+/* @FUNCTIONS_END@ */
 
 /* ============================================================
    END OF MESSAGE 1
-   Message 2: TOOLS data (shop, photo, bijli, business, pdf, image, social)
-   Message 3: TOOLS data (finance, student, health, utility, gym, notes, time, split, todo) + real preview/download/copy/share
+   Message 2: Tools data (TOOLS object me bharunga)
+   Message 3: Functions (preview, download, copy, share, calc)
    ============================================================ */
 </script>
 </body>
