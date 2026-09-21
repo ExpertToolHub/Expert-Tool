@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <title>Qunvero - 100+ Free Online Tools</title>
 <meta name="description" content="Qunvero - 100+ free online tools for shopkeepers, students, business, finance, PDF, image, text and more. No signup required.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧰</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.min.js"></script>
 <style>
@@ -62,21 +62,28 @@ img{max-width:100%;display:block}
   display:flex;align-items:center;gap:12px;
 }
 .logo{
-  display:flex;align-items:center;gap:10px;
-  font-size:20px;font-weight:800;
+  display:flex;align-items:center;gap:8px;
+  font-size:22px;font-weight:900;
+  letter-spacing:-0.3px;
+  cursor:pointer;user-select:none;
+  flex-shrink:0;
+  transition:transform .15s;
+  padding:4px;
+  border-radius:10px;
+}
+.logo:active{transform:scale(.94)}
+.logo-bolt{
+  font-size:28px;
+  line-height:1;
+  filter:drop-shadow(0 2px 6px rgba(250,180,30,.5));
+  display:inline-block;
+}
+.logo-text{
   background:var(--grad);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;
-  cursor:pointer;user-select:none;
-  flex-shrink:0;
-}
-.logo-icon{
-  width:38px;height:38px;border-radius:12px;
-  background:var(--grad);
-  display:grid;place-items:center;
-  font-size:20px;
-  -webkit-text-fill-color:#fff;
-  box-shadow:0 4px 12px rgba(79,70,229,.3);
+  font-family:'Segoe UI',system-ui,sans-serif;
+  font-weight:900;
 }
 .header-spacer{flex:1}
 .icon-btn{
@@ -89,6 +96,16 @@ img{max-width:100%;display:block}
 }
 .icon-btn:hover{background:var(--grad-soft);border-color:var(--primary)}
 .icon-btn:active{transform:scale(.94)}
+.about-btn{
+  padding:9px 20px;border-radius:12px;
+  background:var(--bg);
+  border:1px solid var(--border);
+  font-size:14px;font-weight:700;
+  color:var(--text);
+  transition:all .2s;
+}
+.about-btn:hover{background:var(--grad-soft);border-color:var(--primary);color:var(--primary)}
+.about-btn:active{transform:scale(.96)}
 
 /* ===== MENU ===== */
 .menu-overlay{
@@ -199,10 +216,13 @@ img{max-width:100%;display:block}
 @media(max-width:400px){.cat-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
 .cat-card{
   background:var(--card);border:1px solid var(--border);
-  border-radius:16px;padding:16px 12px;
+  border-radius:16px;padding:20px 12px;
   text-align:center;cursor:pointer;
   transition:.25s;position:relative;overflow:hidden;
   box-shadow:var(--shadow);
+  min-height:120px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;
 }
 .cat-card:hover{transform:translateY(-3px);border-color:var(--primary);box-shadow:var(--shadow-lg)}
 .cat-card:active{transform:scale(.97)}
@@ -212,9 +232,8 @@ img{max-width:100%;display:block}
   background:var(--grad);opacity:0;transition:.25s;
 }
 .cat-card.active::before,.cat-card:hover::before{opacity:1}
-.cat-emoji{font-size:30px;margin-bottom:8px;display:block}
-.cat-name{font-size:13px;font-weight:700;margin-bottom:3px;line-height:1.25}
-.cat-count{font-size:11px;color:var(--text-soft);font-weight:500}
+.cat-emoji{font-size:36px;display:block;line-height:1}
+.cat-name{font-size:14px;font-weight:700;line-height:1.25}
 
 /* ===== TOOLS PANEL (slides down) ===== */
 .tools-panel{
@@ -323,9 +342,40 @@ img{max-width:100%;display:block}
 .result-box.show{display:block}
 .result-box *{color:#1a1f36}
 
+/* ===== FLOATING FEEDBACK BUTTON ===== */
+.fb-float{
+  position:fixed;bottom:20px;left:20px;z-index:95;
+  width:58px;height:58px;border-radius:50%;
+  background:linear-gradient(135deg,#06b6d4 0%,#3b82f6 100%);
+  color:#fff;
+  display:grid;place-items:center;
+  box-shadow:0 8px 24px rgba(59,130,246,.5);
+  transition:.25s;
+  animation:fbPulse 2.5s infinite;
+}
+.fb-float:hover{transform:scale(1.08);box-shadow:0 12px 32px rgba(59,130,246,.65)}
+.fb-float:active{transform:scale(.94)}
+.fb-float svg{width:28px;height:28px;fill:#fff}
+@keyframes fbPulse{
+  0%,100%{box-shadow:0 8px 24px rgba(59,130,246,.5),0 0 0 0 rgba(59,130,246,.6)}
+  50%{box-shadow:0 8px 24px rgba(59,130,246,.5),0 0 0 12px rgba(59,130,246,0)}
+}
+
+/* ===== SCROLL TO TOP ===== */
+.scroll-top{
+  position:fixed;bottom:20px;right:20px;z-index:95;
+  width:48px;height:48px;border-radius:50%;
+  background:var(--grad);color:#fff;
+  display:grid;place-items:center;font-size:20px;
+  box-shadow:0 6px 20px rgba(79,70,229,.4);
+  opacity:0;visibility:hidden;transition:.3s;
+}
+.scroll-top.show{opacity:1;visibility:visible}
+.scroll-top:active{transform:scale(.9)}
+
 /* ===== TOAST ===== */
 .toast{
-  position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);
+  position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(100px);
   background:var(--text);color:var(--card);
   padding:12px 20px;border-radius:12px;
   font-size:14px;font-weight:600;z-index:500;
@@ -423,31 +473,16 @@ img{max-width:100%;display:block}
 
 /* ===== FEEDBACK FORM ===== */
 .feedback-form{padding:16px}
-.star-row{display:flex;gap:8px;justify-content:center;margin:10px 0 16px}
-.star-row button{font-size:28px;opacity:.3;transition:.2s}
-.star-row button.active{opacity:1;transform:scale(1.1)}
 
 /* ===== FOOTER ===== */
 .footer{
-  text-align:center;padding:32px 16px 24px;
+  text-align:center;padding:32px 16px 100px;
   color:var(--text-soft);font-size:13px;
   border-top:1px solid var(--border);margin-top:20px;
 }
 .footer a{color:var(--primary);font-weight:600}
 
-/* ===== SCROLL TO TOP ===== */
-.scroll-top{
-  position:fixed;bottom:20px;right:20px;z-index:90;
-  width:48px;height:48px;border-radius:50%;
-  background:var(--grad);color:#fff;
-  display:grid;place-items:center;font-size:20px;
-  box-shadow:0 6px 20px rgba(79,70,229,.4);
-  opacity:0;visibility:hidden;transition:.3s;
-}
-.scroll-top.show{opacity:1;visibility:visible}
-.scroll-top:active{transform:scale(.9)}
-
-/* ===== PART PLACEHOLDER (development only) ===== */
+/* ===== PART PLACEHOLDER ===== */
 .dev-placeholder{display:none}
 </style>
 </head>
@@ -456,11 +491,12 @@ img{max-width:100%;display:block}
 <!-- ============ HEADER ============ -->
 <header class="header">
   <div class="header-inner">
-    <div class="logo" onclick="goHome()">
-      <div class="logo-icon">🧰</div>
-      <span>Qunvero</span>
+    <div class="logo" id="logoTrigger" onclick="handleLogoTap()">
+      <span class="logo-bolt">⚡</span>
+      <span class="logo-text">Qunvero</span>
     </div>
     <div class="header-spacer"></div>
+    <button class="about-btn" onclick="openAbout()">About</button>
     <button class="icon-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">🌙</button>
     <button class="icon-btn" onclick="openMenu()" title="Menu">☰</button>
   </div>
@@ -527,8 +563,15 @@ img{max-width:100%;display:block}
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
   <p><strong>Qunvero</strong> — 100+ free tools for everyone</p>
-  <p style="margin-top:8px">© 2025 Qunvero · <a href="https://formspree.io/f/xyezkwww" target="_blank">Feedback</a></p>
+  <p style="margin-top:8px">© 2025 Qunvero</p>
 </footer>
+
+<!-- ============ FLOATING FEEDBACK BUTTON ============ -->
+<button class="fb-float" onclick="openFeedback()" title="Send Feedback">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 10h-6c-.6 0-1-.4-1-1s.4-1 1-1h6c.6 0 1 .4 1 1s-.4 1-1 1zm0-4H6c-.6 0-1-.4-1-1s.4-1 1-1h12c.6 0 1 .4 1 1s-.4 1-1 1z"/>
+  </svg>
+</button>
 
 <!-- ============ SCROLL TOP ============ -->
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
@@ -564,25 +607,25 @@ img{max-width:100%;display:block}
 
 /* ---------- CATEGORIES DATA ---------- */
 const CATEGORIES = [
-  {id:'shop',    emoji:'🏪', name:'Shop / Dukan',      count:20},
-  {id:'photo',   emoji:'📸', name:'Photo Copy',        count:15},
-  {id:'bijli',   emoji:'⚡', name:'Bijli / Electricity',count:5},
-  {id:'business',emoji:'💼', name:'Business',          count:10},
-  {id:'pdf',     emoji:'📄', name:'PDF Tools',         count:10},
-  {id:'image',   emoji:'🖼️', name:'Image / Photo',     count:10},
-  {id:'text',    emoji:'🔤', name:'Text Tools',        count:8},
-  {id:'finance', emoji:'💰', name:'Finance',           count:8},
-  {id:'social',  emoji:'📱', name:'Social Media',      count:5},
-  {id:'student', emoji:'🎓', name:'Student',           count:5},
-  {id:'health',  emoji:'🏥', name:'Health',            count:5},
-  {id:'utility', emoji:'🔧', name:'Utility',           count:5},
-  {id:'datetime',emoji:'⏰', name:'Date / Time',       count:5},
-  {id:'math',    emoji:'🔢', name:'Math',              count:5},
-  {id:'convert', emoji:'🔄', name:'Converters',        count:5},
-  {id:'web',     emoji:'💻', name:'Web / Code',        count:3},
-  {id:'fun',     emoji:'🎲', name:'Fun',               count:3},
-  {id:'split',   emoji:'💸', name:'Splitter',          count:2},
-  {id:'todo',    emoji:'✅', name:'To-Do',             count:2}
+  {id:'shop',    emoji:'🏪', name:'Shop / Dukan'},
+  {id:'photo',   emoji:'📸', name:'Photo Copy'},
+  {id:'bijli',   emoji:'⚡', name:'Bijli / Electricity'},
+  {id:'business',emoji:'💼', name:'Business'},
+  {id:'pdf',     emoji:'📄', name:'PDF Tools'},
+  {id:'image',   emoji:'🖼️', name:'Image / Photo'},
+  {id:'text',    emoji:'🔤', name:'Text Tools'},
+  {id:'finance', emoji:'💰', name:'Finance'},
+  {id:'social',  emoji:'📱', name:'Social Media'},
+  {id:'student', emoji:'🎓', name:'Student'},
+  {id:'health',  emoji:'🏥', name:'Health'},
+  {id:'utility', emoji:'🔧', name:'Utility'},
+  {id:'datetime',emoji:'⏰', name:'Date / Time'},
+  {id:'math',    emoji:'🔢', name:'Math'},
+  {id:'convert', emoji:'🔄', name:'Converters'},
+  {id:'web',     emoji:'💻', name:'Web / Code'},
+  {id:'fun',     emoji:'🎲', name:'Fun'},
+  {id:'split',   emoji:'💸', name:'Splitter'},
+  {id:'todo',    emoji:'✅', name:'To-Do'}
 ];
 
 /* ---------- TOOLS DATA (fill in Parts 2-5) ---------- */
@@ -625,7 +668,6 @@ function renderCategories(){
     <button class="cat-card" data-cat="${c.id}" onclick="toggleCategory('${c.id}')">
       <span class="cat-emoji">${c.emoji}</span>
       <div class="cat-name">${c.name}</div>
-      <div class="cat-count">${getToolCount(c.id)} tools</div>
     </button>
   `).join('');
 }
@@ -852,12 +894,50 @@ function onScroll(){
   else btn.classList.remove('show');
 }
 
-/* ---------- ABOUT / FEEDBACK ---------- */
+/* ============================================================
+   5-TAP LOGO → AI TOOL ACCESS  (Personal key - change nahi karni)
+   ============================================================ */
+let tapCount = 0;
+let tapTimer = null;
+const AI_PASSWORD = 'Pass@wordRakesh@!123456';
+const AI_TOOL_URL = 'https://master-tool-omega.vercel.app';
+
+function handleLogoTap(){
+  tapCount++;
+  clearTimeout(tapTimer);
+
+  const logo = document.getElementById('logoTrigger');
+  if (logo){
+    logo.style.transform = 'scale(0.9)';
+    setTimeout(() => logo.style.transform = '', 120);
+  }
+
+  if (tapCount >= 5){
+    tapCount = 0;
+    askAIPassword();
+    return;
+  }
+
+  tapTimer = setTimeout(() => { tapCount = 0; }, 1500);
+}
+
+function askAIPassword(){
+  const pass = prompt('🔐 Enter AI Tool Password:');
+  if (pass === null) return;
+  if (pass === AI_PASSWORD){
+    toast('✅ Access granted! Opening AI Tool...');
+    setTimeout(() => { window.open(AI_TOOL_URL, '_blank'); }, 500);
+  } else {
+    toast('❌ Wrong password');
+  }
+}
+
+/* ---------- ABOUT ---------- */
 function openAbout(){
   document.getElementById('modalTitle').innerHTML = 'ℹ️ About Qunvero';
   document.getElementById('modalBody').innerHTML = `
     <div style="text-align:center;padding:8px 0">
-      <div style="font-size:52px;margin-bottom:12px">🧰</div>
+      <div style="font-size:52px;margin-bottom:12px">⚡</div>
       <h3 style="margin-bottom:8px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:20px;font-weight:800">Qunvero</h3>
       <p style="color:var(--text-soft);font-size:14px;line-height:1.7;margin-bottom:16px">
         100+ free online tools for shopkeepers, students, businesses, and everyone.
@@ -865,7 +945,6 @@ function openAbout(){
       </p>
       <div style="background:var(--bg);border-radius:12px;padding:14px;text-align:left;font-size:13px;line-height:1.9">
         <div>🌐 <strong>Website:</strong> qunvero.vercel.app</div>
-        <div>💬 <strong>Feedback:</strong> Formspree</div>
         <div>📅 <strong>Version:</strong> 2.0</div>
       </div>
       <button class="btn btn-primary" style="margin-top:16px;width:100%" onclick="closeModal();openFeedback()">💬 Send Feedback</button>
@@ -874,6 +953,7 @@ function openAbout(){
   document.body.style.overflow = 'hidden';
 }
 
+/* ---------- FEEDBACK ---------- */
 function openFeedback(){
   document.getElementById('modalTitle').innerHTML = '💬 Send Feedback';
   document.getElementById('modalBody').innerHTML = `
@@ -904,7 +984,7 @@ async function submitFeedback(e){
   btn.textContent = '⏳ Sending...';
   btn.disabled = true;
   try {
-    const res = await fetch(form.action || 'https://formspree.io/f/xyezkwww', {
+    const res = await fetch('https://formspree.io/f/xyezkwww', {
       method:'POST',
       body: new FormData(form),
       headers:{'Accept':'application/json'}
@@ -1069,17 +1149,13 @@ function trackVisit(){
   } catch(e){}
 }
 
-/* ---------- GLOBAL HELPERS FOR TOOLS (Parts 2-5 me use honge) ---------- */
+/* ---------- GLOBAL HELPERS FOR TOOLS ---------- */
 window.QV = {
   toast,
   escapeHtml,
-  /* Clean result card banata hai — preview/download ke liye */
   buildResultCard: function(title, innerHTML){
-    return `<div style="font-family:Arial,sans-serif;color:#1a1f36;padding:20px;background:#fff">
-      ${innerHTML}
-    </div>`;
+    return `<div style="font-family:Arial,sans-serif;color:#1a1f36;padding:20px;background:#fff">${innerHTML}</div>`;
   },
-  /* html2canvas se download */
   downloadImage: async function(el, filename){
     if (typeof html2canvas === 'undefined'){ toast('❌ Library loading...'); return; }
     toast('⏳ Preparing image...');
