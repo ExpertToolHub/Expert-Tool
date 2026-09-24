@@ -593,7 +593,7 @@ function closeTool() {
 }
 
 /* ============================================================
-   EXPORT SYSTEM — REWRITTEN FOR RELIABILITY
+   EXPORT SYSTEM
    ============================================================ */
 function exportButtons(boxId, filename) {
   return `<div class="export-btns no-export no-print">
@@ -728,7 +728,6 @@ function downloadPDF(boxId, filename) {
   if (!el) { toast('Nothing to export', 'error'); return; }
   toast('Generating PDF...');
   
-  // QR special
   if (boxId === 'qrResult') {
     const canvas = el.querySelector('canvas');
     if (canvas) {
@@ -761,7 +760,6 @@ function downloadPDF(boxId, filename) {
     }
   }
   
-  // Barcode special
   if (boxId === 'barResult') {
     const svg = el.querySelector('svg');
     if (svg) {
@@ -806,7 +804,6 @@ function downloadPDF(boxId, filename) {
     }
   }
   
-  // Generic tools
   const clone = buildCleanClone(el, true);
   const wrap = document.createElement('div');
   wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;width:760px;padding:0;margin:0;display:block;';
@@ -867,7 +864,6 @@ function downloadImage(boxId, filename) {
   const el = document.getElementById(boxId);
   if (!el) { toast('Nothing to export', 'error'); return; }
   
-  // QR special
   if (boxId === 'qrResult') {
     const canvas = el.querySelector('canvas');
     const img = el.querySelector('img');
@@ -884,7 +880,6 @@ function downloadImage(boxId, filename) {
     }
   }
   
-  // Barcode special
   if (boxId === 'barResult') {
     const svg = el.querySelector('svg');
     if (svg) {
@@ -913,7 +908,6 @@ function downloadImage(boxId, filename) {
     }
   }
   
-  // Generic tools
   toast('Generating HD image...');
   const clone = buildCleanClone(el, false);
   const wrap = document.createElement('div');
@@ -985,13 +979,7 @@ function openModal(html, opts={}) {
   content.innerHTML = html;
   overlay.classList.add('active');
 }
-function closeModal() { 
-  document.getElementById('modalOverlay').classList.remove('active');
-  if (window._adminRefreshTimer) {
-    clearInterval(window._adminRefreshTimer);
-    window._adminRefreshTimer = null;
-  }
-}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
 document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target.id === 'modalOverlay') closeModal(); });
 
 function openDrawer() {
@@ -1098,9 +1086,6 @@ function setLang(l) {
   toast('Language set: ' + l);
 }
 
-/* ============================================================
-   FEEDBACK — Firebase Integration
-   ============================================================ */
 function openFeedback() {
   openModal(`
     <div class="modal-header"><h3>💬 Send Feedback</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
@@ -1174,9 +1159,6 @@ async function submitFeedback(rating) {
   else toast('Feedback saved locally', 'success');
 }
 
-/* ============================================================
-   ADMIN PANEL — Firebase Real-time
-   ============================================================ */
 function openAdminLogin() {
   openModal(`
     <div class="modal-header"><h3>🔐 Admin Login</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
@@ -1334,7 +1316,6 @@ document.querySelectorAll('.drawer-item').forEach(item => {
    ============================================================ */
 const TOOL_RENDERERS = {};
 const TOOL_INITS = {};
-
 
 /* 1. DUKAN BILL */
 TOOL_RENDERERS['dukan-bill'] = () => `
