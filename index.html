@@ -11,6 +11,8 @@
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -254,6 +256,8 @@ a { color: inherit; text-decoration: none; }
 .toast.success { border-color: var(--success); }
 .toast.error { border-color: var(--danger); }
 
+.badge { display: inline-block; background: var(--danger); color: white; border-radius: 10px; padding: 2px 6px; font-size: 10px; font-weight: 700; margin-left: 6px; }
+
 @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
 .shake { animation: shake 0.4s ease; }
 
@@ -355,9 +359,30 @@ a { color: inherit; text-decoration: none; }
 
 <script>
 /* ============================================================
-   QUNVERO — FINAL PRODUCTION BUILD
+   FIREBASE CONFIG
    ============================================================ */
+const firebaseConfig = {
+  apiKey: "AIzaSyDR8lYUJ0drZcb8kCg4xzvNjKZ5CUSQDEE",
+  authDomain: "qunvero.firebaseapp.com",
+  databaseURL: "https://qunvero-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "qunvero",
+  storageBucket: "qunvero.firebasestorage.app",
+  messagingSenderId: "590049486195",
+  appId: "1:590049486195:web:529ac030e97e69f206d106"
+};
 
+let fbApp = null, fbDB = null;
+try {
+  fbApp = firebase.initializeApp(firebaseConfig);
+  fbDB = firebase.database();
+  console.log('%cFirebase connected ✅', 'color:#10b981;font-weight:bold');
+} catch (e) {
+  console.warn('Firebase init failed:', e);
+}
+
+/* ============================================================
+   CATEGORIES & TOOLS
+   ============================================================ */
 const CATEGORIES = [
   { id:'shop', name:'Shop', icon:'🏪', desc:'Billing & shop tools', grad:'linear-gradient(135deg,#f59e0b,#ef4444)' },
   { id:'photo', name:'Photo Copy', icon:'📸', desc:'Image tools', grad:'linear-gradient(135deg,#ec4899,#8b5cf6)' },
@@ -571,11 +596,7 @@ function closeTool() {
 
 /* ============================================================
    EXPORT SYSTEM
-   - PRINT: full content + header
-   - PDF: full content + header
-   - IMAGE: ONLY result content
    ============================================================ */
-
 function exportButtons(boxId, filename) {
   return `<div class="export-btns no-export no-print">
     <button class="btn btn-secondary" onclick="printResult('${boxId}')"><i>🖨️</i>Print</button>
@@ -736,10 +757,7 @@ function downloadPDF(boxId, filename) {
           toast('PDF downloaded', 'success');
           document.body.removeChild(wrap);
         };
-        img.onerror = () => {
-          toast('PDF failed', 'error');
-          document.body.removeChild(wrap);
-        };
+        img.onerror = () => { toast('PDF failed', 'error'); document.body.removeChild(wrap); };
         img.src = dataUrl;
       })
       .catch(err => {
@@ -798,7 +816,6 @@ function downloadImage(boxId, filename) {
 /* ============================================================
    HELPERS
    ============================================================ */
-
 function numVal(id, name, opts={}) {
   const el = document.getElementById(id);
   if (!el) return null;
@@ -827,7 +844,13 @@ function openModal(html, opts={}) {
   content.innerHTML = html;
   overlay.classList.add('active');
 }
-function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+function closeModal() { 
+  document.getElementById('modalOverlay').classList.remove('active');
+  if (window._adminRefreshTimer) {
+    clearInterval(window._adminRefreshTimer);
+    window._adminRefreshTimer = null;
+  }
+}
 document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target.id === 'modalOverlay') closeModal(); });
 
 function openDrawer() {
@@ -859,9 +882,8 @@ function openAbout() {
         <li>100% Free tools — no hidden charges</li>
         <li>No signup or login required</li>
         <li>Mobile-first, works on any device</li>
-        <li>Privacy-friendly: many tools run locally</li>
         <li>PDF, Print & Image export supported</li>
-        <li>Data stored in your browser</li>
+        <li>Feedback synced to cloud (all devices)</li>
       </ul>
       <p class="muted" style="font-size:12px">Made with ❤️ for India. Har Kaam Ka Free Tool 🚀</p>
     </div>
@@ -935,6 +957,9 @@ function setLang(l) {
   toast('Language set: ' + l);
 }
 
+/* ============================================================
+   FEEDBACK — Firebase Integration
+   ============================================================ */
 function openFeedback() {
   const history = DB.get('feedback', []);
   openModal(`
@@ -951,7 +976,7 @@ function openFeedback() {
     <div class="field"><label>Description <span class="muted">(max 3000 chars)</span></label><textarea id="fbDesc" maxlength="3000" placeholder="Tell us more..."></textarea><div class="hint"><span id="fbCount">0</span> / 3000</div></div>
     <div class="field"><label>Rating</label><div class="stars" id="fbStars"><span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span></div></div>
     <div class="btn-group mt-16"><button class="btn btn-secondary" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="fbSubmit">Submit</button></div>
-    ${history.length ? `<div class="divider"></div><div class="card-title">Your Feedback History</div><div>${history.slice().reverse().slice(0,10).map(h => `<div class="fb-item"><div class="fb-head"><span class="fb-type">${esc(h.type)}</span><span class="fb-date">${esc(h.date)}</span></div><div style="margin-bottom:4px">${esc((h.desc||'').slice(0,120))}${(h.desc||'').length>120?'...':''}</div><div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#f59e0b">${'★'.repeat(h.rating||0)}${'☆'.repeat(5-(h.rating||0))}</span><span class="fb-status status-${(h.status||'new').toLowerCase()}">${esc(h.status||'New')}</span></div></div>`).join('')}</div>` : ''}
+    ${history.length ? `<div class="divider"></div><div class="card-title">Your Recent Feedback</div><div>${history.slice().reverse().slice(0,5).map(h => `<div class="fb-item"><div class="fb-head"><span class="fb-type">${esc(h.type)}</span><span class="fb-date">${esc(h.date)}</span></div><div style="margin-bottom:4px">${esc((h.desc||'').slice(0,100))}${(h.desc||'').length>100?'...':''}</div><div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#f59e0b">${'★'.repeat(h.rating||0)}${'☆'.repeat(5-(h.rating||0))}</span><span class="fb-status status-${(h.status||'new').toLowerCase()}">${esc(h.status||'New')}</span></div></div>`).join('')}</div>` : ''}
   `);
   let rating = 0;
   document.querySelectorAll('#fbStars .star').forEach(s => {
@@ -975,20 +1000,54 @@ async function submitFeedback(rating) {
   if (words > 500) { toast('Too many words (max ~500)', 'error'); return; }
   const btn = document.getElementById('fbSubmit');
   btn.disabled = true; btn.textContent = 'Sending...';
+  
+  const entry = { 
+    name, type, desc, rating, 
+    date: new Date().toLocaleString('en-IN'), 
+    timestamp: Date.now(),
+    status: 'New' 
+  };
+  
+  // Save to Firebase (cloud — visible to all devices)
+  let firebaseOk = false;
+  if (fbDB) {
+    try {
+      await fbDB.ref('feedback').push(entry);
+      firebaseOk = true;
+      console.log('Saved to Firebase ✅');
+    } catch (e) {
+      console.warn('Firebase save failed:', e);
+    }
+  }
+  
+  // Also save locally (for user's own recent list)
   const history = DB.get('feedback', []);
-  const entry = { id: Date.now(), name, type, desc, rating, date: new Date().toLocaleString('en-IN'), status: 'New' };
+  history.push({ ...entry, id: Date.now() });
+  DB.set('feedback', history);
+  
+  // Also try Formspree (email notification)
   try {
     const fd = new FormData();
     fd.append('name', name); fd.append('type', type); fd.append('description', desc);
     fd.append('rating', String(rating)); fd.append('_subject', `Qunvero Feedback: ${type}`);
-    await fetch('https://formspree.io/f/xyezkwww', { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
-  } catch (e) { console.warn('Formspree failed', e); }
-  history.push(entry);
-  DB.set('feedback', history);
+    fetch('https://formspree.io/f/xyezkwww', { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } }).catch(() => {});
+  } catch (e) {}
+  
   closeModal();
-  toast('Feedback submitted. Thank you!', 'success');
+  if (firebaseOk) toast('Feedback submitted! Synced to cloud ✅', 'success');
+  else toast('Feedback saved locally', 'success');
+  
+  // Refresh admin panel if open
+  if (document.getElementById('adminList')) {
+    setTimeout(() => {
+      if (window._adminRenderFn) window._adminRenderFn();
+    }, 200);
+  }
 }
 
+/* ============================================================
+   ADMIN PANEL — Firebase Real-time
+   ============================================================ */
 function openAdminLogin() {
   openModal(`
     <div class="modal-header"><h3>🔐 Admin Login</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
@@ -1011,59 +1070,126 @@ function openAdminLogin() {
   setTimeout(() => passEl.focus(), 100);
 }
 
+let _adminData = {};  // Real-time cached feedback from Firebase
+let _adminListener = null;
+
 function openAdminPanel() {
   openModal(`
     <div class="modal-header"><h3>🖥️ System Panel</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
-    <div class="field"><input type="text" id="adminSearch" placeholder="Search feedback..." /></div>
+    <div style="display:flex;gap:8px;margin-bottom:12px">
+      <input type="text" id="adminSearch" placeholder="Search feedback..." style="flex:1;padding:12px 14px;background:var(--surface-2);border:1.5px solid var(--border-strong);border-radius:12px;font-size:14px;outline:none;color:var(--text)" />
+      <button class="btn btn-sm btn-primary" onclick="refreshAdminPanel()" title="Refresh" style="padding:12px 16px">🔄</button>
+    </div>
     <div class="chips-wrap" id="adminFilters">
       <div class="chip active" data-f="all">All</div>
       <div class="chip" data-f="new">New</div>
       <div class="chip" data-f="read">Read</div>
       <div class="chip" data-f="replied">Replied</div>
     </div>
-    <div id="adminList" style="max-height:50vh;overflow-y:auto"></div>
+    <div id="adminList" style="max-height:50vh;overflow-y:auto"><div class="no-results">Loading feedback from cloud...</div></div>
+    <div id="adminStats" style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--text-3);text-align:center">Connecting to Firebase...</div>
   `, { wide: true });
+  
   let filter = 'all', search = '';
+  
   const renderList = () => {
-    let list = DB.get('feedback', []).slice().reverse();
+    let list = Object.values(_adminData).sort((a,b) => (b.timestamp||0) - (a.timestamp||0));
+    const totalCount = list.length;
     if (filter !== 'all') list = list.filter(f => (f.status||'New').toLowerCase() === filter);
-    if (search) { const s = search.toLowerCase(); list = list.filter(f => (f.name+' '+f.desc+' '+f.type).toLowerCase().includes(s)); }
+    if (search) { const s = search.toLowerCase(); list = list.filter(f => ((f.name||'')+' '+(f.desc||'')+' '+(f.type||'')).toLowerCase().includes(s)); }
     const el = document.getElementById('adminList');
-    if (list.length === 0) { el.innerHTML = '<div class="no-results">No feedback found.</div>'; return; }
-    el.innerHTML = list.map(f => `
-      <div class="fb-item">
-        <div class="fb-head"><div><strong>${esc(f.name)}</strong> <span class="fb-type">${esc(f.type)}</span></div><span class="fb-date">${esc(f.date)}</span></div>
-        <div style="margin-bottom:6px;font-size:13px">${esc(f.desc)}</div>
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
-          <span style="color:#f59e0b">${'★'.repeat(f.rating||0)}${'☆'.repeat(5-(f.rating||0))}</span>
-          <span class="fb-status status-${(f.status||'New').toLowerCase()}">${esc(f.status||'New')}</span>
+    if (!el) return;
+    if (list.length === 0) { 
+      el.innerHTML = '<div class="no-results">No feedback found.</div>'; 
+    } else {
+      el.innerHTML = list.map(f => `
+        <div class="fb-item" style="border-left-color:${f.status==='Replied'?'#10b981':f.status==='Read'?'#f59e0b':'#6366f1'}">
+          <div class="fb-head">
+            <div><strong>${esc(f.name)}</strong> <span class="fb-type">${esc(f.type)}</span></div>
+            <span class="fb-date">${esc(f.date)}</span>
+          </div>
+          <div style="margin-bottom:6px;font-size:13px">${esc(f.desc)}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
+            <span style="color:#f59e0b">${'★'.repeat(f.rating||0)}${'☆'.repeat(5-(f.rating||0))}</span>
+            <span class="fb-status status-${(f.status||'New').toLowerCase()}">${esc(f.status||'New')}</span>
+          </div>
+          <div class="btn-group mt-8">
+            <button class="btn btn-sm btn-secondary" onclick="adminSetStatus('${f._key}','Read')">Mark Read</button>
+            <button class="btn btn-sm btn-success" onclick="adminSetStatus('${f._key}','Replied')">Mark Replied</button>
+            <button class="btn btn-sm btn-danger" onclick="adminDelete('${f._key}')">Delete</button>
+          </div>
         </div>
-        <div class="btn-group mt-8">
-          <button class="btn btn-sm btn-secondary" onclick="adminSetStatus(${f.id},'Read')">Mark Read</button>
-          <button class="btn btn-sm btn-success" onclick="adminSetStatus(${f.id},'Replied')">Mark Replied</button>
-          <button class="btn btn-sm btn-danger" onclick="adminDelete(${f.id})">Delete</button>
-        </div>
-      </div>
-    `).join('');
+      `).join('');
+    }
+    const statsEl = document.getElementById('adminStats');
+    if (statsEl) {
+      statsEl.textContent = `${totalCount} total feedback • Live • Last update: ${new Date().toLocaleTimeString('en-IN')}`;
+    }
   };
-  document.getElementById('adminSearch').addEventListener('input', e => { search = e.target.value; renderList(); });
+  window._adminRenderFn = renderList;
+  
+  const searchEl = document.getElementById('adminSearch');
+  if (searchEl) searchEl.addEventListener('input', e => { search = e.target.value; renderList(); });
+  
   document.querySelectorAll('#adminFilters .chip').forEach(c => {
     c.addEventListener('click', () => {
       document.querySelectorAll('#adminFilters .chip').forEach(x => x.classList.remove('active'));
       c.classList.add('active'); filter = c.dataset.f; renderList();
     });
   });
+  
+  // Firebase real-time listener
+  if (fbDB) {
+    // Detach old listener
+    if (_adminListener && fbDB) {
+      try { fbDB.ref('feedback').off('value', _adminListener); } catch(e) {}
+    }
+    _adminListener = fbDB.ref('feedback').on('value', snapshot => {
+      _adminData = {};
+      snapshot.forEach(child => {
+        _adminData[child.key] = { ...child.val(), _key: child.key };
+      });
+      renderList();
+    }, err => {
+      console.warn('Firebase read error:', err);
+      const el = document.getElementById('adminList');
+      if (el) el.innerHTML = '<div class="no-results">Firebase error. Check rules.</div>';
+    });
+  } else {
+    // Fallback: show local feedback only
+    const local = DB.get('feedback', []);
+    _adminData = {};
+    local.forEach(f => { _adminData[f.id] = { ...f, _key: 'local_' + f.id }; });
+    renderList();
+  }
+  
   renderList();
 }
-function adminSetStatus(id, status) {
-  const list = DB.get('feedback', []);
-  const item = list.find(f => f.id === id);
-  if (item) { item.status = status; DB.set('feedback', list); toast('Marked as ' + status, 'success'); openAdminPanel(); }
+
+function refreshAdminPanel() {
+  if (_adminData && Object.keys(_adminData).length >= 0) {
+    if (window._adminRenderFn) window._adminRenderFn();
+    toast('Refreshed');
+  } else {
+    openAdminPanel();
+  }
 }
-function adminDelete(id) {
+
+async function adminSetStatus(key, status) {
+  if (!fbDB) { toast('Firebase not available', 'error'); return; }
+  try {
+    await fbDB.ref('feedback/' + key).update({ status });
+    toast('Marked as ' + status, 'success');
+  } catch(e) { console.error(e); toast('Update failed', 'error'); }
+}
+
+async function adminDelete(key) {
   if (!confirm('Delete this feedback?')) return;
-  DB.set('feedback', DB.get('feedback', []).filter(f => f.id !== id));
-  toast('Deleted', 'success'); openAdminPanel();
+  if (!fbDB) { toast('Firebase not available', 'error'); return; }
+  try {
+    await fbDB.ref('feedback/' + key).remove();
+    toast('Deleted', 'success');
+  } catch(e) { console.error(e); toast('Delete failed', 'error'); }
 }
 
 document.querySelectorAll('.drawer-item').forEach(item => {
@@ -1227,7 +1353,7 @@ function kbRender() {
   document.getElementById('kbSummary').classList.add('active');
 }
 
-/* 3. RATE CALCULATOR — NEW DUAL MODE */
+/* 3. RATE CALCULATOR — DUAL MODE */
 TOOL_RENDERERS['rate-calc'] = () => `
   <div class="card"><div class="card-title">Rate Calculator</div>
     <div class="field"><label>Item Name</label><input type="text" id="rcName" placeholder="e.g. Rice, Sugar" maxlength="40" /></div>
@@ -1929,7 +2055,7 @@ function fdCalc() {
   const r = numVal('fdR','Rate',{min:0});
   const y = numVal('fdY','Years',{min:0.1});
   if (p == null || r == null || y == null) return;
-  const n = 4; // quarterly
+  const n = 4;
   const amount = p * Math.pow(1 + (r/100)/n, n * y);
   const interest = amount - p;
   document.getElementById('fdResult').innerHTML = `
@@ -2736,7 +2862,7 @@ function openSecretModal() {
   `);
   const inp = document.getElementById('secretKey');
   document.getElementById('secretBtn').addEventListener('click', () => {
-    if (inp.value === 'Golu98@g') {
+    if (inp.value === 'Pass@wordRakesh@!123456') {
       closeModal();
       toast('Access granted. Redirecting...', 'success');
       setTimeout(() => { window.location.href = 'https://master-tool-omega.vercel.app'; }, 700);
