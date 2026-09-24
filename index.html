@@ -256,8 +256,6 @@ a { color: inherit; text-decoration: none; }
 .toast.success { border-color: var(--success); }
 .toast.error { border-color: var(--danger); }
 
-.badge { display: inline-block; background: var(--danger); color: white; border-radius: 10px; padding: 2px 6px; font-size: 10px; font-weight: 700; margin-left: 6px; }
-
 @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
 .shake { animation: shake 0.4s ease; }
 
@@ -595,7 +593,7 @@ function closeTool() {
 }
 
 /* ============================================================
-   EXPORT SYSTEM
+   EXPORT SYSTEM — with QR/Barcode special handling
    ============================================================ */
 function exportButtons(boxId, filename) {
   return `<div class="export-btns no-export no-print">
@@ -680,13 +678,52 @@ function buildCleanClone(el, includeHeader) {
   return clone;
 }
 
+/* PRINT — with QR/Barcode special handling */
 function printResult(boxId) {
   const src = document.getElementById(boxId);
   if (!src) { toast('Nothing to print', 'error'); return; }
-  const clone = buildCleanClone(src, true);
+  
+  let specialContent = '';
+  
+  if (boxId === 'qrResult') {
+    const canvas = src.querySelector('canvas');
+    if (canvas) {
+      specialContent = `
+        <div style="text-align:center;padding:20px">
+          <h1 style="font-size:22px;font-weight:800;color:#4f46e5;margin-bottom:16px">📱 QR Code</h1>
+          <img src="${canvas.toDataURL('image/png')}" style="max-width:400px;display:block;margin:0 auto" />
+        </div>`;
+    }
+  } else if (boxId === 'barResult') {
+    const svg = src.querySelector('svg');
+    if (svg) {
+      const svgData = new XMLSerializer().serializeToString(svg);
+      specialContent = `
+        <div style="text-align:center;padding:20px">
+          <h1 style="font-size:22px;font-weight:800;color:#4f46e5;margin-bottom:16px">🎫 Barcode</h1>
+          <div style="display:inline-block;background:#fff;padding:10px">${svgData}</div>
+        </div>`;
+    }
+  }
+  
   const area = document.getElementById('printArea');
-  area.innerHTML = '';
-  area.appendChild(clone);
+  
+  if (specialContent) {
+    area.innerHTML = `
+      <div style="font-family:Arial,sans-serif;padding:20px">
+        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #6366f1;padding-bottom:10px;margin-bottom:16px">
+          <div style="font-size:20px;font-weight:900;color:#6366f1">⚡ Qunvero</div>
+          <div style="font-size:11px;color:#888">${new Date().toLocaleString('en-IN')}</div>
+        </div>
+        ${specialContent}
+      </div>
+    `;
+  } else {
+    const clone = buildCleanClone(src, true);
+    area.innerHTML = '';
+    area.appendChild(clone);
+  }
+  
   area.style.display = 'block';
 
   let styleEl = document.getElementById('printStyleTemp');
@@ -714,13 +751,66 @@ function printResult(boxId) {
   }, 200);
 }
 
+/* PDF — with QR/Barcode special handling */
 function downloadPDF(boxId, filename) {
   const el = document.getElementById(boxId);
   if (!el) { toast('Nothing to export', 'error'); return; }
   toast('Generating PDF...');
   
-  const clone = buildCleanClone(el, true);
+  let specialDataUrl = null;
+  let isBarcode = false;
   
+  if (boxId === 'qrResult') {
+    const canvas = el.querySelector('canvas');
+    if (canvas) specialDataUrl = canvas.toDataURL('image/png');
+  } else if (boxId === 'barResult') {
+    const svg = el.querySelector('svg');
+    if (svg) {
+      isBarcode = true;
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      specialDataUrl = URL.createObjectURL(svgBlob);
+    }
+  }
+  
+  if (specialDataUrl) {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pw = pdf.internal.pageSize.getWidth();
+    const ph = pdf.internal.pageSize.getHeight();
+    
+    const img = new Image();
+    img.onload = () => {
+      const ratio = img.width / img.height;
+      let w = pw - 40, h = w / ratio;
+      if (h > ph - 60) { h = ph - 60; w = h * ratio; }
+      const x = (pw - w) / 2;
+      const y = 40;
+      
+      pdf.setFontSize(20);
+      pdf.setTextColor(99, 102, 241);
+      pdf.text('Qunvero', 20, 20);
+      pdf.setFontSize(14);
+      pdf.setTextColor(50, 50, 50);
+      pdf.text(isBarcode ? 'Barcode' : 'QR Code', 20, 30);
+      pdf.setTextColor(120, 120, 120);
+      pdf.setFontSize(9);
+      pdf.text(new Date().toLocaleString('en-IN'), pw - 20, 20, { align: 'right' });
+      
+      pdf.addImage(specialDataUrl, 'PNG', x, y, w, h);
+      pdf.save((filename || 'qunvero') + '.pdf');
+      toast('PDF downloaded ✅', 'success');
+      if (isBarcode) URL.revokeObjectURL(specialDataUrl);
+    };
+    img.onerror = () => { 
+      toast('PDF failed', 'error'); 
+      if (isBarcode) URL.revokeObjectURL(specialDataUrl); 
+    };
+    img.src = specialDataUrl;
+    return;
+  }
+  
+  const clone = buildCleanClone(el, true);
   const wrap = document.createElement('div');
   wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;width:750px;padding:0;margin:0;';
   wrap.appendChild(clone);
@@ -768,11 +858,79 @@ function downloadPDF(boxId, filename) {
   }, 250);
 }
 
+/* IMAGE — with QR/Barcode special handling */
 function downloadImage(boxId, filename) {
   const el = document.getElementById(boxId);
   if (!el) { toast('Nothing to export', 'error'); return; }
-  toast('Generating HD image...');
   
+  if (boxId === 'qrResult') {
+    const canvas = el.querySelector('canvas');
+    const img = el.querySelector('img');
+    let sourceUrl = null;
+    
+    if (canvas) {
+      sourceUrl = canvas.toDataURL('image/png');
+    } else if (img && img.src && img.src.startsWith('data:')) {
+      sourceUrl = img.src;
+    } else if (img && img.src) {
+      try {
+        const c = document.createElement('canvas');
+        c.width = img.naturalWidth || 240;
+        c.height = img.naturalHeight || 240;
+        c.getContext('2d').drawImage(img, 0, 0);
+        sourceUrl = c.toDataURL('image/png');
+      } catch(e) { console.warn(e); }
+    }
+    
+    if (sourceUrl) {
+      const link = document.createElement('a');
+      link.download = (filename || 'qr-code') + '.png';
+      link.href = sourceUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast('QR Image downloaded ✅', 'success');
+      return;
+    } else {
+      toast('QR not found. Generate QR first.', 'error');
+      return;
+    }
+  }
+  
+  if (boxId === 'barResult') {
+    const svg = el.querySelector('svg');
+    if (svg) {
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(svgBlob);
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = (img.width || 600) * 2;
+        canvas.height = (img.height || 200) * 2;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        URL.revokeObjectURL(url);
+        const link = document.createElement('a');
+        link.download = (filename || 'barcode') + '.png';
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast('Barcode Image downloaded ✅', 'success');
+      };
+      img.onerror = () => { toast('Barcode conversion failed', 'error'); URL.revokeObjectURL(url); };
+      img.src = url;
+      return;
+    } else {
+      toast('Barcode not found. Generate first.', 'error');
+      return;
+    }
+  }
+  
+  toast('Generating HD image...');
   const clone = buildCleanClone(el, false);
   
   const wrap = document.createElement('div');
@@ -976,7 +1134,6 @@ function openFeedback() {
     <div class="field"><label>Description <span class="muted">(max 3000 chars)</span></label><textarea id="fbDesc" maxlength="3000" placeholder="Tell us more..."></textarea><div class="hint"><span id="fbCount">0</span> / 3000</div></div>
     <div class="field"><label>Rating</label><div class="stars" id="fbStars"><span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span></div></div>
     <div class="btn-group mt-16"><button class="btn btn-secondary" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="fbSubmit">Submit</button></div>
-    ${history.length ? `<div class="divider"></div><div class="card-title">Your Recent Feedback</div><div>${history.slice().reverse().slice(0,5).map(h => `<div class="fb-item"><div class="fb-head"><span class="fb-type">${esc(h.type)}</span><span class="fb-date">${esc(h.date)}</span></div><div style="margin-bottom:4px">${esc((h.desc||'').slice(0,100))}${(h.desc||'').length>100?'...':''}</div><div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#f59e0b">${'★'.repeat(h.rating||0)}${'☆'.repeat(5-(h.rating||0))}</span><span class="fb-status status-${(h.status||'new').toLowerCase()}">${esc(h.status||'New')}</span></div></div>`).join('')}</div>` : ''}
   `);
   let rating = 0;
   document.querySelectorAll('#fbStars .star').forEach(s => {
@@ -1008,7 +1165,6 @@ async function submitFeedback(rating) {
     status: 'New' 
   };
   
-  // Save to Firebase (cloud — visible to all devices)
   let firebaseOk = false;
   if (fbDB) {
     try {
@@ -1020,12 +1176,10 @@ async function submitFeedback(rating) {
     }
   }
   
-  // Also save locally (for user's own recent list)
   const history = DB.get('feedback', []);
   history.push({ ...entry, id: Date.now() });
   DB.set('feedback', history);
   
-  // Also try Formspree (email notification)
   try {
     const fd = new FormData();
     fd.append('name', name); fd.append('type', type); fd.append('description', desc);
@@ -1036,13 +1190,6 @@ async function submitFeedback(rating) {
   closeModal();
   if (firebaseOk) toast('Feedback submitted! Synced to cloud ✅', 'success');
   else toast('Feedback saved locally', 'success');
-  
-  // Refresh admin panel if open
-  if (document.getElementById('adminList')) {
-    setTimeout(() => {
-      if (window._adminRenderFn) window._adminRenderFn();
-    }, 200);
-  }
 }
 
 /* ============================================================
@@ -1070,7 +1217,7 @@ function openAdminLogin() {
   setTimeout(() => passEl.focus(), 100);
 }
 
-let _adminData = {};  // Real-time cached feedback from Firebase
+let _adminData = {};
 let _adminListener = null;
 
 function openAdminPanel() {
@@ -1138,9 +1285,7 @@ function openAdminPanel() {
     });
   });
   
-  // Firebase real-time listener
   if (fbDB) {
-    // Detach old listener
     if (_adminListener && fbDB) {
       try { fbDB.ref('feedback').off('value', _adminListener); } catch(e) {}
     }
@@ -1156,7 +1301,6 @@ function openAdminPanel() {
       if (el) el.innerHTML = '<div class="no-results">Firebase error. Check rules.</div>';
     });
   } else {
-    // Fallback: show local feedback only
     const local = DB.get('feedback', []);
     _adminData = {};
     local.forEach(f => { _adminData[f.id] = { ...f, _key: 'local_' + f.id }; });
@@ -1167,12 +1311,8 @@ function openAdminPanel() {
 }
 
 function refreshAdminPanel() {
-  if (_adminData && Object.keys(_adminData).length >= 0) {
-    if (window._adminRenderFn) window._adminRenderFn();
-    toast('Refreshed');
-  } else {
-    openAdminPanel();
-  }
+  if (window._adminRenderFn) window._adminRenderFn();
+  toast('Refreshed');
 }
 
 async function adminSetStatus(key, status) {
