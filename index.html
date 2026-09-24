@@ -88,15 +88,14 @@ a { color: inherit; text-decoration: none; }
 .section-title h2 { font-size: 18px; font-weight: 700; }
 .section-title .see-all { font-size: 13px; color: var(--primary); font-weight: 600; cursor: pointer; }
 
-.cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 28px; }
-@media (min-width: 480px) { .cat-grid { grid-template-columns: repeat(3, 1fr); } }
+.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 28px; }
 @media (min-width: 720px) { .cat-grid { grid-template-columns: repeat(4, 1fr); } }
 @media (min-width: 1000px) { .cat-grid { grid-template-columns: repeat(5, 1fr); } }
-.cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+.cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 14px 10px; cursor: pointer; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; }
 .cat-card:active { transform: scale(0.96); }
-.cat-icon { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-.cat-name { font-size: 13.5px; font-weight: 700; line-height: 1.25; }
-.cat-count { font-size: 11px; color: var(--text-3); }
+.cat-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+.cat-name { font-size: 12.5px; font-weight: 700; line-height: 1.25; }
+.cat-count { font-size: 10.5px; color: var(--text-3); }
 
 .tool-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
 @media (min-width: 560px) { .tool-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -309,7 +308,7 @@ a { color: inherit; text-decoration: none; }
     <div class="search-wrap">
       <div class="search-box">
         <span class="s-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Search tools... (qr, gst, age, bill)" autocomplete="off" />
+        <input type="text" id="searchInput" placeholder="Search tools... (qr, gst, bill)" autocomplete="off" />
         <button class="search-clear" id="searchClear">✕</button>
       </div>
       <div class="search-results" id="searchResults"></div>
@@ -380,7 +379,7 @@ const CATEGORIES = [
 const TOOLS = [
   { id:'dukan-bill', name:'Dukan Bill Generator', cat:'shop', icon:'🧾', desc:'Create shop bills with items, GST & total', kw:['bill','dukan','shop','invoice','receipt','gst'] },
   { id:'khatabook', name:'Khatabook', cat:'shop', icon:'📒', desc:'Track customer credit & payments', kw:['khatabook','udhaar','credit','ledger','customer','payment'] },
-  { id:'rate-calc', name:'Rate Calculator', cat:'shop', icon:'⚖️', desc:'Calculate price per kg/gram/quantity', kw:['rate','price','kg','gram','quantity','weight'] },
+  { id:'rate-calc', name:'Rate Calculator', cat:'shop', icon:'⚖️', desc:'Calculate price or quantity from rate', kw:['rate','price','kg','gram','quantity','weight','budget'] },
   { id:'discount-calc', name:'Discount Calculator', cat:'shop', icon:'🏷️', desc:'Calculate discount & final price', kw:['discount','offer','sale','mrp','price'] },
   { id:'gst-calc', name:'GST Calculator', cat:'shop', icon:'%', desc:'Calculate GST inclusive/exclusive', kw:['gst','tax','inclusive','exclusive','bill'] },
   { id:'img-compress', name:'Image Compressor', cat:'photo', icon:'🗜️', desc:'Compress images without losing quality', kw:['compress','image','photo','reduce','size'] },
@@ -571,10 +570,10 @@ function closeTool() {
 }
 
 /* ============================================================
-   ⭐⭐⭐ FINAL EXPORT SYSTEM ⭐⭐⭐
+   EXPORT SYSTEM
    - PRINT: full content + header
-   - PDF: full content + header, no overlap
-   - IMAGE: ONLY the result content (no header, no buttons)
+   - PDF: full content + header
+   - IMAGE: ONLY result content
    ============================================================ */
 
 function exportButtons(boxId, filename) {
@@ -585,7 +584,6 @@ function exportButtons(boxId, filename) {
   </div>`;
 }
 
-/* Clean clone — strips everything, forces white/black, converts gradient to solid */
 function buildCleanClone(el, includeHeader) {
   const clone = el.cloneNode(true);
   clone.querySelectorAll('.no-export, .export-btns, .no-print').forEach(n => n.remove());
@@ -601,7 +599,6 @@ function buildCleanClone(el, includeHeader) {
   clone.style.fontSize = '14px';
   clone.style.lineHeight = '1.5';
 
-  // Fix gradient text (result-main) to solid
   clone.querySelectorAll('.result-main').forEach(e => {
     e.style.background = 'none';
     e.style.webkitBackgroundClip = 'initial';
@@ -611,7 +608,6 @@ function buildCleanClone(el, includeHeader) {
     e.style.backgroundImage = 'none';
   });
   
-  // Reset ALL spans/divs that might have gradient
   clone.querySelectorAll('*').forEach(e => {
     const cs = window.getComputedStyle(e);
     if (cs.webkitTextFillColor === 'transparent' || cs.color === 'rgba(0, 0, 0, 0)') {
@@ -623,7 +619,6 @@ function buildCleanClone(el, includeHeader) {
     }
   });
 
-  // Force text colors for common classes
   clone.querySelectorAll('.k, .result-sub, .result-title, .muted, .hint').forEach(e => { e.style.color = '#555555'; });
   clone.querySelectorAll('.v, .result-row').forEach(e => { e.style.color = '#111111'; });
   clone.querySelectorAll('.txn-credit').forEach(e => { e.style.color = '#ef4444'; });
@@ -664,7 +659,6 @@ function buildCleanClone(el, includeHeader) {
   return clone;
 }
 
-/* PRINT — full content + header */
 function printResult(boxId) {
   const src = document.getElementById(boxId);
   if (!src) { toast('Nothing to print', 'error'); return; }
@@ -699,7 +693,6 @@ function printResult(boxId) {
   }, 200);
 }
 
-/* PDF — full content + header, NO overlap */
 function downloadPDF(boxId, filename) {
   const el = document.getElementById(boxId);
   if (!el) { toast('Nothing to export', 'error'); return; }
@@ -757,13 +750,11 @@ function downloadPDF(boxId, filename) {
   }, 250);
 }
 
-/* IMAGE — ONLY the result content (no header, no buttons) */
 function downloadImage(boxId, filename) {
   const el = document.getElementById(boxId);
   if (!el) { toast('Nothing to export', 'error'); return; }
   toast('Generating HD image...');
   
-  // No header — only the result content
   const clone = buildCleanClone(el, false);
   
   const wrap = document.createElement('div');
@@ -949,7 +940,14 @@ function openFeedback() {
   openModal(`
     <div class="modal-header"><h3>💬 Send Feedback</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div class="field"><label>Name</label><input type="text" id="fbName" placeholder="Your name" maxlength="60" /></div>
-    <div class="field"><label>Type</label><select id="fbType"><option value="Problem">Problem</option><option value="Appreciation">Appreciation</option></select></div>
+    <div class="field"><label>Type</label><select id="fbType">
+      <option value="Problem">Problem</option>
+      <option value="Appreciation">Appreciation</option>
+      <option value="Improvement">Improvement</option>
+      <option value="Feature Request">Feature Request</option>
+      <option value="Other">Other</option>
+      <option value="None">None</option>
+    </select></div>
     <div class="field"><label>Description <span class="muted">(max 3000 chars)</span></label><textarea id="fbDesc" maxlength="3000" placeholder="Tell us more..."></textarea><div class="hint"><span id="fbCount">0</span> / 3000</div></div>
     <div class="field"><label>Rating</label><div class="stars" id="fbStars"><span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span></div></div>
     <div class="btn-group mt-16"><button class="btn btn-secondary" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="fbSubmit">Submit</button></div>
@@ -1219,7 +1217,6 @@ function kbRender() {
       <button class="txn-del" onclick="kbDelete(${x.id})">🗑️</button>
     </div>`).join('');
 
-  // Update summary result box
   document.getElementById('kbSummary').innerHTML = `
     <div class="result-title">Khatabook Summary</div>
     <div class="result-row"><span class="k">Total Credit</span><span class="v txn-credit">${fmtMoney(credit)}</span></div>
@@ -1230,31 +1227,79 @@ function kbRender() {
   document.getElementById('kbSummary').classList.add('active');
 }
 
-/* 3. RATE */
+/* 3. RATE CALCULATOR — NEW DUAL MODE */
 TOOL_RENDERERS['rate-calc'] = () => `
-  <div class="card"><div class="card-title">Enter Details</div>
+  <div class="card"><div class="card-title">Rate Calculator</div>
+    <div class="field"><label>Item Name</label><input type="text" id="rcName" placeholder="e.g. Rice, Sugar" maxlength="40" /></div>
     <div class="field"><label>Rate (₹ per kg)</label><input type="number" id="rcRate" min="0" step="0.01" placeholder="20" /></div>
-    <div class="field"><label>Quantity</label><input type="number" id="rcQty" min="0" step="0.01" placeholder="250" /></div>
-    <div class="field"><label>Unit</label><select id="rcUnit"><option value="g">Grams</option><option value="kg">Kilograms</option><option value="nos">Pieces (Nos)</option></select></div>
+    <div class="field"><label>What do you have?</label>
+      <select id="rcMode">
+        <option value="qty">Quantity (grams / kg)</option>
+        <option value="budget">Money (₹ budget)</option>
+      </select>
+    </div>
+    <div id="rcQtyField">
+      <div class="field"><label>Quantity</label><input type="number" id="rcQty" min="0" step="0.01" placeholder="250" /></div>
+      <div class="field"><label>Unit</label><select id="rcUnit"><option value="g">Grams</option><option value="kg">Kilograms</option><option value="nos">Pieces (Nos)</option></select></div>
+    </div>
+    <div id="rcBudgetField" style="display:none">
+      <div class="field"><label>Budget (₹)</label><input type="number" id="rcBudget" min="0" step="0.01" placeholder="100" /></div>
+      <div class="field"><label>Show Result In</label><select id="rcOutUnit"><option value="kg">Kilograms</option><option value="g">Grams</option></select></div>
+    </div>
     <button class="btn btn-primary btn-block" onclick="rcCalc()">Calculate</button>
   </div>
-  <div class="result-box" id="rcResult"></div>`;
+  <div class="result-box" id="rcResult"></div>
+`;
+TOOL_INITS['rate-calc'] = () => {
+  document.getElementById('rcMode').addEventListener('change', e => {
+    const qtyF = document.getElementById('rcQtyField');
+    const budF = document.getElementById('rcBudgetField');
+    if (e.target.value === 'budget') { qtyF.style.display = 'none'; budF.style.display = 'block'; }
+    else { qtyF.style.display = 'block'; budF.style.display = 'none'; }
+  });
+};
 function rcCalc() {
+  const name = document.getElementById('rcName').value.trim() || 'Item';
   const rate = numVal('rcRate','Rate',{min:0});
-  const qty = numVal('rcQty','Quantity',{min:0});
-  if (rate == null || qty == null) return;
-  const unit = document.getElementById('rcUnit').value;
-  let total, formula;
-  if (unit === 'g') { total = (qty / 1000) * rate; formula = `(${qty} g ÷ 1000) × ₹${rate}/kg`; }
-  else if (unit === 'kg') { total = qty * rate; formula = `${qty} kg × ₹${rate}/kg`; }
-  else { total = qty * rate; formula = `${qty} nos × ₹${rate}/pc`; }
-  document.getElementById('rcResult').innerHTML = `
-    <div class="result-title">Result</div>
-    <div class="result-main">${fmtMoney(total)}</div>
-    <div class="result-row"><span class="k">Rate</span><span class="v">${fmtMoney(rate)} per ${unit === 'g' ? 'kg' : unit}</span></div>
-    <div class="result-row"><span class="k">Quantity</span><span class="v">${fmtNum(qty,2)} ${unit === 'g' ? 'g' : unit}</span></div>
-    <div class="result-row"><span class="k">Formula</span><span class="v" style="font-size:12px">${formula}</span></div>
-    ${exportButtons('rcResult', 'rate-calc')}`;
+  if (rate == null) return;
+  const mode = document.getElementById('rcMode').value;
+  
+  if (mode === 'qty') {
+    const qty = numVal('rcQty','Quantity',{min:0});
+    if (qty == null) return;
+    const unit = document.getElementById('rcUnit').value;
+    let total, displayQty;
+    if (unit === 'g') { total = (qty / 1000) * rate; displayQty = qty + ' g'; }
+    else if (unit === 'kg') { total = qty * rate; displayQty = qty + ' kg'; }
+    else { total = qty * rate; displayQty = qty + ' pcs'; }
+    
+    document.getElementById('rcResult').innerHTML = `
+      <div class="result-title">Result</div>
+      <div class="result-main">${fmtMoney(total)}</div>
+      <div class="result-sub">${esc(name)}</div>
+      <div class="result-row"><span class="k">Rate</span><span class="v">${fmtMoney(rate)} per kg</span></div>
+      <div class="result-row"><span class="k">Quantity</span><span class="v">${displayQty}</span></div>
+      <div class="result-row"><span class="k">Total Price</span><span class="v">${fmtMoney(total)}</span></div>
+      ${exportButtons('rcResult', 'rate-calc')}`;
+  } else {
+    const budget = numVal('rcBudget','Budget',{min:0});
+    if (budget == null) return;
+    const outUnit = document.getElementById('rcOutUnit').value;
+    const kg = budget / rate;
+    const grams = kg * 1000;
+    let main, sub;
+    if (outUnit === 'kg') { main = fmtNum(kg, 3) + ' kg'; sub = fmtNum(grams, 0) + ' grams'; }
+    else { main = fmtNum(grams, 0) + ' g'; sub = fmtNum(kg, 3) + ' kg'; }
+    
+    document.getElementById('rcResult').innerHTML = `
+      <div class="result-title">Result</div>
+      <div class="result-main">${main}</div>
+      <div class="result-sub">${esc(name)} — you can buy</div>
+      <div class="result-row"><span class="k">Rate</span><span class="v">${fmtMoney(rate)} per kg</span></div>
+      <div class="result-row"><span class="k">Your Budget</span><span class="v">${fmtMoney(budget)}</span></div>
+      <div class="result-row"><span class="k">You Get</span><span class="v">${main} (≈ ${sub})</span></div>
+      ${exportButtons('rcResult', 'rate-calc')}`;
+  }
   document.getElementById('rcResult').classList.add('active');
 }
 
@@ -1510,12 +1555,11 @@ function capCalc() {
 
 /* 11. RESISTANCE */
 TOOL_RENDERERS['resistance-calc'] = () => `
-  <div class="card"><div class="card-title">Ohm's Law (V = I × R)</div>
+  <div class="card"><div class="card-title">Resistance Calculator</div>
     <div class="field"><label>Voltage (V)</label><input type="number" id="ohmV" min="0" step="0.01" placeholder="Leave blank" /></div>
     <div class="field"><label>Current (A)</label><input type="number" id="ohmI" min="0" step="0.01" placeholder="Leave blank" /></div>
     <div class="field"><label>Resistance (Ω)</label><input type="number" id="ohmR" min="0" step="0.01" placeholder="Leave blank" /></div>
     <button class="btn btn-primary btn-block" onclick="ohmCalc()">⚡ Calculate</button>
-    <div class="hint">Fill any 2 values — third is calculated.</div>
   </div>
   <div class="result-box" id="ohmResult"></div>`;
 function ohmCalc() {
@@ -1877,7 +1921,6 @@ TOOL_RENDERERS['fd-calc'] = () => `
     <div class="field"><label>Principal (₹)</label><input type="number" id="fdP" min="0" step="100" value="100000" /></div>
     <div class="field"><label>Annual Interest Rate (%)</label><input type="number" id="fdR" min="0" step="0.1" value="7" /></div>
     <div class="field"><label>Duration (Years)</label><input type="number" id="fdY" min="0.1" step="0.5" value="5" /></div>
-    <div class="field"><label>Compounding</label><select id="fdC"><option value="1">Yearly</option><option value="2">Half-Yearly</option><option value="4" selected>Quarterly</option><option value="12">Monthly</option></select></div>
     <button class="btn btn-primary btn-block" onclick="fdCalc()">🏦 Calculate</button>
   </div>
   <div class="result-box" id="fdResult"></div>`;
@@ -1886,7 +1929,7 @@ function fdCalc() {
   const r = numVal('fdR','Rate',{min:0});
   const y = numVal('fdY','Years',{min:0.1});
   if (p == null || r == null || y == null) return;
-  const n = Number(document.getElementById('fdC').value);
+  const n = 4; // quarterly
   const amount = p * Math.pow(1 + (r/100)/n, n * y);
   const interest = amount - p;
   document.getElementById('fdResult').innerHTML = `
@@ -1907,7 +1950,6 @@ TOOL_RENDERERS['compound-calc'] = () => `
     <div class="field"><label>Principal (₹)</label><input type="number" id="ciP" min="0" step="100" value="10000" /></div>
     <div class="field"><label>Rate (% per year)</label><input type="number" id="ciR" min="0" step="0.1" value="8" /></div>
     <div class="field"><label>Time (Years)</label><input type="number" id="ciT" min="0.1" step="0.5" value="5" /></div>
-    <div class="field"><label>Compounding</label><select id="ciN"><option value="1">Yearly</option><option value="2">Half-Yearly</option><option value="4" selected>Quarterly</option><option value="12">Monthly</option><option value="365">Daily</option></select></div>
     <button class="btn btn-primary btn-block" onclick="ciCalc()">💹 Calculate</button>
   </div>
   <div class="result-box" id="ciResult"></div>`;
@@ -1916,7 +1958,7 @@ function ciCalc() {
   const r = numVal('ciR','Rate',{min:0});
   const t = numVal('ciT','Time',{min:0.1});
   if (p == null || r == null || t == null) return;
-  const n = Number(document.getElementById('ciN').value);
+  const n = 4;
   const amount = p * Math.pow(1 + (r/100)/n, n * t);
   const interest = amount - p;
   document.getElementById('ciResult').innerHTML = `
@@ -1941,7 +1983,6 @@ TOOL_RENDERERS['currency-conv'] = () => `
       <div class="field"><label>To</label><select id="cxTo">${Object.keys(RATES).map(k => `<option value="${k}" ${k==='USD'?'selected':''}>${k}</option>`).join('')}</select></div>
     </div>
     <button class="btn btn-primary btn-block" onclick="cxConvert()">💱 Convert</button>
-    <p class="hint mt-12">⚠️ Static rates. May not reflect market.</p>
   </div>
   <div class="result-box" id="cxResult"></div>`;
 function cxConvert() {
@@ -2107,7 +2148,6 @@ function bmiCalc() {
     <div class="result-row"><span class="k">Weight</span><span class="v">${w} kg</span></div>
     <div class="result-row"><span class="k">Height</span><span class="v">${h} cm</span></div>
     <div class="result-row"><span class="k">Category</span><span class="v" style="color:${color}">${cat}</span></div>
-    <p class="hint mt-12">General screening measure.</p>
     ${exportButtons('bmiResult', 'bmi')}`;
   document.getElementById('bmiResult').classList.add('active');
 }
@@ -2133,11 +2173,10 @@ function calCalc() {
   document.getElementById('calResult').innerHTML = `
     <div class="result-title">Daily Calorie Needs</div>
     <div class="result-main">${Math.round(tdee)} kcal</div>
-    <div class="result-sub">Estimated daily calories (TDEE)</div>
+    <div class="result-sub">Estimated daily calories</div>
     <div class="result-row"><span class="k">BMR</span><span class="v">${Math.round(bmr)} kcal</span></div>
     <div class="result-row"><span class="k">Weight Loss</span><span class="v">~${Math.round(tdee-500)} kcal/day</span></div>
     <div class="result-row"><span class="k">Weight Gain</span><span class="v">~${Math.round(tdee+500)} kcal/day</span></div>
-    <p class="hint mt-12">Mifflin-St Jeor equation. Estimate only.</p>
     ${exportButtons('calResult', 'calories')}`;
   document.getElementById('calResult').classList.add('active');
 }
