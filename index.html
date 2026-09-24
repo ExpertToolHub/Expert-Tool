@@ -8,510 +8,157 @@
 <meta name="description" content="Qunvero — Shop, bijli, business, student, finance sab kuch ek jagah. 100% free, no signup." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
 
-<!-- CDN Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
-/* ============ RESET & BASE ============ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-  transition: background 0.3s ease, color 0.3s ease;
-  line-height: 1.5;
-  font-size: 15px;
+  background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease; line-height: 1.5; font-size: 15px;
 }
 button, input, textarea, select { font-family: inherit; font-size: inherit; color: inherit; }
 button { cursor: pointer; border: none; background: none; }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 
-/* ============ THEME VARIABLES ============ */
 :root, [data-theme="dark"] {
-  --bg: #0a0e27;
-  --bg-2: #0f1435;
-  --surface: #151a3d;
-  --surface-2: #1c2250;
-  --surface-hover: #232a5e;
-  --border: rgba(255,255,255,0.08);
-  --border-strong: rgba(255,255,255,0.14);
-  --text: #eef1ff;
-  --text-2: #a8b0d8;
-  --text-3: #6b74a0;
-  --primary: #6366f1;
-  --primary-2: #8b5cf6;
-  --accent: #06b6d4;
-  --success: #10b981;
-  --danger: #ef4444;
-  --warning: #f59e0b;
+  --bg: #0a0e27; --bg-2: #0f1435; --surface: #151a3d; --surface-2: #1c2250; --surface-hover: #232a5e;
+  --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.14);
+  --text: #eef1ff; --text-2: #a8b0d8; --text-3: #6b74a0;
+  --primary: #6366f1; --primary-2: #8b5cf6; --accent: #06b6d4;
+  --success: #10b981; --danger: #ef4444; --warning: #f59e0b;
   --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-  --gradient-2: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%);
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.25);
-  --shadow: 0 8px 24px rgba(0,0,0,0.35);
-  --shadow-lg: 0 20px 50px rgba(0,0,0,0.5);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.25); --shadow: 0 8px 24px rgba(0,0,0,0.35); --shadow-lg: 0 20px 50px rgba(0,0,0,0.5);
   --glow: 0 0 24px rgba(99,102,241,0.35);
 }
 [data-theme="reading"] {
-  --bg: #f5efe0;
-  --bg-2: #faf5e8;
-  --surface: #fffaf0;
-  --surface-2: #f7f0dd;
-  --surface-hover: #f0e6cd;
-  --border: rgba(120,90,50,0.14);
-  --border-strong: rgba(120,90,50,0.24);
-  --text: #3a2e1f;
-  --text-2: #6b5a42;
-  --text-3: #9a8a72;
-  --primary: #a0522d;
-  --primary-2: #c47b4a;
-  --accent: #b8860b;
+  --bg: #f5efe0; --bg-2: #faf5e8; --surface: #fffaf0; --surface-2: #f7f0dd; --surface-hover: #f0e6cd;
+  --border: rgba(120,90,50,0.14); --border-strong: rgba(120,90,50,0.24);
+  --text: #3a2e1f; --text-2: #6b5a42; --text-3: #9a8a72;
+  --primary: #a0522d; --primary-2: #c47b4a; --accent: #b8860b;
   --gradient: linear-gradient(135deg, #a0522d 0%, #c47b4a 50%, #d4a574 100%);
-  --shadow-sm: 0 2px 8px rgba(120,90,50,0.1);
-  --shadow: 0 8px 24px rgba(120,90,50,0.15);
-  --shadow-lg: 0 20px 50px rgba(120,90,50,0.2);
+  --shadow-sm: 0 2px 8px rgba(120,90,50,0.1); --shadow: 0 8px 24px rgba(120,90,50,0.15); --shadow-lg: 0 20px 50px rgba(120,90,50,0.2);
   --glow: 0 0 24px rgba(160,82,45,0.25);
 }
 [data-theme="light"] {
-  --bg: #f4f6fb;
-  --bg-2: #ffffff;
-  --surface: #ffffff;
-  --surface-2: #f8fafc;
-  --surface-hover: #f1f5f9;
-  --border: rgba(15,23,42,0.08);
-  --border-strong: rgba(15,23,42,0.16);
-  --text: #0f172a;
-  --text-2: #475569;
-  --text-3: #94a3b8;
-  --primary: #6366f1;
-  --primary-2: #8b5cf6;
-  --accent: #06b6d4;
+  --bg: #f4f6fb; --bg-2: #ffffff; --surface: #ffffff; --surface-2: #f8fafc; --surface-hover: #f1f5f9;
+  --border: rgba(15,23,42,0.08); --border-strong: rgba(15,23,42,0.16);
+  --text: #0f172a; --text-2: #475569; --text-3: #94a3b8;
+  --primary: #6366f1; --primary-2: #8b5cf6; --accent: #06b6d4;
   --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-  --shadow-sm: 0 2px 8px rgba(15,23,42,0.06);
-  --shadow: 0 8px 24px rgba(15,23,42,0.08);
-  --shadow-lg: 0 20px 50px rgba(15,23,42,0.12);
+  --shadow-sm: 0 2px 8px rgba(15,23,42,0.06); --shadow: 0 8px 24px rgba(15,23,42,0.08); --shadow-lg: 0 20px 50px rgba(15,23,42,0.12);
   --glow: 0 0 24px rgba(99,102,241,0.2);
 }
 
-/* ============ SCROLLBAR ============ */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--surface-2); border-radius: 8px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--surface-hover); }
 
-/* ============ HEADER ============ */
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-.header-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 20px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  cursor: pointer;
-  user-select: none;
-  padding: 6px 8px;
-  border-radius: 10px;
-  transition: transform 0.15s ease;
-}
+.header { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+.header-inner { max-width: 1200px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.logo { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; cursor: pointer; user-select: none; padding: 6px 8px; border-radius: 10px; transition: transform 0.15s ease; }
 .logo:active { transform: scale(0.94); }
-.logo-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  background: var(--gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  box-shadow: var(--glow);
-}
-.logo-text {
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
+.logo-icon { width: 34px; height: 34px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: var(--glow); }
+.logo-text { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 .header-actions { display: flex; gap: 8px; align-items: center; }
-.icon-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  transition: all 0.2s ease;
-  color: var(--text);
-}
+.icon-btn { width: 40px; height: 40px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 18px; transition: all 0.2s ease; color: var(--text); }
 .icon-btn:hover { background: var(--surface-hover); border-color: var(--border-strong); }
 .icon-btn:active { transform: scale(0.92); }
 
-/* ============ CONTAINER ============ */
 .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px 80px; }
 
-/* ============ HERO ============ */
 .hero { padding: 24px 0 20px; text-align: center; }
-.hero h1 {
-  font-size: clamp(26px, 6vw, 42px);
-  font-weight: 900;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  margin-bottom: 12px;
-}
-.hero h1 .grad {
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-.hero p {
-  color: var(--text-2);
-  font-size: clamp(13px, 3.5vw, 16px);
-  max-width: 640px;
-  margin: 0 auto;
-}
+.hero h1 { font-size: clamp(26px, 6vw, 42px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 12px; }
+.hero h1 .grad { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--text-2); font-size: clamp(13px, 3.5vw, 16px); max-width: 640px; margin: 0 auto; }
 
-/* ============ SEARCH ============ */
-.search-wrap {
-  position: relative;
-  max-width: 640px;
-  margin: 22px auto 8px;
-  z-index: 50;
-}
-.search-box {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: var(--surface);
-  border: 1.5px solid var(--border-strong);
-  border-radius: 16px;
-  padding: 0 16px;
-  transition: all 0.25s ease;
-  box-shadow: var(--shadow-sm);
-}
-.search-box:focus-within {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 4px rgba(99,102,241,0.15), var(--shadow);
-}
+.search-wrap { position: relative; max-width: 640px; margin: 22px auto 8px; z-index: 50; }
+.search-box { position: relative; display: flex; align-items: center; background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 16px; padding: 0 16px; transition: all 0.25s ease; box-shadow: var(--shadow-sm); }
+.search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99,102,241,0.15), var(--shadow); }
 .search-box .s-icon { font-size: 18px; opacity: 0.6; }
-.search-box input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  padding: 15px 12px;
-  font-size: 15px;
-  color: var(--text);
-}
+.search-box input { flex: 1; background: transparent; border: none; outline: none; padding: 15px 12px; font-size: 15px; color: var(--text); }
 .search-box input::placeholder { color: var(--text-3); }
-.search-clear {
-  font-size: 18px;
-  opacity: 0.5;
-  padding: 6px;
-  border-radius: 8px;
-  display: none;
-}
+.search-clear { font-size: 18px; opacity: 0.5; padding: 6px; border-radius: 8px; display: none; }
 .search-clear:hover { opacity: 1; background: var(--surface-2); }
 .search-box input:not(:placeholder-shown) ~ .search-clear { display: block; }
 
-.search-results {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  right: 0;
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
-  max-height: 420px;
-  overflow-y: auto;
-  display: none;
-  z-index: 60;
-  animation: fadeSlide 0.2s ease;
-}
+.search-results { position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 16px; box-shadow: var(--shadow-lg); max-height: 420px; overflow-y: auto; display: none; z-index: 60; animation: fadeSlide 0.2s ease; }
 .search-results.active { display: block; }
-.search-result-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  cursor: pointer;
-  transition: background 0.15s ease;
-  border-bottom: 1px solid var(--border);
-}
+.search-result-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; cursor: pointer; transition: background 0.15s ease; border-bottom: 1px solid var(--border); }
 .search-result-item:last-child { border-bottom: none; }
 .search-result-item:hover, .search-result-item:active { background: var(--surface-hover); }
-.search-result-item .sr-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: var(--gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-}
+.search-result-item .sr-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
 .search-result-item .sr-info { flex: 1; min-width: 0; }
 .search-result-item .sr-name { font-weight: 600; font-size: 14.5px; margin-bottom: 2px; }
 .search-result-item .sr-cat { font-size: 12px; color: var(--text-3); }
 .no-results { padding: 24px; text-align: center; color: var(--text-3); font-size: 14px; }
 
-/* ============ STATS ============ */
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  max-width: 640px;
-  margin: 22px auto 32px;
-}
-.stat-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 16px 10px;
-  text-align: center;
-  transition: all 0.2s ease;
-}
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 640px; margin: 22px auto 32px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px 10px; text-align: center; transition: all 0.2s ease; }
 .stat-card:hover { transform: translateY(-2px); border-color: var(--border-strong); }
-.stat-num {
-  font-size: clamp(20px, 5vw, 26px);
-  font-weight: 800;
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
+.stat-num { font-size: clamp(20px, 5vw, 26px); font-weight: 800; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 .stat-label { font-size: 11.5px; color: var(--text-3); margin-top: 4px; font-weight: 500; }
 
-/* ============ SECTION TITLE ============ */
-.section-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 8px 0 14px;
-  gap: 12px;
-}
+.section-title { display: flex; align-items: center; justify-content: space-between; margin: 8px 0 14px; gap: 12px; }
 .section-title h2 { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
 .section-title .see-all { font-size: 13px; color: var(--primary); font-weight: 600; cursor: pointer; }
 
-/* ============ CATEGORY GRID ============ */
-.cat-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 28px;
-}
+.cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 28px; }
 @media (min-width: 480px) { .cat-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 720px) { .cat-grid { grid-template-columns: repeat(4, 1fr); } }
 @media (min-width: 1000px) { .cat-grid { grid-template-columns: repeat(5, 1fr); } }
-
-.cat-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 16px 12px;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 10px;
-  position: relative;
-  overflow: hidden;
-}
-.cat-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--gradient);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  z-index: 0;
-}
+.cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px 12px; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; overflow: hidden; }
+.cat-card::before { content: ''; position: absolute; inset: 0; background: var(--gradient); opacity: 0; transition: opacity 0.25s ease; z-index: 0; }
 .cat-card:hover { transform: translateY(-4px); border-color: var(--border-strong); box-shadow: var(--shadow); }
 .cat-card:hover::before { opacity: 0.06; }
 .cat-card:active { transform: scale(0.96); }
 .cat-card > * { position: relative; z-index: 1; }
-.cat-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  background: var(--gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  box-shadow: 0 6px 18px rgba(99,102,241,0.25);
-}
+.cat-icon { width: 52px; height: 52px; border-radius: 16px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 6px 18px rgba(99,102,241,0.25); }
 .cat-name { font-size: 13.5px; font-weight: 700; line-height: 1.25; }
 .cat-count { font-size: 11px; color: var(--text-3); }
 
-/* ============ TOOL GRID ============ */
-.tool-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: 24px;
-}
+.tool-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
 @media (min-width: 560px) { .tool-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 900px) { .tool-grid { grid-template-columns: repeat(4, 1fr); } }
-
-.tool-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 14px;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  min-height: 130px;
-  position: relative;
-}
+.tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 14px; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; gap: 10px; min-height: 130px; position: relative; }
 .tool-card:hover { transform: translateY(-3px); border-color: var(--border-strong); box-shadow: var(--shadow); }
 .tool-card:active { transform: scale(0.97); }
-.tool-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: var(--gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  box-shadow: 0 4px 14px rgba(99,102,241,0.25);
-}
+.tool-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 14px rgba(99,102,241,0.25); }
 .tool-name { font-size: 13.5px; font-weight: 700; line-height: 1.3; }
 .tool-desc { font-size: 11.5px; color: var(--text-3); line-height: 1.4; }
 
-/* ============ TOOL WORKSPACE ============ */
 .workspace { display: none; animation: fadeSlide 0.3s ease; }
 .workspace.active { display: block; }
-.tool-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 18px;
-  padding: 14px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-}
-.back-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-  transition: all 0.2s ease;
-}
+.tool-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; }
+.back-btn { width: 38px; height: 38px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; transition: all 0.2s ease; }
 .back-btn:hover { background: var(--surface-hover); }
 .back-btn:active { transform: scale(0.92); }
 .tool-header-info { flex: 1; min-width: 0; }
 .tool-header-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
 .tool-header-info p { font-size: 12px; color: var(--text-3); }
 
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 18px;
-  margin-bottom: 14px;
-}
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; margin-bottom: 14px; }
 .card-title { font-size: 14px; font-weight: 700; margin-bottom: 14px; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; }
 
-/* ============ FORM ELEMENTS ============ */
 .field { margin-bottom: 14px; }
-.field label {
-  display: block;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--text-2);
-  margin-bottom: 6px;
-}
-.field input, .field textarea, .field select {
-  width: 100%;
-  padding: 12px 14px;
-  background: var(--surface-2);
-  border: 1.5px solid var(--border-strong);
-  border-radius: 12px;
-  font-size: 14.5px;
-  transition: all 0.2s ease;
-  outline: none;
-  color: var(--text);
-}
-.field input:focus, .field textarea:focus, .field select:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
-}
+.field label { display: block; font-size: 12.5px; font-weight: 600; color: var(--text-2); margin-bottom: 6px; }
+.field input, .field textarea, .field select { width: 100%; padding: 12px 14px; background: var(--surface-2); border: 1.5px solid var(--border-strong); border-radius: 12px; font-size: 14.5px; transition: all 0.2s ease; outline: none; color: var(--text); }
+.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
 .field textarea { resize: vertical; min-height: 90px; font-family: inherit; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 @media (max-width: 420px) { .field-row { grid-template-columns: 1fr; } }
 
-/* ============ BUTTONS ============ */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 13px 20px;
-  border-radius: 12px;
-  font-size: 14.5px;
-  font-weight: 700;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  border: none;
-  user-select: none;
-}
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 20px; border-radius: 12px; font-size: 14.5px; font-weight: 700; transition: all 0.2s ease; cursor: pointer; border: none; user-select: none; }
 .btn:active { transform: scale(0.97); }
-.btn-primary {
-  background: var(--gradient);
-  color: white;
-  box-shadow: 0 6px 18px rgba(99,102,241,0.3);
-}
+.btn-primary { background: var(--gradient); color: white; box-shadow: 0 6px 18px rgba(99,102,241,0.3); }
 .btn-primary:hover { box-shadow: 0 8px 24px rgba(99,102,241,0.45); }
-.btn-secondary {
-  background: var(--surface-2);
-  color: var(--text);
-  border: 1px solid var(--border-strong);
-}
+.btn-secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border-strong); }
 .btn-secondary:hover { background: var(--surface-hover); }
 .btn-danger { background: var(--danger); color: white; }
 .btn-success { background: var(--success); color: white; }
@@ -520,49 +167,12 @@ a { color: inherit; text-decoration: none; }
 .btn-group { display: flex; flex-wrap: wrap; gap: 8px; }
 .btn-group .btn { flex: 1; min-width: 90px; }
 
-/* ============ RESULT BOX ============ */
-.result-box {
-  background: var(--surface);
-  border: 1.5px solid var(--border-strong);
-  border-radius: 16px;
-  padding: 20px;
-  margin-top: 16px;
-  display: none;
-  animation: fadeSlide 0.35s ease;
-}
+.result-box { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 16px; padding: 20px; margin-top: 16px; display: none; animation: fadeSlide 0.35s ease; }
 .result-box.active { display: block; }
-.result-box .result-title {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-3);
-  margin-bottom: 14px;
-  padding-bottom: 10px;
-  border-bottom: 1px dashed var(--border-strong);
-}
-.result-main {
-  font-size: clamp(24px, 6vw, 34px);
-  font-weight: 900;
-  background: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  line-height: 1.2;
-  margin-bottom: 4px;
-  word-break: break-word;
-}
+.result-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px dashed var(--border-strong); }
+.result-main { font-size: clamp(24px, 6vw, 34px); font-weight: 900; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; line-height: 1.2; margin-bottom: 4px; word-break: break-word; }
 .result-sub { font-size: 13px; color: var(--text-3); margin-bottom: 16px; }
-.result-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 14px;
-  gap: 12px;
-}
+.result-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; gap: 12px; }
 .result-row:last-child { border-bottom: none; }
 .result-row .k { color: var(--text-2); font-weight: 500; }
 .result-row .v { font-weight: 700; text-align: right; word-break: break-word; }
@@ -570,35 +180,12 @@ a { color: inherit; text-decoration: none; }
 .export-btns .btn { padding: 11px 6px; font-size: 12.5px; flex-direction: column; gap: 3px; }
 .export-btns .btn i { font-style: normal; font-size: 15px; }
 
-/* ============ ITEM LIST (Dukan/Invoice) ============ */
-.item-row {
-  display: grid;
-  grid-template-columns: 2fr 0.7fr 1fr auto;
-  gap: 6px;
-  margin-bottom: 8px;
-  align-items: center;
-}
+.item-row { display: grid; grid-template-columns: 2fr 0.7fr 1fr auto; gap: 6px; margin-bottom: 8px; align-items: center; }
 .item-row input { padding: 9px 10px; font-size: 13px; }
-.item-row .remove-btn {
-  width: 32px; height: 32px;
-  border-radius: 8px;
-  background: rgba(239,68,68,0.15);
-  color: var(--danger);
-  font-size: 16px;
-  display: flex; align-items: center; justify-content: center;
-}
-@media (max-width: 480px) {
-  .item-row { grid-template-columns: 1.6fr 0.6fr 0.9fr auto; }
-}
+.item-row .remove-btn { width: 32px; height: 32px; border-radius: 8px; background: rgba(239,68,68,0.15); color: var(--danger); font-size: 16px; display: flex; align-items: center; justify-content: center; }
+@media (max-width: 480px) { .item-row { grid-template-columns: 1.6fr 0.6fr 0.9fr auto; } }
 
-/* ============ BILL/PREVIEW ============ */
-.preview-box {
-  background: #ffffff;
-  color: #111827;
-  border-radius: 12px;
-  padding: 22px;
-  font-size: 13px;
-}
+.preview-box { background: #ffffff; color: #111827; border-radius: 12px; padding: 22px; font-size: 13px; }
 .preview-box h2 { font-size: 20px; margin-bottom: 4px; color: #111827; font-weight: 800; }
 .preview-box .muted { color: #6b7280; font-size: 12px; }
 .preview-box table { width: 100%; border-collapse: collapse; margin: 12px 0; }
@@ -609,187 +196,51 @@ a { color: inherit; text-decoration: none; }
 .preview-box .totals .line { padding: 3px 0; font-size: 13px; }
 .preview-box .totals .grand { font-size: 17px; font-weight: 900; color: #4f46e5; padding-top: 6px; border-top: 2px solid #4f46e5; margin-top: 6px; }
 
-/* ============ QR / BARCODE ============ */
-.qr-container, .barcode-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 12px;
-  min-height: 120px;
-  margin-top: 12px;
-}
+.qr-container, .barcode-container { display: flex; align-items: center; justify-content: center; padding: 20px; background: #ffffff; border-radius: 12px; min-height: 120px; margin-top: 12px; }
 .qr-container:empty, .barcode-container:empty { display: none; }
-.qr-container img, .qr-container canvas, .barcode-container svg, .barcode-container canvas {
-  max-width: 100%;
-  height: auto;
-}
-.barcode-container svg, .barcode-container canvas {
-  max-height: 90px !important;
-  width: auto !important;
-}
+.qr-container img, .qr-container canvas, .barcode-container svg, .barcode-container canvas { max-width: 100%; height: auto; }
+.barcode-container svg, .barcode-container canvas { max-height: 90px !important; width: auto !important; }
 
-/* ============ MODAL ============ */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.65);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  z-index: 200;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  animation: fadeIn 0.2s ease;
-}
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.2s ease; }
 .modal-overlay.active { display: flex; }
-.modal {
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: 20px;
-  padding: 24px;
-  width: 100%;
-  max-width: 440px;
-  max-height: 88vh;
-  overflow-y: auto;
-  box-shadow: var(--shadow-lg);
-  animation: modalIn 0.3s cubic-bezier(0.4,0,0.2,1);
-}
+.modal { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 20px; padding: 24px; width: 100%; max-width: 440px; max-height: 88vh; overflow-y: auto; box-shadow: var(--shadow-lg); animation: modalIn 0.3s cubic-bezier(0.4,0,0.2,1); }
 .modal.wide { max-width: 680px; }
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
-  gap: 12px;
-}
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; gap: 12px; }
 .modal-header h3 { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; }
-.modal-close {
-  width: 34px; height: 34px;
-  border-radius: 10px;
-  background: var(--surface-2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-}
+.modal-close { width: 34px; height: 34px; border-radius: 10px; background: var(--surface-2); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
 .modal-close:hover { background: var(--surface-hover); }
 
-/* ============ DRAWER ============ */
-.drawer-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 150;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
+.drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 150; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .drawer-overlay.active { opacity: 1; pointer-events: auto; }
-.drawer {
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
-  width: 280px;
-  max-width: 82vw;
-  background: var(--surface);
-  border-right: 1px solid var(--border-strong);
-  z-index: 160;
-  transform: translateX(-100%);
-  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-  overflow-y: auto;
-  padding: 20px 16px;
-  box-shadow: var(--shadow-lg);
-}
+.drawer { position: fixed; top: 0; left: 0; bottom: 0; width: 280px; max-width: 82vw; background: var(--surface); border-right: 1px solid var(--border-strong); z-index: 160; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); overflow-y: auto; padding: 20px 16px; box-shadow: var(--shadow-lg); }
 .drawer.active { transform: translateX(0); }
-.drawer-profile {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px;
-  background: var(--surface-2);
-  border-radius: 14px;
-  margin-bottom: 18px;
-}
-.drawer-avatar {
-  width: 46px; height: 46px;
-  border-radius: 50%;
-  background: var(--gradient);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  font-weight: 800;
-  color: white;
-  overflow: hidden;
-  flex-shrink: 0;
-}
+.drawer-profile { display: flex; align-items: center; gap: 12px; padding: 14px; background: var(--surface-2); border-radius: 14px; margin-bottom: 18px; cursor: pointer; }
+.drawer-avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: white; overflow: hidden; flex-shrink: 0; }
 .drawer-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .drawer-pname { font-weight: 700; font-size: 14.5px; }
 .drawer-pemail { font-size: 12px; color: var(--text-3); }
-.drawer-item {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 14px 12px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background 0.15s ease;
-  font-size: 14.5px;
-  font-weight: 500;
-}
+.drawer-item { display: flex; align-items: center; gap: 14px; padding: 14px 12px; border-radius: 12px; cursor: pointer; transition: background 0.15s ease; font-size: 14.5px; font-weight: 500; }
 .drawer-item:hover { background: var(--surface-2); }
 .drawer-item:active { background: var(--surface-hover); }
 .drawer-item .di-icon { font-size: 18px; width: 22px; text-align: center; }
 .drawer-divider { height: 1px; background: var(--border); margin: 10px 0; }
 
-/* ============ THEME PICKER ============ */
 .theme-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.theme-opt {
-  padding: 14px 8px;
-  border-radius: 12px;
-  background: var(--surface-2);
-  border: 2px solid var(--border);
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 12.5px;
-  font-weight: 600;
-}
+.theme-opt { padding: 14px 8px; border-radius: 12px; background: var(--surface-2); border: 2px solid var(--border); text-align: center; cursor: pointer; transition: all 0.2s ease; font-size: 12.5px; font-weight: 600; }
 .theme-opt:hover { border-color: var(--border-strong); }
 .theme-opt.active { border-color: var(--primary); background: rgba(99,102,241,0.1); }
 .theme-opt .to-icon { font-size: 22px; margin-bottom: 6px; display: block; }
 
-/* ============ LANGUAGE ============ */
 .lang-options { display: flex; flex-direction: column; gap: 8px; }
-.lang-opt {
-  padding: 12px 14px;
-  border-radius: 12px;
-  background: var(--surface-2);
-  border: 2px solid var(--border);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 14px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+.lang-opt { padding: 12px 14px; border-radius: 12px; background: var(--surface-2); border: 2px solid var(--border); cursor: pointer; transition: all 0.2s ease; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; }
 .lang-opt.active { border-color: var(--primary); background: rgba(99,102,241,0.1); }
 
-/* ============ STARS ============ */
 .stars { display: flex; gap: 6px; margin-top: 6px; }
 .star { font-size: 26px; cursor: pointer; opacity: 0.35; transition: all 0.15s ease; }
 .star.active { opacity: 1; transform: scale(1.1); }
 .star:hover { transform: scale(1.15); }
 
-/* ============ FEEDBACK HISTORY ============ */
-.fb-item {
-  padding: 12px;
-  background: var(--surface-2);
-  border-radius: 12px;
-  margin-bottom: 10px;
-  border-left: 3px solid var(--primary);
-  font-size: 13px;
-}
+.fb-item { padding: 12px; background: var(--surface-2); border-radius: 12px; margin-bottom: 10px; border-left: 3px solid var(--primary); font-size: 13px; }
 .fb-item .fb-head { display: flex; justify-content: space-between; margin-bottom: 6px; gap: 8px; }
 .fb-item .fb-type { font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--primary); color: white; font-weight: 700; }
 .fb-item .fb-date { font-size: 11px; color: var(--text-3); }
@@ -798,55 +249,21 @@ a { color: inherit; text-decoration: none; }
 .status-read { background: rgba(245,158,11,0.2); color: #f59e0b; }
 .status-replied { background: rgba(16,185,129,0.2); color: #10b981; }
 
-/* ============ TODO / NOTES ============ */
-.todo-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px;
-  background: var(--surface-2);
-  border-radius: 12px;
-  margin-bottom: 8px;
-}
+.todo-item { display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--surface-2); border-radius: 12px; margin-bottom: 8px; }
 .todo-item.done .todo-text { text-decoration: line-through; opacity: 0.5; }
-.todo-check {
-  width: 22px; height: 22px;
-  border-radius: 6px;
-  border: 2px solid var(--border-strong);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  font-size: 14px;
-  cursor: pointer;
-}
+.todo-check { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--border-strong); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 14px; cursor: pointer; }
 .todo-item.done .todo-check { background: var(--success); border-color: var(--success); color: white; }
 .todo-text { flex: 1; font-size: 14px; word-break: break-word; }
 .todo-actions { display: flex; gap: 4px; }
 .todo-actions button { width: 30px; height: 30px; border-radius: 8px; background: var(--surface); font-size: 14px; }
 
-.note-item {
-  padding: 12px;
-  background: var(--surface-2);
-  border-radius: 12px;
-  margin-bottom: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+.note-item { padding: 12px; background: var(--surface-2); border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s ease; }
 .note-item:hover { background: var(--surface-hover); }
 .note-item .note-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
 .note-item .note-preview { font-size: 12px; color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .note-item .note-date { font-size: 11px; color: var(--text-3); margin-top: 4px; }
 
-/* ============ KHATABOOK ============ */
-.txn-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px;
-  background: var(--surface-2);
-  border-radius: 12px;
-  margin-bottom: 8px;
-  gap: 10px;
-}
+.txn-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--surface-2); border-radius: 12px; margin-bottom: 8px; gap: 10px; }
 .txn-item .txn-info { flex: 1; min-width: 0; }
 .txn-item .txn-name { font-weight: 700; font-size: 14px; }
 .txn-item .txn-date { font-size: 11px; color: var(--text-3); }
@@ -855,13 +272,7 @@ a { color: inherit; text-decoration: none; }
 .txn-payment { color: var(--success); }
 .txn-item .txn-del { width: 30px; height: 30px; border-radius: 8px; background: var(--surface); color: var(--danger); font-size: 14px; }
 
-/* ============ GYM ============ */
-.gym-member {
-  padding: 14px;
-  background: var(--surface-2);
-  border-radius: 12px;
-  margin-bottom: 10px;
-}
+.gym-member { padding: 14px; background: var(--surface-2); border-radius: 12px; margin-bottom: 10px; }
 .gym-member .gm-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; gap: 8px; }
 .gym-member .gm-name { font-weight: 700; font-size: 15px; }
 .gym-member .gm-phone { font-size: 12px; color: var(--text-3); }
@@ -869,7 +280,6 @@ a { color: inherit; text-decoration: none; }
 .gym-member .gm-info div span { color: var(--text-3); }
 .gym-member .gm-actions { display: flex; gap: 6px; margin-top: 10px; }
 
-/* ============ UTILITY ============ */
 .hidden { display: none !important; }
 .text-center { text-align: center; }
 .mt-8 { margin-top: 8px; } .mt-12 { margin-top: 12px; } .mt-16 { margin-top: 16px; }
@@ -878,80 +288,32 @@ a { color: inherit; text-decoration: none; }
 .hint { font-size: 11.5px; color: var(--text-3); margin-top: 6px; }
 .flex { display: flex; } .gap-8 { gap: 8px; } .items-center { align-items: center; } .justify-between { justify-content: space-between; }
 .divider { height: 1px; background: var(--border); margin: 14px 0; }
-.tag {
-  display: inline-block;
-  padding: 3px 9px;
-  background: var(--surface-2);
-  border-radius: 6px;
-  font-size: 11px;
-  color: var(--text-2);
-  margin: 2px 2px 2px 0;
-}
-.chip {
-  padding: 6px 12px;
-  background: var(--surface-2);
-  border: 1px solid var(--border-strong);
-  border-radius: 20px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-weight: 600;
-}
+.tag { display: inline-block; padding: 3px 9px; background: var(--surface-2); border-radius: 6px; font-size: 11px; color: var(--text-2); margin: 2px 2px 2px 0; }
+.chip { padding: 6px 12px; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 20px; font-size: 12px; cursor: pointer; transition: all 0.2s ease; font-weight: 600; }
 .chip:hover { background: var(--surface-hover); }
 .chip.active { background: var(--gradient); color: white; border-color: transparent; }
 .chips-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-.toast {
-  position: fixed;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  color: var(--text);
-  padding: 12px 20px;
-  border-radius: 12px;
-  font-size: 13.5px;
-  font-weight: 600;
-  box-shadow: var(--shadow-lg);
-  z-index: 500;
-  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-  max-width: 90vw;
-  text-align: center;
-}
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--surface); border: 1px solid var(--border-strong); color: var(--text); padding: 12px 20px; border-radius: 12px; font-size: 13.5px; font-weight: 600; box-shadow: var(--shadow-lg); z-index: 500; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); max-width: 90vw; text-align: center; }
 .toast.show { transform: translateX(-50%) translateY(0); }
 .toast.success { border-color: var(--success); }
 .toast.error { border-color: var(--danger); }
 
-/* ============ ANIMATIONS ============ */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes modalIn { from { opacity: 0; transform: scale(0.92) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20%, 60% { transform: translateX(-8px); }
-  40%, 80% { transform: translateX(8px); }
-}
+@keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
 .shake { animation: shake 0.4s ease; }
 
-/* ============ PRINT ============ */
 @media print {
   body * { visibility: hidden !important; }
-  #printArea, #printArea * { visibility: visible !important; }
-  #printArea {
-    position: absolute !important;
-    left: 0; top: 0;
-    width: 100% !important;
-    background: white !important;
-    color: black !important;
-    padding: 20px !important;
-  }
+  #printArea, #printArea * { visibility: visible !important; color: #000 !important; background: #fff !important; }
+  #printArea { position: absolute !important; left: 0; top: 0; width: 100% !important; }
   .no-print, .header, .drawer, .drawer-overlay, .modal-overlay, .search-wrap, .export-btns { display: none !important; }
 }
 </style>
 </head>
 <body data-theme="dark">
 
-<!-- ============ HEADER ============ -->
 <header class="header">
   <div class="header-inner">
     <div class="logo" id="logo" title="Qunvero">
@@ -966,7 +328,6 @@ a { color: inherit; text-decoration: none; }
   </div>
 </header>
 
-<!-- ============ DRAWER ============ -->
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <aside class="drawer" id="drawer">
   <div class="drawer-profile" id="drawerProfile">
@@ -985,9 +346,7 @@ a { color: inherit; text-decoration: none; }
   <div class="drawer-item" data-menu="system"><span class="di-icon">🖥️</span> System</div>
 </aside>
 
-<!-- ============ MAIN ============ -->
 <main class="container">
-  <!-- HOME VIEW -->
   <section id="homeView">
     <div class="hero">
       <h1>Har Kaam Ka <span class="grad">Free Tool</span> 🚀</h1>
@@ -1021,7 +380,6 @@ a { color: inherit; text-decoration: none; }
     <div class="tool-grid" id="popularTools"></div>
   </section>
 
-  <!-- CATEGORY TOOLS VIEW -->
   <section id="categoryView" class="workspace">
     <div class="tool-header">
       <button class="back-btn" onclick="goHome()">←</button>
@@ -1033,7 +391,6 @@ a { color: inherit; text-decoration: none; }
     <div class="tool-grid" id="categoryTools"></div>
   </section>
 
-  <!-- ALL CATEGORIES VIEW -->
   <section id="allCatsView" class="workspace">
     <div class="tool-header">
       <button class="back-btn" onclick="goHome()">←</button>
@@ -1045,7 +402,6 @@ a { color: inherit; text-decoration: none; }
     <div class="cat-grid" id="allCatGrid"></div>
   </section>
 
-  <!-- TOOL WORKSPACE -->
   <section id="toolView" class="workspace">
     <div class="tool-header">
       <button class="back-btn" onclick="closeTool()">←</button>
@@ -1058,23 +414,18 @@ a { color: inherit; text-decoration: none; }
   </section>
 </main>
 
-<!-- ============ MODAL OVERLAY ============ -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal" id="modalContent"></div>
 </div>
 
-<!-- ============ TOAST ============ -->
 <div class="toast" id="toast"></div>
-
-<!-- ============ PRINT AREA ============ -->
 <div id="printArea" style="display:none"></div>
 
 <script>
 /* ============================================================
-   QUNVERO — COMPLETE APPLICATION JAVASCRIPT
+   QUNVERO — COMPLETE APPLICATION
    ============================================================ */
 
-/* ---------- TOOL DATABASE ---------- */
 const CATEGORIES = [
   { id:'shop', name:'Shop', icon:'🏪', desc:'Billing & shop tools', grad:'linear-gradient(135deg,#f59e0b,#ef4444)' },
   { id:'photo', name:'Photo Copy', icon:'📸', desc:'Image tools', grad:'linear-gradient(135deg,#ec4899,#8b5cf6)' },
@@ -1094,91 +445,54 @@ const CATEGORIES = [
 ];
 
 const TOOLS = [
-  // SHOP
   { id:'dukan-bill', name:'Dukan Bill Generator', cat:'shop', icon:'🧾', desc:'Create shop bills with items, GST & total', kw:['bill','dukan','shop','invoice','receipt','gst'] },
   { id:'khatabook', name:'Khatabook', cat:'shop', icon:'📒', desc:'Track customer credit & payments', kw:['khatabook','udhaar','credit','ledger','customer','payment'] },
   { id:'rate-calc', name:'Rate Calculator', cat:'shop', icon:'⚖️', desc:'Calculate price per kg/gram/quantity', kw:['rate','price','kg','gram','quantity','weight'] },
   { id:'discount-calc', name:'Discount Calculator', cat:'shop', icon:'🏷️', desc:'Calculate discount & final price', kw:['discount','offer','sale','mrp','price'] },
   { id:'gst-calc', name:'GST Calculator', cat:'shop', icon:'%', desc:'Calculate GST inclusive/exclusive', kw:['gst','tax','inclusive','exclusive','bill'] },
-
-  // PHOTO
   { id:'img-compress', name:'Image Compressor', cat:'photo', icon:'🗜️', desc:'Compress images without losing quality', kw:['compress','image','photo','reduce','size'] },
   { id:'img-convert', name:'Image Converter', cat:'photo', icon:'🔄', desc:'Convert JPG, PNG, WebP formats', kw:['convert','image','jpg','png','webp','format'] },
   { id:'img-resize', name:'Image Resizer', cat:'photo', icon:'📐', desc:'Resize images to custom dimensions', kw:['resize','image','width','height','dimension'] },
-
-  // BIJLI
   { id:'elec-bill', name:'Electricity Bill Calculator', cat:'bijli', icon:'💡', desc:'Calculate electricity usage & cost', kw:['electric','electricity','bill','unit','watt','bijli','energy'] },
   { id:'capacitor-calc', name:'Capacitor Calculator', cat:'bijli', icon:'🔋', desc:'Estimate capacitor value for motor', kw:['capacitor','motor','farad','microfarad','single phase'] },
   { id:'resistance-calc', name:"Resistance Calculator", cat:'bijli', icon:'⚡', desc:"Ohm's law V=IR calculator", kw:['resistance','ohm','voltage','current','v=ir'] },
-
-  // BUSINESS
   { id:'split-expense', name:'Split Expense', cat:'business', icon:'➗', desc:'Split bills among members', kw:['split','expense','share','divide','bill','members'] },
   { id:'profit-loss', name:'Profit/Loss Calculator', cat:'business', icon:'📊', desc:'Calculate profit/loss & percentage', kw:['profit','loss','cost','selling','margin'] },
   { id:'invoice-gen', name:'Invoice Generator', cat:'business', icon:'📋', desc:'Create professional invoices', kw:['invoice','bill','gst','business','receipt'] },
-
-  // PDF
   { id:'img-to-pdf', name:'Images to PDF', cat:'pdf', icon:'📄', desc:'Combine images into one PDF', kw:['pdf','image','jpg','png','combine','merge'] },
   { id:'qr-gen', name:'QR Code Generator', cat:'pdf', icon:'📱', desc:'Generate QR codes for text/URL', kw:['qr','qrcode','link','url','scan','generate'] },
   { id:'barcode-gen', name:'Barcode Generator', cat:'pdf', icon:'🎫', desc:'Generate barcodes for products', kw:['barcode','bar','code','product','scan','ean'] },
-
-  // TEXT
   { id:'word-count', name:'Word Counter', cat:'text', icon:'📝', desc:'Count words, characters & lines', kw:['word','count','character','letter','text','paragraph'] },
   { id:'case-convert', name:'Case Converter', cat:'text', icon:'🔠', desc:'Convert text to upper, lower, title case', kw:['case','upper','lower','title','sentence','convert'] },
-
-  // FINANCE
   { id:'sip-calc', name:'SIP Calculator', cat:'finance', icon:'📈', desc:'Calculate mutual fund SIP returns', kw:['sip','mutual fund','investment','return','monthly'] },
   { id:'fd-calc', name:'FD Calculator', cat:'finance', icon:'🏦', desc:'Fixed deposit maturity & interest', kw:['fd','fixed deposit','interest','bank','maturity'] },
   { id:'compound-calc', name:'Compound Interest', cat:'finance', icon:'💹', desc:'Calculate compound interest', kw:['compound','interest','ci','investment'] },
   { id:'currency-conv', name:'Currency Converter', cat:'finance', icon:'💱', desc:'Convert between currencies (static rates)', kw:['currency','convert','exchange','money','usd','inr'] },
-
-  // STUDENT
   { id:'age-calc', name:'Age Calculator', cat:'student', icon:'🎂', desc:'Calculate exact age & next birthday', kw:['age','birthday','dob','date of birth','years'] },
   { id:'cgpa-calc', name:'CGPA Calculator', cat:'student', icon:'🎓', desc:'Calculate weighted CGPA from grades', kw:['cgpa','gpa','grade','credit','marks'] },
   { id:'exam-count', name:'Exam Countdown', cat:'student', icon:'📅', desc:'Days remaining until exam', kw:['exam','countdown','days','date','test'] },
-
-  // HEALTH
   { id:'bmi-calc', name:'BMI Calculator', cat:'health', icon:'⚖️', desc:'Calculate Body Mass Index', kw:['bmi','body','mass','index','weight','height'] },
   { id:'calories-calc', name:'Calories Calculator', cat:'health', icon:'🔥', desc:'Daily calorie needs (BMR/TDEE)', kw:['calorie','calories','bmr','tdee','diet','health'] },
-
-  // DATE
   { id:'date-diff', name:'Date Difference', cat:'date', icon:'📆', desc:'Calculate days/hours between dates', kw:['date','difference','between','days','time','duration'] },
   { id:'date-between', name:'Date Between', cat:'date', icon:'🗓️', desc:'Days between two dates', kw:['date','between','days','count','total'] },
-
-  // MATH
   { id:'basic-calc', name:'Basic Calculator', cat:'math', icon:'🧮', desc:'Scientific basic calculator', kw:['calculator','basic','math','calculate','arithmetic'] },
   { id:'percent-calc', name:'Percentage Calculator', cat:'math', icon:'％', desc:'X% of Y, increase, decrease', kw:['percentage','percent','increase','decrease','of'] },
-
-  // UTILITY
   { id:'todo-list', name:'To-Do List', cat:'utility', icon:'✅', desc:'Manage daily tasks', kw:['todo','task','list','checklist','reminder'] },
   { id:'notes-app', name:'Notes', cat:'utility', icon:'📔', desc:'Save notes locally (200k chars)', kw:['notes','note','memo','write','save'] },
-
-  // GYM
   { id:'gym-manager', name:'Gym Manager', cat:'gym', icon:'🏋️', desc:'Manage members & fees', kw:['gym','member','fee','fitness','renewal','attendance'] },
-
-  // SOCIAL
   { id:'bio-gen', name:'Bio Generator', cat:'social', icon:'✨', desc:'Generate social media bio ideas', kw:['bio','instagram','social','profile','about','description'] },
   { id:'hashtag-gen', name:'Hashtag Generator', cat:'social', icon:'#️⃣', desc:'Generate relevant hashtags', kw:['hashtag','tags','instagram','social','trending'] },
-
-  // CONVERTER
   { id:'unit-conv', name:'Unit Converter', cat:'converter', icon:'🔀', desc:'Length, weight, temp, area', kw:['unit','convert','length','weight','temperature','area'] }
 ];
 
 const POPULAR_IDS = ['qr-gen','barcode-gen','gst-calc','age-calc','sip-calc','dukan-bill','img-compress','bmi-calc'];
 
-/* ---------- STORAGE HELPERS ---------- */
 const DB = {
-  get(k, def) {
-    try { const v = localStorage.getItem('qunvero_'+k); return v ? JSON.parse(v) : def; }
-    catch(e) { return def; }
-  },
-  set(k, v) {
-    try { localStorage.setItem('qunvero_'+k, JSON.stringify(v)); return true; }
-    catch(e) { toast('Storage full or unavailable', 'error'); return false; }
-  },
+  get(k, def) { try { const v = localStorage.getItem('qunvero_'+k); return v ? JSON.parse(v) : def; } catch(e) { return def; } },
+  set(k, v) { try { localStorage.setItem('qunvero_'+k, JSON.stringify(v)); return true; } catch(e) { toast('Storage full', 'error'); return false; } },
   del(k) { try { localStorage.removeItem('qunvero_'+k); } catch(e){} }
 };
 
-/* ---------- TOAST ---------- */
 let toastTimer;
 function toast(msg, type='') {
   const el = document.getElementById('toast');
@@ -1188,50 +502,34 @@ function toast(msg, type='') {
   toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
 }
 
-/* ---------- ESCAPE HTML ---------- */
 function esc(s) {
   return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
+function fmtMoney(n) { return '₹' + (Number(n)||0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+function fmtNum(n, d=2) { return (Number(n)||0).toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: d }); }
 
-/* ---------- FORMAT HELPERS ---------- */
-function fmtMoney(n) {
-  const num = Number(n) || 0;
-  return '₹' + num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-function fmtNum(n, d=2) {
-  const num = Number(n) || 0;
-  return num.toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: d });
-}
-
-/* ---------- THEME ---------- */
-function applyTheme(theme) {
-  document.body.setAttribute('data-theme', theme);
-  DB.set('theme', theme);
-}
+function applyTheme(theme) { document.body.setAttribute('data-theme', theme); DB.set('theme', theme); }
 function cycleTheme() {
   const cur = DB.get('theme', 'dark');
   const order = ['dark', 'reading', 'light'];
   const next = order[(order.indexOf(cur) + 1) % order.length];
   applyTheme(next);
-  const names = { dark: 'Dark Mode', reading: 'Reading Mode', light: 'Normal Mode' };
-  toast(names[next] + ' activated');
+  toast({ dark: 'Dark Mode', reading: 'Reading Mode', light: 'Normal Mode' }[next] + ' activated');
 }
 
-/* ---------- VIEW MANAGEMENT ---------- */
 function showView(id) {
   document.querySelectorAll('#homeView, #categoryView, #allCatsView, #toolView').forEach(v => v.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo(0, 0);
 }
 function goHome() {
   document.getElementById('categoryView').classList.remove('active');
   document.getElementById('allCatsView').classList.remove('active');
   document.getElementById('toolView').classList.remove('active');
   document.getElementById('homeView').classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo(0, 0);
 }
 
-/* ---------- RENDER CATEGORIES ---------- */
 function renderCategories() {
   const grid = document.getElementById('catGrid');
   const allGrid = document.getElementById('allCatGrid');
@@ -1248,7 +546,6 @@ function renderCategories() {
   if (allGrid) allGrid.innerHTML = html;
 }
 
-/* ---------- RENDER POPULAR TOOLS ---------- */
 function renderPopular() {
   const grid = document.getElementById('popularTools');
   const popular = POPULAR_IDS.map(id => TOOLS.find(t => t.id === id)).filter(Boolean);
@@ -1264,7 +561,6 @@ function toolCardHTML(t) {
   </div>`;
 }
 
-/* ---------- OPEN CATEGORY ---------- */
 function openCategory(catId) {
   const cat = CATEGORIES.find(c => c.id === catId);
   if (!cat) return;
@@ -1274,16 +570,15 @@ function openCategory(catId) {
   document.getElementById('categoryTools').innerHTML = tools.map(t => toolCardHTML(t)).join('');
   document.getElementById('homeView').classList.remove('active');
   document.getElementById('categoryView').classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo(0, 0);
 }
 
 function openAllCategories() {
   document.getElementById('homeView').classList.remove('active');
   document.getElementById('allCatsView').classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo(0, 0);
 }
 
-/* ---------- SEARCH ---------- */
 function searchTools(query) {
   const q = query.toLowerCase().trim();
   if (!q) return [];
@@ -1302,7 +597,6 @@ function searchTools(query) {
     else if (kws.some(k => k.includes(q))) score += 35;
     if (catName.includes(q)) score += 30;
     if (desc.includes(q)) score += 20;
-    // Multi-word
     const qParts = q.split(/\s+/);
     if (qParts.length > 1) {
       const all = (name + ' ' + desc + ' ' + kws.join(' ') + ' ' + catName);
@@ -1336,7 +630,7 @@ function handleSearch() {
   resultsEl.classList.add('active');
 }
 
-/* ---------- OPEN TOOL ---------- */
+/* ---------- OPEN TOOL (FIXED: instant scroll top, no leftover scroll) ---------- */
 function openTool(id) {
   const tool = TOOLS.find(t => t.id === id);
   if (!tool) { toast('Tool not found', 'error'); return; }
@@ -1351,58 +645,102 @@ function openTool(id) {
   document.getElementById('categoryView').classList.remove('active');
   document.getElementById('allCatsView').classList.remove('active');
   document.getElementById('toolView').classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  // Close search
-  document.getElementById('searchResults').classList.remove('active');
+  const sr = document.getElementById('searchResults');
+  sr.classList.remove('active'); sr.innerHTML = '';
   document.getElementById('searchInput').value = '';
+  document.getElementById('searchInput').blur();
+  window.scrollTo(0, 0);
 }
 
 function closeTool() {
   document.getElementById('toolView').classList.remove('active');
   document.getElementById('homeView').classList.add('active');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo(0, 0);
 }
 
-/* ---------- RESULT / EXPORT SYSTEM ---------- */
-function getResultBox(id) { return document.getElementById(id); }
-
-function showResultBox(id) {
-  const el = document.getElementById(id);
-  if (el) { el.classList.add('active'); el.scrollIntoView({ behavior:'smooth', block:'start' }); }
-}
-
+/* ---------- PRINT (FIXED: heading + tool name, dark theme safe) ---------- */
 function printResult(boxId, title) {
   const src = document.getElementById(boxId);
   if (!src) { toast('Nothing to print', 'error'); return; }
+  const toolTitle = document.getElementById('toolTitle')?.textContent || 'Qunvero';
+  const clone = src.cloneNode(true);
+  clone.querySelectorAll('.no-export, .export-btns, .no-print').forEach(n => n.remove());
   const area = document.getElementById('printArea');
-  area.innerHTML = src.innerHTML;
+  area.innerHTML = `
+    <div style="font-family:Arial,sans-serif;color:#111;background:#fff;padding:20px;max-width:800px;margin:0 auto">
+      <div style="border-bottom:3px solid #6366f1;padding-bottom:12px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:22px;font-weight:900;color:#6366f1">⚡ Qunvero</div>
+        <div style="font-size:12px;color:#666">${new Date().toLocaleString('en-IN')}</div>
+      </div>
+      <h1 style="font-size:24px;font-weight:900;color:#111;margin:0 0 20px 0;padding-bottom:10px;border-bottom:2px solid #e5e7eb">${toolTitle}</h1>
+      <div style="color:#111">${clone.innerHTML}</div>
+      <div style="margin-top:30px;padding-top:14px;border-top:1px solid #e5e7eb;text-align:center;font-size:11px;color:#888">
+        Generated by Qunvero — Har Kaam Ka Free Tool 🚀
+      </div>
+    </div>
+  `;
   area.style.display = 'block';
-  document.title = title || 'Qunvero';
+  document.title = toolTitle || 'Qunvero';
+  const style = document.createElement('style');
+  style.id = 'printStyleFix';
+  style.textContent = `
+    @media print {
+      body * { visibility: hidden !important; }
+      #printArea, #printArea * { visibility: visible !important; color: #000 !important; background: #fff !important; }
+      #printArea { position: absolute !important; left: 0; top: 0; width: 100% !important; }
+      #printArea .result-main { -webkit-text-fill-color: #4f46e5 !important; color: #4f46e5 !important; }
+      #printArea .preview-box { color: #000 !important; background: #fff !important; }
+    }
+  `;
+  document.head.appendChild(style);
   setTimeout(() => {
     window.print();
-    setTimeout(() => { area.style.display = 'none'; area.innerHTML = ''; }, 500);
-  }, 100);
+    setTimeout(() => {
+      area.style.display = 'none';
+      area.innerHTML = '';
+      document.getElementById('printStyleFix')?.remove();
+    }, 800);
+  }, 150);
 }
 
+/* ---------- PDF (FIXED: clean clone, no buttons, ultra HD) ---------- */
 function downloadPDF(boxId, filename) {
   const el = document.getElementById(boxId);
   if (!el) { toast('Nothing to export', 'error'); return; }
   toast('Generating PDF...');
-  // Clone to a fresh container for consistent rendering
   const clone = el.cloneNode(true);
-  clone.querySelectorAll('.no-export').forEach(n => n.remove());
+  clone.querySelectorAll('.no-export, .export-btns, .no-print').forEach(n => n.remove());
+  clone.style.background = '#ffffff';
+  clone.style.color = '#111111';
+  clone.style.padding = '20px';
+  clone.style.width = '750px';
+  clone.style.border = 'none';
+  clone.style.boxShadow = 'none';
+  clone.style.borderRadius = '0';
   const wrap = document.createElement('div');
-  wrap.style.cssText = 'position:fixed;left:-9999px;top:0;width:800px;background:#fff;color:#111;padding:24px;border-radius:0;font-family:Inter,Arial,sans-serif;';
+  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;';
   wrap.appendChild(clone);
   document.body.appendChild(wrap);
-
+  const toolTitle = document.getElementById('toolTitle')?.textContent || 'Qunvero';
+  const headerHTML = `
+    <div style="border-bottom:3px solid #6366f1;padding-bottom:12px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;font-family:Arial,sans-serif">
+      <div style="font-size:22px;font-weight:900;color:#6366f1">⚡ Qunvero</div>
+      <div style="font-size:12px;color:#666">${new Date().toLocaleString('en-IN')}</div>
+    </div>
+    <h1 style="font-size:24px;font-weight:900;color:#111;margin:0 0 20px 0;padding-bottom:10px;border-bottom:2px solid #e5e7eb;font-family:Arial,sans-serif">${toolTitle}</h1>
+  `;
+  clone.insertAdjacentHTML('afterbegin', headerHTML);
   const opt = {
-    margin: [8, 8, 8, 8],
+    margin: [10, 10, 10, 10],
     filename: (filename || 'qunvero-export') + '.pdf',
-    image: { type: 'jpeg', quality: 0.96 },
-    html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false, windowWidth: 800 },
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: {
+      scale: 3, useCORS: true, backgroundColor: '#ffffff', logging: false,
+      windowWidth: clone.scrollWidth, windowHeight: clone.scrollHeight,
+      scrollX: 0, scrollY: 0
+    },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    pagebreak: { mode: ['css', 'legacy'] }
   };
   html2pdf().set(opt).from(clone).save()
     .then(() => { toast('PDF downloaded', 'success'); })
@@ -1410,34 +748,57 @@ function downloadPDF(boxId, filename) {
     .finally(() => { document.body.removeChild(wrap); });
 }
 
+/* ---------- IMAGE (FIXED: ultra HD scale:4, exact size, no extra UI) ---------- */
 function downloadImage(boxId, filename) {
   const el = document.getElementById(boxId);
   if (!el) { toast('Nothing to export', 'error'); return; }
-  toast('Generating image...');
-  html2canvas(el, {
-    scale: 3,
-    useCORS: true,
-    backgroundColor: '#ffffff',
-    logging: false,
-    windowWidth: el.scrollWidth + 40
-  }).then(canvas => {
-    const link = document.createElement('a');
-    link.download = (filename || 'qunvero-export') + '.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-    toast('Image downloaded', 'success');
-  }).catch(err => { console.error(err); toast('Image export failed', 'error'); });
+  toast('Generating HD image...');
+  const clone = el.cloneNode(true);
+  clone.querySelectorAll('.no-export, .export-btns, .no-print').forEach(n => n.remove());
+  const toolTitle = document.getElementById('toolTitle')?.textContent || 'Qunvero';
+  const headerHTML = `
+    <div style="border-bottom:3px solid #6366f1;padding-bottom:12px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;font-family:Arial,sans-serif;color:#111">
+      <div style="font-size:22px;font-weight:900;color:#6366f1">⚡ Qunvero</div>
+      <div style="font-size:12px;color:#666">${new Date().toLocaleString('en-IN')}</div>
+    </div>
+    <h1 style="font-size:24px;font-weight:900;color:#111;margin:0 0 20px 0;padding-bottom:10px;border-bottom:2px solid #e5e7eb;font-family:Arial,sans-serif">${toolTitle}</h1>
+  `;
+  clone.insertAdjacentHTML('afterbegin', headerHTML);
+  clone.style.background = '#ffffff';
+  clone.style.color = '#111111';
+  clone.style.padding = '20px';
+  clone.style.border = 'none';
+  clone.style.boxShadow = 'none';
+  clone.style.borderRadius = '0';
+  const wrap = document.createElement('div');
+  wrap.style.cssText = `position:fixed;left:-99999px;top:0;width:${el.offsetWidth}px;background:#ffffff;padding:0;margin:0;`;
+  wrap.appendChild(clone);
+  document.body.appendChild(wrap);
+  setTimeout(() => {
+    html2canvas(clone, {
+      scale: 4, useCORS: true, backgroundColor: '#ffffff', logging: false,
+      width: clone.scrollWidth, height: clone.scrollHeight,
+      windowWidth: clone.scrollWidth, windowHeight: clone.scrollHeight,
+      scrollX: 0, scrollY: 0
+    }).then(canvas => {
+      const link = document.createElement('a');
+      link.download = (filename || 'qunvero-export') + '.png';
+      link.href = canvas.toDataURL('image/png', 1.0);
+      link.click();
+      toast('HD Image downloaded', 'success');
+    }).catch(err => { console.error(err); toast('Image export failed', 'error'); })
+    .finally(() => { document.body.removeChild(wrap); });
+  }, 50);
 }
 
 function exportButtons(boxId, filename) {
-  return `<div class="export-btns no-print">
+  return `<div class="export-btns no-export no-print">
     <button class="btn btn-secondary" onclick="printResult('${boxId}', 'Qunvero')"><i>🖨️</i>Print</button>
     <button class="btn btn-secondary" onclick="downloadPDF('${boxId}', '${filename}')"><i>📄</i>PDF</button>
     <button class="btn btn-secondary" onclick="downloadImage('${boxId}', '${filename}')"><i>🖼️</i>Image</button>
   </div>`;
 }
 
-/* ---------- VALIDATION ---------- */
 function numVal(id, name, opts={}) {
   const el = document.getElementById(id);
   if (!el) return null;
@@ -1449,14 +810,7 @@ function numVal(id, name, opts={}) {
   if (opts.max != null && n > opts.max) { toast((name||'Field') + ' must be ≤ ' + opts.max, 'error'); return null; }
   return n;
 }
-function strVal(id, name, opts={}) {
-  const el = document.getElementById(id);
-  if (!el) return null;
-  const v = el.value.trim();
-  if (!v && !opts.optional) { toast((name||'Field') + ' is required', 'error'); el.focus(); return null; }
-  return v;
-}
-function dateVal(id, name, opts={}) {
+function dateVal(id, name) {
   const el = document.getElementById(id);
   if (!el) return null;
   const v = el.value;
@@ -1466,7 +820,6 @@ function dateVal(id, name, opts={}) {
   return d;
 }
 
-/* ---------- MODAL SYSTEM ---------- */
 function openModal(html, opts={}) {
   const overlay = document.getElementById('modalOverlay');
   const content = document.getElementById('modalContent');
@@ -1474,14 +827,9 @@ function openModal(html, opts={}) {
   content.innerHTML = html;
   overlay.classList.add('active');
 }
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('active');
-}
-document.getElementById('modalOverlay').addEventListener('click', e => {
-  if (e.target.id === 'modalOverlay') closeModal();
-});
+function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
+document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target.id === 'modalOverlay') closeModal(); });
 
-/* ---------- DRAWER ---------- */
 function openDrawer() {
   document.getElementById('drawer').classList.add('active');
   document.getElementById('drawerOverlay').classList.add('active');
@@ -1502,13 +850,9 @@ function refreshDrawerProfile() {
   else av.textContent = (p.name ? p.name[0].toUpperCase() : 'U');
 }
 
-/* ---------- ABOUT ---------- */
 function openAbout() {
   openModal(`
-    <div class="modal-header">
-      <h3>ℹ️ About Qunvero</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
+    <div class="modal-header"><h3>ℹ️ About Qunvero</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div style="font-size:14px;line-height:1.7;color:var(--text-2)">
       <p style="margin-bottom:10px"><strong style="color:var(--text)">Qunvero</strong> is your all-in-one free tool hub for shop, business, students, finance, health and daily life.</p>
       <ul style="padding-left:18px;margin-bottom:12px">
@@ -1524,32 +868,14 @@ function openAbout() {
   `);
 }
 
-/* ---------- PROFILE ---------- */
 function openProfile() {
   const p = DB.get('profile', { name: '', email: '', photo: '' });
   openModal(`
-    <div class="modal-header">
-      <h3>👤 Profile</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="field">
-      <label>Name</label>
-      <input type="text" id="profName" value="${esc(p.name)}" placeholder="Your name" maxlength="60" />
-    </div>
-    <div class="field">
-      <label>Email</label>
-      <input type="email" id="profEmail" value="${esc(p.email)}" placeholder="you@example.com" maxlength="100" />
-    </div>
-    <div class="field">
-      <label>Photo (optional)</label>
-      <input type="file" id="profPhoto" accept="image/*" />
-      <div class="hint">Max 2MB. Stored locally in your browser.</div>
-      <div id="profPhotoPreview" style="margin-top:10px">${p.photo ? `<img src="${p.photo}" style="width:64px;height:64px;border-radius:50%;object-fit:cover" />` : ''}</div>
-    </div>
-    <div class="btn-group mt-16">
-      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="saveProfile()">Save Profile</button>
-    </div>
+    <div class="modal-header"><h3>👤 Profile</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="field"><label>Name</label><input type="text" id="profName" value="${esc(p.name)}" placeholder="Your name" maxlength="60" /></div>
+    <div class="field"><label>Email</label><input type="email" id="profEmail" value="${esc(p.email)}" placeholder="you@example.com" maxlength="100" /></div>
+    <div class="field"><label>Photo (optional)</label><input type="file" id="profPhoto" accept="image/*" /><div class="hint">Max 2MB. Stored locally.</div><div id="profPhotoPreview" style="margin-top:10px">${p.photo ? `<img src="${p.photo}" style="width:64px;height:64px;border-radius:50%;object-fit:cover" />` : ''}</div></div>
+    <div class="btn-group mt-16"><button class="btn btn-secondary" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="saveProfile()">Save Profile</button></div>
   `);
   document.getElementById('profPhoto').addEventListener('change', e => {
     const f = e.target.files[0];
@@ -1576,15 +902,11 @@ function saveProfile() {
   toast('Profile saved', 'success');
 }
 
-/* ---------- SETTINGS ---------- */
 function openSettings() {
   const theme = DB.get('theme', 'dark');
   const lang = DB.get('lang', 'en');
   openModal(`
-    <div class="modal-header">
-      <h3>⚙️ Settings</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
+    <div class="modal-header"><h3>⚙️ Settings</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div class="card-title">Theme</div>
     <div class="theme-options mb-16">
       <div class="theme-opt ${theme==='dark'?'active':''}" onclick="setTheme('dark')"><span class="to-icon">🌙</span>Dark</div>
@@ -1602,75 +924,28 @@ function openSettings() {
 }
 function setTheme(t) {
   applyTheme(t);
-  const opts = document.querySelectorAll('.theme-opt');
-  opts.forEach(o => o.classList.remove('active'));
+  document.querySelectorAll('.theme-opt').forEach(o => o.classList.remove('active'));
   document.querySelector(`.theme-opt[onclick*="${t}"]`)?.classList.add('active');
   toast('Theme applied');
 }
 function setLang(l) {
   DB.set('lang', l);
-  const opts = document.querySelectorAll('.lang-opt');
-  opts.forEach(o => o.classList.remove('active'));
+  document.querySelectorAll('.lang-opt').forEach(o => o.classList.remove('active'));
   document.querySelector(`.lang-opt[onclick*="${l}"]`)?.classList.add('active');
   toast('Language set: ' + l);
 }
 
-/* ---------- FEEDBACK ---------- */
 function openFeedback() {
   const history = DB.get('feedback', []);
   openModal(`
-    <div class="modal-header">
-      <h3>💬 Send Feedback</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="field">
-      <label>Name</label>
-      <input type="text" id="fbName" placeholder="Your name" maxlength="60" />
-    </div>
-    <div class="field">
-      <label>Type</label>
-      <select id="fbType">
-        <option value="Problem">Problem</option>
-        <option value="Appreciation">Appreciation</option>
-      </select>
-    </div>
-    <div class="field">
-      <label>Description <span class="muted">(max 3000 chars / ~500 words)</span></label>
-      <textarea id="fbDesc" maxlength="3000" placeholder="Tell us more..."></textarea>
-      <div class="hint"><span id="fbCount">0</span> / 3000</div>
-    </div>
-    <div class="field">
-      <label>Rating</label>
-      <div class="stars" id="fbStars">
-        <span class="star" data-v="1">★</span>
-        <span class="star" data-v="2">★</span>
-        <span class="star" data-v="3">★</span>
-        <span class="star" data-v="4">★</span>
-        <span class="star" data-v="5">★</span>
-      </div>
-    </div>
-    <div class="btn-group mt-16">
-      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" id="fbSubmit">Submit</button>
-    </div>
-    ${history.length ? `
-    <div class="divider"></div>
-    <div class="card-title">Your Feedback History</div>
-    <div id="fbHistory">${history.slice().reverse().slice(0,10).map(h => `
-      <div class="fb-item">
-        <div class="fb-head">
-          <span class="fb-type">${esc(h.type)}</span>
-          <span class="fb-date">${esc(h.date)}</span>
-        </div>
-        <div style="margin-bottom:4px">${esc((h.desc||'').slice(0,120))}${(h.desc||'').length>120?'...':''}</div>
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <span style="color:#f59e0b">${'★'.repeat(h.rating||0)}${'☆'.repeat(5-(h.rating||0))}</span>
-          <span class="fb-status status-${(h.status||'new').toLowerCase()}">${esc(h.status||'New')}</span>
-        </div>
-      </div>
-    `).join('')}</div>` : ''}
+    <div class="modal-header"><h3>💬 Send Feedback</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="field"><label>Name</label><input type="text" id="fbName" placeholder="Your name" maxlength="60" /></div>
+    <div class="field"><label>Type</label><select id="fbType"><option value="Problem">Problem</option><option value="Appreciation">Appreciation</option></select></div>
+    <div class="field"><label>Description <span class="muted">(max 3000 chars / ~500 words)</span></label><textarea id="fbDesc" maxlength="3000" placeholder="Tell us more..."></textarea><div class="hint"><span id="fbCount">0</span> / 3000</div></div>
+    <div class="field"><label>Rating</label><div class="stars" id="fbStars"><span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span></div></div>
+    <div class="btn-group mt-16"><button class="btn btn-secondary" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="fbSubmit">Submit</button></div>
+    ${history.length ? `<div class="divider"></div><div class="card-title">Your Feedback History</div><div>${history.slice().reverse().slice(0,10).map(h => `<div class="fb-item"><div class="fb-head"><span class="fb-type">${esc(h.type)}</span><span class="fb-date">${esc(h.date)}</span></div><div style="margin-bottom:4px">${esc((h.desc||'').slice(0,120))}${(h.desc||'').length>120?'...':''}</div><div style="display:flex;justify-content:space-between;align-items:center"><span style="color:#f59e0b">${'★'.repeat(h.rating||0)}${'☆'.repeat(5-(h.rating||0))}</span><span class="fb-status status-${(h.status||'new').toLowerCase()}">${esc(h.status||'New')}</span></div></div>`).join('')}</div>` : ''}
   `);
-  // Stars
   let rating = 0;
   document.querySelectorAll('#fbStars .star').forEach(s => {
     s.addEventListener('click', () => {
@@ -1678,11 +953,7 @@ function openFeedback() {
       document.querySelectorAll('#fbStars .star').forEach(x => x.classList.toggle('active', Number(x.dataset.v) <= rating));
     });
   });
-  // Char count
-  document.getElementById('fbDesc').addEventListener('input', e => {
-    document.getElementById('fbCount').textContent = e.target.value.length;
-  });
-  // Submit
+  document.getElementById('fbDesc').addEventListener('input', e => { document.getElementById('fbCount').textContent = e.target.value.length; });
   document.getElementById('fbSubmit').addEventListener('click', () => submitFeedback(rating));
 }
 
@@ -1695,77 +966,37 @@ async function submitFeedback(rating) {
   if (rating < 1) { toast('Please select a rating', 'error'); return; }
   const words = desc.split(/\s+/).filter(Boolean).length;
   if (words > 500) { toast('Too many words (max ~500)', 'error'); return; }
-
   const btn = document.getElementById('fbSubmit');
-  btn.disabled = true;
-  btn.textContent = 'Sending...';
-
+  btn.disabled = true; btn.textContent = 'Sending...';
   const history = DB.get('feedback', []);
-  const entry = {
-    id: Date.now(),
-    name, type, desc, rating,
-    date: new Date().toLocaleString('en-IN'),
-    status: 'New'
-  };
-
+  const entry = { id: Date.now(), name, type, desc, rating, date: new Date().toLocaleString('en-IN'), status: 'New' };
   try {
     const fd = new FormData();
-    fd.append('name', name);
-    fd.append('type', type);
-    fd.append('description', desc);
-    fd.append('rating', String(rating));
-    fd.append('_subject', `Qunvero Feedback: ${type}`);
-    await fetch('https://formspree.io/f/xyezkwww', {
-      method: 'POST',
-      body: fd,
-      headers: { 'Accept': 'application/json' }
-    });
-    entry.status = 'New';
-  } catch (e) {
-    console.warn('Formspree failed, saving locally', e);
-    entry.status = 'New';
-  }
+    fd.append('name', name); fd.append('type', type); fd.append('description', desc);
+    fd.append('rating', String(rating)); fd.append('_subject', `Qunvero Feedback: ${type}`);
+    await fetch('https://formspree.io/f/xyezkwww', { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
+  } catch (e) { console.warn('Formspree failed, saving locally', e); }
   history.push(entry);
   DB.set('feedback', history);
   closeModal();
   toast('Feedback submitted. Thank you!', 'success');
 }
 
-/* ---------- ADMIN ---------- */
 function openAdminLogin() {
   openModal(`
-    <div class="modal-header">
-      <h3>🔐 Admin Login</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="field">
-      <label>Password</label>
-      <div style="position:relative">
-        <input type="password" id="adminPass" placeholder="Enter admin password" style="padding-right:44px" />
-        <button type="button" id="adminToggle" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;font-size:18px;padding:6px">👁️</button>
-      </div>
-    </div>
+    <div class="modal-header"><h3>🔐 Admin Login</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="field"><label>Password</label><div style="position:relative"><input type="password" id="adminPass" placeholder="Enter admin password" style="padding-right:44px" /><button type="button" id="adminToggle" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;font-size:18px;padding:6px">👁️</button></div></div>
     <div id="adminErr" class="hidden" style="color:var(--danger);font-size:13px;margin-bottom:10px">Incorrect password. Try again.</div>
-    <div class="btn-group">
-      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" id="adminLoginBtn">Login</button>
-    </div>
-    <p class="hint mt-12">Note: This is a client-side login. Admin password protects the UI only.</p>
+    <div class="btn-group"><button class="btn btn-secondary" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="adminLoginBtn">Login</button></div>
+    <p class="hint mt-12">Note: Client-side login. Admin password protects the UI only.</p>
   `);
   const passEl = document.getElementById('adminPass');
-  const toggle = document.getElementById('adminToggle');
-  toggle.addEventListener('click', () => {
-    passEl.type = passEl.type === 'password' ? 'text' : 'password';
-  });
+  document.getElementById('adminToggle').addEventListener('click', () => { passEl.type = passEl.type === 'password' ? 'text' : 'password'; });
   document.getElementById('adminLoginBtn').addEventListener('click', () => {
-    const val = passEl.value;
-    if (val === 'Pass@word!2') {
-      closeModal();
-      setTimeout(openAdminPanel, 250);
-    } else {
+    if (passEl.value === 'Pass@word!2') { closeModal(); setTimeout(openAdminPanel, 250); }
+    else {
       document.getElementById('adminErr').classList.remove('hidden');
-      passEl.value = '';
-      passEl.focus();
+      passEl.value = ''; passEl.focus();
       const modal = document.querySelector('.modal');
       modal.classList.add('shake');
       setTimeout(() => modal.classList.remove('shake'), 500);
@@ -1776,15 +1007,9 @@ function openAdminLogin() {
 }
 
 function openAdminPanel() {
-  const history = DB.get('feedback', []);
   openModal(`
-    <div class="modal-header">
-      <h3>🖥️ System Panel</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="field">
-      <input type="text" id="adminSearch" placeholder="Search feedback..." />
-    </div>
+    <div class="modal-header"><h3>🖥️ System Panel</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="field"><input type="text" id="adminSearch" placeholder="Search feedback..." /></div>
     <div class="chips-wrap" id="adminFilters">
       <div class="chip active" data-f="all">All</div>
       <div class="chip" data-f="new">New</div>
@@ -1793,24 +1018,16 @@ function openAdminPanel() {
     </div>
     <div id="adminList" style="max-height:50vh;overflow-y:auto"></div>
   `, { wide: true });
-
-  let filter = 'all';
-  let search = '';
+  let filter = 'all', search = '';
   const renderList = () => {
     let list = DB.get('feedback', []).slice().reverse();
     if (filter !== 'all') list = list.filter(f => (f.status||'New').toLowerCase() === filter);
-    if (search) {
-      const s = search.toLowerCase();
-      list = list.filter(f => (f.name+' '+f.desc+' '+f.type).toLowerCase().includes(s));
-    }
+    if (search) { const s = search.toLowerCase(); list = list.filter(f => (f.name+' '+f.desc+' '+f.type).toLowerCase().includes(s)); }
     const el = document.getElementById('adminList');
     if (list.length === 0) { el.innerHTML = '<div class="no-results">No feedback found.</div>'; return; }
     el.innerHTML = list.map(f => `
-      <div class="fb-item" data-id="${f.id}" style="border-left-color:${f.status==='Replied'?'var(--success)':f.status==='Read'?'var(--warning)':'var(--primary)'}">
-        <div class="fb-head">
-          <div><strong>${esc(f.name)}</strong> <span class="fb-type">${esc(f.type)}</span></div>
-          <span class="fb-date">${esc(f.date)}</span>
-        </div>
+      <div class="fb-item" style="border-left-color:${f.status==='Replied'?'var(--success)':f.status==='Read'?'var(--warning)':'var(--primary)'}">
+        <div class="fb-head"><div><strong>${esc(f.name)}</strong> <span class="fb-type">${esc(f.type)}</span></div><span class="fb-date">${esc(f.date)}</span></div>
         <div style="margin-bottom:6px;font-size:13px">${esc(f.desc)}</div>
         <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap">
           <span style="color:#f59e0b">${'★'.repeat(f.rating||0)}${'☆'.repeat(5-(f.rating||0))}</span>
@@ -1828,9 +1045,7 @@ function openAdminPanel() {
   document.querySelectorAll('#adminFilters .chip').forEach(c => {
     c.addEventListener('click', () => {
       document.querySelectorAll('#adminFilters .chip').forEach(x => x.classList.remove('active'));
-      c.classList.add('active');
-      filter = c.dataset.f;
-      renderList();
+      c.classList.add('active'); filter = c.dataset.f; renderList();
     });
   });
   renderList();
@@ -1842,13 +1057,10 @@ function adminSetStatus(id, status) {
 }
 function adminDelete(id) {
   if (!confirm('Delete this feedback?')) return;
-  const list = DB.get('feedback', []).filter(f => f.id !== id);
-  DB.set('feedback', list);
-  toast('Deleted', 'success');
-  openAdminPanel();
+  DB.set('feedback', DB.get('feedback', []).filter(f => f.id !== id));
+  toast('Deleted', 'success'); openAdminPanel();
 }
 
-/* ---------- DRAWER MENU HANDLER ---------- */
 document.querySelectorAll('.drawer-item').forEach(item => {
   item.addEventListener('click', () => {
     const menu = item.dataset.menu;
@@ -1870,25 +1082,14 @@ document.querySelectorAll('.drawer-item').forEach(item => {
 const TOOL_RENDERERS = {};
 const TOOL_INITS = {};
 
-/* ---------- 1. DUKAN BILL ---------- */
+/* 1. DUKAN BILL */
 TOOL_RENDERERS['dukan-bill'] = () => `
-  <div class="card">
-    <div class="card-title">Shop Details</div>
+  <div class="card"><div class="card-title">Shop Details</div>
     <div class="field"><label>Shop Name</label><input type="text" id="dbShop" placeholder="My Dukan" maxlength="60" /></div>
-    <div class="field-row">
-      <div class="field"><label>Customer Name</label><input type="text" id="dbCust" placeholder="Customer" maxlength="60" /></div>
-      <div class="field"><label>Phone</label><input type="text" id="dbPhone" placeholder="Optional" maxlength="15" /></div>
-    </div>
+    <div class="field-row"><div class="field"><label>Customer Name</label><input type="text" id="dbCust" placeholder="Customer" maxlength="60" /></div><div class="field"><label>Phone</label><input type="text" id="dbPhone" placeholder="Optional" maxlength="15" /></div></div>
   </div>
-  <div class="card">
-    <div class="card-title">Items</div>
-    <div id="dbItems"></div>
-    <button class="btn btn-secondary btn-sm mt-8" onclick="dbAddItem()">+ Add Item</button>
-  </div>
-  <div class="card">
-    <div class="card-title">Tax</div>
-    <div class="field"><label>GST %</label><input type="number" id="dbGst" value="0" min="0" max="28" step="0.01" /></div>
-  </div>
+  <div class="card"><div class="card-title">Items</div><div id="dbItems"></div><button class="btn btn-secondary btn-sm mt-8" onclick="dbAddItem()">+ Add Item</button></div>
+  <div class="card"><div class="card-title">Tax</div><div class="field"><label>GST %</label><input type="number" id="dbGst" value="0" min="0" max="28" step="0.01" /></div></div>
   <button class="btn btn-primary btn-block" onclick="dbGenerate()">🧾 Generate Bill</button>
   <div class="result-box" id="dbResult"></div>
 `;
@@ -1904,8 +1105,7 @@ function dbAddItem() {
     <input type="text" placeholder="Item name" data-i="${idx}" data-k="name" />
     <input type="number" placeholder="Qty" min="0" step="0.01" value="1" data-i="${idx}" data-k="qty" />
     <input type="number" placeholder="Price" min="0" step="0.01" value="0" data-i="${idx}" data-k="price" />
-    <button class="remove-btn" type="button">✕</button>
-  `;
+    <button class="remove-btn" type="button">✕</button>`;
   div.querySelector('.remove-btn').addEventListener('click', () => div.remove());
   div.querySelectorAll('input').forEach(inp => {
     inp.addEventListener('input', () => {
@@ -1920,7 +1120,6 @@ function dbGenerate() {
   const cust = (document.getElementById('dbCust').value || 'Customer').trim();
   const phone = document.getElementById('dbPhone').value.trim();
   const gstPct = Number(document.getElementById('dbGst').value) || 0;
-
   const rows = [];
   document.querySelectorAll('#dbItems .item-row').forEach(r => {
     const name = r.querySelector('[data-k="name"]').value.trim();
@@ -1929,35 +1128,22 @@ function dbGenerate() {
     if (name && qty > 0) rows.push({ name, qty, price, total: qty * price });
   });
   if (rows.length === 0) { toast('Add at least one item', 'error'); return; }
-
   const subtotal = rows.reduce((s, r) => s + r.total, 0);
   const gstAmt = subtotal * gstPct / 100;
   const grand = subtotal + gstAmt;
   const inv = 'INV-' + Date.now().toString().slice(-6);
   const date = new Date().toLocaleDateString('en-IN');
-
-  const html = `
+  document.getElementById('dbResult').innerHTML = `
     <div class="preview-box" id="dbBill">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
-        <div>
-          <h2>${esc(shop)}</h2>
-          <div class="muted">Bill Receipt</div>
-        </div>
-        <div style="text-align:right;font-size:12px">
-          <div><strong>${esc(inv)}</strong></div>
-          <div class="muted">${esc(date)}</div>
-        </div>
+        <div><h2>${esc(shop)}</h2><div class="muted">Bill Receipt</div></div>
+        <div style="text-align:right;font-size:12px"><div><strong>${esc(inv)}</strong></div><div class="muted">${esc(date)}</div></div>
       </div>
       <div style="font-size:12.5px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed #d1d5db">
-        <div><strong>Bill To:</strong> ${esc(cust)}</div>
-        ${phone ? `<div><strong>Phone:</strong> ${esc(phone)}</div>` : ''}
+        <div><strong>Bill To:</strong> ${esc(cust)}</div>${phone ? `<div><strong>Phone:</strong> ${esc(phone)}</div>` : ''}
       </div>
-      <table>
-        <thead><tr><th>#</th><th>Item</th><th>Qty</th><th>Rate</th><th style="text-align:right">Total</th></tr></thead>
-        <tbody>
-          ${rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}</td><td>${fmtNum(r.qty,2)}</td><td>${fmtMoney(r.price)}</td><td style="text-align:right">${fmtMoney(r.total)}</td></tr>`).join('')}
-        </tbody>
-      </table>
+      <table><thead><tr><th>#</th><th>Item</th><th>Qty</th><th>Rate</th><th style="text-align:right">Total</th></tr></thead>
+      <tbody>${rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}</td><td>${fmtNum(r.qty,2)}</td><td>${fmtMoney(r.price)}</td><td style="text-align:right">${fmtMoney(r.total)}</td></tr>`).join('')}</tbody></table>
       <div class="totals">
         <div class="line">Subtotal: <strong>${fmtMoney(subtotal)}</strong></div>
         ${gstPct > 0 ? `<div class="line">GST (${gstPct}%): <strong>${fmtMoney(gstAmt)}</strong></div>` : ''}
@@ -1965,41 +1151,26 @@ function dbGenerate() {
       </div>
       <div style="text-align:center;margin-top:16px;font-size:11px;color:#6b7280">Thank you for shopping!</div>
     </div>
-  `;
-  const box = document.getElementById('dbResult');
-  box.innerHTML = html + exportButtons('dbBill', 'dukan-bill');
-  showResultBox('dbResult');
+    ${exportButtons('dbResult', 'dukan-bill')}`;
+  document.getElementById('dbResult').classList.add('active');
 }
 
-/* ---------- 2. KHATABOOK ---------- */
+/* 2. KHATABOOK */
 TOOL_RENDERERS['khatabook'] = () => `
-  <div class="card">
-    <div class="card-title">Add Entry</div>
-    <div class="field-row">
-      <div class="field"><label>Customer</label><input type="text" id="kbName" placeholder="Name" maxlength="60" /></div>
-      <div class="field"><label>Type</label><select id="kbType"><option value="credit">Credit (Udhaar)</option><option value="payment">Payment</option></select></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Amount (₹)</label><input type="number" id="kbAmt" min="0" step="0.01" placeholder="0" /></div>
-      <div class="field"><label>Date</label><input type="date" id="kbDate" /></div>
-    </div>
+  <div class="card"><div class="card-title">Add Entry</div>
+    <div class="field-row"><div class="field"><label>Customer</label><input type="text" id="kbName" placeholder="Name" maxlength="60" /></div><div class="field"><label>Type</label><select id="kbType"><option value="credit">Credit (Udhaar)</option><option value="payment">Payment</option></select></div></div>
+    <div class="field-row"><div class="field"><label>Amount (₹)</label><input type="number" id="kbAmt" min="0" step="0.01" placeholder="0" /></div><div class="field"><label>Date</label><input type="date" id="kbDate" /></div></div>
     <div class="field"><label>Notes (optional)</label><input type="text" id="kbNotes" placeholder="e.g. Rice 5kg" maxlength="120" /></div>
     <button class="btn btn-primary btn-block" onclick="kbAdd()">+ Add Entry</button>
   </div>
-  <div class="card">
-    <div class="card-title">Summary</div>
+  <div class="card"><div class="card-title">Summary</div>
     <div class="result-row"><span class="k">Total Credit</span><span class="v txn-credit" id="kbTotalCredit">₹0</span></div>
     <div class="result-row"><span class="k">Total Payment</span><span class="v txn-payment" id="kbTotalPay">₹0</span></div>
     <div class="result-row"><span class="k">Balance</span><span class="v" id="kbBalance">₹0</span></div>
     <div class="field mt-12"><label>Filter by customer</label><input type="text" id="kbFilter" placeholder="Search customer..." /></div>
   </div>
-  <div class="card">
-    <div class="card-title">Entries</div>
-    <div id="kbList"></div>
-    ${exportButtons('kbSummary', 'khatabook')}
-  </div>
-  <div class="result-box" id="kbSummary" style="display:none"></div>
-`;
+  <div class="card"><div class="card-title">Entries</div><div id="kbList"></div>${exportButtons('kbSummary', 'khatabook')}</div>
+  <div class="result-box" id="kbSummary" style="display:none"></div>`;
 TOOL_INITS['khatabook'] = () => {
   if (!document.getElementById('kbDate').value) document.getElementById('kbDate').valueAsDate = new Date();
   document.getElementById('kbFilter').addEventListener('input', kbRender);
@@ -2016,18 +1187,10 @@ function kbAdd() {
   const list = DB.get('khatabook', []);
   list.push({ id: Date.now(), name, type, amt, date, notes });
   DB.set('khatabook', list);
-  document.getElementById('kbName').value = '';
-  document.getElementById('kbAmt').value = '';
-  document.getElementById('kbNotes').value = '';
-  toast('Entry added', 'success');
-  kbRender();
+  document.getElementById('kbName').value = ''; document.getElementById('kbAmt').value = ''; document.getElementById('kbNotes').value = '';
+  toast('Entry added', 'success'); kbRender();
 }
-function kbDelete(id) {
-  const list = DB.get('khatabook', []).filter(x => x.id !== id);
-  DB.set('khatabook', list);
-  toast('Entry deleted');
-  kbRender();
-}
+function kbDelete(id) { DB.set('khatabook', DB.get('khatabook', []).filter(x => x.id !== id)); toast('Entry deleted'); kbRender(); }
 function kbRender() {
   const list = DB.get('khatabook', []);
   const filter = (document.getElementById('kbFilter')?.value || '').toLowerCase();
@@ -2040,64 +1203,42 @@ function kbRender() {
   const balEl = document.getElementById('kbBalance');
   balEl.textContent = fmtMoney(Math.abs(bal)) + (bal > 0 ? ' (Due)' : bal < 0 ? ' (Advance)' : '');
   balEl.style.color = bal > 0 ? 'var(--danger)' : bal < 0 ? 'var(--success)' : 'var(--text)';
-
   const listEl = document.getElementById('kbList');
-  if (filtered.length === 0) { listEl.innerHTML = '<div class="no-results">No entries yet.</div>'; }
-  else {
-    listEl.innerHTML = filtered.slice().reverse().map(x => `
-      <div class="txn-item">
-        <div class="txn-info">
-          <div class="txn-name">${esc(x.name)}</div>
-          <div class="txn-date">${esc(x.date)} ${x.notes ? '• ' + esc(x.notes) : ''}</div>
-        </div>
-        <div class="txn-amt ${x.type === 'credit' ? 'txn-credit' : 'txn-payment'}">${x.type === 'credit' ? '+' : '-'}${fmtMoney(x.amt)}</div>
-        <button class="txn-del" onclick="kbDelete(${x.id})">🗑️</button>
-      </div>
-    `).join('');
-  }
-  // Summary export box
-  const sumBox = document.getElementById('kbSummary');
-  sumBox.innerHTML = `
+  if (filtered.length === 0) listEl.innerHTML = '<div class="no-results">No entries yet.</div>';
+  else listEl.innerHTML = filtered.slice().reverse().map(x => `
+    <div class="txn-item">
+      <div class="txn-info"><div class="txn-name">${esc(x.name)}</div><div class="txn-date">${esc(x.date)} ${x.notes ? '• ' + esc(x.notes) : ''}</div></div>
+      <div class="txn-amt ${x.type === 'credit' ? 'txn-credit' : 'txn-payment'}">${x.type === 'credit' ? '+' : '-'}${fmtMoney(x.amt)}</div>
+      <button class="txn-del" onclick="kbDelete(${x.id})">🗑️</button>
+    </div>`).join('');
+  document.getElementById('kbSummary').innerHTML = `
     <div class="preview-box">
-      <h2>Khatabook Summary</h2>
-      <div class="muted">${new Date().toLocaleString('en-IN')}</div>
+      <h2>Khatabook Summary</h2><div class="muted">${new Date().toLocaleString('en-IN')}</div>
       <div class="totals" style="text-align:left;margin-top:16px">
         <div class="line">Total Credit: <strong>${fmtMoney(credit)}</strong></div>
         <div class="line">Total Payment: <strong>${fmtMoney(pay)}</strong></div>
         <div class="line grand">Balance: ${fmtMoney(bal)}</div>
       </div>
-      <table style="margin-top:16px">
-        <thead><tr><th>Customer</th><th>Type</th><th>Date</th><th style="text-align:right">Amount</th></tr></thead>
-        <tbody>${filtered.slice().reverse().map(x => `<tr><td>${esc(x.name)}</td><td>${x.type}</td><td>${esc(x.date)}</td><td style="text-align:right">${fmtMoney(x.amt)}</td></tr>`).join('')}</tbody>
-      </table>
-    </div>
-  `;
+      <table style="margin-top:16px"><thead><tr><th>Customer</th><th>Type</th><th>Date</th><th style="text-align:right">Amount</th></tr></thead>
+      <tbody>${filtered.slice().reverse().map(x => `<tr><td>${esc(x.name)}</td><td>${x.type}</td><td>${esc(x.date)}</td><td style="text-align:right">${fmtMoney(x.amt)}</td></tr>`).join('')}</tbody></table>
+    </div>`;
 }
 
-/* ---------- 3. RATE CALCULATOR ---------- */
+/* 3. RATE CALCULATOR */
 TOOL_RENDERERS['rate-calc'] = () => `
-  <div class="card">
-    <div class="card-title">Enter Details</div>
+  <div class="card"><div class="card-title">Enter Details</div>
     <div class="field"><label>Rate (₹ per kg)</label><input type="number" id="rcRate" min="0" step="0.01" placeholder="20" /></div>
     <div class="field"><label>Quantity</label><input type="number" id="rcQty" min="0" step="0.01" placeholder="250" /></div>
-    <div class="field">
-      <label>Unit</label>
-      <select id="rcUnit">
-        <option value="g">Grams</option>
-        <option value="kg">Kilograms</option>
-        <option value="nos">Pieces (Nos)</option>
-      </select>
-    </div>
+    <div class="field"><label>Unit</label><select id="rcUnit"><option value="g">Grams</option><option value="kg">Kilograms</option><option value="nos">Pieces (Nos)</option></select></div>
     <button class="btn btn-primary btn-block" onclick="rcCalc()">Calculate</button>
   </div>
-  <div class="result-box" id="rcResult"></div>
-`;
+  <div class="result-box" id="rcResult"></div>`;
 function rcCalc() {
   const rate = numVal('rcRate','Rate',{min:0});
   const qty = numVal('rcQty','Quantity',{min:0});
   if (rate == null || qty == null) return;
   const unit = document.getElementById('rcUnit').value;
-  let total = 0, formula = '';
+  let total, formula;
   if (unit === 'g') { total = (qty / 1000) * rate; formula = `(${qty} g ÷ 1000) × ₹${rate}/kg`; }
   else if (unit === 'kg') { total = qty * rate; formula = `${qty} kg × ₹${rate}/kg`; }
   else { total = qty * rate; formula = `${qty} nos × ₹${rate}/pc`; }
@@ -2107,21 +1248,18 @@ function rcCalc() {
     <div class="result-row"><span class="k">Rate</span><span class="v">${fmtMoney(rate)} per ${unit === 'g' ? 'kg' : unit}</span></div>
     <div class="result-row"><span class="k">Quantity</span><span class="v">${fmtNum(qty,2)} ${unit === 'g' ? 'g' : unit}</span></div>
     <div class="result-row"><span class="k">Formula</span><span class="v" style="font-size:12px">${formula}</span></div>
-    ${exportButtons('rcResult', 'rate-calc')}
-  `;
+    ${exportButtons('rcResult', 'rate-calc')}`;
   document.getElementById('rcResult').classList.add('active');
 }
 
-/* ---------- 4. DISCOUNT ---------- */
+/* 4. DISCOUNT */
 TOOL_RENDERERS['discount-calc'] = () => `
-  <div class="card">
-    <div class="card-title">Enter Details</div>
+  <div class="card"><div class="card-title">Enter Details</div>
     <div class="field"><label>MRP (₹)</label><input type="number" id="dcMrp" min="0" step="0.01" placeholder="1000" /></div>
     <div class="field"><label>Discount (%)</label><input type="number" id="dcPct" min="0" max="100" step="0.01" placeholder="20" /></div>
     <button class="btn btn-primary btn-block" onclick="dcCalc()">Calculate</button>
   </div>
-  <div class="result-box" id="dcResult"></div>
-`;
+  <div class="result-box" id="dcResult"></div>`;
 function dcCalc() {
   const mrp = numVal('dcMrp','MRP',{min:0});
   const pct = numVal('dcPct','Discount',{min:0,max:100});
@@ -2135,43 +1273,27 @@ function dcCalc() {
     <div class="result-row"><span class="k">MRP</span><span class="v">${fmtMoney(mrp)}</span></div>
     <div class="result-row"><span class="k">Discount (${pct}%)</span><span class="v txn-credit">− ${fmtMoney(amt)}</span></div>
     <div class="result-row"><span class="k">You Save</span><span class="v" style="color:var(--success)">${fmtMoney(amt)}</span></div>
-    ${exportButtons('dcResult', 'discount-calc')}
-  `;
+    ${exportButtons('dcResult', 'discount-calc')}`;
   document.getElementById('dcResult').classList.add('active');
 }
 
-/* ---------- 5. GST ---------- */
+/* 5. GST */
 TOOL_RENDERERS['gst-calc'] = () => `
-  <div class="card">
-    <div class="card-title">GST Calculator</div>
+  <div class="card"><div class="card-title">GST Calculator</div>
     <div class="field"><label>Amount (₹)</label><input type="number" id="gstAmt" min="0" step="0.01" placeholder="1000" /></div>
     <div class="field"><label>GST Rate (%)</label><input type="number" id="gstRate" min="0" max="28" step="0.01" value="18" /></div>
-    <div class="field">
-      <label>Type</label>
-      <select id="gstType">
-        <option value="exclusive">Exclusive (Add GST)</option>
-        <option value="inclusive">Inclusive (GST already included)</option>
-      </select>
-    </div>
+    <div class="field"><label>Type</label><select id="gstType"><option value="exclusive">Exclusive (Add GST)</option><option value="inclusive">Inclusive (GST already included)</option></select></div>
     <button class="btn btn-primary btn-block" onclick="gstCalc()">Calculate</button>
   </div>
-  <div class="result-box" id="gstResult"></div>
-`;
+  <div class="result-box" id="gstResult"></div>`;
 function gstCalc() {
   const amt = numVal('gstAmt','Amount',{min:0});
   const rate = numVal('gstRate','GST Rate',{min:0,max:28});
   if (amt == null || rate == null) return;
   const type = document.getElementById('gstType').value;
   let base, gstAmt, final;
-  if (type === 'exclusive') {
-    base = amt;
-    gstAmt = amt * rate / 100;
-    final = amt + gstAmt;
-  } else {
-    final = amt;
-    base = amt * 100 / (100 + rate);
-    gstAmt = final - base;
-  }
+  if (type === 'exclusive') { base = amt; gstAmt = amt * rate / 100; final = amt + gstAmt; }
+  else { final = amt; base = amt * 100 / (100 + rate); gstAmt = final - base; }
   document.getElementById('gstResult').innerHTML = `
     <div class="result-title">GST Breakdown</div>
     <div class="result-main">${fmtMoney(final)}</div>
@@ -2179,22 +1301,19 @@ function gstCalc() {
     <div class="result-row"><span class="k">Base Amount</span><span class="v">${fmtMoney(base)}</span></div>
     <div class="result-row"><span class="k">GST @ ${rate}%</span><span class="v">${fmtMoney(gstAmt)}</span></div>
     <div class="result-row"><span class="k">Total</span><span class="v">${fmtMoney(final)}</span></div>
-    ${exportButtons('gstResult', 'gst-calc')}
-  `;
+    ${exportButtons('gstResult', 'gst-calc')}`;
   document.getElementById('gstResult').classList.add('active');
 }
 
-/* ---------- 6. IMAGE COMPRESSOR ---------- */
+/* 6. IMAGE COMPRESSOR */
 TOOL_RENDERERS['img-compress'] = () => `
-  <div class="card">
-    <div class="card-title">Upload Image</div>
+  <div class="card"><div class="card-title">Upload Image</div>
     <div class="field"><input type="file" id="icFile" accept="image/*" /></div>
     <div class="field"><label>Quality: <span id="icQVal">70%</span></label><input type="range" id="icQuality" min="10" max="100" value="70" /></div>
     <button class="btn btn-primary btn-block" onclick="icCompress()">🗜️ Compress Image</button>
     <div class="hint">Runs entirely in your browser. Nothing uploaded.</div>
   </div>
-  <div class="result-box" id="icResult"></div>
-`;
+  <div class="result-box" id="icResult"></div>`;
 TOOL_INITS['img-compress'] = () => {
   const q = document.getElementById('icQuality');
   q?.addEventListener('input', () => document.getElementById('icQVal').textContent = q.value + '%');
@@ -2209,10 +1328,8 @@ function icCompress() {
     const img = new Image();
     img.onload = () => {
       const canvas = document.createElement('canvas');
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0);
+      canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+      canvas.getContext('2d').drawImage(img, 0, 0);
       canvas.toBlob(blob => {
         const url = URL.createObjectURL(blob);
         const origKB = (f.size / 1024).toFixed(1);
@@ -2224,10 +1341,8 @@ function icCompress() {
           <div class="result-sub">Saved ${saved}% (from ${origKB} KB)</div>
           <div class="result-row"><span class="k">Original</span><span class="v">${origKB} KB</span></div>
           <div class="result-row"><span class="k">Compressed</span><span class="v">${newKB} KB</span></div>
-          <div class="result-row"><span class="k">Quality</span><span class="v">${Math.round(quality*100)}%</span></div>
           <div style="text-align:center;margin:16px 0"><img src="${url}" style="max-height:220px;border-radius:10px" /></div>
-          <a class="btn btn-primary btn-block" href="${url}" download="compressed.jpg">⬇️ Download Compressed</a>
-        `;
+          <a class="btn btn-primary btn-block" href="${url}" download="compressed.jpg">⬇️ Download Compressed</a>`;
         document.getElementById('icResult').classList.add('active');
       }, 'image/jpeg', quality);
     };
@@ -2236,16 +1351,14 @@ function icCompress() {
   reader.readAsDataURL(f);
 }
 
-/* ---------- 7. IMAGE CONVERTER ---------- */
+/* 7. IMAGE CONVERTER */
 TOOL_RENDERERS['img-convert'] = () => `
-  <div class="card">
-    <div class="card-title">Upload Image</div>
+  <div class="card"><div class="card-title">Upload Image</div>
     <div class="field"><input type="file" id="cvFile" accept="image/*" /></div>
     <div class="field"><label>Convert To</label><select id="cvFormat"><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select></div>
     <button class="btn btn-primary btn-block" onclick="cvConvert()">🔄 Convert</button>
   </div>
-  <div class="result-box" id="cvResult"></div>
-`;
+  <div class="result-box" id="cvResult"></div>`;
 function cvConvert() {
   const f = document.getElementById('cvFile').files[0];
   if (!f) { toast('Please select an image', 'error'); return; }
@@ -2256,16 +1369,14 @@ function cvConvert() {
     const img = new Image();
     img.onload = () => {
       const canvas = document.createElement('canvas');
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
+      canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
       canvas.getContext('2d').drawImage(img, 0, 0);
       const url = canvas.toDataURL(format, 0.95);
       document.getElementById('cvResult').innerHTML = `
         <div class="result-title">Converted Image</div>
         <div class="result-sub">Format: ${ext.toUpperCase()}</div>
         <div style="text-align:center;margin:16px 0"><img src="${url}" style="max-height:220px;border-radius:10px" /></div>
-        <a class="btn btn-primary btn-block" href="${url}" download="converted.${ext}">⬇️ Download ${ext.toUpperCase()}</a>
-      `;
+        <a class="btn btn-primary btn-block" href="${url}" download="converted.${ext}">⬇️ Download ${ext.toUpperCase()}</a>`;
       document.getElementById('cvResult').classList.add('active');
     };
     img.src = e.target.result;
@@ -2273,20 +1384,15 @@ function cvConvert() {
   reader.readAsDataURL(f);
 }
 
-/* ---------- 8. IMAGE RESIZER ---------- */
+/* 8. IMAGE RESIZER */
 TOOL_RENDERERS['img-resize'] = () => `
-  <div class="card">
-    <div class="card-title">Upload Image</div>
+  <div class="card"><div class="card-title">Upload Image</div>
     <div class="field"><input type="file" id="rzFile" accept="image/*" /></div>
-    <div class="field-row">
-      <div class="field"><label>Width (px)</label><input type="number" id="rzW" min="1" step="1" /></div>
-      <div class="field"><label>Height (px)</label><input type="number" id="rzH" min="1" step="1" /></div>
-    </div>
+    <div class="field-row"><div class="field"><label>Width (px)</label><input type="number" id="rzW" min="1" step="1" /></div><div class="field"><label>Height (px)</label><input type="number" id="rzH" min="1" step="1" /></div></div>
     <div class="field"><label><input type="checkbox" id="rzLock" checked style="width:auto;margin-right:6px" /> Lock aspect ratio</label></div>
     <button class="btn btn-primary btn-block" onclick="rzResize()">📐 Resize</button>
   </div>
-  <div class="result-box" id="rzResult"></div>
-`;
+  <div class="result-box" id="rzResult"></div>`;
 TOOL_INITS['img-resize'] = () => {
   const f = document.getElementById('rzFile');
   const w = document.getElementById('rzW');
@@ -2296,19 +1402,11 @@ TOOL_INITS['img-resize'] = () => {
     const file = e.target.files[0];
     if (!file) return;
     const img = new Image();
-    img.onload = () => {
-      w.value = img.naturalWidth;
-      h.value = img.naturalHeight;
-      ratio = img.naturalWidth / img.naturalHeight;
-    };
+    img.onload = () => { w.value = img.naturalWidth; h.value = img.naturalHeight; ratio = img.naturalWidth / img.naturalHeight; };
     img.src = URL.createObjectURL(file);
   });
-  w.addEventListener('input', () => {
-    if (document.getElementById('rzLock').checked && w.value) h.value = Math.round(Number(w.value) / ratio);
-  });
-  h.addEventListener('input', () => {
-    if (document.getElementById('rzLock').checked && h.value) w.value = Math.round(Number(h.value) * ratio);
-  });
+  w.addEventListener('input', () => { if (document.getElementById('rzLock').checked && w.value) h.value = Math.round(Number(w.value) / ratio); });
+  h.addEventListener('input', () => { if (document.getElementById('rzLock').checked && h.value) w.value = Math.round(Number(h.value) * ratio); });
 };
 function rzResize() {
   const f = document.getElementById('rzFile').files[0];
@@ -2328,8 +1426,7 @@ function rzResize() {
         <div class="result-title">Resized Image</div>
         <div class="result-sub">${w} × ${h} px</div>
         <div style="text-align:center;margin:16px 0"><img src="${url}" style="max-height:220px;border-radius:10px" /></div>
-        <a class="btn btn-primary btn-block" href="${url}" download="resized.png">⬇️ Download</a>
-      `;
+        <a class="btn btn-primary btn-block" href="${url}" download="resized.png">⬇️ Download</a>`;
       document.getElementById('rzResult').classList.add('active');
     };
     img.src = e.target.result;
@@ -2337,34 +1434,21 @@ function rzResize() {
   reader.readAsDataURL(f);
 }
 
-/* ---------- 9. ELECTRICITY BILL ---------- */
+/* 9. ELECTRICITY BILL */
 TOOL_RENDERERS['elec-bill'] = () => `
-  <div class="card">
-    <div class="card-title">Appliance 1</div>
+  <div class="card"><div class="card-title">Appliance 1</div>
     <div class="field"><label>Appliance Name</label><input type="text" id="ebName1" placeholder="e.g. Fan" /></div>
-    <div class="field-row">
-      <div class="field"><label>Watt</label><input type="number" id="ebW1" min="0" step="0.1" placeholder="75" /></div>
-      <div class="field"><label>Hours/Day</label><input type="number" id="ebH1" min="0" max="24" step="0.1" placeholder="8" /></div>
-    </div>
+    <div class="field-row"><div class="field"><label>Watt</label><input type="number" id="ebW1" min="0" step="0.1" placeholder="75" /></div><div class="field"><label>Hours/Day</label><input type="number" id="ebH1" min="0" max="24" step="0.1" placeholder="8" /></div></div>
   </div>
-  <div class="card">
-    <div class="card-title">Appliance 2 (optional)</div>
+  <div class="card"><div class="card-title">Appliance 2 (optional)</div>
     <div class="field"><label>Appliance Name</label><input type="text" id="ebName2" placeholder="e.g. AC" /></div>
-    <div class="field-row">
-      <div class="field"><label>Watt</label><input type="number" id="ebW2" min="0" step="0.1" placeholder="1500" /></div>
-      <div class="field"><label>Hours/Day</label><input type="number" id="ebH2" min="0" max="24" step="0.1" placeholder="4" /></div>
-    </div>
+    <div class="field-row"><div class="field"><label>Watt</label><input type="number" id="ebW2" min="0" step="0.1" placeholder="1500" /></div><div class="field"><label>Hours/Day</label><input type="number" id="ebH2" min="0" max="24" step="0.1" placeholder="4" /></div></div>
   </div>
-  <div class="card">
-    <div class="card-title">Billing</div>
-    <div class="field-row">
-      <div class="field"><label>Days</label><input type="number" id="ebDays" min="1" value="30" /></div>
-      <div class="field"><label>Unit Rate (₹/kWh)</label><input type="number" id="ebRate" min="0" step="0.01" value="7" /></div>
-    </div>
+  <div class="card"><div class="card-title">Billing</div>
+    <div class="field-row"><div class="field"><label>Days</label><input type="number" id="ebDays" min="1" value="30" /></div><div class="field"><label>Unit Rate (₹/kWh)</label><input type="number" id="ebRate" min="0" step="0.01" value="7" /></div></div>
     <button class="btn btn-primary btn-block" onclick="ebCalc()">💡 Calculate Bill</button>
   </div>
-  <div class="result-box" id="ebResult"></div>
-`;
+  <div class="result-box" id="ebResult"></div>`;
 function ebCalc() {
   const days = numVal('ebDays','Days',{min:1});
   const rate = numVal('ebRate','Unit Rate',{min:0});
@@ -2378,39 +1462,30 @@ function ebCalc() {
   }
   if (appliances.length === 0) { toast('Enter at least one appliance', 'error'); return; }
   let totalKwh = 0;
-  const rows = appliances.map(a => {
-    const kwh = (a.w * a.h * days) / 1000;
-    totalKwh += kwh;
-    return { ...a, kwh };
-  });
+  const rows = appliances.map(a => { const kwh = (a.w * a.h * days) / 1000; totalKwh += kwh; return { ...a, kwh }; });
   const cost = totalKwh * rate;
   document.getElementById('ebResult').innerHTML = `
     <div class="result-title">Electricity Bill Estimate</div>
     <div class="result-main">${fmtMoney(cost)}</div>
     <div class="result-sub">for ${days} days</div>
-    ${rows.map(r => `
-      <div class="result-row"><span class="k">${esc(r.name)} (${r.w}W × ${r.h}h)</span><span class="v">${fmtNum(r.kwh,2)} kWh</span></div>
-    `).join('')}
+    ${rows.map(r => `<div class="result-row"><span class="k">${esc(r.name)} (${r.w}W × ${r.h}h)</span><span class="v">${fmtNum(r.kwh,2)} kWh</span></div>`).join('')}
     <div class="result-row"><span class="k">Total Units</span><span class="v">${fmtNum(totalKwh,2)} kWh</span></div>
     <div class="result-row"><span class="k">Rate</span><span class="v">₹${rate}/kWh</span></div>
     <div class="result-row"><span class="k">Estimated Cost</span><span class="v">${fmtMoney(cost)}</span></div>
-    ${exportButtons('ebResult', 'electricity-bill')}
-  `;
+    ${exportButtons('ebResult', 'electricity-bill')}`;
   document.getElementById('ebResult').classList.add('active');
 }
 
-/* ---------- 10. CAPACITOR ---------- */
+/* 10. CAPACITOR */
 TOOL_RENDERERS['capacitor-calc'] = () => `
-  <div class="card">
-    <div class="card-title">Capacitor Calculator</div>
+  <div class="card"><div class="card-title">Capacitor Calculator</div>
     <div class="field"><label>Motor Power (Watt)</label><input type="number" id="capW" min="0" step="1" placeholder="750" /></div>
     <div class="field"><label>Voltage (V)</label><input type="number" id="capV" min="0" step="1" value="230" /></div>
     <div class="field"><label>Frequency (Hz)</label><input type="number" id="capF" min="0" step="1" value="50" /></div>
     <button class="btn btn-primary btn-block" onclick="capCalc()">Calculate</button>
-    <div class="hint">Approximate starting capacitor value for single-phase induction motor. Formula: C(µF) ≈ (P × 1000) / (V² × 2πf × 0.8) × 10⁶. Consult a qualified electrician before real-world use.</div>
+    <div class="hint">Approximate value. Consult a qualified electrician before real-world use.</div>
   </div>
-  <div class="result-box" id="capResult"></div>
-`;
+  <div class="result-box" id="capResult"></div>`;
 function capCalc() {
   const p = numVal('capW','Power',{min:1});
   const v = numVal('capV','Voltage',{min:1});
@@ -2426,24 +1501,21 @@ function capCalc() {
     <div class="result-row"><span class="k">Motor Power</span><span class="v">${p} W</span></div>
     <div class="result-row"><span class="k">Voltage</span><span class="v">${v} V</span></div>
     <div class="result-row"><span class="k">Frequency</span><span class="v">${f} Hz</span></div>
-    <p class="hint mt-12">⚠️ This is an estimate only. Always verify with a qualified electrician and motor datasheet.</p>
-    ${exportButtons('capResult', 'capacitor-calc')}
-  `;
+    <p class="hint mt-12">⚠️ Estimate only. Verify with a qualified electrician.</p>
+    ${exportButtons('capResult', 'capacitor-calc')}`;
   document.getElementById('capResult').classList.add('active');
 }
 
-/* ---------- 11. RESISTANCE / OHM'S LAW ---------- */
+/* 11. RESISTANCE */
 TOOL_RENDERERS['resistance-calc'] = () => `
-  <div class="card">
-    <div class="card-title">Ohm's Law (V = I × R)</div>
+  <div class="card"><div class="card-title">Ohm's Law (V = I × R)</div>
     <div class="field"><label>Voltage (V)</label><input type="number" id="ohmV" min="0" step="0.01" placeholder="Leave blank to calculate" /></div>
     <div class="field"><label>Current (A)</label><input type="number" id="ohmI" min="0" step="0.01" placeholder="Leave blank to calculate" /></div>
     <div class="field"><label>Resistance (Ω)</label><input type="number" id="ohmR" min="0" step="0.01" placeholder="Leave blank to calculate" /></div>
     <button class="btn btn-primary btn-block" onclick="ohmCalc()">⚡ Calculate</button>
     <div class="hint">Fill any 2 values — the third will be calculated.</div>
   </div>
-  <div class="result-box" id="ohmResult"></div>
-`;
+  <div class="result-box" id="ohmResult"></div>`;
 function ohmCalc() {
   const v = document.getElementById('ohmV').value.trim();
   const i = document.getElementById('ohmI').value.trim();
@@ -2463,22 +1535,18 @@ function ohmCalc() {
     <div class="result-row"><span class="k">Voltage (V)</span><span class="v">${fmtNum(V,4)} V</span></div>
     <div class="result-row"><span class="k">Current (I)</span><span class="v">${fmtNum(I,4)} A</span></div>
     <div class="result-row"><span class="k">Resistance (R)</span><span class="v">${fmtNum(R,4)} Ω</span></div>
-    <div class="result-row"><span class="k">Formula</span><span class="v" style="font-size:12px">V = I × R</span></div>
-    ${exportButtons('ohmResult', 'resistance-calc')}
-  `;
+    ${exportButtons('ohmResult', 'resistance-calc')}`;
   document.getElementById('ohmResult').classList.add('active');
 }
 
-/* ---------- 12. SPLIT EXPENSE ---------- */
+/* 12. SPLIT EXPENSE */
 TOOL_RENDERERS['split-expense'] = () => `
-  <div class="card">
-    <div class="card-title">Split Bill</div>
+  <div class="card"><div class="card-title">Split Bill</div>
     <div class="field"><label>Total Amount (₹)</label><input type="number" id="spTotal" min="0" step="0.01" placeholder="1000" /></div>
     <div class="field"><label>Number of Members</label><input type="number" id="spMembers" min="1" step="1" value="2" /></div>
     <button class="btn btn-primary btn-block" onclick="spCalc()">➗ Split</button>
   </div>
-  <div class="result-box" id="spResult"></div>
-`;
+  <div class="result-box" id="spResult"></div>`;
 function spCalc() {
   const total = numVal('spTotal','Total',{min:0});
   const members = numVal('spMembers','Members',{min:1});
@@ -2491,22 +1559,18 @@ function spCalc() {
     <div class="result-sub">per person</div>
     <div class="result-row"><span class="k">Total</span><span class="v">${fmtMoney(total)}</span></div>
     <div class="result-row"><span class="k">Members</span><span class="v">${members}</span></div>
-    <div class="result-row"><span class="k">Per Person</span><span class="v">${fmtMoney(per)}</span></div>
-    ${exportButtons('spResult', 'split-expense')}
-  `;
+    ${exportButtons('spResult', 'split-expense')}`;
   document.getElementById('spResult').classList.add('active');
 }
 
-/* ---------- 13. PROFIT/LOSS ---------- */
+/* 13. PROFIT/LOSS */
 TOOL_RENDERERS['profit-loss'] = () => `
-  <div class="card">
-    <div class="card-title">Profit / Loss Calculator</div>
+  <div class="card"><div class="card-title">Profit / Loss Calculator</div>
     <div class="field"><label>Cost Price (₹)</label><input type="number" id="plCp" min="0" step="0.01" placeholder="100" /></div>
     <div class="field"><label>Selling Price (₹)</label><input type="number" id="plSp" min="0" step="0.01" placeholder="120" /></div>
     <button class="btn btn-primary btn-block" onclick="plCalc()">Calculate</button>
   </div>
-  <div class="result-box" id="plResult"></div>
-`;
+  <div class="result-box" id="plResult"></div>`;
 function plCalc() {
   const cp = numVal('plCp','Cost Price',{min:0});
   const sp = numVal('plSp','Selling Price',{min:0});
@@ -2522,34 +1586,21 @@ function plCalc() {
     <div class="result-row"><span class="k">Selling Price</span><span class="v">${fmtMoney(sp)}</span></div>
     <div class="result-row"><span class="k">${isProfit ? 'Profit' : 'Loss'} Amount</span><span class="v">${fmtMoney(Math.abs(diff))}</span></div>
     <div class="result-row"><span class="k">${isProfit ? 'Profit' : 'Loss'} %</span><span class="v">${fmtNum(Math.abs(pct),2)}%</span></div>
-    ${exportButtons('plResult', 'profit-loss')}
-  `;
+    ${exportButtons('plResult', 'profit-loss')}`;
   document.getElementById('plResult').classList.add('active');
 }
 
-/* ---------- 14. INVOICE GENERATOR ---------- */
+/* 14. INVOICE */
 TOOL_RENDERERS['invoice-gen'] = () => `
-  <div class="card">
-    <div class="card-title">Business Details</div>
+  <div class="card"><div class="card-title">Business Details</div>
     <div class="field"><label>Business Name</label><input type="text" id="invBiz" placeholder="My Company" maxlength="60" /></div>
-    <div class="field-row">
-      <div class="field"><label>Customer Name</label><input type="text" id="invCust" placeholder="Customer" maxlength="60" /></div>
-      <div class="field"><label>Date</label><input type="date" id="invDate" /></div>
-    </div>
+    <div class="field-row"><div class="field"><label>Customer Name</label><input type="text" id="invCust" placeholder="Customer" maxlength="60" /></div><div class="field"><label>Date</label><input type="date" id="invDate" /></div></div>
     <div class="field"><label>Invoice Number</label><input type="text" id="invNo" placeholder="INV-001" maxlength="30" /></div>
   </div>
-  <div class="card">
-    <div class="card-title">Items</div>
-    <div id="invItems"></div>
-    <button class="btn btn-secondary btn-sm mt-8" onclick="invAddItem()">+ Add Item</button>
-  </div>
-  <div class="card">
-    <div class="card-title">Tax</div>
-    <div class="field"><label>GST %</label><input type="number" id="invGst" min="0" max="28" step="0.01" value="18" /></div>
-  </div>
+  <div class="card"><div class="card-title">Items</div><div id="invItems"></div><button class="btn btn-secondary btn-sm mt-8" onclick="invAddItem()">+ Add Item</button></div>
+  <div class="card"><div class="card-title">Tax</div><div class="field"><label>GST %</label><input type="number" id="invGst" min="0" max="28" step="0.01" value="18" /></div></div>
   <button class="btn btn-primary btn-block" onclick="invGenerate()">📋 Generate Invoice</button>
-  <div class="result-box" id="invResult"></div>
-`;
+  <div class="result-box" id="invResult"></div>`;
 TOOL_INITS['invoice-gen'] = () => {
   window.invItems = [];
   if (!document.getElementById('invDate').value) document.getElementById('invDate').valueAsDate = new Date();
@@ -2566,8 +1617,7 @@ function invAddItem() {
     <input type="text" placeholder="Description" data-i="${idx}" data-k="desc" />
     <input type="number" placeholder="Qty" min="0" step="0.01" value="1" data-i="${idx}" data-k="qty" />
     <input type="number" placeholder="Rate" min="0" step="0.01" value="0" data-i="${idx}" data-k="rate" />
-    <button class="remove-btn" type="button">✕</button>
-  `;
+    <button class="remove-btn" type="button">✕</button>`;
   div.querySelector('.remove-btn').addEventListener('click', () => div.remove());
   div.querySelectorAll('input').forEach(inp => {
     inp.addEventListener('input', () => {
@@ -2583,7 +1633,6 @@ function invGenerate() {
   const date = document.getElementById('invDate').value || new Date().toLocaleDateString('en-IN');
   const invNo = document.getElementById('invNo').value.trim() || ('INV-' + Date.now().toString().slice(-6));
   const gstPct = Number(document.getElementById('invGst').value) || 0;
-
   const rows = [];
   document.querySelectorAll('#invItems .item-row').forEach(r => {
     const desc = r.querySelector('[data-k="desc"]').value.trim();
@@ -2595,25 +1644,15 @@ function invGenerate() {
   const subtotal = rows.reduce((s,r) => s + r.total, 0);
   const gstAmt = subtotal * gstPct / 100;
   const grand = subtotal + gstAmt;
-
   document.getElementById('invResult').innerHTML = `
     <div class="preview-box" id="invDoc">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
         <div><h2>${esc(biz)}</h2><div class="muted">TAX INVOICE</div></div>
-        <div style="text-align:right;font-size:12px">
-          <div><strong>${esc(invNo)}</strong></div>
-          <div class="muted">${esc(date)}</div>
-        </div>
+        <div style="text-align:right;font-size:12px"><div><strong>${esc(invNo)}</strong></div><div class="muted">${esc(date)}</div></div>
       </div>
-      <div style="font-size:12.5px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed #d1d5db">
-        <div><strong>Bill To:</strong> ${esc(cust)}</div>
-      </div>
-      <table>
-        <thead><tr><th>#</th><th>Description</th><th>Qty</th><th>Rate</th><th style="text-align:right">Amount</th></tr></thead>
-        <tbody>
-          ${rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.desc)}</td><td>${fmtNum(r.qty,2)}</td><td>${fmtMoney(r.rate)}</td><td style="text-align:right">${fmtMoney(r.total)}</td></tr>`).join('')}
-        </tbody>
-      </table>
+      <div style="font-size:12.5px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px dashed #d1d5db"><div><strong>Bill To:</strong> ${esc(cust)}</div></div>
+      <table><thead><tr><th>#</th><th>Description</th><th>Qty</th><th>Rate</th><th style="text-align:right">Amount</th></tr></thead>
+      <tbody>${rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.desc)}</td><td>${fmtNum(r.qty,2)}</td><td>${fmtMoney(r.rate)}</td><td style="text-align:right">${fmtMoney(r.total)}</td></tr>`).join('')}</tbody></table>
       <div class="totals">
         <div class="line">Subtotal: <strong>${fmtMoney(subtotal)}</strong></div>
         ${gstPct > 0 ? `<div class="line">GST (${gstPct}%): <strong>${fmtMoney(gstAmt)}</strong></div>` : ''}
@@ -2621,22 +1660,19 @@ function invGenerate() {
       </div>
       <div style="text-align:center;margin-top:16px;font-size:11px;color:#6b7280">Thank you for your business!</div>
     </div>
-    ${exportButtons('invDoc', 'invoice')}
-  `;
+    ${exportButtons('invResult', 'invoice')}`;
   document.getElementById('invResult').classList.add('active');
 }
 
-/* ---------- 15. IMAGES TO PDF ---------- */
+/* 15. IMAGES TO PDF */
 TOOL_RENDERERS['img-to-pdf'] = () => `
-  <div class="card">
-    <div class="card-title">Upload Images</div>
+  <div class="card"><div class="card-title">Upload Images</div>
     <div class="field"><input type="file" id="pdfFiles" accept="image/*" multiple /></div>
     <div id="pdfPreview" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin-top:10px"></div>
     <button class="btn btn-primary btn-block mt-16" onclick="pdfGenerate()">📄 Generate PDF</button>
-    <div class="hint">Images will be combined in upload order into a single PDF.</div>
+    <div class="hint">Images combined in upload order.</div>
   </div>
-  <div class="result-box" id="pdfResult"></div>
-`;
+  <div class="result-box" id="pdfResult"></div>`;
 TOOL_INITS['img-to-pdf'] = () => {
   document.getElementById('pdfFiles').addEventListener('change', e => {
     const wrap = document.getElementById('pdfPreview');
@@ -2645,8 +1681,7 @@ TOOL_INITS['img-to-pdf'] = () => {
       const url = URL.createObjectURL(f);
       const d = document.createElement('div');
       d.style.cssText = 'position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1';
-      d.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover" />
-        <div style="position:absolute;top:2px;left:2px;background:rgba(0,0,0,0.6);color:#fff;font-size:10px;padding:2px 6px;border-radius:4px">${i+1}</div>`;
+      d.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover" /><div style="position:absolute;top:2px;left:2px;background:rgba(0,0,0,0.6);color:#fff;font-size:10px;padding:2px 6px;border-radius:4px">${i+1}</div>`;
       wrap.appendChild(d);
     });
   });
@@ -2660,35 +1695,21 @@ function pdfGenerate() {
     r.onload = e => res(e.target.result);
     r.readAsDataURL(f);
   }));
-  Promise.all(promises).then(images => {
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF('p', 'mm', 'a4');
+  Promise.all(promises).then(async images => {
+    const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
     const pw = pdf.internal.pageSize.getWidth();
     const ph = pdf.internal.pageSize.getHeight();
-    images.forEach((src, i) => {
+    for (let i = 0; i < images.length; i++) {
       if (i > 0) pdf.addPage();
-      const img = new Image();
-      img.src = src;
-      // We need to wait — use a synchronous-ish approach with the img dimensions
-      // Since we can't await inside forEach easily, use a simpler approach:
-    });
-    // Simpler robust approach: build with async
-    (async () => {
-      const pdf2 = new jsPDF('p', 'mm', 'a4');
-      const pw2 = pdf2.internal.pageSize.getWidth();
-      const ph2 = pdf2.internal.pageSize.getHeight();
-      for (let i = 0; i < images.length; i++) {
-        if (i > 0) pdf2.addPage();
-        const img = await loadImg(images[i]);
-        const ratio = img.naturalWidth / img.naturalHeight;
-        let w = pw2 - 20, h = w / ratio;
-        if (h > ph2 - 20) { h = ph2 - 20; w = h * ratio; }
-        const x = (pw2 - w) / 2, y = (ph2 - h) / 2;
-        pdf2.addImage(images[i], 'JPEG', x, y, w, h);
-      }
-      pdf2.save('images-' + Date.now() + '.pdf');
-      toast('PDF downloaded', 'success');
-    })();
+      const img = await loadImg(images[i]);
+      const ratio = img.naturalWidth / img.naturalHeight;
+      let w = pw - 20, h = w / ratio;
+      if (h > ph - 20) { h = ph - 20; w = h * ratio; }
+      const x = (pw - w) / 2, y = (ph - h) / 2;
+      pdf.addImage(images[i], 'JPEG', x, y, w, h);
+    }
+    pdf.save('images-' + Date.now() + '.pdf');
+    toast('PDF downloaded', 'success');
   }).catch(e => { console.error(e); toast('Failed to generate PDF', 'error'); });
 }
 function loadImg(src) {
@@ -2700,31 +1721,33 @@ function loadImg(src) {
   });
 }
 
-/* ---------- 16. QR CODE GENERATOR ---------- */
+/* 16. QR CODE (FIXED: heading + only ONE QR) */
 TOOL_RENDERERS['qr-gen'] = () => `
-  <div class="card">
-    <div class="card-title">QR Code Generator</div>
+  <div class="card"><div class="card-title">QR Code Generator</div>
     <div class="field"><label>Text or URL</label><input type="text" id="qrText" placeholder="https://example.com" maxlength="500" /></div>
     <button class="btn btn-primary btn-block" onclick="qrGenerate()">📱 Generate QR</button>
   </div>
-  <div class="result-box" id="qrResult">
-    <div class="result-title">QR Code</div>
-    <div class="qr-container" id="qrContainer"></div>
-    <div class="qr-actions"></div>
-  </div>
-`;
+  <div class="result-box" id="qrResult"></div>`;
 function qrGenerate() {
   const text = document.getElementById('qrText').value.trim();
   if (!text) { toast('Please enter text or URL', 'error'); return; }
+  const box = document.getElementById('qrResult');
+  // Fully reset box content — this removes any previous QR and buttons
+  box.innerHTML = `
+    <div style="text-align:center;padding:10px 0;border-bottom:2px solid var(--primary);margin-bottom:14px">
+      <div style="font-size:20px;font-weight:900;background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent">📱 QR Code Generator</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:4px">Generated by Qunvero</div>
+    </div>
+    <div class="result-title">QR Code</div>
+    <div class="qr-container" id="qrContainer"></div>
+    <div class="qr-actions no-export"></div>`;
   const container = document.getElementById('qrContainer');
   container.innerHTML = '';
   try {
     new QRCode(container, {
       text: text,
-      width: 220,
-      height: 220,
-      colorDark: '#000000',
-      colorLight: '#ffffff',
+      width: 220, height: 220,
+      colorDark: '#000000', colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.H
     });
   } catch (e) {
@@ -2732,41 +1755,32 @@ function qrGenerate() {
     toast('QR generation failed', 'error');
     return;
   }
-  const box = document.getElementById('qrResult');
-  // Remove previous export buttons if any, then add fresh
-  box.querySelectorAll('.qr-actions').forEach(n => n.remove());
-  const actions = document.createElement('div');
-  actions.className = 'qr-actions';
+  const actions = box.querySelector('.qr-actions');
   actions.innerHTML = exportButtons('qrResult', 'qr-code');
-  box.appendChild(actions);
   box.classList.add('active');
 }
 
-/* ---------- 17. BARCODE GENERATOR ---------- */
+/* 17. BARCODE (FIXED: heading + compact height) */
 TOOL_RENDERERS['barcode-gen'] = () => `
-  <div class="card">
-    <div class="card-title">Barcode Generator</div>
+  <div class="card"><div class="card-title">Barcode Generator</div>
     <div class="field"><label>Barcode Text / Number</label><input type="text" id="barText" placeholder="123456789012" maxlength="60" /></div>
-    <div class="field"><label>Format</label>
-      <select id="barFormat">
-        <option value="CODE128">CODE128 (any text)</option>
-        <option value="EAN13">EAN13 (13 digits)</option>
-        <option value="UPC">UPC (12 digits)</option>
-        <option value="CODE39">CODE39</option>
-      </select>
-    </div>
+    <div class="field"><label>Format</label><select id="barFormat"><option value="CODE128">CODE128 (any text)</option><option value="EAN13">EAN13 (13 digits)</option><option value="UPC">UPC (12 digits)</option><option value="CODE39">CODE39</option></select></div>
     <button class="btn btn-primary btn-block" onclick="barGenerate()">🎫 Generate Barcode</button>
   </div>
-  <div class="result-box" id="barResult">
-    <div class="result-title">Barcode</div>
-    <div class="barcode-container" id="barcodeContainer"></div>
-    <div class="bar-actions"></div>
-  </div>
-`;
+  <div class="result-box" id="barResult"></div>`;
 function barGenerate() {
   const text = document.getElementById('barText').value.trim();
   if (!text) { toast('Please enter barcode text', 'error'); return; }
   const format = document.getElementById('barFormat').value;
+  const box = document.getElementById('barResult');
+  box.innerHTML = `
+    <div style="text-align:center;padding:10px 0;border-bottom:2px solid var(--primary);margin-bottom:14px">
+      <div style="font-size:20px;font-weight:900;background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent">🎫 Barcode Generator</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:4px">Generated by Qunvero</div>
+    </div>
+    <div class="result-title">Barcode</div>
+    <div class="barcode-container" id="barcodeContainer"></div>
+    <div class="bar-actions no-export"></div>`;
   const container = document.getElementById('barcodeContainer');
   container.innerHTML = '';
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -2788,24 +1802,18 @@ function barGenerate() {
     toast('Barcode generation failed', 'error');
     return;
   }
-  const box = document.getElementById('barResult');
-  box.querySelectorAll('.bar-actions').forEach(n => n.remove());
-  const actions = document.createElement('div');
-  actions.className = 'bar-actions';
+  const actions = box.querySelector('.bar-actions');
   actions.innerHTML = exportButtons('barResult', 'barcode');
-  box.appendChild(actions);
   box.classList.add('active');
 }
 
-/* ---------- 18. WORD COUNTER ---------- */
+/* 18. WORD COUNTER */
 TOOL_RENDERERS['word-count'] = () => `
-  <div class="card">
-    <div class="card-title">Paste or Type Text</div>
-    <textarea id="wcText" placeholder="Paste your text here..." style="min-height:160px"></textarea>
+  <div class="card"><div class="card-title">Paste or Type Text</div>
+    <textarea id="wcText" placeholder="Paste your text here..." style="min-height:160px;width:100%;padding:12px;background:var(--surface-2);border:1.5px solid var(--border-strong);border-radius:12px;color:var(--text);font-family:inherit;font-size:14.5px"></textarea>
     <button class="btn btn-primary btn-block mt-12" onclick="wcCount()">📝 Count</button>
   </div>
-  <div class="result-box" id="wcResult"></div>
-`;
+  <div class="result-box" id="wcResult"></div>`;
 function wcCount() {
   const text = document.getElementById('wcText').value;
   if (!text.trim()) { toast('Please enter some text', 'error'); return; }
@@ -2826,16 +1834,14 @@ function wcCount() {
     <div class="result-row"><span class="k">Paragraphs</span><span class="v">${paragraphs}</span></div>
     <div class="result-row"><span class="k">Lines</span><span class="v">${lines}</span></div>
     <div class="result-row"><span class="k">Reading Time</span><span class="v">~${readTime} min</span></div>
-    ${exportButtons('wcResult', 'word-count')}
-  `;
+    ${exportButtons('wcResult', 'word-count')}`;
   document.getElementById('wcResult').classList.add('active');
 }
 
-/* ---------- 19. CASE CONVERTER ---------- */
+/* 19. CASE CONVERTER */
 TOOL_RENDERERS['case-convert'] = () => `
-  <div class="card">
-    <div class="card-title">Case Converter</div>
-    <textarea id="ccText" placeholder="Enter text..." style="min-height:140px"></textarea>
+  <div class="card"><div class="card-title">Case Converter</div>
+    <textarea id="ccText" placeholder="Enter text..." style="min-height:140px;width:100%;padding:12px;background:var(--surface-2);border:1.5px solid var(--border-strong);border-radius:12px;color:var(--text);font-family:inherit;font-size:14.5px"></textarea>
     <div class="btn-group mt-12">
       <button class="btn btn-secondary btn-sm" onclick="ccDo('upper')">UPPER</button>
       <button class="btn btn-secondary btn-sm" onclick="ccDo('lower')">lower</button>
@@ -2843,8 +1849,7 @@ TOOL_RENDERERS['case-convert'] = () => `
       <button class="btn btn-secondary btn-sm" onclick="ccDo('sentence')">Sentence</button>
     </div>
   </div>
-  <div class="result-box" id="ccResult"></div>
-`;
+  <div class="result-box" id="ccResult"></div>`;
 function ccDo(mode) {
   const text = document.getElementById('ccText').value;
   if (!text) { toast('Please enter some text', 'error'); return; }
@@ -2855,32 +1860,26 @@ function ccDo(mode) {
   else if (mode === 'sentence') out = text.toLowerCase().replace(/(^\s*\w|[.!?]\s+\w)/g, c => c.toUpperCase());
   document.getElementById('ccResult').innerHTML = `
     <div class="result-title">Converted Text</div>
-    <textarea id="ccOut" readonly style="min-height:120px">${esc(out)}</textarea>
-    <div class="btn-group mt-12">
-      <button class="btn btn-primary btn-sm" onclick="ccCopy()">📋 Copy</button>
-    </div>
-    ${exportButtons('ccResult', 'case-converter')}
-  `;
+    <textarea id="ccOut" readonly style="min-height:120px;width:100%;padding:12px;background:var(--surface-2);border:1.5px solid var(--border-strong);border-radius:12px;color:var(--text);font-family:inherit;font-size:14.5px">${esc(out)}</textarea>
+    <div class="btn-group mt-12"><button class="btn btn-primary btn-sm" onclick="ccCopy()">📋 Copy</button></div>
+    ${exportButtons('ccResult', 'case-converter')}`;
   document.getElementById('ccResult').classList.add('active');
 }
 function ccCopy() {
   const t = document.getElementById('ccOut');
-  t.select();
-  document.execCommand('copy');
+  t.select(); document.execCommand('copy');
   toast('Copied', 'success');
 }
 
-/* ---------- 20. SIP CALCULATOR ---------- */
+/* 20. SIP */
 TOOL_RENDERERS['sip-calc'] = () => `
-  <div class="card">
-    <div class="card-title">SIP Calculator</div>
+  <div class="card"><div class="card-title">SIP Calculator</div>
     <div class="field"><label>Monthly Investment (₹)</label><input type="number" id="sipM" min="0" step="100" value="5000" /></div>
     <div class="field"><label>Duration (Years)</label><input type="number" id="sipY" min="0.1" step="0.5" value="10" /></div>
     <div class="field"><label>Expected Annual Return (%)</label><input type="number" id="sipR" min="0" step="0.1" value="12" /></div>
     <button class="btn btn-primary btn-block" onclick="sipCalc()">📈 Calculate</button>
   </div>
-  <div class="result-box" id="sipResult"></div>
-`;
+  <div class="result-box" id="sipResult"></div>`;
 function sipCalc() {
   const m = numVal('sipM','Monthly',{min:1});
   const y = numVal('sipY','Years',{min:0.1});
@@ -2900,31 +1899,20 @@ function sipCalc() {
     <div class="result-row"><span class="k">Duration</span><span class="v">${months} months</span></div>
     <div class="result-row"><span class="k">Expected Return</span><span class="v">${r}% p.a.</span></div>
     <p class="hint mt-12">Assumes monthly compounding. Actual returns may vary.</p>
-    ${exportButtons('sipResult', 'sip')}
-  `;
+    ${exportButtons('sipResult', 'sip')}`;
   document.getElementById('sipResult').classList.add('active');
 }
 
-/* ---------- 21. FD CALCULATOR ---------- */
+/* 21. FD */
 TOOL_RENDERERS['fd-calc'] = () => `
-  <div class="card">
-    <div class="card-title">FD Calculator</div>
+  <div class="card"><div class="card-title">FD Calculator</div>
     <div class="field"><label>Principal (₹)</label><input type="number" id="fdP" min="0" step="100" value="100000" /></div>
     <div class="field"><label>Annual Interest Rate (%)</label><input type="number" id="fdR" min="0" step="0.1" value="7" /></div>
     <div class="field"><label>Duration (Years)</label><input type="number" id="fdY" min="0.1" step="0.5" value="5" /></div>
-    <div class="field">
-      <label>Compounding</label>
-      <select id="fdC">
-        <option value="1">Yearly</option>
-        <option value="2">Half-Yearly</option>
-        <option value="4" selected>Quarterly</option>
-        <option value="12">Monthly</option>
-      </select>
-    </div>
+    <div class="field"><label>Compounding</label><select id="fdC"><option value="1">Yearly</option><option value="2">Half-Yearly</option><option value="4" selected>Quarterly</option><option value="12">Monthly</option></select></div>
     <button class="btn btn-primary btn-block" onclick="fdCalc()">🏦 Calculate</button>
   </div>
-  <div class="result-box" id="fdResult"></div>
-`;
+  <div class="result-box" id="fdResult"></div>`;
 function fdCalc() {
   const p = numVal('fdP','Principal',{min:1});
   const r = numVal('fdR','Rate',{min:0});
@@ -2941,33 +1929,21 @@ function fdCalc() {
     <div class="result-row"><span class="k">Interest Earned</span><span class="v" style="color:var(--success)">${fmtMoney(interest)}</span></div>
     <div class="result-row"><span class="k">Rate</span><span class="v">${r}% p.a.</span></div>
     <div class="result-row"><span class="k">Duration</span><span class="v">${y} years</span></div>
-    <p class="hint mt-12">Assumes compounding as selected. Actual bank rates may vary.</p>
-    ${exportButtons('fdResult', 'fd')}
-  `;
+    <p class="hint mt-12">Assumes compounding as selected.</p>
+    ${exportButtons('fdResult', 'fd')}`;
   document.getElementById('fdResult').classList.add('active');
 }
 
-/* ---------- 22. COMPOUND INTEREST ---------- */
+/* 22. COMPOUND INTEREST */
 TOOL_RENDERERS['compound-calc'] = () => `
-  <div class="card">
-    <div class="card-title">Compound Interest</div>
+  <div class="card"><div class="card-title">Compound Interest</div>
     <div class="field"><label>Principal (₹)</label><input type="number" id="ciP" min="0" step="100" value="10000" /></div>
     <div class="field"><label>Rate (% per year)</label><input type="number" id="ciR" min="0" step="0.1" value="8" /></div>
     <div class="field"><label>Time (Years)</label><input type="number" id="ciT" min="0.1" step="0.5" value="5" /></div>
-    <div class="field">
-      <label>Compounding Frequency</label>
-      <select id="ciN">
-        <option value="1">Yearly</option>
-        <option value="2">Half-Yearly</option>
-        <option value="4" selected>Quarterly</option>
-        <option value="12">Monthly</option>
-        <option value="365">Daily</option>
-      </select>
-    </div>
+    <div class="field"><label>Compounding Frequency</label><select id="ciN"><option value="1">Yearly</option><option value="2">Half-Yearly</option><option value="4" selected>Quarterly</option><option value="12">Monthly</option><option value="365">Daily</option></select></div>
     <button class="btn btn-primary btn-block" onclick="ciCalc()">💹 Calculate</button>
   </div>
-  <div class="result-box" id="ciResult"></div>
-`;
+  <div class="result-box" id="ciResult"></div>`;
 function ciCalc() {
   const p = numVal('ciP','Principal',{min:1});
   const r = numVal('ciR','Rate',{min:0});
@@ -2984,19 +1960,14 @@ function ciCalc() {
     <div class="result-row"><span class="k">Compound Interest</span><span class="v" style="color:var(--success)">${fmtMoney(interest)}</span></div>
     <div class="result-row"><span class="k">Rate</span><span class="v">${r}% p.a.</span></div>
     <div class="result-row"><span class="k">Time</span><span class="v">${t} years</span></div>
-    ${exportButtons('ciResult', 'compound-interest')}
-  `;
+    ${exportButtons('ciResult', 'compound-interest')}`;
   document.getElementById('ciResult').classList.add('active');
 }
 
-/* ---------- 23. CURRENCY CONVERTER ---------- */
-const RATES = {
-  INR: 1, USD: 0.012, EUR: 0.011, GBP: 0.0095, JPY: 1.78,
-  AUD: 0.018, CAD: 0.016, AED: 0.044, SAR: 0.045, CNY: 0.087
-};
+/* 23. CURRENCY */
+const RATES = { INR: 1, USD: 0.012, EUR: 0.011, GBP: 0.0095, JPY: 1.78, AUD: 0.018, CAD: 0.016, AED: 0.044, SAR: 0.045, CNY: 0.087 };
 TOOL_RENDERERS['currency-conv'] = () => `
-  <div class="card">
-    <div class="card-title">Currency Converter</div>
+  <div class="card"><div class="card-title">Currency Converter</div>
     <div class="field"><label>Amount</label><input type="number" id="cxAmt" min="0" step="0.01" value="1" /></div>
     <div class="field-row">
       <div class="field"><label>From</label><select id="cxFrom">${Object.keys(RATES).map(k => `<option value="${k}" ${k==='INR'?'selected':''}>${k}</option>`).join('')}</select></div>
@@ -3005,8 +1976,7 @@ TOOL_RENDERERS['currency-conv'] = () => `
     <button class="btn btn-primary btn-block" onclick="cxConvert()">💱 Convert</button>
     <p class="hint mt-12">⚠️ Rates are fixed/static and may not represent current market rates.</p>
   </div>
-  <div class="result-box" id="cxResult"></div>
-`;
+  <div class="result-box" id="cxResult"></div>`;
 function cxConvert() {
   const amt = numVal('cxAmt','Amount',{min:0});
   if (amt == null) return;
@@ -3020,22 +1990,19 @@ function cxConvert() {
     <div class="result-sub">${fmtNum(amt,2)} ${from} = ${fmtNum(result,4)} ${to}</div>
     <div class="result-row"><span class="k">Rate</span><span class="v">1 ${from} ≈ ${fmtNum(RATES[to]/RATES[from], 6)} ${to}</span></div>
     <p class="hint mt-12">Static rates. Not for trading purposes.</p>
-    ${exportButtons('cxResult', 'currency-converter')}
-  `;
+    ${exportButtons('cxResult', 'currency-converter')}`;
   document.getElementById('cxResult').classList.add('active');
 }
 
-/* ---------- 24. AGE CALCULATOR ---------- */
+/* 24. AGE */
 TOOL_RENDERERS['age-calc'] = () => `
-  <div class="card">
-    <div class="card-title">Enter Details</div>
+  <div class="card"><div class="card-title">Enter Details</div>
     <div class="field"><label>Name</label><input type="text" id="agName" placeholder="Your name" maxlength="60" /></div>
     <div class="field"><label>Date of Birth</label><input type="date" id="agDob" /></div>
     <div class="field"><label>Photo (optional)</label><input type="file" id="agPhoto" accept="image/*" /></div>
     <button class="btn btn-primary btn-block" onclick="agCalc()">🎂 Calculate Age</button>
   </div>
-  <div class="result-box" id="agResult"></div>
-`;
+  <div class="result-box" id="agResult"></div>`;
 function agCalc() {
   const name = document.getElementById('agName').value.trim() || 'Friend';
   const dob = dateVal('agDob', 'Date of Birth');
@@ -3047,12 +2014,10 @@ function agCalc() {
   let days = now.getDate() - dob.getDate();
   if (days < 0) { months--; days += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
   if (months < 0) { years--; months += 12; }
-  // Next birthday
   const next = new Date(now.getFullYear(), dob.getMonth(), dob.getDate());
   if (next < now) next.setFullYear(now.getFullYear() + 1);
   const daysToBday = Math.ceil((next - now) / (1000*60*60*24));
   const isBirthday = (now.getDate() === dob.getDate() && now.getMonth() === dob.getMonth());
-  // Photo
   const photoFile = document.getElementById('agPhoto').files[0];
   const renderResult = (photoUrl) => {
     document.getElementById('agResult').innerHTML = `
@@ -3065,8 +2030,7 @@ function agCalc() {
       <div class="result-row"><span class="k">Days</span><span class="v">${days}</span></div>
       <div class="result-row"><span class="k">Date of Birth</span><span class="v">${dob.toLocaleDateString('en-IN')}</span></div>
       <div class="result-row"><span class="k">Next Birthday</span><span class="v">${next.toLocaleDateString('en-IN')} (${daysToBday} days)</span></div>
-      ${exportButtons('agResult', 'age-calculator')}
-    `;
+      ${exportButtons('agResult', 'age-calculator')}`;
     document.getElementById('agResult').classList.add('active');
   };
   if (photoFile) {
@@ -3076,17 +2040,15 @@ function agCalc() {
   } else renderResult(null);
 }
 
-/* ---------- 25. CGPA CALCULATOR ---------- */
+/* 25. CGPA */
 TOOL_RENDERERS['cgpa-calc'] = () => `
-  <div class="card">
-    <div class="card-title">CGPA Calculator</div>
+  <div class="card"><div class="card-title">CGPA Calculator</div>
     <div id="cgRows"></div>
     <button class="btn btn-secondary btn-sm mt-8" onclick="cgAddRow()">+ Add Subject</button>
     <button class="btn btn-primary btn-block mt-12" onclick="cgCalc()">🎓 Calculate CGPA</button>
     <div class="hint">Grade points: O=10, A+=9, A=8, B+=7, B=6, C=5, P=4, F=0</div>
   </div>
-  <div class="result-box" id="cgResult"></div>
-`;
+  <div class="result-box" id="cgResult"></div>`;
 TOOL_INITS['cgpa-calc'] = () => { cgAddRow(); cgAddRow(); cgAddRow(); };
 function cgAddRow() {
   const wrap = document.getElementById('cgRows');
@@ -3097,8 +2059,7 @@ function cgAddRow() {
     <input type="text" placeholder="Subject" />
     <input type="number" placeholder="Credits" min="0" step="0.5" value="3" />
     <input type="number" placeholder="Grade" min="0" max="10" step="0.1" value="8" />
-    <button class="remove-btn" type="button">✕</button>
-  `;
+    <button class="remove-btn" type="button">✕</button>`;
   div.querySelector('.remove-btn').addEventListener('click', () => div.remove());
   wrap.appendChild(div);
 }
@@ -3121,21 +2082,18 @@ function cgCalc() {
     <div class="result-sub">Weighted CGPA</div>
     <div class="result-row"><span class="k">Total Credits</span><span class="v">${fmtNum(totalCredits, 1)}</span></div>
     <div class="result-row"><span class="k">Approx Percentage</span><span class="v">${fmtNum(pct, 2)}%</span></div>
-    ${exportButtons('cgResult', 'cgpa')}
-  `;
+    ${exportButtons('cgResult', 'cgpa')}`;
   document.getElementById('cgResult').classList.add('active');
 }
 
-/* ---------- 26. EXAM COUNTDOWN ---------- */
+/* 26. EXAM COUNTDOWN */
 TOOL_RENDERERS['exam-count'] = () => `
-  <div class="card">
-    <div class="card-title">Exam Countdown</div>
+  <div class="card"><div class="card-title">Exam Countdown</div>
     <div class="field"><label>Exam Name</label><input type="text" id="exName" placeholder="e.g. Final Exam" maxlength="60" /></div>
     <div class="field"><label>Exam Date</label><input type="date" id="exDate" /></div>
     <button class="btn btn-primary btn-block" onclick="exCalc()">📅 Calculate</button>
   </div>
-  <div class="result-box" id="exResult"></div>
-`;
+  <div class="result-box" id="exResult"></div>`;
 function exCalc() {
   const name = document.getElementById('exName').value.trim() || 'Exam';
   const d = dateVal('exDate', 'Exam Date');
@@ -3153,21 +2111,18 @@ function exCalc() {
     <div class="result-sub">${esc(sub)}</div>
     <div class="result-row"><span class="k">Exam</span><span class="v">${esc(name)}</span></div>
     <div class="result-row"><span class="k">Date</span><span class="v">${d.toLocaleDateString('en-IN')}</span></div>
-    ${exportButtons('exResult', 'exam-countdown')}
-  `;
+    ${exportButtons('exResult', 'exam-countdown')}`;
   document.getElementById('exResult').classList.add('active');
 }
 
-/* ---------- 27. BMI ---------- */
+/* 27. BMI */
 TOOL_RENDERERS['bmi-calc'] = () => `
-  <div class="card">
-    <div class="card-title">BMI Calculator</div>
+  <div class="card"><div class="card-title">BMI Calculator</div>
     <div class="field"><label>Weight (kg)</label><input type="number" id="bmiW" min="1" step="0.1" placeholder="70" /></div>
     <div class="field"><label>Height (cm)</label><input type="number" id="bmiH" min="1" step="0.1" placeholder="170" /></div>
     <button class="btn btn-primary btn-block" onclick="bmiCalc()">⚖️ Calculate BMI</button>
   </div>
-  <div class="result-box" id="bmiResult"></div>
-`;
+  <div class="result-box" id="bmiResult"></div>`;
 function bmiCalc() {
   const w = numVal('bmiW','Weight',{min:1});
   const h = numVal('bmiH','Height',{min:1});
@@ -3186,38 +2141,20 @@ function bmiCalc() {
     <div class="result-row"><span class="k">Weight</span><span class="v">${w} kg</span></div>
     <div class="result-row"><span class="k">Height</span><span class="v">${h} cm</span></div>
     <div class="result-row"><span class="k">Category</span><span class="v" style="color:${color}">${cat}</span></div>
-    <p class="hint mt-12">BMI is a general screening measure and may not reflect individual health. Consult a doctor.</p>
-    ${exportButtons('bmiResult', 'bmi')}
-  `;
+    <p class="hint mt-12">BMI is a general screening measure. Consult a doctor.</p>
+    ${exportButtons('bmiResult', 'bmi')}`;
   document.getElementById('bmiResult').classList.add('active');
 }
 
-/* ---------- 28. CALORIES ---------- */
+/* 28. CALORIES */
 TOOL_RENDERERS['calories-calc'] = () => `
-  <div class="card">
-    <div class="card-title">Calories Calculator</div>
-    <div class="field-row">
-      <div class="field"><label>Age</label><input type="number" id="calAge" min="1" max="120" value="25" /></div>
-      <div class="field"><label>Gender</label><select id="calGender"><option value="male">Male</option><option value="female">Female</option></select></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Weight (kg)</label><input type="number" id="calW" min="1" step="0.1" value="70" /></div>
-      <div class="field"><label>Height (cm)</label><input type="number" id="calH" min="1" step="0.1" value="170" /></div>
-    </div>
-    <div class="field">
-      <label>Activity Level</label>
-      <select id="calAct">
-        <option value="1.2">Sedentary (little/no exercise)</option>
-        <option value="1.375">Light (1-3 days/week)</option>
-        <option value="1.55" selected>Moderate (3-5 days/week)</option>
-        <option value="1.725">Active (6-7 days/week)</option>
-        <option value="1.9">Very Active (athlete)</option>
-      </select>
-    </div>
+  <div class="card"><div class="card-title">Calories Calculator</div>
+    <div class="field-row"><div class="field"><label>Age</label><input type="number" id="calAge" min="1" max="120" value="25" /></div><div class="field"><label>Gender</label><select id="calGender"><option value="male">Male</option><option value="female">Female</option></select></div></div>
+    <div class="field-row"><div class="field"><label>Weight (kg)</label><input type="number" id="calW" min="1" step="0.1" value="70" /></div><div class="field"><label>Height (cm)</label><input type="number" id="calH" min="1" step="0.1" value="170" /></div></div>
+    <div class="field"><label>Activity Level</label><select id="calAct"><option value="1.2">Sedentary</option><option value="1.375">Light (1-3 days)</option><option value="1.55" selected>Moderate (3-5 days)</option><option value="1.725">Active (6-7 days)</option><option value="1.9">Very Active</option></select></div>
     <button class="btn btn-primary btn-block" onclick="calCalc()">🔥 Calculate</button>
   </div>
-  <div class="result-box" id="calResult"></div>
-`;
+  <div class="result-box" id="calResult"></div>`;
 function calCalc() {
   const age = numVal('calAge','Age',{min:1,max:120});
   const w = numVal('calW','Weight',{min:1});
@@ -3225,7 +2162,6 @@ function calCalc() {
   if (age == null || w == null || h == null) return;
   const g = document.getElementById('calGender').value;
   const act = Number(document.getElementById('calAct').value);
-  // Mifflin-St Jeor
   const bmr = g === 'male' ? 10*w + 6.25*h - 5*age + 5 : 10*w + 6.25*h - 5*age - 161;
   const tdee = bmr * act;
   document.getElementById('calResult').innerHTML = `
@@ -3236,31 +2172,20 @@ function calCalc() {
     <div class="result-row"><span class="k">Activity Multiplier</span><span class="v">${act}×</span></div>
     <div class="result-row"><span class="k">Weight Loss</span><span class="v">~${Math.round(tdee-500)} kcal/day</span></div>
     <div class="result-row"><span class="k">Weight Gain</span><span class="v">~${Math.round(tdee+500)} kcal/day</span></div>
-    <p class="hint mt-12">Uses Mifflin-St Jeor equation. This is an estimate — consult a nutritionist for personalized advice.</p>
-    ${exportButtons('calResult', 'calories')}
-  `;
+    <p class="hint mt-12">Uses Mifflin-St Jeor equation. Estimate only.</p>
+    ${exportButtons('calResult', 'calories')}`;
   document.getElementById('calResult').classList.add('active');
 }
 
-/* ---------- 29. DATE DIFFERENCE ---------- */
+/* 29. DATE DIFFERENCE */
 TOOL_RENDERERS['date-diff'] = () => `
-  <div class="card">
-    <div class="card-title">Date Difference</div>
+  <div class="card"><div class="card-title">Date Difference</div>
     <div class="field"><label>Start Date & Time</label><input type="datetime-local" id="ddStart" /></div>
     <div class="field"><label>End Date & Time</label><input type="datetime-local" id="ddEnd" /></div>
-    <div class="field">
-      <label>Show Result In</label>
-      <select id="ddUnit">
-        <option value="days">Days</option>
-        <option value="hours">Hours</option>
-        <option value="minutes">Minutes</option>
-        <option value="all">All units</option>
-      </select>
-    </div>
+    <div class="field"><label>Show Result In</label><select id="ddUnit"><option value="days">Days</option><option value="hours">Hours</option><option value="minutes">Minutes</option><option value="all">All units</option></select></div>
     <button class="btn btn-primary btn-block" onclick="ddCalc()">📆 Calculate</button>
   </div>
-  <div class="result-box" id="ddResult"></div>
-`;
+  <div class="result-box" id="ddResult"></div>`;
 function ddCalc() {
   const s = document.getElementById('ddStart').value;
   const e = document.getElementById('ddEnd').value;
@@ -3288,22 +2213,19 @@ function ddCalc() {
     <div class="result-row"><span class="k">Days</span><span class="v">${days}</span></div>
     <div class="result-row"><span class="k">Hours</span><span class="v">${hours}</span></div>
     <div class="result-row"><span class="k">Minutes</span><span class="v">${mins}</span></div>
-    ${exportButtons('ddResult', 'date-difference')}
-  `;
+    ${exportButtons('ddResult', 'date-difference')}`;
   document.getElementById('ddResult').classList.add('active');
 }
 
-/* ---------- 30. DATE BETWEEN ---------- */
+/* 30. DATE BETWEEN */
 TOOL_RENDERERS['date-between'] = () => `
-  <div class="card">
-    <div class="card-title">Date Between</div>
+  <div class="card"><div class="card-title">Date Between</div>
     <div class="field"><label>From Date</label><input type="date" id="dbFrom" /></div>
     <div class="field"><label>To Date</label><input type="date" id="dbTo" /></div>
     <button class="btn btn-primary btn-block" onclick="dbCalc()">🗓️ Calculate</button>
-    <div class="hint">Result shows total calendar days between the two dates (exclusive of start date).</div>
+    <div class="hint">Total calendar days between the two dates.</div>
   </div>
-  <div class="result-box" id="dbResult2"></div>
-`;
+  <div class="result-box" id="dbResult2"></div>`;
 function dbCalc() {
   const f = dateVal('dbFrom','From Date');
   const t = dateVal('dbTo','To Date');
@@ -3317,20 +2239,17 @@ function dbCalc() {
     <div class="result-row"><span class="k">To</span><span class="v">${t.toLocaleDateString('en-IN')}</span></div>
     <div class="result-row"><span class="k">Weeks</span><span class="v">${(Math.abs(days)/7).toFixed(2)}</span></div>
     <div class="result-row"><span class="k">Months (approx)</span><span class="v">${(Math.abs(days)/30.44).toFixed(2)}</span></div>
-    ${exportButtons('dbResult2', 'date-between')}
-  `;
+    ${exportButtons('dbResult2', 'date-between')}`;
   document.getElementById('dbResult2').classList.add('active');
 }
 
-/* ---------- 31. BASIC CALCULATOR ---------- */
+/* 31. BASIC CALCULATOR */
 TOOL_RENDERERS['basic-calc'] = () => `
-  <div class="card">
-    <div class="card-title">Calculator</div>
+  <div class="card"><div class="card-title">Calculator</div>
     <input type="text" id="bcDisplay" readonly style="width:100%;padding:16px;font-size:24px;text-align:right;background:var(--surface-2);border:1.5px solid var(--border-strong);border-radius:12px;color:var(--text);font-weight:700;margin-bottom:12px" value="0" />
     <div id="bcKeys" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px"></div>
     <button class="btn btn-secondary btn-block mt-12" onclick="bcClear()">Clear</button>
-  </div>
-`;
+  </div>`;
 TOOL_INITS['basic-calc'] = () => {
   window.bcExpr = '';
   const keys = ['7','8','9','÷','4','5','6','×','1','2','3','−','0','.','%','+','C','⌫','( )','='];
@@ -3343,7 +2262,7 @@ function bcPress(k) {
   if (k === 'C') { window.bcExpr = ''; disp.value = '0'; return; }
   if (k === '⌫') { window.bcExpr = window.bcExpr.slice(0, -1); disp.value = window.bcExpr || '0'; return; }
   if (k === '=') { bcEval(); return; }
-  if (k === '( )') { k = window.bcExpr.match(/\(/g)?.length > (window.bcExpr.match(/\)/g)?.length || 0) ? ')' : '('; }
+  if (k === '( )') { k = (window.bcExpr.match(/\(/g)?.length || 0) > (window.bcExpr.match(/\)/g)?.length || 0) ? ')' : '('; }
   if (k === '×') k = '*';
   if (k === '÷') k = '/';
   if (k === '−') k = '-';
@@ -3355,7 +2274,6 @@ function bcEval() {
   try {
     let expr = window.bcExpr.replace(/%/g, '/100');
     if (!/^[0-9+\-*/().\s]+$/.test(expr)) throw new Error('Invalid');
-    // Safe-ish eval using Function
     const result = Function('"use strict";return (' + expr + ')')();
     if (!isFinite(result)) throw new Error('Invalid');
     disp.value = result;
@@ -3368,10 +2286,9 @@ function bcEval() {
 }
 function bcClear() { window.bcExpr = ''; document.getElementById('bcDisplay').value = '0'; }
 
-/* ---------- 32. PERCENTAGE ---------- */
+/* 32. PERCENTAGE */
 TOOL_RENDERERS['percent-calc'] = () => `
-  <div class="card">
-    <div class="card-title">Percentage Calculator</div>
+  <div class="card"><div class="card-title">Percentage Calculator</div>
     <div class="chips-wrap">
       <div class="chip active" data-m="1">X% of Y</div>
       <div class="chip" data-m="2">% increase/decrease</div>
@@ -3380,8 +2297,7 @@ TOOL_RENDERERS['percent-calc'] = () => `
     <div id="pcFields"></div>
     <button class="btn btn-primary btn-block mt-12" onclick="pcCalc()">Calculate</button>
   </div>
-  <div class="result-box" id="pcResult"></div>
-`;
+  <div class="result-box" id="pcResult"></div>`;
 TOOL_INITS['percent-calc'] = () => {
   window.pcMode = 1;
   document.querySelectorAll('#toolBody .chip').forEach(c => {
@@ -3396,15 +2312,9 @@ TOOL_INITS['percent-calc'] = () => {
 };
 function pcRender() {
   const f = document.getElementById('pcFields');
-  if (window.pcMode === 1) f.innerHTML = `
-    <div class="field"><label>X (%)</label><input type="number" id="pcX" step="0.01" placeholder="20" /></div>
-    <div class="field"><label>Y</label><input type="number" id="pcY" step="0.01" placeholder="500" /></div>`;
-  else if (window.pcMode === 2) f.innerHTML = `
-    <div class="field"><label>Original Value</label><input type="number" id="pcOld" step="0.01" placeholder="100" /></div>
-    <div class="field"><label>New Value</label><input type="number" id="pcNew" step="0.01" placeholder="120" /></div>`;
-  else f.innerHTML = `
-    <div class="field"><label>X (part)</label><input type="number" id="pcPart" step="0.01" placeholder="25" /></div>
-    <div class="field"><label>Y (whole)</label><input type="number" id="pcWhole" step="0.01" placeholder="200" /></div>`;
+  if (window.pcMode === 1) f.innerHTML = `<div class="field"><label>X (%)</label><input type="number" id="pcX" step="0.01" placeholder="20" /></div><div class="field"><label>Y</label><input type="number" id="pcY" step="0.01" placeholder="500" /></div>`;
+  else if (window.pcMode === 2) f.innerHTML = `<div class="field"><label>Original Value</label><input type="number" id="pcOld" step="0.01" placeholder="100" /></div><div class="field"><label>New Value</label><input type="number" id="pcNew" step="0.01" placeholder="120" /></div>`;
+  else f.innerHTML = `<div class="field"><label>X (part)</label><input type="number" id="pcPart" step="0.01" placeholder="25" /></div><div class="field"><label>Y (whole)</label><input type="number" id="pcWhole" step="0.01" placeholder="200" /></div>`;
 }
 function pcCalc() {
   let html = '';
@@ -3430,19 +2340,13 @@ function pcCalc() {
   document.getElementById('pcResult').classList.add('active');
 }
 
-/* ---------- 33. TO-DO LIST ---------- */
+/* 33. TO-DO */
 TOOL_RENDERERS['todo-list'] = () => `
-  <div class="card">
-    <div class="card-title">Add Task</div>
+  <div class="card"><div class="card-title">Add Task</div>
     <div class="field"><input type="text" id="tdInput" placeholder="What needs to be done?" maxlength="200" /></div>
     <button class="btn btn-primary btn-block" onclick="tdAdd()">+ Add Task</button>
   </div>
-  <div class="card">
-    <div class="card-title">Your Tasks</div>
-    <div id="tdList"></div>
-    <button class="btn btn-secondary btn-sm mt-8" onclick="tdClearDone()">Clear Completed</button>
-  </div>
-`;
+  <div class="card"><div class="card-title">Your Tasks</div><div id="tdList"></div><button class="btn btn-secondary btn-sm mt-8" onclick="tdClearDone()">Clear Completed</button></div>`;
 TOOL_INITS['todo-list'] = () => {
   document.getElementById('tdInput').addEventListener('keydown', e => { if (e.key === 'Enter') tdAdd(); });
   tdRender();
@@ -3468,17 +2372,8 @@ function tdEdit(id) {
   const nv = prompt('Edit task:', t.text);
   if (nv !== null && nv.trim()) { t.text = nv.trim(); DB.set('todo', list); tdRender(); }
 }
-function tdDel(id) {
-  const list = DB.get('todo', []).filter(x => x.id !== id);
-  DB.set('todo', list);
-  tdRender();
-}
-function tdClearDone() {
-  const list = DB.get('todo', []).filter(x => !x.done);
-  DB.set('todo', list);
-  tdRender();
-  toast('Completed tasks cleared');
-}
+function tdDel(id) { DB.set('todo', DB.get('todo', []).filter(x => x.id !== id)); tdRender(); }
+function tdClearDone() { DB.set('todo', DB.get('todo', []).filter(x => !x.done)); tdRender(); toast('Cleared'); }
 function tdRender() {
   const list = DB.get('todo', []);
   const el = document.getElementById('tdList');
@@ -3487,26 +2382,17 @@ function tdRender() {
     <div class="todo-item ${t.done?'done':''}">
       <div class="todo-check" onclick="tdToggle(${t.id})">${t.done?'✓':''}</div>
       <div class="todo-text">${esc(t.text)}</div>
-      <div class="todo-actions">
-        <button onclick="tdEdit(${t.id})">✏️</button>
-        <button onclick="tdDel(${t.id})">🗑️</button>
-      </div>
-    </div>
-  `).join('');
+      <div class="todo-actions"><button onclick="tdEdit(${t.id})">✏️</button><button onclick="tdDel(${t.id})">🗑️</button></div>
+    </div>`).join('');
 }
 
-/* ---------- 34. NOTES ---------- */
+/* 34. NOTES */
 TOOL_RENDERERS['notes-app'] = () => `
-  <div class="card">
-    <div class="card-title">Notes</div>
+  <div class="card"><div class="card-title">Notes</div>
     <div class="field"><input type="text" id="ntSearch" placeholder="🔍 Search notes..." /></div>
     <button class="btn btn-primary btn-block" onclick="ntNew()">+ New Note</button>
   </div>
-  <div class="card">
-    <div class="card-title">Your Notes</div>
-    <div id="ntList"></div>
-  </div>
-`;
+  <div class="card"><div class="card-title">Your Notes</div><div id="ntList"></div></div>`;
 TOOL_INITS['notes-app'] = () => {
   document.getElementById('ntSearch').addEventListener('input', ntRender);
   ntRender();
@@ -3522,8 +2408,7 @@ function ntRender() {
       <div class="note-title">${esc(n.title || 'Untitled')}</div>
       <div class="note-preview">${esc((n.body||'').slice(0,80))}${(n.body||'').length>80?'...':''}</div>
       <div class="note-date">${new Date(n.updated).toLocaleString('en-IN')}</div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 function ntNew() { ntOpen(null); }
 function ntOpen(id) {
@@ -3531,10 +2416,7 @@ function ntOpen(id) {
   const note = id ? notes.find(n => n.id === id) : { id: null, title: '', body: '' };
   if (!note) return;
   openModal(`
-    <div class="modal-header">
-      <h3>${id ? '✏️ Edit Note' : '📔 New Note'}</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
+    <div class="modal-header"><h3>${id ? '✏️ Edit Note' : '📔 New Note'}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div class="field"><label>Title</label><input type="text" id="ntTitle" value="${esc(note.title)}" maxlength="100" /></div>
     <div class="field"><label>Body <span class="muted">(max 200,000 chars)</span></label><textarea id="ntBody" style="min-height:260px" maxlength="200000">${esc(note.body)}</textarea></div>
     <div class="btn-group">
@@ -3551,9 +2433,7 @@ function ntSave(id) {
   if (id) {
     const n = notes.find(x => x.id === id);
     if (n) { n.title = title; n.body = body; n.updated = Date.now(); }
-  } else {
-    notes.push({ id: Date.now(), title, body, updated: Date.now() });
-  }
+  } else notes.push({ id: Date.now(), title, body, updated: Date.now() });
   DB.set('notes', notes);
   closeModal();
   toast('Note saved', 'success');
@@ -3561,37 +2441,24 @@ function ntSave(id) {
 }
 function ntDel(id) {
   if (!confirm('Delete this note?')) return;
-  const notes = DB.get('notes', []).filter(n => n.id !== id);
-  DB.set('notes', notes);
+  DB.set('notes', DB.get('notes', []).filter(n => n.id !== id));
   closeModal();
   toast('Note deleted');
   ntRender();
 }
 
-/* ---------- 35. GYM MANAGER ---------- */
+/* 35. GYM */
 TOOL_RENDERERS['gym-manager'] = () => `
-  <div class="card">
-    <div class="card-title">Add Member</div>
-    <div class="field-row">
-      <div class="field"><label>Name</label><input type="text" id="gmName" maxlength="60" /></div>
-      <div class="field"><label>Phone</label><input type="text" id="gmPhone" maxlength="15" /></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Joining Date</label><input type="date" id="gmJoin" /></div>
-      <div class="field"><label>Fee (₹)</label><input type="number" id="gmFee" min="0" step="1" /></div>
-    </div>
-    <div class="field-row">
-      <div class="field"><label>Payment Date</label><input type="date" id="gmPay" /></div>
-      <div class="field"><label>Renewal Date</label><input type="date" id="gmRenew" /></div>
-    </div>
+  <div class="card"><div class="card-title">Add Member</div>
+    <div class="field-row"><div class="field"><label>Name</label><input type="text" id="gmName" maxlength="60" /></div><div class="field"><label>Phone</label><input type="text" id="gmPhone" maxlength="15" /></div></div>
+    <div class="field-row"><div class="field"><label>Joining Date</label><input type="date" id="gmJoin" /></div><div class="field"><label>Fee (₹)</label><input type="number" id="gmFee" min="0" step="1" /></div></div>
+    <div class="field-row"><div class="field"><label>Payment Date</label><input type="date" id="gmPay" /></div><div class="field"><label>Renewal Date</label><input type="date" id="gmRenew" /></div></div>
     <button class="btn btn-primary btn-block" onclick="gmAdd()">+ Add Member</button>
   </div>
-  <div class="card">
-    <div class="card-title">Members</div>
+  <div class="card"><div class="card-title">Members</div>
     <div class="field"><input type="text" id="gmSearch" placeholder="🔍 Search members..." /></div>
     <div id="gmList"></div>
-  </div>
-`;
+  </div>`;
 TOOL_INITS['gym-manager'] = () => {
   const today = new Date().toISOString().slice(0,10);
   ['gmJoin','gmPay','gmRenew'].forEach(id => { const el = document.getElementById(id); if (el && !el.value) el.value = today; });
@@ -3602,8 +2469,7 @@ function gmAdd() {
   const name = document.getElementById('gmName').value.trim();
   if (!name) { toast('Name required', 'error'); return; }
   const m = {
-    id: Date.now(),
-    name,
+    id: Date.now(), name,
     phone: document.getElementById('gmPhone').value.trim(),
     join: document.getElementById('gmJoin').value,
     fee: Number(document.getElementById('gmFee').value) || 0,
@@ -3614,9 +2480,7 @@ function gmAdd() {
   const list = DB.get('gym', []);
   list.push(m);
   DB.set('gym', list);
-  document.getElementById('gmName').value = '';
-  document.getElementById('gmPhone').value = '';
-  document.getElementById('gmFee').value = '';
+  document.getElementById('gmName').value = ''; document.getElementById('gmPhone').value = ''; document.getElementById('gmFee').value = '';
   toast('Member added', 'success');
   gmRender();
 }
@@ -3638,14 +2502,8 @@ function gmEdit(id) {
     <div class="modal-header"><h3>✏️ Edit Member</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div class="field"><label>Name</label><input type="text" id="gmeName" value="${esc(m.name)}" /></div>
     <div class="field"><label>Phone</label><input type="text" id="gmePhone" value="${esc(m.phone)}" /></div>
-    <div class="field-row">
-      <div class="field"><label>Fee</label><input type="number" id="gmeFee" value="${m.fee}" /></div>
-      <div class="field"><label>Renewal</label><input type="date" id="gmeRenew" value="${m.renew}" /></div>
-    </div>
-    <div class="btn-group">
-      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="gmSaveEdit(${id})">Save</button>
-    </div>
+    <div class="field-row"><div class="field"><label>Fee</label><input type="number" id="gmeFee" value="${m.fee}" /></div><div class="field"><label>Renewal</label><input type="date" id="gmeRenew" value="${m.renew}" /></div></div>
+    <div class="btn-group"><button class="btn btn-secondary" onclick="closeModal()">Cancel</button><button class="btn btn-primary" onclick="gmSaveEdit(${id})">Save</button></div>
   `);
 }
 function gmSaveEdit(id) {
@@ -3679,10 +2537,7 @@ function gmRender() {
     }
     return `
       <div class="gym-member">
-        <div class="gm-head">
-          <div><div class="gm-name">${esc(m.name)}</div><div class="gm-phone">${esc(m.phone || '—')}</div></div>
-          ${status}
-        </div>
+        <div class="gm-head"><div><div class="gm-name">${esc(m.name)}</div><div class="gm-phone">${esc(m.phone || '—')}</div></div>${status}</div>
         <div class="gm-info">
           <div><span>Fee:</span> ${fmtMoney(m.fee)}</div>
           <div><span>Attendance:</span> ${m.attendance || 0}</div>
@@ -3694,30 +2549,19 @@ function gmRender() {
           <button class="btn btn-sm btn-secondary" onclick="gmEdit(${m.id})">✏️ Edit</button>
           <button class="btn btn-sm btn-danger" onclick="gmDel(${m.id})">🗑️</button>
         </div>
-      </div>
-    `;
+      </div>`;
   }).join('');
 }
 
-/* ---------- 36. BIO GENERATOR ---------- */
+/* 36. BIO */
 TOOL_RENDERERS['bio-gen'] = () => `
-  <div class="card">
-    <div class="card-title">Bio Generator</div>
+  <div class="card"><div class="card-title">Bio Generator</div>
     <div class="field"><label>Name</label><input type="text" id="bgName" placeholder="Your name" maxlength="40" /></div>
     <div class="field"><label>Profession / Interests</label><input type="text" id="bgProf" placeholder="e.g. Developer, Traveler, Foodie" maxlength="80" /></div>
-    <div class="field">
-      <label>Style</label>
-      <select id="bgStyle">
-        <option value="professional">Professional</option>
-        <option value="casual">Casual</option>
-        <option value="funny">Funny</option>
-        <option value="aesthetic">Aesthetic</option>
-      </select>
-    </div>
+    <div class="field"><label>Style</label><select id="bgStyle"><option value="professional">Professional</option><option value="casual">Casual</option><option value="funny">Funny</option><option value="aesthetic">Aesthetic</option></select></div>
     <button class="btn btn-primary btn-block" onclick="bgGen()">✨ Generate Bio</button>
   </div>
-  <div class="result-box" id="bgResult"></div>
-`;
+  <div class="result-box" id="bgResult"></div>`;
 function bgGen() {
   const name = document.getElementById('bgName').value.trim() || 'Me';
   const prof = document.getElementById('bgProf').value.trim() || 'Dreamer';
@@ -3751,34 +2595,30 @@ function bgGen() {
     ]
   };
   const list = templates[style];
+  window._bios = list;
   document.getElementById('bgResult').innerHTML = `
     <div class="result-title">Bio Ideas</div>
     ${list.map((b, i) => `
       <div class="fb-item" style="white-space:pre-wrap;border-left-color:var(--primary)">
         <div style="font-family:monospace;font-size:13.5px;line-height:1.6">${esc(b)}</div>
         <button class="btn btn-sm btn-secondary mt-8" onclick="bgCopy(${i})">📋 Copy</button>
-      </div>
-    `).join('')}
-    ${exportButtons('bgResult', 'bio')}
-  `;
+      </div>`).join('')}
+    ${exportButtons('bgResult', 'bio')}`;
   document.getElementById('bgResult').classList.add('active');
-  window._bios = list;
 }
 function bgCopy(i) {
   navigator.clipboard.writeText(window._bios[i]).then(() => toast('Copied', 'success')).catch(() => toast('Copy failed', 'error'));
 }
 
-/* ---------- 37. HASHTAG GENERATOR ---------- */
+/* 37. HASHTAG */
 TOOL_RENDERERS['hashtag-gen'] = () => `
-  <div class="card">
-    <div class="card-title">Hashtag Generator</div>
+  <div class="card"><div class="card-title">Hashtag Generator</div>
     <div class="field"><label>Topic / Keyword</label><input type="text" id="hgKw" placeholder="e.g. fitness, travel" maxlength="60" /></div>
     <div class="field"><label>Platform</label><select id="hgPlat"><option value="instagram">Instagram</option><option value="twitter">Twitter / X</option><option value="youtube">YouTube</option><option value="tiktok">TikTok</option></select></div>
     <button class="btn btn-primary btn-block" onclick="hgGen()">#️⃣ Generate</button>
-    <p class="hint mt-12">Note: Hashtags are generated locally and are not real-time trending data.</p>
+    <p class="hint mt-12">Hashtags generated locally. Not real-time trending data.</p>
   </div>
-  <div class="result-box" id="hgResult"></div>
-`;
+  <div class="result-box" id="hgResult"></div>`;
 function hgGen() {
   const kw = document.getElementById('hgKw').value.trim().toLowerCase().replace(/\s+/g,'');
   if (!kw) { toast('Enter a keyword', 'error'); return; }
@@ -3796,22 +2636,19 @@ function hgGen() {
   extras[plat].forEach(t => tags.add('#' + t));
   tags.add('#' + kw);
   const arr = Array.from(tags).filter(t => t.length > 1).slice(0, 30);
+  window._tags = arr.join(' ');
   document.getElementById('hgResult').innerHTML = `
     <div class="result-title">Generated Hashtags (${arr.length})</div>
     <div style="background:var(--surface-2);padding:14px;border-radius:12px;font-family:monospace;font-size:13px;line-height:1.7;word-break:break-word">${arr.map(esc).join(' ')}</div>
-    <div class="btn-group mt-12">
-      <button class="btn btn-primary btn-sm" onclick="hgCopy()">📋 Copy All</button>
-    </div>
-    ${exportButtons('hgResult', 'hashtags')}
-  `;
+    <div class="btn-group mt-12"><button class="btn btn-primary btn-sm" onclick="hgCopy()">📋 Copy All</button></div>
+    ${exportButtons('hgResult', 'hashtags')}`;
   document.getElementById('hgResult').classList.add('active');
-  window._tags = arr.join(' ');
 }
 function hgCopy() {
   navigator.clipboard.writeText(window._tags).then(() => toast('Copied', 'success')).catch(() => toast('Copy failed', 'error'));
 }
 
-/* ---------- 38. UNIT CONVERTER ---------- */
+/* 38. UNIT CONVERTER */
 const UNITS = {
   length: { mm:1, cm:10, m:1000, km:1000000, inch:25.4, feet:304.8, yard:914.4, mile:1609344 },
   weight: { mg:0.001, g:1, kg:1000, pound:453.592, ounce:28.3495, ton:1000000 },
@@ -3825,29 +2662,15 @@ const UNIT_LABELS = {
   c:'Celsius', f:'Fahrenheit', k:'Kelvin'
 };
 TOOL_RENDERERS['unit-conv'] = () => `
-  <div class="card">
-    <div class="card-title">Unit Converter</div>
-    <div class="field">
-      <label>Category</label>
-      <select id="ucCat">
-        <option value="length">Length</option>
-        <option value="weight">Weight</option>
-        <option value="temperature">Temperature</option>
-        <option value="area">Area</option>
-      </select>
-    </div>
+  <div class="card"><div class="card-title">Unit Converter</div>
+    <div class="field"><label>Category</label><select id="ucCat"><option value="length">Length</option><option value="weight">Weight</option><option value="temperature">Temperature</option><option value="area">Area</option></select></div>
     <div class="field"><label>Value</label><input type="number" id="ucVal" step="0.0001" value="1" /></div>
-    <div class="field-row">
-      <div class="field"><label>From</label><select id="ucFrom"></select></div>
-      <div class="field"><label>To</label><select id="ucTo"></select></div>
-    </div>
+    <div class="field-row"><div class="field"><label>From</label><select id="ucFrom"></select></div><div class="field"><label>To</label><select id="ucTo"></select></div></div>
     <button class="btn btn-primary btn-block" onclick="ucConv()">🔀 Convert</button>
   </div>
-  <div class="result-box" id="ucResult"></div>
-`;
+  <div class="result-box" id="ucResult"></div>`;
 TOOL_INITS['unit-conv'] = () => {
-  const cat = document.getElementById('ucCat');
-  cat.addEventListener('change', ucPopulate);
+  document.getElementById('ucCat').addEventListener('change', ucPopulate);
   ucPopulate();
 };
 function ucPopulate() {
@@ -3868,7 +2691,6 @@ function ucConv() {
   const to = document.getElementById('ucTo').value;
   let result;
   if (cat === 'temperature') {
-    // Convert to Celsius first
     let c;
     if (from === 'c') c = v;
     else if (from === 'f') c = (v - 32) * 5/9;
@@ -3887,8 +2709,7 @@ function ucConv() {
     <div class="result-row"><span class="k">Category</span><span class="v" style="text-transform:capitalize">${cat}</span></div>
     <div class="result-row"><span class="k">From</span><span class="v">${v} ${UNIT_LABELS[from]||from}</span></div>
     <div class="result-row"><span class="k">To</span><span class="v">${fmtNum(result,4)} ${UNIT_LABELS[to]||to}</span></div>
-    ${exportButtons('ucResult', 'unit-converter')}
-  `;
+    ${exportButtons('ucResult', 'unit-converter')}`;
   document.getElementById('ucResult').classList.add('active');
 }
 
@@ -3901,26 +2722,14 @@ document.getElementById('logo').addEventListener('click', () => {
   logoTaps++;
   clearTimeout(logoTimer);
   logoTimer = setTimeout(() => { logoTaps = 0; }, 2500);
-  if (logoTaps >= 5) {
-    logoTaps = 0;
-    openSecretModal();
-  }
+  if (logoTaps >= 5) { logoTaps = 0; openSecretModal(); }
 });
 function openSecretModal() {
   openModal(`
-    <div class="modal-header">
-      <h3>🔐 Enter Secret Key</h3>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="field">
-      <label>Secret Key</label>
-      <input type="password" id="secretKey" placeholder="Enter secret key" />
-    </div>
+    <div class="modal-header"><h3>🔐 Enter Secret Key</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="field"><label>Secret Key</label><input type="password" id="secretKey" placeholder="Enter secret key" /></div>
     <div id="secretErr" class="hidden" style="color:var(--danger);font-size:13px;margin-bottom:10px">Incorrect key. Try again.</div>
-    <div class="btn-group">
-      <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" id="secretBtn">Unlock</button>
-    </div>
+    <div class="btn-group"><button class="btn btn-secondary" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="secretBtn">Unlock</button></div>
   `);
   const inp = document.getElementById('secretKey');
   document.getElementById('secretBtn').addEventListener('click', () => {
@@ -3930,8 +2739,7 @@ function openSecretModal() {
       setTimeout(() => { window.location.href = 'https://master-tool-omega.vercel.app'; }, 700);
     } else {
       document.getElementById('secretErr').classList.remove('hidden');
-      inp.value = '';
-      inp.focus();
+      inp.value = ''; inp.focus();
       document.querySelector('.modal').classList.add('shake');
       setTimeout(() => document.querySelector('.modal').classList.remove('shake'), 500);
     }
@@ -3941,22 +2749,16 @@ function openSecretModal() {
 }
 
 /* ============================================================
-   INITIALIZATION
+   INIT
    ============================================================ */
 function init() {
-  // Theme
   const theme = DB.get('theme', 'dark');
   applyTheme(theme);
-
-  // Stats
   document.getElementById('statTools').textContent = TOOLS.length + '+';
   document.getElementById('statCats').textContent = CATEGORIES.filter(c => TOOLS.some(t => t.cat === c.id)).length;
-
-  // Render
   renderCategories();
   renderPopular();
 
-  // Search
   const si = document.getElementById('searchInput');
   si.addEventListener('input', handleSearch);
   si.addEventListener('focus', () => { if (si.value.trim()) handleSearch(); });
@@ -3966,31 +2768,22 @@ function init() {
     si.focus();
   });
   document.addEventListener('click', e => {
-    if (!e.target.closest('.search-wrap')) {
-      document.getElementById('searchResults').classList.remove('active');
-    }
+    if (!e.target.closest('.search-wrap')) document.getElementById('searchResults').classList.remove('active');
   });
 
-  // Header buttons
   document.getElementById('aboutBtn').addEventListener('click', openAbout);
   document.getElementById('themeBtn').addEventListener('click', cycleTheme);
   document.getElementById('menuBtn').addEventListener('click', openDrawer);
 
-  // Drawer profile click
   document.getElementById('drawerProfile').addEventListener('click', () => {
     closeDrawer();
     setTimeout(openProfile, 250);
   });
 
-  // Global error handler
-  window.addEventListener('error', e => {
-    console.error('Global error:', e.error);
-  });
-
+  window.addEventListener('error', e => { console.error('Global error:', e.error); });
   console.log('%cQunvero loaded ✅', 'color:#6366f1;font-weight:bold;font-size:14px');
   console.log('Tools:', TOOLS.length, '| Categories:', CATEGORIES.length);
 }
-
 document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
