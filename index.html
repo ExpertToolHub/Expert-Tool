@@ -12,10 +12,11 @@
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', sans-serif;
   background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden;
@@ -43,7 +44,6 @@ a { color: inherit; text-decoration: none; }
   --primary: #a0522d; --primary-2: #c47b4a; --accent: #b8860b;
   --gradient: linear-gradient(135deg, #a0522d 0%, #c47b4a 50%, #d4a574 100%);
   --shadow-sm: 0 2px 8px rgba(120,90,50,0.1); --shadow: 0 8px 24px rgba(120,90,50,0.15); --shadow-lg: 0 20px 50px rgba(120,90,50,0.2);
-  --glow: 0 0 24px rgba(160,82,45,0.25);
 }
 [data-theme="light"] {
   --bg: #f4f6fb; --bg-2: #ffffff; --surface: #ffffff; --surface-2: #f8fafc; --surface-hover: #f1f5f9;
@@ -52,23 +52,19 @@ a { color: inherit; text-decoration: none; }
   --primary: #6366f1; --primary-2: #8b5cf6; --accent: #06b6d4;
   --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
   --shadow-sm: 0 2px 8px rgba(15,23,42,0.06); --shadow: 0 8px 24px rgba(15,23,42,0.08); --shadow-lg: 0 20px 50px rgba(15,23,42,0.12);
-  --glow: 0 0 24px rgba(99,102,241,0.2);
 }
 
 ::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--surface-2); border-radius: 8px; }
-::-webkit-scrollbar-thumb:hover { background: var(--surface-hover); }
 
 .header { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
 .header-inner { max-width: 1200px; margin: 0 auto; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .logo { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; cursor: pointer; user-select: none; padding: 6px 8px; border-radius: 10px; transition: transform 0.15s ease; }
 .logo:active { transform: scale(0.94); }
-.logo-icon { width: 34px; height: 34px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: var(--glow); }
+.logo-icon { width: 34px; height: 34px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 18px; }
 .logo-text { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 .header-actions { display: flex; gap: 8px; align-items: center; }
 .icon-btn { width: 40px; height: 40px; border-radius: 12px; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 18px; transition: all 0.2s ease; color: var(--text); }
-.icon-btn:hover { background: var(--surface-hover); border-color: var(--border-strong); }
 .icon-btn:active { transform: scale(0.92); }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px 80px; }
@@ -79,20 +75,19 @@ a { color: inherit; text-decoration: none; }
 .hero p { color: var(--text-2); font-size: clamp(13px, 3.5vw, 16px); max-width: 640px; margin: 0 auto; }
 
 .search-wrap { position: relative; max-width: 640px; margin: 22px auto 8px; z-index: 50; }
-.search-box { position: relative; display: flex; align-items: center; background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 16px; padding: 0 16px; transition: all 0.25s ease; box-shadow: var(--shadow-sm); }
-.search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99,102,241,0.15), var(--shadow); }
+.search-box { position: relative; display: flex; align-items: center; background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 16px; padding: 0 16px; transition: all 0.25s ease; }
+.search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(99,102,241,0.15); }
 .search-box .s-icon { font-size: 18px; opacity: 0.6; }
 .search-box input { flex: 1; background: transparent; border: none; outline: none; padding: 15px 12px; font-size: 15px; color: var(--text); }
 .search-box input::placeholder { color: var(--text-3); }
 .search-clear { font-size: 18px; opacity: 0.5; padding: 6px; border-radius: 8px; display: none; }
-.search-clear:hover { opacity: 1; background: var(--surface-2); }
 .search-box input:not(:placeholder-shown) ~ .search-clear { display: block; }
 
-.search-results { position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 16px; box-shadow: var(--shadow-lg); max-height: 420px; overflow-y: auto; display: none; z-index: 60; animation: fadeSlide 0.2s ease; }
+.search-results { position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--surface); border: 1px solid var(--border-strong); border-radius: 16px; box-shadow: var(--shadow-lg); max-height: 420px; overflow-y: auto; display: none; z-index: 60; }
 .search-results.active { display: block; }
 .search-result-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; cursor: pointer; transition: background 0.15s ease; border-bottom: 1px solid var(--border); }
 .search-result-item:last-child { border-bottom: none; }
-.search-result-item:hover, .search-result-item:active { background: var(--surface-hover); }
+.search-result-item:active { background: var(--surface-hover); }
 .search-result-item .sr-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
 .search-result-item .sr-info { flex: 1; min-width: 0; }
 .search-result-item .sr-name { font-weight: 600; font-size: 14.5px; margin-bottom: 2px; }
@@ -100,8 +95,7 @@ a { color: inherit; text-decoration: none; }
 .no-results { padding: 24px; text-align: center; color: var(--text-3); font-size: 14px; }
 
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 640px; margin: 22px auto 32px; }
-.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px 10px; text-align: center; transition: all 0.2s ease; }
-.stat-card:hover { transform: translateY(-2px); border-color: var(--border-strong); }
+.stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 16px 10px; text-align: center; }
 .stat-num { font-size: clamp(20px, 5vw, 26px); font-weight: 800; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
 .stat-label { font-size: 11.5px; color: var(--text-3); margin-top: 4px; font-weight: 500; }
 
@@ -113,31 +107,25 @@ a { color: inherit; text-decoration: none; }
 @media (min-width: 480px) { .cat-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 720px) { .cat-grid { grid-template-columns: repeat(4, 1fr); } }
 @media (min-width: 1000px) { .cat-grid { grid-template-columns: repeat(5, 1fr); } }
-.cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px 12px; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; position: relative; overflow: hidden; }
-.cat-card::before { content: ''; position: absolute; inset: 0; background: var(--gradient); opacity: 0; transition: opacity 0.25s ease; z-index: 0; }
-.cat-card:hover { transform: translateY(-4px); border-color: var(--border-strong); box-shadow: var(--shadow); }
-.cat-card:hover::before { opacity: 0.06; }
+.cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 16px 12px; cursor: pointer; transition: all 0.25s ease; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
 .cat-card:active { transform: scale(0.96); }
-.cat-card > * { position: relative; z-index: 1; }
-.cat-icon { width: 52px; height: 52px; border-radius: 16px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 6px 18px rgba(99,102,241,0.25); }
+.cat-icon { width: 52px; height: 52px; border-radius: 16px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 24px; }
 .cat-name { font-size: 13.5px; font-weight: 700; line-height: 1.25; }
 .cat-count { font-size: 11px; color: var(--text-3); }
 
 .tool-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 24px; }
 @media (min-width: 560px) { .tool-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (min-width: 900px) { .tool-grid { grid-template-columns: repeat(4, 1fr); } }
-.tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 14px; cursor: pointer; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; gap: 10px; min-height: 130px; position: relative; }
-.tool-card:hover { transform: translateY(-3px); border-color: var(--border-strong); box-shadow: var(--shadow); }
+.tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 14px; cursor: pointer; transition: all 0.25s ease; display: flex; flex-direction: column; gap: 10px; min-height: 130px; }
 .tool-card:active { transform: scale(0.97); }
-.tool-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 4px 14px rgba(99,102,241,0.25); }
+.tool-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 20px; }
 .tool-name { font-size: 13.5px; font-weight: 700; line-height: 1.3; }
 .tool-desc { font-size: 11.5px; color: var(--text-3); line-height: 1.4; }
 
-.workspace { display: none; animation: fadeSlide 0.3s ease; }
-.workspace.active { display: block; }
+.workspace { display: none; }
+.workspace.active { display: block; animation: fadeSlide 0.3s ease; }
 .tool-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; }
-.back-btn { width: 38px; height: 38px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; transition: all 0.2s ease; }
-.back-btn:hover { background: var(--surface-hover); }
+.back-btn { width: 38px; height: 38px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
 .back-btn:active { transform: scale(0.92); }
 .tool-header-info { flex: 1; min-width: 0; }
 .tool-header-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
@@ -148,18 +136,16 @@ a { color: inherit; text-decoration: none; }
 
 .field { margin-bottom: 14px; }
 .field label { display: block; font-size: 12.5px; font-weight: 600; color: var(--text-2); margin-bottom: 6px; }
-.field input, .field textarea, .field select { width: 100%; padding: 12px 14px; background: var(--surface-2); border: 1.5px solid var(--border-strong); border-radius: 12px; font-size: 14.5px; transition: all 0.2s ease; outline: none; color: var(--text); }
+.field input, .field textarea, .field select { width: 100%; padding: 12px 14px; background: var(--surface-2); border: 1.5px solid var(--border-strong); border-radius: 12px; font-size: 14.5px; outline: none; color: var(--text); }
 .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
 .field textarea { resize: vertical; min-height: 90px; font-family: inherit; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 @media (max-width: 420px) { .field-row { grid-template-columns: 1fr; } }
 
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 20px; border-radius: 12px; font-size: 14.5px; font-weight: 700; transition: all 0.2s ease; cursor: pointer; border: none; user-select: none; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 20px; border-radius: 12px; font-size: 14.5px; font-weight: 700; transition: all 0.2s ease; cursor: pointer; border: none; }
 .btn:active { transform: scale(0.97); }
-.btn-primary { background: var(--gradient); color: white; box-shadow: 0 6px 18px rgba(99,102,241,0.3); }
-.btn-primary:hover { box-shadow: 0 8px 24px rgba(99,102,241,0.45); }
+.btn-primary { background: var(--gradient); color: white; }
 .btn-secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border-strong); }
-.btn-secondary:hover { background: var(--surface-hover); }
 .btn-danger { background: var(--danger); color: white; }
 .btn-success { background: var(--success); color: white; }
 .btn-block { width: 100%; }
@@ -167,8 +153,8 @@ a { color: inherit; text-decoration: none; }
 .btn-group { display: flex; flex-wrap: wrap; gap: 8px; }
 .btn-group .btn { flex: 1; min-width: 90px; }
 
-.result-box { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 16px; padding: 20px; margin-top: 16px; display: none; animation: fadeSlide 0.35s ease; }
-.result-box.active { display: block; }
+.result-box { background: var(--surface); border: 1.5px solid var(--border-strong); border-radius: 16px; padding: 20px; margin-top: 16px; display: none; }
+.result-box.active { display: block; animation: fadeSlide 0.35s ease; }
 .result-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-3); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px dashed var(--border-strong); }
 .result-main { font-size: clamp(24px, 6vw, 34px); font-weight: 900; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; line-height: 1.2; margin-bottom: 4px; word-break: break-word; }
 .result-sub { font-size: 13px; color: var(--text-3); margin-bottom: 16px; }
@@ -182,7 +168,7 @@ a { color: inherit; text-decoration: none; }
 
 .item-row { display: grid; grid-template-columns: 2fr 0.7fr 1fr auto; gap: 6px; margin-bottom: 8px; align-items: center; }
 .item-row input { padding: 9px 10px; font-size: 13px; }
-.item-row .remove-btn { width: 32px; height: 32px; border-radius: 8px; background: rgba(239,68,68,0.15); color: var(--danger); font-size: 16px; display: flex; align-items: center; justify-content: center; }
+.item-row .remove-btn { width: 32px; height: 32px; border-radius: 8px; background: rgba(239,68,68,0.15); color: var(--danger); font-size: 16px; }
 @media (max-width: 480px) { .item-row { grid-template-columns: 1.6fr 0.6fr 0.9fr auto; } }
 
 .preview-box { background: #ffffff; color: #111827; border-radius: 12px; padding: 22px; font-size: 13px; }
@@ -191,60 +177,53 @@ a { color: inherit; text-decoration: none; }
 .preview-box table { width: 100%; border-collapse: collapse; margin: 12px 0; }
 .preview-box th { background: #f3f4f6; padding: 9px 8px; text-align: left; font-size: 12px; color: #374151; font-weight: 700; }
 .preview-box td { padding: 9px 8px; border-bottom: 1px solid #e5e7eb; font-size: 12.5px; color: #111827; }
-.preview-box .total-row { font-weight: 800; background: #f9fafb; color: #111827; }
 .preview-box .totals { margin-top: 12px; text-align: right; color: #111827; }
 .preview-box .totals .line { padding: 3px 0; font-size: 13px; }
 .preview-box .totals .grand { font-size: 17px; font-weight: 900; color: #4f46e5; padding-top: 6px; border-top: 2px solid #4f46e5; margin-top: 6px; }
 
 .qr-container, .barcode-container { display: flex; align-items: center; justify-content: center; padding: 20px; background: #ffffff; border-radius: 12px; min-height: 120px; margin-top: 12px; }
-.qr-container:empty, .barcode-container:empty { display: none; }
 .qr-container img, .qr-container canvas, .barcode-container svg, .barcode-container canvas { max-width: 100%; height: auto; }
-.barcode-container svg, .barcode-container canvas { max-height: 90px !important; width: auto !important; }
 
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.2s ease; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.65); backdrop-filter: blur(6px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.active { display: flex; }
-.modal { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 20px; padding: 24px; width: 100%; max-width: 440px; max-height: 88vh; overflow-y: auto; box-shadow: var(--shadow-lg); animation: modalIn 0.3s cubic-bezier(0.4,0,0.2,1); }
+.modal { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 20px; padding: 24px; width: 100%; max-width: 440px; max-height: 88vh; overflow-y: auto; }
 .modal.wide { max-width: 680px; }
 .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; gap: 12px; }
-.modal-header h3 { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; }
+.modal-header h3 { font-size: 18px; font-weight: 800; }
 .modal-close { width: 34px; height: 34px; border-radius: 10px; background: var(--surface-2); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-.modal-close:hover { background: var(--surface-hover); }
 
 .drawer-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 150; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
 .drawer-overlay.active { opacity: 1; pointer-events: auto; }
-.drawer { position: fixed; top: 0; left: 0; bottom: 0; width: 280px; max-width: 82vw; background: var(--surface); border-right: 1px solid var(--border-strong); z-index: 160; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); overflow-y: auto; padding: 20px 16px; box-shadow: var(--shadow-lg); }
+.drawer { position: fixed; top: 0; left: 0; bottom: 0; width: 280px; max-width: 82vw; background: var(--surface); border-right: 1px solid var(--border-strong); z-index: 160; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); overflow-y: auto; padding: 20px 16px; }
 .drawer.active { transform: translateX(0); }
 .drawer-profile { display: flex; align-items: center; gap: 12px; padding: 14px; background: var(--surface-2); border-radius: 14px; margin-bottom: 18px; cursor: pointer; }
 .drawer-avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; color: white; overflow: hidden; flex-shrink: 0; }
 .drawer-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .drawer-pname { font-weight: 700; font-size: 14.5px; }
 .drawer-pemail { font-size: 12px; color: var(--text-3); }
-.drawer-item { display: flex; align-items: center; gap: 14px; padding: 14px 12px; border-radius: 12px; cursor: pointer; transition: background 0.15s ease; font-size: 14.5px; font-weight: 500; }
-.drawer-item:hover { background: var(--surface-2); }
+.drawer-item { display: flex; align-items: center; gap: 14px; padding: 14px 12px; border-radius: 12px; cursor: pointer; font-size: 14.5px; font-weight: 500; }
 .drawer-item:active { background: var(--surface-hover); }
 .drawer-item .di-icon { font-size: 18px; width: 22px; text-align: center; }
 .drawer-divider { height: 1px; background: var(--border); margin: 10px 0; }
 
 .theme-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.theme-opt { padding: 14px 8px; border-radius: 12px; background: var(--surface-2); border: 2px solid var(--border); text-align: center; cursor: pointer; transition: all 0.2s ease; font-size: 12.5px; font-weight: 600; }
-.theme-opt:hover { border-color: var(--border-strong); }
+.theme-opt { padding: 14px 8px; border-radius: 12px; background: var(--surface-2); border: 2px solid var(--border); text-align: center; cursor: pointer; font-size: 12.5px; font-weight: 600; }
 .theme-opt.active { border-color: var(--primary); background: rgba(99,102,241,0.1); }
 .theme-opt .to-icon { font-size: 22px; margin-bottom: 6px; display: block; }
 
 .lang-options { display: flex; flex-direction: column; gap: 8px; }
-.lang-opt { padding: 12px 14px; border-radius: 12px; background: var(--surface-2); border: 2px solid var(--border); cursor: pointer; transition: all 0.2s ease; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; }
+.lang-opt { padding: 12px 14px; border-radius: 12px; background: var(--surface-2); border: 2px solid var(--border); cursor: pointer; font-size: 14px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; }
 .lang-opt.active { border-color: var(--primary); background: rgba(99,102,241,0.1); }
 
 .stars { display: flex; gap: 6px; margin-top: 6px; }
-.star { font-size: 26px; cursor: pointer; opacity: 0.35; transition: all 0.15s ease; }
-.star.active { opacity: 1; transform: scale(1.1); }
-.star:hover { transform: scale(1.15); }
+.star { font-size: 26px; cursor: pointer; opacity: 0.35; }
+.star.active { opacity: 1; }
 
 .fb-item { padding: 12px; background: var(--surface-2); border-radius: 12px; margin-bottom: 10px; border-left: 3px solid var(--primary); font-size: 13px; }
 .fb-item .fb-head { display: flex; justify-content: space-between; margin-bottom: 6px; gap: 8px; }
 .fb-item .fb-type { font-size: 11px; padding: 2px 8px; border-radius: 6px; background: var(--primary); color: white; font-weight: 700; }
 .fb-item .fb-date { font-size: 11px; color: var(--text-3); }
-.fb-item .fb-status { font-size: 11px; padding: 2px 8px; border-radius: 6px; font-weight: 700; }
+.fb-status { font-size: 11px; padding: 2px 8px; border-radius: 6px; font-weight: 700; }
 .status-new { background: rgba(59,130,246,0.2); color: #3b82f6; }
 .status-read { background: rgba(245,158,11,0.2); color: #f59e0b; }
 .status-replied { background: rgba(16,185,129,0.2); color: #10b981; }
@@ -257,8 +236,7 @@ a { color: inherit; text-decoration: none; }
 .todo-actions { display: flex; gap: 4px; }
 .todo-actions button { width: 30px; height: 30px; border-radius: 8px; background: var(--surface); font-size: 14px; }
 
-.note-item { padding: 12px; background: var(--surface-2); border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s ease; }
-.note-item:hover { background: var(--surface-hover); }
+.note-item { padding: 12px; background: var(--surface-2); border-radius: 12px; margin-bottom: 8px; cursor: pointer; }
 .note-item .note-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
 .note-item .note-preview { font-size: 12px; color: var(--text-3); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .note-item .note-date { font-size: 11px; color: var(--text-3); margin-top: 4px; }
@@ -281,26 +259,21 @@ a { color: inherit; text-decoration: none; }
 .gym-member .gm-actions { display: flex; gap: 6px; margin-top: 10px; }
 
 .hidden { display: none !important; }
-.text-center { text-align: center; }
 .mt-8 { margin-top: 8px; } .mt-12 { margin-top: 12px; } .mt-16 { margin-top: 16px; }
 .mb-8 { margin-bottom: 8px; } .mb-12 { margin-bottom: 12px; } .mb-16 { margin-bottom: 16px; }
 .muted { color: var(--text-3); font-size: 12.5px; }
 .hint { font-size: 11.5px; color: var(--text-3); margin-top: 6px; }
-.flex { display: flex; } .gap-8 { gap: 8px; } .items-center { align-items: center; } .justify-between { justify-content: space-between; }
 .divider { height: 1px; background: var(--border); margin: 14px 0; }
-.tag { display: inline-block; padding: 3px 9px; background: var(--surface-2); border-radius: 6px; font-size: 11px; color: var(--text-2); margin: 2px 2px 2px 0; }
-.chip { padding: 6px 12px; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 20px; font-size: 12px; cursor: pointer; transition: all 0.2s ease; font-weight: 600; }
-.chip:hover { background: var(--surface-hover); }
+.tag { display: inline-block; padding: 3px 9px; background: var(--surface-2); border-radius: 6px; font-size: 11px; color: var(--text-2); }
+.chip { padding: 6px 12px; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 20px; font-size: 12px; cursor: pointer; font-weight: 600; }
 .chip.active { background: var(--gradient); color: white; border-color: transparent; }
 .chips-wrap { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--surface); border: 1px solid var(--border-strong); color: var(--text); padding: 12px 20px; border-radius: 12px; font-size: 13.5px; font-weight: 600; box-shadow: var(--shadow-lg); z-index: 500; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1); max-width: 90vw; text-align: center; }
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--surface); border: 1px solid var(--border-strong); color: var(--text); padding: 12px 20px; border-radius: 12px; font-size: 13.5px; font-weight: 600; z-index: 500; transition: transform 0.3s ease; max-width: 90vw; text-align: center; }
 .toast.show { transform: translateX(-50%) translateY(0); }
 .toast.success { border-color: var(--success); }
 .toast.error { border-color: var(--danger); }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes modalIn { from { opacity: 0; transform: scale(0.92) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
 .shake { animation: shake 0.4s ease; }
 
@@ -347,7 +320,7 @@ a { color: inherit; text-decoration: none; }
 </aside>
 
 <main class="container">
-  <section id="homeView">
+  <section id="homeView" class="workspace active">
     <div class="hero">
       <h1>Har Kaam Ka <span class="grad">Free Tool</span> 🚀</h1>
       <p>Shop, bijli, business, student, finance — sab kuch ek jagah. No signup, 100% free.</p>
@@ -368,25 +341,17 @@ a { color: inherit; text-decoration: none; }
       <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Free</div></div>
     </div>
 
-    <div class="section-title">
-      <h2>Categories</h2>
-      <span class="see-all" onclick="openAllCategories()">See all →</span>
-    </div>
+    <div class="section-title"><h2>Categories</h2><span class="see-all" onclick="openAllCategories()">See all →</span></div>
     <div class="cat-grid" id="catGrid"></div>
 
-    <div class="section-title">
-      <h2>Popular Tools</h2>
-    </div>
+    <div class="section-title"><h2>Popular Tools</h2></div>
     <div class="tool-grid" id="popularTools"></div>
   </section>
 
   <section id="categoryView" class="workspace">
     <div class="tool-header">
       <button class="back-btn" onclick="goHome()">←</button>
-      <div class="tool-header-info">
-        <h3 id="categoryTitle">Category</h3>
-        <p id="categorySub">Tools</p>
-      </div>
+      <div class="tool-header-info"><h3 id="categoryTitle">Category</h3><p id="categorySub">Tools</p></div>
     </div>
     <div class="tool-grid" id="categoryTools"></div>
   </section>
@@ -394,10 +359,7 @@ a { color: inherit; text-decoration: none; }
   <section id="allCatsView" class="workspace">
     <div class="tool-header">
       <button class="back-btn" onclick="goHome()">←</button>
-      <div class="tool-header-info">
-        <h3>All Categories</h3>
-        <p>Browse all tool categories</p>
-      </div>
+      <div class="tool-header-info"><h3>All Categories</h3><p>Browse all tool categories</p></div>
     </div>
     <div class="cat-grid" id="allCatGrid"></div>
   </section>
@@ -405,19 +367,13 @@ a { color: inherit; text-decoration: none; }
   <section id="toolView" class="workspace">
     <div class="tool-header">
       <button class="back-btn" onclick="closeTool()">←</button>
-      <div class="tool-header-info">
-        <h3 id="toolTitle">Tool</h3>
-        <p id="toolDesc">Description</p>
-      </div>
+      <div class="tool-header-info"><h3 id="toolTitle">Tool</h3><p id="toolDesc">Description</p></div>
     </div>
     <div id="toolBody"></div>
   </section>
 </main>
 
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal" id="modalContent"></div>
-</div>
-
+<div class="modal-overlay" id="modalOverlay"><div class="modal" id="modalContent"></div></div>
 <div class="toast" id="toast"></div>
 <div id="printArea" style="display:none"></div>
 
@@ -489,8 +445,7 @@ const POPULAR_IDS = ['qr-gen','barcode-gen','gst-calc','age-calc','sip-calc','du
 
 const DB = {
   get(k, def) { try { const v = localStorage.getItem('qunvero_'+k); return v ? JSON.parse(v) : def; } catch(e) { return def; } },
-  set(k, v) { try { localStorage.setItem('qunvero_'+k, JSON.stringify(v)); return true; } catch(e) { toast('Storage full', 'error'); return false; } },
-  del(k) { try { localStorage.removeItem('qunvero_'+k); } catch(e){} }
+  set(k, v) { try { localStorage.setItem('qunvero_'+k, JSON.stringify(v)); return true; } catch(e) { toast('Storage full', 'error'); return false; } }
 };
 
 let toastTimer;
@@ -502,9 +457,7 @@ function toast(msg, type='') {
   toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
 }
 
-function esc(s) {
-  return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function fmtMoney(n) { return '₹' + (Number(n)||0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
 function fmtNum(n, d=2) { return (Number(n)||0).toLocaleString('en-IN', { minimumFractionDigits: 0, maximumFractionDigits: d }); }
 
@@ -517,17 +470,12 @@ function cycleTheme() {
   toast({ dark: 'Dark Mode', reading: 'Reading Mode', light: 'Normal Mode' }[next] + ' activated');
 }
 
-function showView(id) {
-  document.querySelectorAll('#homeView, #categoryView, #allCatsView, #toolView').forEach(v => v.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
-}
 function goHome() {
-  document.getElementById('categoryView').classList.remove('active');
-  document.getElementById('allCatsView').classList.remove('active');
-  document.getElementById('toolView').classList.remove('active');
+  document.querySelectorAll('.workspace').forEach(v => v.classList.remove('active'));
   document.getElementById('homeView').classList.add('active');
   window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
 }
 
 function renderCategories() {
@@ -568,15 +516,15 @@ function openCategory(catId) {
   document.getElementById('categoryTitle').textContent = cat.icon + ' ' + cat.name;
   document.getElementById('categorySub').textContent = tools.length + ' tools available';
   document.getElementById('categoryTools').innerHTML = tools.map(t => toolCardHTML(t)).join('');
-  document.getElementById('homeView').classList.remove('active');
+  document.querySelectorAll('.workspace').forEach(v => v.classList.remove('active'));
   document.getElementById('categoryView').classList.add('active');
-  window.scrollTo(0, 0);
+  window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0;
 }
 
 function openAllCategories() {
-  document.getElementById('homeView').classList.remove('active');
+  document.querySelectorAll('.workspace').forEach(v => v.classList.remove('active'));
   document.getElementById('allCatsView').classList.add('active');
-  window.scrollTo(0, 0);
+  window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0;
 }
 
 function searchTools(query) {
@@ -597,11 +545,6 @@ function searchTools(query) {
     else if (kws.some(k => k.includes(q))) score += 35;
     if (catName.includes(q)) score += 30;
     if (desc.includes(q)) score += 20;
-    const qParts = q.split(/\s+/);
-    if (qParts.length > 1) {
-      const all = (name + ' ' + desc + ' ' + kws.join(' ') + ' ' + catName);
-      if (qParts.every(p => all.includes(p))) score += 25;
-    }
     if (score > 0) scored.push({ tool: t, score });
   });
   return scored.sort((a,b) => b.score - a.score).map(s => s.tool);
@@ -620,17 +563,14 @@ function handleSearch() {
       const cat = CATEGORIES.find(c => c.id === t.cat);
       return `<div class="search-result-item" onclick="openTool('${t.id}')">
         <div class="sr-icon" style="background:${cat ? cat.grad : 'var(--gradient)'}">${t.icon}</div>
-        <div class="sr-info">
-          <div class="sr-name">${esc(t.name)}</div>
-          <div class="sr-cat">${esc(cat ? cat.name : '')} • ${esc(t.desc)}</div>
-        </div>
+        <div class="sr-info"><div class="sr-name">${esc(t.name)}</div><div class="sr-cat">${esc(cat ? cat.name : '')}</div></div>
       </div>`;
     }).join('');
   }
   resultsEl.classList.add('active');
 }
 
-/* ---------- OPEN TOOL (FIXED: instant scroll top, no leftover scroll) ---------- */
+/* ============ OPEN TOOL — ALWAYS SCROLL TOP INSTANT ============ */
 function openTool(id) {
   const tool = TOOLS.find(t => t.id === id);
   if (!tool) { toast('Tool not found', 'error'); return; }
@@ -641,162 +581,165 @@ function openTool(id) {
   const renderer = TOOL_RENDERERS[id];
   if (!renderer) { body.innerHTML = '<div class="card">This tool is coming soon.</div>'; }
   else { body.innerHTML = renderer(); setTimeout(() => TOOL_INITS[id] && TOOL_INITS[id](), 30); }
-  document.getElementById('homeView').classList.remove('active');
-  document.getElementById('categoryView').classList.remove('active');
-  document.getElementById('allCatsView').classList.remove('active');
+  
+  document.querySelectorAll('.workspace').forEach(v => v.classList.remove('active'));
   document.getElementById('toolView').classList.add('active');
+  
+  // Close search immediately
   const sr = document.getElementById('searchResults');
-  sr.classList.remove('active'); sr.innerHTML = '';
+  sr.classList.remove('active');
+  sr.innerHTML = '';
   document.getElementById('searchInput').value = '';
   document.getElementById('searchInput').blur();
+  
+  // FORCE scroll to top — multiple methods to ensure it works on all browsers
   window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  document.getElementById('toolView').scrollIntoView({ block: 'start' });
 }
 
 function closeTool() {
-  document.getElementById('toolView').classList.remove('active');
+  document.querySelectorAll('.workspace').forEach(v => v.classList.remove('active'));
   document.getElementById('homeView').classList.add('active');
-  window.scrollTo(0, 0);
+  window.scrollTo(0, 0); document.documentElement.scrollTop = 0; document.body.scrollTop = 0;
 }
 
-/* ---------- PRINT (FIXED: heading + tool name, dark theme safe) ---------- */
-function printResult(boxId, title) {
+/* ============ EXPORT — CLEAN CONTENT ONLY, ULTRA HD ============ */
+
+function exportButtons(boxId, filename) {
+  return `<div class="export-btns no-export no-print">
+    <button class="btn btn-secondary" onclick="printResult('${boxId}')"><i>🖨️</i>Print</button>
+    <button class="btn btn-secondary" onclick="downloadPDF('${boxId}', '${filename}')"><i>📄</i>PDF</button>
+    <button class="btn btn-secondary" onclick="downloadImage('${boxId}', '${filename}')"><i>🖼️</i>Image</button>
+  </div>`;
+}
+
+/* PRINT — sirf result, screen jaisa content */
+function printResult(boxId) {
   const src = document.getElementById(boxId);
   if (!src) { toast('Nothing to print', 'error'); return; }
-  const toolTitle = document.getElementById('toolTitle')?.textContent || 'Qunvero';
+  
   const clone = src.cloneNode(true);
   clone.querySelectorAll('.no-export, .export-btns, .no-print').forEach(n => n.remove());
+  
   const area = document.getElementById('printArea');
-  area.innerHTML = `
-    <div style="font-family:Arial,sans-serif;color:#111;background:#fff;padding:20px;max-width:800px;margin:0 auto">
-      <div style="border-bottom:3px solid #6366f1;padding-bottom:12px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between">
-        <div style="font-size:22px;font-weight:900;color:#6366f1">⚡ Qunvero</div>
-        <div style="font-size:12px;color:#666">${new Date().toLocaleString('en-IN')}</div>
-      </div>
-      <h1 style="font-size:24px;font-weight:900;color:#111;margin:0 0 20px 0;padding-bottom:10px;border-bottom:2px solid #e5e7eb">${toolTitle}</h1>
-      <div style="color:#111">${clone.innerHTML}</div>
-      <div style="margin-top:30px;padding-top:14px;border-top:1px solid #e5e7eb;text-align:center;font-size:11px;color:#888">
-        Generated by Qunvero — Har Kaam Ka Free Tool 🚀
-      </div>
-    </div>
-  `;
+  area.innerHTML = clone.innerHTML;
   area.style.display = 'block';
-  document.title = toolTitle || 'Qunvero';
-  const style = document.createElement('style');
-  style.id = 'printStyleFix';
-  style.textContent = `
+  
+  let styleEl = document.getElementById('printStyleTemp');
+  if (styleEl) styleEl.remove();
+  styleEl = document.createElement('style');
+  styleEl.id = 'printStyleTemp';
+  styleEl.textContent = `
     @media print {
       body * { visibility: hidden !important; }
       #printArea, #printArea * { visibility: visible !important; color: #000 !important; background: #fff !important; }
-      #printArea { position: absolute !important; left: 0; top: 0; width: 100% !important; }
+      #printArea { position: absolute !important; left: 0; top: 0; width: 100% !important; padding: 15px !important; }
       #printArea .result-main { -webkit-text-fill-color: #4f46e5 !important; color: #4f46e5 !important; }
-      #printArea .preview-box { color: #000 !important; background: #fff !important; }
     }
   `;
-  document.head.appendChild(style);
+  document.head.appendChild(styleEl);
+  
   setTimeout(() => {
     window.print();
     setTimeout(() => {
       area.style.display = 'none';
       area.innerHTML = '';
-      document.getElementById('printStyleFix')?.remove();
-    }, 800);
-  }, 150);
+      const s = document.getElementById('printStyleTemp');
+      if (s) s.remove();
+    }, 500);
+  }, 100);
 }
 
-/* ---------- PDF (FIXED: clean clone, no buttons, ultra HD) ---------- */
+/* PDF — full content, high quality, no extra UI */
 function downloadPDF(boxId, filename) {
   const el = document.getElementById(boxId);
   if (!el) { toast('Nothing to export', 'error'); return; }
   toast('Generating PDF...');
+  
   const clone = el.cloneNode(true);
   clone.querySelectorAll('.no-export, .export-btns, .no-print').forEach(n => n.remove());
+  
+  // Force white background
   clone.style.background = '#ffffff';
   clone.style.color = '#111111';
-  clone.style.padding = '20px';
-  clone.style.width = '750px';
+  clone.style.padding = '16px';
   clone.style.border = 'none';
   clone.style.boxShadow = 'none';
   clone.style.borderRadius = '0';
+  clone.style.width = '750px';
+  
+  // Fix dark text
+  clone.querySelectorAll('.k, .result-sub, .result-title').forEach(n => { n.style.color = '#555'; });
+  clone.querySelectorAll('.v, .result-main').forEach(n => { n.style.color = '#111'; });
+  
   const wrap = document.createElement('div');
-  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;';
+  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;width:750px;';
   wrap.appendChild(clone);
   document.body.appendChild(wrap);
-  const toolTitle = document.getElementById('toolTitle')?.textContent || 'Qunvero';
-  const headerHTML = `
-    <div style="border-bottom:3px solid #6366f1;padding-bottom:12px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;font-family:Arial,sans-serif">
-      <div style="font-size:22px;font-weight:900;color:#6366f1">⚡ Qunvero</div>
-      <div style="font-size:12px;color:#666">${new Date().toLocaleString('en-IN')}</div>
-    </div>
-    <h1 style="font-size:24px;font-weight:900;color:#111;margin:0 0 20px 0;padding-bottom:10px;border-bottom:2px solid #e5e7eb;font-family:Arial,sans-serif">${toolTitle}</h1>
-  `;
-  clone.insertAdjacentHTML('afterbegin', headerHTML);
+  
   const opt = {
-    margin: [10, 10, 10, 10],
-    filename: (filename || 'qunvero-export') + '.pdf',
+    margin: [8, 8, 8, 8],
+    filename: (filename || 'qunvero') + '.pdf',
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: {
-      scale: 3, useCORS: true, backgroundColor: '#ffffff', logging: false,
-      windowWidth: clone.scrollWidth, windowHeight: clone.scrollHeight,
-      scrollX: 0, scrollY: 0
+      scale: 3,
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      logging: false,
+      windowWidth: 750
     },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
     pagebreak: { mode: ['css', 'legacy'] }
   };
+  
   html2pdf().set(opt).from(clone).save()
-    .then(() => { toast('PDF downloaded', 'success'); })
-    .catch(err => { console.error(err); toast('PDF export failed', 'error'); })
-    .finally(() => { document.body.removeChild(wrap); });
+    .then(() => toast('PDF downloaded', 'success'))
+    .catch(err => { console.error(err); toast('PDF failed', 'error'); })
+    .finally(() => document.body.removeChild(wrap));
 }
 
-/* ---------- IMAGE (FIXED: ultra HD scale:4, exact size, no extra UI) ---------- */
+/* IMAGE — scale 4, exact content */
 function downloadImage(boxId, filename) {
   const el = document.getElementById(boxId);
   if (!el) { toast('Nothing to export', 'error'); return; }
   toast('Generating HD image...');
+  
   const clone = el.cloneNode(true);
   clone.querySelectorAll('.no-export, .export-btns, .no-print').forEach(n => n.remove());
-  const toolTitle = document.getElementById('toolTitle')?.textContent || 'Qunvero';
-  const headerHTML = `
-    <div style="border-bottom:3px solid #6366f1;padding-bottom:12px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;font-family:Arial,sans-serif;color:#111">
-      <div style="font-size:22px;font-weight:900;color:#6366f1">⚡ Qunvero</div>
-      <div style="font-size:12px;color:#666">${new Date().toLocaleString('en-IN')}</div>
-    </div>
-    <h1 style="font-size:24px;font-weight:900;color:#111;margin:0 0 20px 0;padding-bottom:10px;border-bottom:2px solid #e5e7eb;font-family:Arial,sans-serif">${toolTitle}</h1>
-  `;
-  clone.insertAdjacentHTML('afterbegin', headerHTML);
+  
   clone.style.background = '#ffffff';
   clone.style.color = '#111111';
-  clone.style.padding = '20px';
+  clone.style.padding = '16px';
   clone.style.border = 'none';
   clone.style.boxShadow = 'none';
   clone.style.borderRadius = '0';
+  
   const wrap = document.createElement('div');
-  wrap.style.cssText = `position:fixed;left:-99999px;top:0;width:${el.offsetWidth}px;background:#ffffff;padding:0;margin:0;`;
+  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;';
   wrap.appendChild(clone);
   document.body.appendChild(wrap);
+  
   setTimeout(() => {
     html2canvas(clone, {
-      scale: 4, useCORS: true, backgroundColor: '#ffffff', logging: false,
-      width: clone.scrollWidth, height: clone.scrollHeight,
-      windowWidth: clone.scrollWidth, windowHeight: clone.scrollHeight,
-      scrollX: 0, scrollY: 0
+      scale: 4,
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      logging: false,
+      width: clone.scrollWidth,
+      height: clone.scrollHeight,
+      windowWidth: clone.scrollWidth,
+      windowHeight: clone.scrollHeight
     }).then(canvas => {
       const link = document.createElement('a');
-      link.download = (filename || 'qunvero-export') + '.png';
+      link.download = (filename || 'qunvero') + '.png';
       link.href = canvas.toDataURL('image/png', 1.0);
       link.click();
       toast('HD Image downloaded', 'success');
-    }).catch(err => { console.error(err); toast('Image export failed', 'error'); })
-    .finally(() => { document.body.removeChild(wrap); });
-  }, 50);
-}
-
-function exportButtons(boxId, filename) {
-  return `<div class="export-btns no-export no-print">
-    <button class="btn btn-secondary" onclick="printResult('${boxId}', 'Qunvero')"><i>🖨️</i>Print</button>
-    <button class="btn btn-secondary" onclick="downloadPDF('${boxId}', '${filename}')"><i>📄</i>PDF</button>
-    <button class="btn btn-secondary" onclick="downloadImage('${boxId}', '${filename}')"><i>🖼️</i>Image</button>
-  </div>`;
+    }).catch(err => { console.error(err); toast('Image failed', 'error'); })
+    .finally(() => document.body.removeChild(wrap));
+  }, 100);
 }
 
 function numVal(id, name, opts={}) {
@@ -975,7 +918,7 @@ async function submitFeedback(rating) {
     fd.append('name', name); fd.append('type', type); fd.append('description', desc);
     fd.append('rating', String(rating)); fd.append('_subject', `Qunvero Feedback: ${type}`);
     await fetch('https://formspree.io/f/xyezkwww', { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } });
-  } catch (e) { console.warn('Formspree failed, saving locally', e); }
+  } catch (e) { console.warn('Formspree failed', e); }
   history.push(entry);
   DB.set('feedback', history);
   closeModal();
@@ -988,7 +931,7 @@ function openAdminLogin() {
     <div class="field"><label>Password</label><div style="position:relative"><input type="password" id="adminPass" placeholder="Enter admin password" style="padding-right:44px" /><button type="button" id="adminToggle" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;font-size:18px;padding:6px">👁️</button></div></div>
     <div id="adminErr" class="hidden" style="color:var(--danger);font-size:13px;margin-bottom:10px">Incorrect password. Try again.</div>
     <div class="btn-group"><button class="btn btn-secondary" onclick="closeModal()">Cancel</button><button class="btn btn-primary" id="adminLoginBtn">Login</button></div>
-    <p class="hint mt-12">Note: Client-side login. Admin password protects the UI only.</p>
+    <p class="hint mt-12">Note: Client-side login. Protects UI only.</p>
   `);
   const passEl = document.getElementById('adminPass');
   document.getElementById('adminToggle').addEventListener('click', () => { passEl.type = passEl.type === 'password' ? 'text' : 'password'; });
@@ -997,9 +940,8 @@ function openAdminLogin() {
     else {
       document.getElementById('adminErr').classList.remove('hidden');
       passEl.value = ''; passEl.focus();
-      const modal = document.querySelector('.modal');
-      modal.classList.add('shake');
-      setTimeout(() => modal.classList.remove('shake'), 500);
+      document.querySelector('.modal').classList.add('shake');
+      setTimeout(() => document.querySelector('.modal').classList.remove('shake'), 500);
     }
   });
   passEl.addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('adminLoginBtn').click(); });
@@ -1134,7 +1076,7 @@ function dbGenerate() {
   const inv = 'INV-' + Date.now().toString().slice(-6);
   const date = new Date().toLocaleDateString('en-IN');
   document.getElementById('dbResult').innerHTML = `
-    <div class="preview-box" id="dbBill">
+    <div class="preview-box">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
         <div><h2>${esc(shop)}</h2><div class="muted">Bill Receipt</div></div>
         <div style="text-align:right;font-size:12px"><div><strong>${esc(inv)}</strong></div><div class="muted">${esc(date)}</div></div>
@@ -1224,7 +1166,7 @@ function kbRender() {
     </div>`;
 }
 
-/* 3. RATE CALCULATOR */
+/* 3. RATE */
 TOOL_RENDERERS['rate-calc'] = () => `
   <div class="card"><div class="card-title">Enter Details</div>
     <div class="field"><label>Rate (₹ per kg)</label><input type="number" id="rcRate" min="0" step="0.01" placeholder="20" /></div>
@@ -1282,7 +1224,7 @@ TOOL_RENDERERS['gst-calc'] = () => `
   <div class="card"><div class="card-title">GST Calculator</div>
     <div class="field"><label>Amount (₹)</label><input type="number" id="gstAmt" min="0" step="0.01" placeholder="1000" /></div>
     <div class="field"><label>GST Rate (%)</label><input type="number" id="gstRate" min="0" max="28" step="0.01" value="18" /></div>
-    <div class="field"><label>Type</label><select id="gstType"><option value="exclusive">Exclusive (Add GST)</option><option value="inclusive">Inclusive (GST already included)</option></select></div>
+    <div class="field"><label>Type</label><select id="gstType"><option value="exclusive">Exclusive (Add GST)</option><option value="inclusive">Inclusive (GST included)</option></select></div>
     <button class="btn btn-primary btn-block" onclick="gstCalc()">Calculate</button>
   </div>
   <div class="result-box" id="gstResult"></div>`;
@@ -1305,13 +1247,12 @@ function gstCalc() {
   document.getElementById('gstResult').classList.add('active');
 }
 
-/* 6. IMAGE COMPRESSOR */
+/* 6. IMAGE COMPRESS */
 TOOL_RENDERERS['img-compress'] = () => `
   <div class="card"><div class="card-title">Upload Image</div>
     <div class="field"><input type="file" id="icFile" accept="image/*" /></div>
     <div class="field"><label>Quality: <span id="icQVal">70%</span></label><input type="range" id="icQuality" min="10" max="100" value="70" /></div>
     <button class="btn btn-primary btn-block" onclick="icCompress()">🗜️ Compress Image</button>
-    <div class="hint">Runs entirely in your browser. Nothing uploaded.</div>
   </div>
   <div class="result-box" id="icResult"></div>`;
 TOOL_INITS['img-compress'] = () => {
@@ -1321,7 +1262,6 @@ TOOL_INITS['img-compress'] = () => {
 function icCompress() {
   const f = document.getElementById('icFile').files[0];
   if (!f) { toast('Please select an image', 'error'); return; }
-  if (!f.type.startsWith('image/')) { toast('Not an image file', 'error'); return; }
   const quality = Number(document.getElementById('icQuality').value) / 100;
   const reader = new FileReader();
   reader.onload = e => {
@@ -1339,8 +1279,6 @@ function icCompress() {
           <div class="result-title">Compression Result</div>
           <div class="result-main">${newKB} KB</div>
           <div class="result-sub">Saved ${saved}% (from ${origKB} KB)</div>
-          <div class="result-row"><span class="k">Original</span><span class="v">${origKB} KB</span></div>
-          <div class="result-row"><span class="k">Compressed</span><span class="v">${newKB} KB</span></div>
           <div style="text-align:center;margin:16px 0"><img src="${url}" style="max-height:220px;border-radius:10px" /></div>
           <a class="btn btn-primary btn-block" href="${url}" download="compressed.jpg">⬇️ Download Compressed</a>`;
         document.getElementById('icResult').classList.add('active');
@@ -1351,7 +1289,7 @@ function icCompress() {
   reader.readAsDataURL(f);
 }
 
-/* 7. IMAGE CONVERTER */
+/* 7. IMAGE CONVERT */
 TOOL_RENDERERS['img-convert'] = () => `
   <div class="card"><div class="card-title">Upload Image</div>
     <div class="field"><input type="file" id="cvFile" accept="image/*" /></div>
@@ -1384,7 +1322,7 @@ function cvConvert() {
   reader.readAsDataURL(f);
 }
 
-/* 8. IMAGE RESIZER */
+/* 8. IMAGE RESIZE */
 TOOL_RENDERERS['img-resize'] = () => `
   <div class="card"><div class="card-title">Upload Image</div>
     <div class="field"><input type="file" id="rzFile" accept="image/*" /></div>
@@ -1434,7 +1372,7 @@ function rzResize() {
   reader.readAsDataURL(f);
 }
 
-/* 9. ELECTRICITY BILL */
+/* 9. ELECTRICITY */
 TOOL_RENDERERS['elec-bill'] = () => `
   <div class="card"><div class="card-title">Appliance 1</div>
     <div class="field"><label>Appliance Name</label><input type="text" id="ebName1" placeholder="e.g. Fan" /></div>
@@ -1483,7 +1421,6 @@ TOOL_RENDERERS['capacitor-calc'] = () => `
     <div class="field"><label>Voltage (V)</label><input type="number" id="capV" min="0" step="1" value="230" /></div>
     <div class="field"><label>Frequency (Hz)</label><input type="number" id="capF" min="0" step="1" value="50" /></div>
     <button class="btn btn-primary btn-block" onclick="capCalc()">Calculate</button>
-    <div class="hint">Approximate value. Consult a qualified electrician before real-world use.</div>
   </div>
   <div class="result-box" id="capResult"></div>`;
 function capCalc() {
@@ -1501,7 +1438,7 @@ function capCalc() {
     <div class="result-row"><span class="k">Motor Power</span><span class="v">${p} W</span></div>
     <div class="result-row"><span class="k">Voltage</span><span class="v">${v} V</span></div>
     <div class="result-row"><span class="k">Frequency</span><span class="v">${f} Hz</span></div>
-    <p class="hint mt-12">⚠️ Estimate only. Verify with a qualified electrician.</p>
+    <p class="hint mt-12">⚠️ Estimate only.</p>
     ${exportButtons('capResult', 'capacitor-calc')}`;
   document.getElementById('capResult').classList.add('active');
 }
@@ -1513,7 +1450,7 @@ TOOL_RENDERERS['resistance-calc'] = () => `
     <div class="field"><label>Current (A)</label><input type="number" id="ohmI" min="0" step="0.01" placeholder="Leave blank to calculate" /></div>
     <div class="field"><label>Resistance (Ω)</label><input type="number" id="ohmR" min="0" step="0.01" placeholder="Leave blank to calculate" /></div>
     <button class="btn btn-primary btn-block" onclick="ohmCalc()">⚡ Calculate</button>
-    <div class="hint">Fill any 2 values — the third will be calculated.</div>
+    <div class="hint">Fill any 2 values — third is calculated.</div>
   </div>
   <div class="result-box" id="ohmResult"></div>`;
 function ohmCalc() {
@@ -1539,7 +1476,7 @@ function ohmCalc() {
   document.getElementById('ohmResult').classList.add('active');
 }
 
-/* 12. SPLIT EXPENSE */
+/* 12. SPLIT */
 TOOL_RENDERERS['split-expense'] = () => `
   <div class="card"><div class="card-title">Split Bill</div>
     <div class="field"><label>Total Amount (₹)</label><input type="number" id="spTotal" min="0" step="0.01" placeholder="1000" /></div>
@@ -1551,7 +1488,7 @@ function spCalc() {
   const total = numVal('spTotal','Total',{min:0});
   const members = numVal('spMembers','Members',{min:1});
   if (total == null || members == null) return;
-  if (!Number.isInteger(members)) { toast('Members must be a whole number', 'error'); return; }
+  if (!Number.isInteger(members)) { toast('Members must be whole number', 'error'); return; }
   const per = total / members;
   document.getElementById('spResult').innerHTML = `
     <div class="result-title">Split Result</div>
@@ -1645,7 +1582,7 @@ function invGenerate() {
   const gstAmt = subtotal * gstPct / 100;
   const grand = subtotal + gstAmt;
   document.getElementById('invResult').innerHTML = `
-    <div class="preview-box" id="invDoc">
+    <div class="preview-box">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
         <div><h2>${esc(biz)}</h2><div class="muted">TAX INVOICE</div></div>
         <div style="text-align:right;font-size:12px"><div><strong>${esc(invNo)}</strong></div><div class="muted">${esc(date)}</div></div>
@@ -1658,7 +1595,6 @@ function invGenerate() {
         ${gstPct > 0 ? `<div class="line">GST (${gstPct}%): <strong>${fmtMoney(gstAmt)}</strong></div>` : ''}
         <div class="line grand">Grand Total: ${fmtMoney(grand)}</div>
       </div>
-      <div style="text-align:center;margin-top:16px;font-size:11px;color:#6b7280">Thank you for your business!</div>
     </div>
     ${exportButtons('invResult', 'invoice')}`;
   document.getElementById('invResult').classList.add('active');
@@ -1670,7 +1606,6 @@ TOOL_RENDERERS['img-to-pdf'] = () => `
     <div class="field"><input type="file" id="pdfFiles" accept="image/*" multiple /></div>
     <div id="pdfPreview" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;margin-top:10px"></div>
     <button class="btn btn-primary btn-block mt-16" onclick="pdfGenerate()">📄 Generate PDF</button>
-    <div class="hint">Images combined in upload order.</div>
   </div>
   <div class="result-box" id="pdfResult"></div>`;
 TOOL_INITS['img-to-pdf'] = () => {
@@ -1696,7 +1631,8 @@ function pdfGenerate() {
     r.readAsDataURL(f);
   }));
   Promise.all(promises).then(async images => {
-    const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'mm', 'a4');
     const pw = pdf.internal.pageSize.getWidth();
     const ph = pdf.internal.pageSize.getHeight();
     for (let i = 0; i < images.length; i++) {
@@ -1710,7 +1646,7 @@ function pdfGenerate() {
     }
     pdf.save('images-' + Date.now() + '.pdf');
     toast('PDF downloaded', 'success');
-  }).catch(e => { console.error(e); toast('Failed to generate PDF', 'error'); });
+  }).catch(e => { console.error(e); toast('Failed', 'error'); });
 }
 function loadImg(src) {
   return new Promise((res, rej) => {
@@ -1721,7 +1657,7 @@ function loadImg(src) {
   });
 }
 
-/* 16. QR CODE (FIXED: heading + only ONE QR) */
+/* 16. QR CODE — single QR only */
 TOOL_RENDERERS['qr-gen'] = () => `
   <div class="card"><div class="card-title">QR Code Generator</div>
     <div class="field"><label>Text or URL</label><input type="text" id="qrText" placeholder="https://example.com" maxlength="500" /></div>
@@ -1732,21 +1668,15 @@ function qrGenerate() {
   const text = document.getElementById('qrText').value.trim();
   if (!text) { toast('Please enter text or URL', 'error'); return; }
   const box = document.getElementById('qrResult');
-  // Fully reset box content — this removes any previous QR and buttons
-  box.innerHTML = `
-    <div style="text-align:center;padding:10px 0;border-bottom:2px solid var(--primary);margin-bottom:14px">
-      <div style="font-size:20px;font-weight:900;background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent">📱 QR Code Generator</div>
-      <div style="font-size:12px;color:var(--text-3);margin-top:4px">Generated by Qunvero</div>
-    </div>
-    <div class="result-title">QR Code</div>
-    <div class="qr-container" id="qrContainer"></div>
-    <div class="qr-actions no-export"></div>`;
-  const container = document.getElementById('qrContainer');
-  container.innerHTML = '';
+  box.innerHTML = '';
+  const container = document.createElement('div');
+  container.className = 'qr-container';
+  container.style.background = '#ffffff';
+  box.appendChild(container);
   try {
     new QRCode(container, {
       text: text,
-      width: 220, height: 220,
+      width: 240, height: 240,
       colorDark: '#000000', colorLight: '#ffffff',
       correctLevel: QRCode.CorrectLevel.H
     });
@@ -1755,12 +1685,13 @@ function qrGenerate() {
     toast('QR generation failed', 'error');
     return;
   }
-  const actions = box.querySelector('.qr-actions');
+  const actions = document.createElement('div');
   actions.innerHTML = exportButtons('qrResult', 'qr-code');
+  box.appendChild(actions);
   box.classList.add('active');
 }
 
-/* 17. BARCODE (FIXED: heading + compact height) */
+/* 17. BARCODE — single, compact */
 TOOL_RENDERERS['barcode-gen'] = () => `
   <div class="card"><div class="card-title">Barcode Generator</div>
     <div class="field"><label>Barcode Text / Number</label><input type="text" id="barText" placeholder="123456789012" maxlength="60" /></div>
@@ -1773,37 +1704,30 @@ function barGenerate() {
   if (!text) { toast('Please enter barcode text', 'error'); return; }
   const format = document.getElementById('barFormat').value;
   const box = document.getElementById('barResult');
-  box.innerHTML = `
-    <div style="text-align:center;padding:10px 0;border-bottom:2px solid var(--primary);margin-bottom:14px">
-      <div style="font-size:20px;font-weight:900;background:var(--gradient);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent">🎫 Barcode Generator</div>
-      <div style="font-size:12px;color:var(--text-3);margin-top:4px">Generated by Qunvero</div>
-    </div>
-    <div class="result-title">Barcode</div>
-    <div class="barcode-container" id="barcodeContainer"></div>
-    <div class="bar-actions no-export"></div>`;
-  const container = document.getElementById('barcodeContainer');
-  container.innerHTML = '';
+  box.innerHTML = '';
+  const container = document.createElement('div');
+  container.className = 'barcode-container';
+  container.style.background = '#ffffff';
+  box.appendChild(container);
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   container.appendChild(svg);
   try {
     JsBarcode(svg, text, {
       format: format,
-      width: 2,
-      height: 55,
-      displayValue: true,
-      fontSize: 13,
-      margin: 6,
-      background: '#ffffff',
-      lineColor: '#000000'
+      width: 2, height: 60,
+      displayValue: true, fontSize: 14,
+      margin: 8,
+      background: '#ffffff', lineColor: '#000000'
     });
   } catch (e) {
     console.error(e);
-    container.innerHTML = '<div class="no-results">Invalid input for selected format. Try CODE128.</div>';
-    toast('Barcode generation failed', 'error');
+    container.innerHTML = '<div style="color:#ef4444;padding:20px">Invalid input. Try CODE128.</div>';
+    toast('Barcode failed', 'error');
     return;
   }
-  const actions = box.querySelector('.bar-actions');
+  const actions = document.createElement('div');
   actions.innerHTML = exportButtons('barResult', 'barcode');
+  box.appendChild(actions);
   box.classList.add('active');
 }
 
@@ -1898,7 +1822,6 @@ function sipCalc() {
     <div class="result-row"><span class="k">Estimated Returns</span><span class="v" style="color:var(--success)">${fmtMoney(returns)}</span></div>
     <div class="result-row"><span class="k">Duration</span><span class="v">${months} months</span></div>
     <div class="result-row"><span class="k">Expected Return</span><span class="v">${r}% p.a.</span></div>
-    <p class="hint mt-12">Assumes monthly compounding. Actual returns may vary.</p>
     ${exportButtons('sipResult', 'sip')}`;
   document.getElementById('sipResult').classList.add('active');
 }
@@ -1929,18 +1852,17 @@ function fdCalc() {
     <div class="result-row"><span class="k">Interest Earned</span><span class="v" style="color:var(--success)">${fmtMoney(interest)}</span></div>
     <div class="result-row"><span class="k">Rate</span><span class="v">${r}% p.a.</span></div>
     <div class="result-row"><span class="k">Duration</span><span class="v">${y} years</span></div>
-    <p class="hint mt-12">Assumes compounding as selected.</p>
     ${exportButtons('fdResult', 'fd')}`;
   document.getElementById('fdResult').classList.add('active');
 }
 
-/* 22. COMPOUND INTEREST */
+/* 22. COMPOUND */
 TOOL_RENDERERS['compound-calc'] = () => `
   <div class="card"><div class="card-title">Compound Interest</div>
     <div class="field"><label>Principal (₹)</label><input type="number" id="ciP" min="0" step="100" value="10000" /></div>
     <div class="field"><label>Rate (% per year)</label><input type="number" id="ciR" min="0" step="0.1" value="8" /></div>
     <div class="field"><label>Time (Years)</label><input type="number" id="ciT" min="0.1" step="0.5" value="5" /></div>
-    <div class="field"><label>Compounding Frequency</label><select id="ciN"><option value="1">Yearly</option><option value="2">Half-Yearly</option><option value="4" selected>Quarterly</option><option value="12">Monthly</option><option value="365">Daily</option></select></div>
+    <div class="field"><label>Compounding</label><select id="ciN"><option value="1">Yearly</option><option value="2">Half-Yearly</option><option value="4" selected>Quarterly</option><option value="12">Monthly</option><option value="365">Daily</option></select></div>
     <button class="btn btn-primary btn-block" onclick="ciCalc()">💹 Calculate</button>
   </div>
   <div class="result-box" id="ciResult"></div>`;
@@ -1974,7 +1896,7 @@ TOOL_RENDERERS['currency-conv'] = () => `
       <div class="field"><label>To</label><select id="cxTo">${Object.keys(RATES).map(k => `<option value="${k}" ${k==='USD'?'selected':''}>${k}</option>`).join('')}</select></div>
     </div>
     <button class="btn btn-primary btn-block" onclick="cxConvert()">💱 Convert</button>
-    <p class="hint mt-12">⚠️ Rates are fixed/static and may not represent current market rates.</p>
+    <p class="hint mt-12">⚠️ Static rates. May not reflect market.</p>
   </div>
   <div class="result-box" id="cxResult"></div>`;
 function cxConvert() {
@@ -1989,7 +1911,6 @@ function cxConvert() {
     <div class="result-main">${fmtNum(result, 4)} ${to}</div>
     <div class="result-sub">${fmtNum(amt,2)} ${from} = ${fmtNum(result,4)} ${to}</div>
     <div class="result-row"><span class="k">Rate</span><span class="v">1 ${from} ≈ ${fmtNum(RATES[to]/RATES[from], 6)} ${to}</span></div>
-    <p class="hint mt-12">Static rates. Not for trading purposes.</p>
     ${exportButtons('cxResult', 'currency-converter')}`;
   document.getElementById('cxResult').classList.add('active');
 }
@@ -2008,7 +1929,7 @@ function agCalc() {
   const dob = dateVal('agDob', 'Date of Birth');
   if (!dob) return;
   const now = new Date();
-  if (dob > now) { toast('DOB cannot be in the future', 'error'); return; }
+  if (dob > now) { toast('DOB cannot be in future', 'error'); return; }
   let years = now.getFullYear() - dob.getFullYear();
   let months = now.getMonth() - dob.getMonth();
   let days = now.getDate() - dob.getDate();
@@ -2073,7 +1994,7 @@ function cgCalc() {
     const gr = Number(ins[2].value) || 0;
     if (sub && cr > 0) { totalCredits += cr; weighted += cr * gr; }
   });
-  if (totalCredits === 0) { toast('Add at least one subject with credits', 'error'); return; }
+  if (totalCredits === 0) { toast('Add at least one subject', 'error'); return; }
   const cgpa = weighted / totalCredits;
   const pct = cgpa * 9.5;
   document.getElementById('cgResult').innerHTML = `
@@ -2086,7 +2007,7 @@ function cgCalc() {
   document.getElementById('cgResult').classList.add('active');
 }
 
-/* 26. EXAM COUNTDOWN */
+/* 26. EXAM */
 TOOL_RENDERERS['exam-count'] = () => `
   <div class="card"><div class="card-title">Exam Countdown</div>
     <div class="field"><label>Exam Name</label><input type="text" id="exName" placeholder="e.g. Final Exam" maxlength="60" /></div>
@@ -2141,7 +2062,7 @@ function bmiCalc() {
     <div class="result-row"><span class="k">Weight</span><span class="v">${w} kg</span></div>
     <div class="result-row"><span class="k">Height</span><span class="v">${h} cm</span></div>
     <div class="result-row"><span class="k">Category</span><span class="v" style="color:${color}">${cat}</span></div>
-    <p class="hint mt-12">BMI is a general screening measure. Consult a doctor.</p>
+    <p class="hint mt-12">General screening measure.</p>
     ${exportButtons('bmiResult', 'bmi')}`;
   document.getElementById('bmiResult').classList.add('active');
 }
@@ -2151,7 +2072,7 @@ TOOL_RENDERERS['calories-calc'] = () => `
   <div class="card"><div class="card-title">Calories Calculator</div>
     <div class="field-row"><div class="field"><label>Age</label><input type="number" id="calAge" min="1" max="120" value="25" /></div><div class="field"><label>Gender</label><select id="calGender"><option value="male">Male</option><option value="female">Female</option></select></div></div>
     <div class="field-row"><div class="field"><label>Weight (kg)</label><input type="number" id="calW" min="1" step="0.1" value="70" /></div><div class="field"><label>Height (cm)</label><input type="number" id="calH" min="1" step="0.1" value="170" /></div></div>
-    <div class="field"><label>Activity Level</label><select id="calAct"><option value="1.2">Sedentary</option><option value="1.375">Light (1-3 days)</option><option value="1.55" selected>Moderate (3-5 days)</option><option value="1.725">Active (6-7 days)</option><option value="1.9">Very Active</option></select></div>
+    <div class="field"><label>Activity Level</label><select id="calAct"><option value="1.2">Sedentary</option><option value="1.375">Light</option><option value="1.55" selected>Moderate</option><option value="1.725">Active</option><option value="1.9">Very Active</option></select></div>
     <button class="btn btn-primary btn-block" onclick="calCalc()">🔥 Calculate</button>
   </div>
   <div class="result-box" id="calResult"></div>`;
@@ -2169,15 +2090,14 @@ function calCalc() {
     <div class="result-main">${Math.round(tdee)} kcal</div>
     <div class="result-sub">Estimated daily calories (TDEE)</div>
     <div class="result-row"><span class="k">BMR</span><span class="v">${Math.round(bmr)} kcal</span></div>
-    <div class="result-row"><span class="k">Activity Multiplier</span><span class="v">${act}×</span></div>
     <div class="result-row"><span class="k">Weight Loss</span><span class="v">~${Math.round(tdee-500)} kcal/day</span></div>
     <div class="result-row"><span class="k">Weight Gain</span><span class="v">~${Math.round(tdee+500)} kcal/day</span></div>
-    <p class="hint mt-12">Uses Mifflin-St Jeor equation. Estimate only.</p>
+    <p class="hint mt-12">Mifflin-St Jeor equation. Estimate only.</p>
     ${exportButtons('calResult', 'calories')}`;
   document.getElementById('calResult').classList.add('active');
 }
 
-/* 29. DATE DIFFERENCE */
+/* 29. DATE DIFF */
 TOOL_RENDERERS['date-diff'] = () => `
   <div class="card"><div class="card-title">Date Difference</div>
     <div class="field"><label>Start Date & Time</label><input type="datetime-local" id="ddStart" /></div>
@@ -2200,14 +2120,14 @@ function ddCalc() {
   const mins = Math.floor(abs / (1000*60));
   const unit = document.getElementById('ddUnit').value;
   let main, sub;
-  if (unit === 'days') { main = days + ' days'; sub = negative ? '(end before start)' : ''; }
-  else if (unit === 'hours') { main = hours + ' hours'; sub = negative ? '(end before start)' : ''; }
-  else if (unit === 'minutes') { main = mins + ' minutes'; sub = negative ? '(end before start)' : ''; }
+  if (unit === 'days') { main = days + ' days'; }
+  else if (unit === 'hours') { main = hours + ' hours'; }
+  else if (unit === 'minutes') { main = mins + ' minutes'; }
   else { main = days + ' days'; sub = `${hours} hours, ${mins} minutes`; }
   document.getElementById('ddResult').innerHTML = `
     <div class="result-title">Difference</div>
     <div class="result-main">${negative ? '-' : ''}${main}</div>
-    <div class="result-sub">${sub}</div>
+    <div class="result-sub">${sub||''}</div>
     <div class="result-row"><span class="k">Start</span><span class="v">${d1.toLocaleString('en-IN')}</span></div>
     <div class="result-row"><span class="k">End</span><span class="v">${d2.toLocaleString('en-IN')}</span></div>
     <div class="result-row"><span class="k">Days</span><span class="v">${days}</span></div>
@@ -2223,7 +2143,6 @@ TOOL_RENDERERS['date-between'] = () => `
     <div class="field"><label>From Date</label><input type="date" id="dbFrom" /></div>
     <div class="field"><label>To Date</label><input type="date" id="dbTo" /></div>
     <button class="btn btn-primary btn-block" onclick="dbCalc()">🗓️ Calculate</button>
-    <div class="hint">Total calendar days between the two dates.</div>
   </div>
   <div class="result-box" id="dbResult2"></div>`;
 function dbCalc() {
@@ -2243,7 +2162,7 @@ function dbCalc() {
   document.getElementById('dbResult2').classList.add('active');
 }
 
-/* 31. BASIC CALCULATOR */
+/* 31. BASIC CALC */
 TOOL_RENDERERS['basic-calc'] = () => `
   <div class="card"><div class="card-title">Calculator</div>
     <input type="text" id="bcDisplay" readonly style="width:100%;padding:16px;font-size:24px;text-align:right;background:var(--surface-2);border:1.5px solid var(--border-strong);border-radius:12px;color:var(--text);font-weight:700;margin-bottom:12px" value="0" />
@@ -2340,7 +2259,7 @@ function pcCalc() {
   document.getElementById('pcResult').classList.add('active');
 }
 
-/* 33. TO-DO */
+/* 33. TODO */
 TOOL_RENDERERS['todo-list'] = () => `
   <div class="card"><div class="card-title">Add Task</div>
     <div class="field"><input type="text" id="tdInput" placeholder="What needs to be done?" maxlength="200" /></div>
@@ -2377,7 +2296,7 @@ function tdClearDone() { DB.set('todo', DB.get('todo', []).filter(x => !x.done))
 function tdRender() {
   const list = DB.get('todo', []);
   const el = document.getElementById('tdList');
-  if (!list.length) { el.innerHTML = '<div class="no-results">No tasks yet. Add one above!</div>'; return; }
+  if (!list.length) { el.innerHTML = '<div class="no-results">No tasks yet.</div>'; return; }
   el.innerHTML = list.map(t => `
     <div class="todo-item ${t.done?'done':''}">
       <div class="todo-check" onclick="tdToggle(${t.id})">${t.done?'✓':''}</div>
@@ -2428,7 +2347,7 @@ function ntOpen(id) {
 function ntSave(id) {
   const title = document.getElementById('ntTitle').value.trim() || 'Untitled';
   const body = document.getElementById('ntBody').value;
-  if (body.length > 200000) { toast('Body exceeds 200,000 characters', 'error'); return; }
+  if (body.length > 200000) { toast('Exceeds 200,000 chars', 'error'); return; }
   const notes = DB.get('notes', []);
   if (id) {
     const n = notes.find(x => x.id === id);
@@ -2557,7 +2476,7 @@ function gmRender() {
 TOOL_RENDERERS['bio-gen'] = () => `
   <div class="card"><div class="card-title">Bio Generator</div>
     <div class="field"><label>Name</label><input type="text" id="bgName" placeholder="Your name" maxlength="40" /></div>
-    <div class="field"><label>Profession / Interests</label><input type="text" id="bgProf" placeholder="e.g. Developer, Traveler, Foodie" maxlength="80" /></div>
+    <div class="field"><label>Profession / Interests</label><input type="text" id="bgProf" placeholder="e.g. Developer, Traveler" maxlength="80" /></div>
     <div class="field"><label>Style</label><select id="bgStyle"><option value="professional">Professional</option><option value="casual">Casual</option><option value="funny">Funny</option><option value="aesthetic">Aesthetic</option></select></div>
     <button class="btn btn-primary btn-block" onclick="bgGen()">✨ Generate Bio</button>
   </div>
@@ -2613,10 +2532,10 @@ function bgCopy(i) {
 /* 37. HASHTAG */
 TOOL_RENDERERS['hashtag-gen'] = () => `
   <div class="card"><div class="card-title">Hashtag Generator</div>
-    <div class="field"><label>Topic / Keyword</label><input type="text" id="hgKw" placeholder="e.g. fitness, travel" maxlength="60" /></div>
+    <div class="field"><label>Topic / Keyword</label><input type="text" id="hgKw" placeholder="e.g. fitness" maxlength="60" /></div>
     <div class="field"><label>Platform</label><select id="hgPlat"><option value="instagram">Instagram</option><option value="twitter">Twitter / X</option><option value="youtube">YouTube</option><option value="tiktok">TikTok</option></select></div>
     <button class="btn btn-primary btn-block" onclick="hgGen()">#️⃣ Generate</button>
-    <p class="hint mt-12">Hashtags generated locally. Not real-time trending data.</p>
+    <p class="hint mt-12">Generated locally. Not real-time trending.</p>
   </div>
   <div class="result-box" id="hgResult"></div>`;
 function hgGen() {
@@ -2648,7 +2567,7 @@ function hgCopy() {
   navigator.clipboard.writeText(window._tags).then(() => toast('Copied', 'success')).catch(() => toast('Copy failed', 'error'));
 }
 
-/* 38. UNIT CONVERTER */
+/* 38. UNIT */
 const UNITS = {
   length: { mm:1, cm:10, m:1000, km:1000000, inch:25.4, feet:304.8, yard:914.4, mile:1609344 },
   weight: { mg:0.001, g:1, kg:1000, pound:453.592, ounce:28.3495, ton:1000000 },
@@ -2782,7 +2701,6 @@ function init() {
 
   window.addEventListener('error', e => { console.error('Global error:', e.error); });
   console.log('%cQunvero loaded ✅', 'color:#6366f1;font-weight:bold;font-size:14px');
-  console.log('Tools:', TOOLS.length, '| Categories:', CATEGORIES.length);
 }
 document.addEventListener('DOMContentLoaded', init);
 </script>
