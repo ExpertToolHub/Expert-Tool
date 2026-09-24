@@ -593,7 +593,7 @@ function closeTool() {
 }
 
 /* ============================================================
-   EXPORT SYSTEM — with QR/Barcode special handling
+   EXPORT SYSTEM — REWRITTEN FOR RELIABILITY
    ============================================================ */
 function exportButtons(boxId, filename) {
   return `<div class="export-btns no-export no-print">
@@ -608,23 +608,31 @@ function buildCleanClone(el, includeHeader) {
   clone.querySelectorAll('.no-export, .export-btns, .no-print').forEach(n => n.remove());
   clone.style.background = '#ffffff';
   clone.style.color = '#111111';
-  clone.style.padding = '24px';
+  clone.style.padding = '32px';
   clone.style.border = 'none';
   clone.style.boxShadow = 'none';
   clone.style.borderRadius = '0';
   clone.style.margin = '0';
-  clone.style.width = '750px';
+  clone.style.width = '760px';
+  clone.style.boxSizing = 'border-box';
   clone.style.fontFamily = 'Arial, Helvetica, sans-serif';
-  clone.style.fontSize = '14px';
-  clone.style.lineHeight = '1.5';
+  clone.style.fontSize = '15px';
+  clone.style.lineHeight = '1.6';
+  clone.style.display = 'block';
+  clone.style.overflow = 'visible';
 
   clone.querySelectorAll('.result-main').forEach(e => {
     e.style.background = 'none';
     e.style.webkitBackgroundClip = 'initial';
     e.style.backgroundClip = 'initial';
+    e.style.backgroundImage = 'none';
     e.style.color = '#4f46e5';
     e.style.webkitTextFillColor = '#4f46e5';
-    e.style.backgroundImage = 'none';
+    e.style.fontSize = '34px';
+    e.style.fontWeight = '900';
+    e.style.display = 'block';
+    e.style.marginBottom = '8px';
+    e.style.lineHeight = '1.2';
   });
   
   clone.querySelectorAll('*').forEach(e => {
@@ -642,90 +650,55 @@ function buildCleanClone(el, includeHeader) {
   clone.querySelectorAll('.v, .result-row').forEach(e => { e.style.color = '#111111'; });
   clone.querySelectorAll('.txn-credit').forEach(e => { e.style.color = '#ef4444'; });
   clone.querySelectorAll('.txn-payment').forEach(e => { e.style.color = '#10b981'; });
+  
   clone.querySelectorAll('.result-title').forEach(e => { 
     e.style.color = '#666666';
     e.style.borderBottom = '1px dashed #cccccc';
-    e.style.paddingBottom = '8px';
-    e.style.marginBottom = '12px';
+    e.style.paddingBottom = '12px';
+    e.style.marginBottom = '16px';
+    e.style.fontSize = '13px';
+    e.style.fontWeight = '700';
+    e.style.letterSpacing = '0.08em';
+    e.style.textTransform = 'uppercase';
   });
-  clone.querySelectorAll('.result-main').forEach(e => {
-    e.style.fontSize = '30px';
-    e.style.fontWeight = '900';
-    e.style.marginBottom = '4px';
-  });
+  
   clone.querySelectorAll('.result-row').forEach(e => {
     e.style.borderBottom = '1px solid #eeeeee';
-    e.style.padding = '10px 0';
+    e.style.padding = '14px 0';
     e.style.display = 'flex';
     e.style.justifyContent = 'space-between';
+    e.style.alignItems = 'center';
+    e.style.gap = '16px';
+    e.style.fontSize = '15px';
   });
-  clone.querySelectorAll('.result-sub').forEach(e => { e.style.fontSize = '13px'; });
+  clone.querySelectorAll('.result-row .k').forEach(e => { e.style.fontWeight = '500'; });
+  clone.querySelectorAll('.result-row .v').forEach(e => { e.style.fontWeight = '700'; e.style.textAlign = 'right'; });
+  clone.querySelectorAll('.result-sub').forEach(e => { e.style.fontSize = '14px'; e.style.marginBottom = '16px'; });
 
   if (includeHeader) {
     const toolTitle = document.getElementById('toolTitle')?.textContent || 'Qunvero';
     const header = document.createElement('div');
+    header.setAttribute('style', 'display:block;width:100%;margin-bottom:24px;padding-bottom:0;');
     header.innerHTML = `
-      <div style="font-family:Arial,sans-serif;margin-bottom:16px">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:2px solid #6366f1;margin-bottom:14px">
-          <div style="font-size:20px;font-weight:900;color:#6366f1;letter-spacing:-0.5px">⚡ Qunvero</div>
-          <div style="font-size:11px;color:#888888">${new Date().toLocaleString('en-IN')}</div>
-        </div>
-        <div style="font-size:20px;font-weight:800;color:#111111">${toolTitle}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:2px solid #6366f1;margin-bottom:20px;font-family:Arial,sans-serif;">
+        <div style="font-size:22px;font-weight:900;color:#6366f1;letter-spacing:-0.5px;line-height:1.2;">⚡ Qunvero</div>
+        <div style="font-size:12px;color:#888888;line-height:1.2;">${new Date().toLocaleString('en-IN')}</div>
       </div>
+      <div style="font-size:22px;font-weight:800;color:#111111;margin-bottom:20px;font-family:Arial,sans-serif;line-height:1.3;">${toolTitle}</div>
     `;
     clone.insertBefore(header, clone.firstChild);
   }
   return clone;
 }
 
-/* PRINT — with QR/Barcode special handling */
 function printResult(boxId) {
   const src = document.getElementById(boxId);
   if (!src) { toast('Nothing to print', 'error'); return; }
-  
-  let specialContent = '';
-  
-  if (boxId === 'qrResult') {
-    const canvas = src.querySelector('canvas');
-    if (canvas) {
-      specialContent = `
-        <div style="text-align:center;padding:20px">
-          <h1 style="font-size:22px;font-weight:800;color:#4f46e5;margin-bottom:16px">📱 QR Code</h1>
-          <img src="${canvas.toDataURL('image/png')}" style="max-width:400px;display:block;margin:0 auto" />
-        </div>`;
-    }
-  } else if (boxId === 'barResult') {
-    const svg = src.querySelector('svg');
-    if (svg) {
-      const svgData = new XMLSerializer().serializeToString(svg);
-      specialContent = `
-        <div style="text-align:center;padding:20px">
-          <h1 style="font-size:22px;font-weight:800;color:#4f46e5;margin-bottom:16px">🎫 Barcode</h1>
-          <div style="display:inline-block;background:#fff;padding:10px">${svgData}</div>
-        </div>`;
-    }
-  }
-  
+  const clone = buildCleanClone(src, true);
   const area = document.getElementById('printArea');
-  
-  if (specialContent) {
-    area.innerHTML = `
-      <div style="font-family:Arial,sans-serif;padding:20px">
-        <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #6366f1;padding-bottom:10px;margin-bottom:16px">
-          <div style="font-size:20px;font-weight:900;color:#6366f1">⚡ Qunvero</div>
-          <div style="font-size:11px;color:#888">${new Date().toLocaleString('en-IN')}</div>
-        </div>
-        ${specialContent}
-      </div>
-    `;
-  } else {
-    const clone = buildCleanClone(src, true);
-    area.innerHTML = '';
-    area.appendChild(clone);
-  }
-  
+  area.innerHTML = '';
+  area.appendChild(clone);
   area.style.display = 'block';
-
   let styleEl = document.getElementById('printStyleTemp');
   if (styleEl) styleEl.remove();
   styleEl = document.createElement('style');
@@ -739,7 +712,6 @@ function printResult(boxId) {
     }
   `;
   document.head.appendChild(styleEl);
-
   setTimeout(() => {
     window.print();
     setTimeout(() => {
@@ -751,114 +723,146 @@ function printResult(boxId) {
   }, 200);
 }
 
-/* PDF — with QR/Barcode special handling */
 function downloadPDF(boxId, filename) {
   const el = document.getElementById(boxId);
   if (!el) { toast('Nothing to export', 'error'); return; }
   toast('Generating PDF...');
   
-  let specialDataUrl = null;
-  let isBarcode = false;
-  
+  // QR special
   if (boxId === 'qrResult') {
     const canvas = el.querySelector('canvas');
-    if (canvas) specialDataUrl = canvas.toDataURL('image/png');
-  } else if (boxId === 'barResult') {
-    const svg = el.querySelector('svg');
-    if (svg) {
-      isBarcode = true;
-      const svgData = new XMLSerializer().serializeToString(svg);
-      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
-      specialDataUrl = URL.createObjectURL(svgBlob);
+    if (canvas) {
+      const src = canvas.toDataURL('image/png');
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pw = pdf.internal.pageSize.getWidth();
+      const ph = pdf.internal.pageSize.getHeight();
+      const img = new Image();
+      img.onload = () => {
+        const ratio = img.width / img.height;
+        let w = pw - 40, h = w / ratio;
+        if (h > ph - 60) { h = ph - 60; w = h * ratio; }
+        const x = (pw - w) / 2, y = 40;
+        pdf.setFontSize(22);
+        pdf.setTextColor(99, 102, 241);
+        pdf.text('Qunvero', 20, 20);
+        pdf.setFontSize(15);
+        pdf.setTextColor(50, 50, 50);
+        pdf.text('QR Code', 20, 30);
+        pdf.setTextColor(120, 120, 120);
+        pdf.setFontSize(9);
+        pdf.text(new Date().toLocaleString('en-IN'), pw - 20, 20, { align: 'right' });
+        pdf.addImage(src, 'PNG', x, y, w, h);
+        pdf.save((filename || 'qr-code') + '.pdf');
+        toast('PDF downloaded ✅', 'success');
+      };
+      img.src = src;
+      return;
     }
   }
   
-  if (specialDataUrl) {
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    const pw = pdf.internal.pageSize.getWidth();
-    const ph = pdf.internal.pageSize.getHeight();
-    
-    const img = new Image();
-    img.onload = () => {
-      const ratio = img.width / img.height;
-      let w = pw - 40, h = w / ratio;
-      if (h > ph - 60) { h = ph - 60; w = h * ratio; }
-      const x = (pw - w) / 2;
-      const y = 40;
-      
-      pdf.setFontSize(20);
-      pdf.setTextColor(99, 102, 241);
-      pdf.text('Qunvero', 20, 20);
-      pdf.setFontSize(14);
-      pdf.setTextColor(50, 50, 50);
-      pdf.text(isBarcode ? 'Barcode' : 'QR Code', 20, 30);
-      pdf.setTextColor(120, 120, 120);
-      pdf.setFontSize(9);
-      pdf.text(new Date().toLocaleString('en-IN'), pw - 20, 20, { align: 'right' });
-      
-      pdf.addImage(specialDataUrl, 'PNG', x, y, w, h);
-      pdf.save((filename || 'qunvero') + '.pdf');
-      toast('PDF downloaded ✅', 'success');
-      if (isBarcode) URL.revokeObjectURL(specialDataUrl);
-    };
-    img.onerror = () => { 
-      toast('PDF failed', 'error'); 
-      if (isBarcode) URL.revokeObjectURL(specialDataUrl); 
-    };
-    img.src = specialDataUrl;
-    return;
-  }
-  
-  const clone = buildCleanClone(el, true);
-  const wrap = document.createElement('div');
-  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;width:750px;padding:0;margin:0;';
-  wrap.appendChild(clone);
-  document.body.appendChild(wrap);
-
-  setTimeout(() => {
-    const options = {
-      quality: 0.98,
-      pixelRatio: 2.5,
-      backgroundColor: '#ffffff',
-      width: clone.scrollWidth,
-      height: clone.scrollHeight,
-      skipFonts: false
-    };
-
-    const pngPromise = (window.htmlToImage && window.htmlToImage.toPng)
-      ? window.htmlToImage.toPng(clone, options)
-      : Promise.reject(new Error('htmlToImage not available'));
-
-    pngPromise
-      .then(dataUrl => {
+  // Barcode special
+  if (boxId === 'barResult') {
+    const svg = el.querySelector('svg');
+    if (svg) {
+      const svgData = new XMLSerializer().serializeToString(svg);
+      const blob = new Blob([svgData], {type:'image/svg+xml;charset=utf-8'});
+      const url = URL.createObjectURL(blob);
+      const img = new Image();
+      img.onload = () => {
+        const c = document.createElement('canvas');
+        c.width = (img.width||600)*3;
+        c.height = (img.height||200)*3;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0,0,c.width,c.height);
+        ctx.drawImage(img,0,0,c.width,c.height);
+        const src = c.toDataURL('image/png');
+        URL.revokeObjectURL(url);
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF('p', 'mm', 'a4');
         const pw = pdf.internal.pageSize.getWidth();
         const ph = pdf.internal.pageSize.getHeight();
-        const img = new Image();
-        img.onload = () => {
-          const ratio = img.width / img.height;
-          let w = pw - 20, h = w / ratio;
-          if (h > ph - 20) { h = ph - 20; w = h * ratio; }
-          const x = (pw - w) / 2, y = 10;
-          pdf.addImage(dataUrl, 'PNG', x, y, w, h, undefined, 'FAST');
-          pdf.save((filename || 'qunvero') + '.pdf');
-          toast('PDF downloaded', 'success');
-          document.body.removeChild(wrap);
-        };
-        img.onerror = () => { toast('PDF failed', 'error'); document.body.removeChild(wrap); };
-        img.src = dataUrl;
-      })
-      .catch(err => {
-        console.error('PDF error:', err);
-        toast('PDF failed', 'error');
-        document.body.removeChild(wrap);
-      });
-  }, 250);
+        const ratio = c.width / c.height;
+        let w = pw - 40, h = w / ratio;
+        if (h > ph - 60) { h = ph - 60; w = h * ratio; }
+        const x = (pw - w) / 2, y = 40;
+        pdf.setFontSize(22);
+        pdf.setTextColor(99, 102, 241);
+        pdf.text('Qunvero', 20, 20);
+        pdf.setFontSize(15);
+        pdf.setTextColor(50, 50, 50);
+        pdf.text('Barcode', 20, 30);
+        pdf.setTextColor(120, 120, 120);
+        pdf.setFontSize(9);
+        pdf.text(new Date().toLocaleString('en-IN'), pw - 20, 20, { align: 'right' });
+        pdf.addImage(src, 'PNG', x, y, w, h);
+        pdf.save((filename || 'barcode') + '.pdf');
+        toast('PDF downloaded ✅', 'success');
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); toast('PDF failed', 'error'); };
+      img.src = url;
+      return;
+    }
+  }
+  
+  // Generic tools
+  const clone = buildCleanClone(el, true);
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;width:760px;padding:0;margin:0;display:block;';
+  wrap.appendChild(clone);
+  document.body.appendChild(wrap);
+
+  setTimeout(() => {
+    const fullWidth = clone.scrollWidth;
+    const fullHeight = clone.scrollHeight;
+    
+    if (!window.htmlToImage || !window.htmlToImage.toPng) {
+      toast('Library not loaded', 'error');
+      document.body.removeChild(wrap);
+      return;
+    }
+    
+    htmlToImage.toPng(clone, {
+      quality: 0.98,
+      pixelRatio: 2.5,
+      backgroundColor: '#ffffff',
+      width: fullWidth,
+      height: fullHeight,
+      canvasWidth: fullWidth * 2.5,
+      canvasHeight: fullHeight * 2.5,
+      style: { transform: 'none', margin: '0' },
+      skipFonts: false,
+      cacheBust: true
+    })
+    .then(dataUrl => {
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pw = pdf.internal.pageSize.getWidth();
+      const ph = pdf.internal.pageSize.getHeight();
+      const img = new Image();
+      img.onload = () => {
+        const ratio = img.width / img.height;
+        let w = pw - 16;
+        let h = w / ratio;
+        if (h > ph - 16) { h = ph - 16; w = h * ratio; }
+        const x = (pw - w) / 2;
+        const y = (ph - h) / 2;
+        pdf.addImage(dataUrl, 'PNG', x, y, w, h, undefined, 'FAST');
+        pdf.save((filename || 'qunvero') + '.pdf');
+        toast('PDF downloaded ✅', 'success');
+      };
+      img.onerror = () => { toast('PDF failed', 'error'); };
+      img.src = dataUrl;
+    })
+    .catch(err => {
+      console.error('PDF error:', err);
+      toast('PDF failed', 'error');
+    })
+    .finally(() => { document.body.removeChild(wrap); });
+  }, 400);
 }
 
-/* IMAGE — with QR/Barcode special handling */
 function downloadImage(boxId, filename) {
   const el = document.getElementById(boxId);
   if (!el) { toast('Nothing to export', 'error'); return; }
@@ -909,11 +913,11 @@ function downloadImage(boxId, filename) {
     }
   }
   
-  // Generic tools — sab ke liye ek hi reliable tarika
+  // Generic tools
   toast('Generating HD image...');
   const clone = buildCleanClone(el, false);
   const wrap = document.createElement('div');
-  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;width:750px;padding:0;margin:0;';
+  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;width:760px;padding:0;margin:0;display:block;';
   wrap.appendChild(clone);
   document.body.appendChild(wrap);
   
@@ -923,12 +927,18 @@ function downloadImage(boxId, filename) {
       document.body.removeChild(wrap);
       return;
     }
+    const fullWidth = clone.scrollWidth;
+    const fullHeight = clone.scrollHeight;
+    
     htmlToImage.toPng(clone, {
       quality: 1.0,
       pixelRatio: 3,
       backgroundColor: '#ffffff',
-      width: clone.scrollWidth,
-      height: clone.scrollHeight,
+      width: fullWidth,
+      height: fullHeight,
+      canvasWidth: fullWidth * 3,
+      canvasHeight: fullHeight * 3,
+      style: { transform: 'none', margin: '0' },
       skipFonts: false,
       cacheBust: true
     })
@@ -944,12 +954,9 @@ function downloadImage(boxId, filename) {
       toast('Image failed. Try again.', 'error');
     })
     .finally(() => { document.body.removeChild(wrap); });
-  }, 300);
+  }, 400);
 }
 
-/* ============================================================
-   HELPERS
-   ============================================================ */
 function numVal(id, name, opts={}) {
   const el = document.getElementById(id);
   if (!el) return null;
@@ -1095,7 +1102,6 @@ function setLang(l) {
    FEEDBACK — Firebase Integration
    ============================================================ */
 function openFeedback() {
-  const history = DB.get('feedback', []);
   openModal(`
     <div class="modal-header"><h3>💬 Send Feedback</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
     <div class="field"><label>Name</label><input type="text" id="fbName" placeholder="Your name" maxlength="60" /></div>
@@ -1324,10 +1330,11 @@ document.querySelectorAll('.drawer-item').forEach(item => {
 });
 
 /* ============================================================
-   TOOL RENDERERS
+   TOOL RENDERERS & INITS
    ============================================================ */
 const TOOL_RENDERERS = {};
 const TOOL_INITS = {};
+
 
 /* 1. DUKAN BILL */
 TOOL_RENDERERS['dukan-bill'] = () => `
@@ -1469,7 +1476,7 @@ function kbRender() {
   document.getElementById('kbSummary').classList.add('active');
 }
 
-/* 3. RATE CALCULATOR — DUAL MODE */
+/* 3. RATE CALCULATOR */
 TOOL_RENDERERS['rate-calc'] = () => `
   <div class="card"><div class="card-title">Rate Calculator</div>
     <div class="field"><label>Item Name</label><input type="text" id="rcName" placeholder="e.g. Rice, Sugar" maxlength="40" /></div>
@@ -1505,7 +1512,6 @@ function rcCalc() {
   const rate = numVal('rcRate','Rate',{min:0});
   if (rate == null) return;
   const mode = document.getElementById('rcMode').value;
-  
   if (mode === 'qty') {
     const qty = numVal('rcQty','Quantity',{min:0});
     if (qty == null) return;
@@ -1514,7 +1520,6 @@ function rcCalc() {
     if (unit === 'g') { total = (qty / 1000) * rate; displayQty = qty + ' g'; }
     else if (unit === 'kg') { total = qty * rate; displayQty = qty + ' kg'; }
     else { total = qty * rate; displayQty = qty + ' pcs'; }
-    
     document.getElementById('rcResult').innerHTML = `
       <div class="result-title">Result</div>
       <div class="result-main">${fmtMoney(total)}</div>
@@ -1532,7 +1537,6 @@ function rcCalc() {
     let main, sub;
     if (outUnit === 'kg') { main = fmtNum(kg, 3) + ' kg'; sub = fmtNum(grams, 0) + ' grams'; }
     else { main = fmtNum(grams, 0) + ' g'; sub = fmtNum(kg, 3) + ' kg'; }
-    
     document.getElementById('rcResult').innerHTML = `
       <div class="result-title">Result</div>
       <div class="result-main">${main}</div>
