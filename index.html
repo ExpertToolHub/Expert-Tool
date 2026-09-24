@@ -22,10 +22,10 @@ img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 
 :root, [data-theme="dark"] {
-  --bg: #0a0e27; --bg-2: #0f1435; --surface: #151a3d; --surface-2: #1c2250; --surface-hover: #232a5e;
+  --bg: #0a0e27; --surface: #151a3d; --surface-2: #1c2250; --surface-hover: #232a5e;
   --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.14);
   --text: #eef1ff; --text-2: #a8b0d8; --text-3: #6b74a0;
-  --primary: #6366f1; --primary-2: #8b5cf6;
+  --primary: #6366f1;
   --success: #10b981; --danger: #ef4444; --warning: #f59e0b;
   --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
 }
@@ -185,7 +185,6 @@ a { color: inherit; text-decoration: none; }
 .drawer-pname { font-weight: 700; font-size: 14.5px; }
 .drawer-pemail { font-size: 12px; color: var(--text-3); }
 .drawer-item { display: flex; align-items: center; gap: 14px; padding: 14px 12px; border-radius: 12px; cursor: pointer; font-size: 14.5px; font-weight: 500; }
-.drawer-item:active { background: var(--surface-hover); }
 .drawer-item .di-icon { font-size: 18px; width: 22px; text-align: center; }
 .drawer-divider { height: 1px; background: var(--border); margin: 10px 0; }
 
@@ -357,7 +356,7 @@ a { color: inherit; text-decoration: none; }
 
 <script>
 /* ============================================================
-   QUNVERO — COMPLETE APPLICATION
+   QUNVERO — FINAL PRODUCTION BUILD
    ============================================================ */
 
 const CATEGORIES = [
@@ -572,8 +571,10 @@ function closeTool() {
 }
 
 /* ============================================================
-   ⭐ EXPORT SYSTEM — COMPLETELY REWRITTEN ⭐
-   Uses html-to-image (better mobile support) + jsPDF direct
+   ⭐⭐⭐ FINAL EXPORT SYSTEM ⭐⭐⭐
+   - PRINT: full content + header
+   - PDF: full content + header, no overlap
+   - IMAGE: ONLY the result content (no header, no buttons)
    ============================================================ */
 
 function exportButtons(boxId, filename) {
@@ -584,126 +585,149 @@ function exportButtons(boxId, filename) {
   </div>`;
 }
 
-/* Prepare a clean clone: white bg, dark text, no buttons */
-function prepareCleanClone(el) {
+/* Clean clone — strips everything, forces white/black, converts gradient to solid */
+function buildCleanClone(el, includeHeader) {
   const clone = el.cloneNode(true);
   clone.querySelectorAll('.no-export, .export-btns, .no-print').forEach(n => n.remove());
   clone.style.background = '#ffffff';
   clone.style.color = '#111111';
-  clone.style.padding = '20px';
+  clone.style.padding = '24px';
   clone.style.border = 'none';
   clone.style.boxShadow = 'none';
   clone.style.borderRadius = '0';
+  clone.style.margin = '0';
   clone.style.width = '750px';
   clone.style.fontFamily = 'Arial, Helvetica, sans-serif';
-  
-  // Gradient text → solid
+  clone.style.fontSize = '14px';
+  clone.style.lineHeight = '1.5';
+
+  // Fix gradient text (result-main) to solid
   clone.querySelectorAll('.result-main').forEach(e => {
     e.style.background = 'none';
     e.style.webkitBackgroundClip = 'initial';
     e.style.backgroundClip = 'initial';
     e.style.color = '#4f46e5';
     e.style.webkitTextFillColor = '#4f46e5';
+    e.style.backgroundImage = 'none';
   });
-  // Text colors
-  clone.querySelectorAll('.k, .result-sub, .result-title, .muted, .hint').forEach(e => { e.style.color = '#555'; });
-  clone.querySelectorAll('.v, .result-row').forEach(e => { e.style.color = '#111'; });
+  
+  // Reset ALL spans/divs that might have gradient
+  clone.querySelectorAll('*').forEach(e => {
+    const cs = window.getComputedStyle(e);
+    if (cs.webkitTextFillColor === 'transparent' || cs.color === 'rgba(0, 0, 0, 0)') {
+      e.style.webkitTextFillColor = '#111111';
+      e.style.color = '#111111';
+      e.style.background = 'none';
+      e.style.webkitBackgroundClip = 'initial';
+      e.style.backgroundClip = 'initial';
+    }
+  });
+
+  // Force text colors for common classes
+  clone.querySelectorAll('.k, .result-sub, .result-title, .muted, .hint').forEach(e => { e.style.color = '#555555'; });
+  clone.querySelectorAll('.v, .result-row').forEach(e => { e.style.color = '#111111'; });
   clone.querySelectorAll('.txn-credit').forEach(e => { e.style.color = '#ef4444'; });
   clone.querySelectorAll('.txn-payment').forEach(e => { e.style.color = '#10b981'; });
-  
-  // Add header
-  const toolTitle = document.getElementById('toolTitle')?.textContent || 'Qunvero';
-  const header = document.createElement('div');
-  header.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #6366f1;padding-bottom:10px;margin-bottom:16px;font-family:Arial,sans-serif">
-      <div style="font-size:20px;font-weight:900;color:#6366f1">⚡ Qunvero</div>
-      <div style="font-size:11px;color:#666">${new Date().toLocaleString('en-IN')}</div>
-    </div>
-    <h1 style="font-size:20px;font-weight:800;color:#111;margin:0 0 16px 0;font-family:Arial,sans-serif">${toolTitle}</h1>
-  `;
-  clone.insertBefore(header, clone.firstChild);
+  clone.querySelectorAll('.result-title').forEach(e => { 
+    e.style.color = '#666666';
+    e.style.borderBottom = '1px dashed #cccccc';
+    e.style.paddingBottom = '8px';
+    e.style.marginBottom = '12px';
+  });
+  clone.querySelectorAll('.result-main').forEach(e => {
+    e.style.fontSize = '30px';
+    e.style.fontWeight = '900';
+    e.style.marginBottom = '4px';
+  });
+  clone.querySelectorAll('.result-row').forEach(e => {
+    e.style.borderBottom = '1px solid #eeeeee';
+    e.style.padding = '10px 0';
+    e.style.display = 'flex';
+    e.style.justifyContent = 'space-between';
+  });
+  clone.querySelectorAll('.result-sub').forEach(e => { e.style.fontSize = '13px'; });
+
+  if (includeHeader) {
+    const toolTitle = document.getElementById('toolTitle')?.textContent || 'Qunvero';
+    const header = document.createElement('div');
+    header.innerHTML = `
+      <div style="font-family:Arial,sans-serif;margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:2px solid #6366f1;margin-bottom:14px">
+          <div style="font-size:20px;font-weight:900;color:#6366f1;letter-spacing:-0.5px">⚡ Qunvero</div>
+          <div style="font-size:11px;color:#888888">${new Date().toLocaleString('en-IN')}</div>
+        </div>
+        <div style="font-size:20px;font-weight:800;color:#111111">${toolTitle}</div>
+      </div>
+    `;
+    clone.insertBefore(header, clone.firstChild);
+  }
   return clone;
 }
 
-/* IMAGE — html-to-image (more reliable than html2canvas on mobile) */
-function downloadImage(boxId, filename) {
-  const el = document.getElementById(boxId);
-  if (!el) { toast('Nothing to export', 'error'); return; }
-  toast('Generating HD image...');
-  
-  const clone = prepareCleanClone(el);
-  const wrap = document.createElement('div');
-  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;width:750px;';
-  wrap.appendChild(clone);
-  document.body.appendChild(wrap);
-  
-  // Wait for render
+/* PRINT — full content + header */
+function printResult(boxId) {
+  const src = document.getElementById(boxId);
+  if (!src) { toast('Nothing to print', 'error'); return; }
+  const clone = buildCleanClone(src, true);
+  const area = document.getElementById('printArea');
+  area.innerHTML = '';
+  area.appendChild(clone);
+  area.style.display = 'block';
+
+  let styleEl = document.getElementById('printStyleTemp');
+  if (styleEl) styleEl.remove();
+  styleEl = document.createElement('style');
+  styleEl.id = 'printStyleTemp';
+  styleEl.textContent = `
+    @media print {
+      body * { visibility: hidden !important; }
+      #printArea, #printArea * { visibility: visible !important; color: #000 !important; }
+      #printArea { position: absolute !important; left: 0; top: 0; width: 100% !important; }
+      #printArea .result-main { color: #4f46e5 !important; -webkit-text-fill-color: #4f46e5 !important; background: none !important; }
+    }
+  `;
+  document.head.appendChild(styleEl);
+
   setTimeout(() => {
-    const options = {
-      quality: 1.0,
-      pixelRatio: 3,
-      backgroundColor: '#ffffff',
-      width: clone.scrollWidth,
-      height: clone.scrollHeight,
-      style: { transform: 'none' }
-    };
-    
-    // Use htmlToImage if available, else fallback to html2canvas
-    const converter = (window.htmlToImage && window.htmlToImage.toPng) ? window.htmlToImage.toPng(clone, options) : html2canvas(clone, { scale: 3, backgroundColor: '#ffffff' }).then(c => c.toDataURL('image/png'));
-    
-    Promise.resolve(converter)
-      .then(dataUrl => {
-        const link = document.createElement('a');
-        link.download = (filename || 'qunvero') + '.png';
-        link.href = (typeof dataUrl === 'string') ? dataUrl : dataUrl.toDataURL('image/png');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        toast('HD Image downloaded', 'success');
-      })
-      .catch(err => { 
-        console.error(err); 
-        // Fallback to html2canvas
-        html2canvas(clone, { scale: 3, backgroundColor: '#ffffff', useCORS: true, logging: false })
-          .then(canvas => {
-            const link = document.createElement('a');
-            link.download = (filename || 'qunvero') + '.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-            toast('HD Image downloaded', 'success');
-          })
-          .catch(e => { console.error(e); toast('Image failed', 'error'); });
-      })
-      .finally(() => { document.body.removeChild(wrap); });
+    window.print();
+    setTimeout(() => {
+      area.style.display = 'none';
+      area.innerHTML = '';
+      const s = document.getElementById('printStyleTemp');
+      if (s) s.remove();
+    }, 500);
   }, 200);
 }
 
-/* PDF — jsPDF direct, no html2pdf complexity */
+/* PDF — full content + header, NO overlap */
 function downloadPDF(boxId, filename) {
   const el = document.getElementById(boxId);
   if (!el) { toast('Nothing to export', 'error'); return; }
   toast('Generating PDF...');
   
-  const clone = prepareCleanClone(el);
+  const clone = buildCleanClone(el, true);
+  
   const wrap = document.createElement('div');
-  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;width:750px;';
+  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;width:750px;padding:0;margin:0;';
   wrap.appendChild(clone);
   document.body.appendChild(wrap);
-  
+
   setTimeout(() => {
     const options = {
       quality: 0.98,
       pixelRatio: 2.5,
       backgroundColor: '#ffffff',
       width: clone.scrollWidth,
-      height: clone.scrollHeight
+      height: clone.scrollHeight,
+      skipFonts: false
     };
-    
-    const converter = (window.htmlToImage && window.htmlToImage.toPng) ? window.htmlToImage.toPng(clone, options) : html2canvas(clone, { scale: 2.5, backgroundColor: '#ffffff' }).then(c => c.toDataURL('image/png'));
-    
-    Promise.resolve(converter)
+
+    const pngPromise = (window.htmlToImage && window.htmlToImage.toPng)
+      ? window.htmlToImage.toPng(clone, options)
+      : Promise.reject(new Error('htmlToImage not available'));
+
+    pngPromise
       .then(dataUrl => {
-        const imgData = (typeof dataUrl === 'string') ? dataUrl : dataUrl.toDataURL('image/png');
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF('p', 'mm', 'a4');
         const pw = pdf.internal.pageSize.getWidth();
@@ -714,7 +738,7 @@ function downloadPDF(boxId, filename) {
           let w = pw - 20, h = w / ratio;
           if (h > ph - 20) { h = ph - 20; w = h * ratio; }
           const x = (pw - w) / 2, y = 10;
-          pdf.addImage(imgData, 'PNG', x, y, w, h);
+          pdf.addImage(dataUrl, 'PNG', x, y, w, h, undefined, 'FAST');
           pdf.save((filename || 'qunvero') + '.pdf');
           toast('PDF downloaded', 'success');
           document.body.removeChild(wrap);
@@ -723,48 +747,61 @@ function downloadPDF(boxId, filename) {
           toast('PDF failed', 'error');
           document.body.removeChild(wrap);
         };
-        img.src = imgData;
+        img.src = dataUrl;
       })
-      .catch(err => { 
-        console.error(err); 
-        toast('PDF failed', 'error'); 
-        document.body.removeChild(wrap); 
+      .catch(err => {
+        console.error('PDF error:', err);
+        toast('PDF failed', 'error');
+        document.body.removeChild(wrap);
       });
-  }, 200);
+  }, 250);
 }
 
-/* PRINT */
-function printResult(boxId) {
-  const src = document.getElementById(boxId);
-  if (!src) { toast('Nothing to print', 'error'); return; }
+/* IMAGE — ONLY the result content (no header, no buttons) */
+function downloadImage(boxId, filename) {
+  const el = document.getElementById(boxId);
+  if (!el) { toast('Nothing to export', 'error'); return; }
+  toast('Generating HD image...');
   
-  const clone = prepareCleanClone(src);
-  const area = document.getElementById('printArea');
-  area.innerHTML = clone.outerHTML;
-  area.style.display = 'block';
+  // No header — only the result content
+  const clone = buildCleanClone(el, false);
   
-  let styleEl = document.getElementById('printStyleTemp');
-  if (styleEl) styleEl.remove();
-  styleEl = document.createElement('style');
-  styleEl.id = 'printStyleTemp';
-  styleEl.textContent = `
-    @media print {
-      body * { visibility: hidden !important; }
-      #printArea, #printArea * { visibility: visible !important; }
-      #printArea { position: absolute !important; left: 0; top: 0; width: 100% !important; }
-    }
-  `;
-  document.head.appendChild(styleEl);
-  
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#ffffff;width:750px;padding:0;margin:0;';
+  wrap.appendChild(clone);
+  document.body.appendChild(wrap);
+
   setTimeout(() => {
-    window.print();
-    setTimeout(() => {
-      area.style.display = 'none';
-      area.innerHTML = '';
-      const s = document.getElementById('printStyleTemp');
-      if (s) s.remove();
-    }, 500);
-  }, 200);
+    const options = {
+      quality: 1.0,
+      pixelRatio: 3,
+      backgroundColor: '#ffffff',
+      width: clone.scrollWidth,
+      height: clone.scrollHeight,
+      skipFonts: false
+    };
+
+    const pngPromise = (window.htmlToImage && window.htmlToImage.toPng)
+      ? window.htmlToImage.toPng(clone, options)
+      : Promise.reject(new Error('htmlToImage not available'));
+
+    pngPromise
+      .then(dataUrl => {
+        const link = document.createElement('a');
+        link.download = (filename || 'qunvero') + '.png';
+        link.href = dataUrl;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast('HD Image downloaded', 'success');
+        document.body.removeChild(wrap);
+      })
+      .catch(err => {
+        console.error('Image error:', err);
+        toast('Image failed', 'error');
+        document.body.removeChild(wrap);
+      });
+  }, 250);
 }
 
 /* ============================================================
@@ -1139,8 +1176,8 @@ TOOL_RENDERERS['khatabook'] = () => `
     <div class="result-row"><span class="k">Balance</span><span class="v" id="kbBalance">₹0</span></div>
     <div class="field mt-12"><label>Filter by customer</label><input type="text" id="kbFilter" placeholder="Search customer..." /></div>
   </div>
-  <div class="card"><div class="card-title">Entries</div><div id="kbList"></div>${exportButtons('kbSummary', 'khatabook')}</div>
-  <div class="result-box" id="kbSummary" style="display:none"></div>`;
+  <div class="card"><div class="card-title">Entries</div><div id="kbList"></div></div>
+  <div class="result-box" id="kbSummary"></div>`;
 TOOL_INITS['khatabook'] = () => {
   if (!document.getElementById('kbDate').value) document.getElementById('kbDate').valueAsDate = new Date();
   document.getElementById('kbFilter').addEventListener('input', kbRender);
@@ -1181,17 +1218,16 @@ function kbRender() {
       <div class="txn-amt ${x.type === 'credit' ? 'txn-credit' : 'txn-payment'}">${x.type === 'credit' ? '+' : '-'}${fmtMoney(x.amt)}</div>
       <button class="txn-del" onclick="kbDelete(${x.id})">🗑️</button>
     </div>`).join('');
+
+  // Update summary result box
   document.getElementById('kbSummary').innerHTML = `
-    <div class="preview-box">
-      <h2>Khatabook Summary</h2><div class="muted">${new Date().toLocaleString('en-IN')}</div>
-      <div class="totals" style="text-align:left;margin-top:16px">
-        <div class="line">Total Credit: <strong>${fmtMoney(credit)}</strong></div>
-        <div class="line">Total Payment: <strong>${fmtMoney(pay)}</strong></div>
-        <div class="line grand">Balance: ${fmtMoney(bal)}</div>
-      </div>
-      <table style="margin-top:16px"><thead><tr><th>Customer</th><th>Type</th><th>Date</th><th style="text-align:right">Amount</th></tr></thead>
-      <tbody>${filtered.slice().reverse().map(x => `<tr><td>${esc(x.name)}</td><td>${x.type}</td><td>${esc(x.date)}</td><td style="text-align:right">${fmtMoney(x.amt)}</td></tr>`).join('')}</tbody></table>
-    </div>`;
+    <div class="result-title">Khatabook Summary</div>
+    <div class="result-row"><span class="k">Total Credit</span><span class="v txn-credit">${fmtMoney(credit)}</span></div>
+    <div class="result-row"><span class="k">Total Payment</span><span class="v txn-payment">${fmtMoney(pay)}</span></div>
+    <div class="result-row"><span class="k">Balance</span><span class="v">${fmtMoney(bal)}</span></div>
+    <div class="result-row"><span class="k">Total Entries</span><span class="v">${list.length}</span></div>
+    ${exportButtons('kbSummary', 'khatabook')}`;
+  document.getElementById('kbSummary').classList.add('active');
 }
 
 /* 3. RATE */
@@ -1242,7 +1278,7 @@ function dcCalc() {
     <div class="result-sub">Final price after discount</div>
     <div class="result-row"><span class="k">MRP</span><span class="v">${fmtMoney(mrp)}</span></div>
     <div class="result-row"><span class="k">Discount (${pct}%)</span><span class="v txn-credit">− ${fmtMoney(amt)}</span></div>
-    <div class="result-row"><span class="k">You Save</span><span class="v" style="color:var(--success)">${fmtMoney(amt)}</span></div>
+    <div class="result-row"><span class="k">You Save</span><span class="v txn-payment">${fmtMoney(amt)}</span></div>
     ${exportButtons('dcResult', 'discount-calc')}`;
   document.getElementById('dcResult').classList.add('active');
 }
@@ -1307,6 +1343,8 @@ function icCompress() {
           <div class="result-title">Compression Result</div>
           <div class="result-main">${newKB} KB</div>
           <div class="result-sub">Saved ${saved}% (from ${origKB} KB)</div>
+          <div class="result-row"><span class="k">Original</span><span class="v">${origKB} KB</span></div>
+          <div class="result-row"><span class="k">Compressed</span><span class="v">${newKB} KB</span></div>
           <div style="text-align:center;margin:16px 0"><img src="${url}" style="max-height:220px;border-radius:10px" /></div>
           <a class="btn btn-primary btn-block" href="${url}" download="compressed.jpg">⬇️ Download Compressed</a>`;
         document.getElementById('icResult').classList.add('active');
@@ -1544,7 +1582,7 @@ function plCalc() {
   const isProfit = diff >= 0;
   document.getElementById('plResult').innerHTML = `
     <div class="result-title">Result</div>
-    <div class="result-main" style="color:${isProfit?'var(--success)':'var(--danger)'}">${isProfit?'+':''}${fmtMoney(diff)}</div>
+    <div class="result-main" style="color:${isProfit?'#10b981':'#ef4444'};-webkit-text-fill-color:${isProfit?'#10b981':'#ef4444'}">${isProfit?'+':''}${fmtMoney(diff)}</div>
     <div class="result-sub">${isProfit ? 'Profit' : 'Loss'} (${fmtNum(Math.abs(pct),2)}%)</div>
     <div class="result-row"><span class="k">Cost Price</span><span class="v">${fmtMoney(cp)}</span></div>
     <div class="result-row"><span class="k">Selling Price</span><span class="v">${fmtMoney(sp)}</span></div>
@@ -1826,7 +1864,7 @@ function sipCalc() {
     <div class="result-main">${fmtMoney(maturity)}</div>
     <div class="result-sub">Maturity Amount</div>
     <div class="result-row"><span class="k">Total Invested</span><span class="v">${fmtMoney(invested)}</span></div>
-    <div class="result-row"><span class="k">Estimated Returns</span><span class="v" style="color:var(--success)">${fmtMoney(returns)}</span></div>
+    <div class="result-row"><span class="k">Estimated Returns</span><span class="v txn-payment">${fmtMoney(returns)}</span></div>
     <div class="result-row"><span class="k">Duration</span><span class="v">${months} months</span></div>
     <div class="result-row"><span class="k">Expected Return</span><span class="v">${r}% p.a.</span></div>
     ${exportButtons('sipResult', 'sip')}`;
@@ -1856,7 +1894,7 @@ function fdCalc() {
     <div class="result-main">${fmtMoney(amount)}</div>
     <div class="result-sub">Maturity Amount</div>
     <div class="result-row"><span class="k">Principal</span><span class="v">${fmtMoney(p)}</span></div>
-    <div class="result-row"><span class="k">Interest Earned</span><span class="v" style="color:var(--success)">${fmtMoney(interest)}</span></div>
+    <div class="result-row"><span class="k">Interest Earned</span><span class="v txn-payment">${fmtMoney(interest)}</span></div>
     <div class="result-row"><span class="k">Rate</span><span class="v">${r}% p.a.</span></div>
     <div class="result-row"><span class="k">Duration</span><span class="v">${y} years</span></div>
     ${exportButtons('fdResult', 'fd')}`;
@@ -1886,7 +1924,7 @@ function ciCalc() {
     <div class="result-main">${fmtMoney(amount)}</div>
     <div class="result-sub">Final Amount</div>
     <div class="result-row"><span class="k">Principal</span><span class="v">${fmtMoney(p)}</span></div>
-    <div class="result-row"><span class="k">Compound Interest</span><span class="v" style="color:var(--success)">${fmtMoney(interest)}</span></div>
+    <div class="result-row"><span class="k">Compound Interest</span><span class="v txn-payment">${fmtMoney(interest)}</span></div>
     <div class="result-row"><span class="k">Rate</span><span class="v">${r}% p.a.</span></div>
     <div class="result-row"><span class="k">Time</span><span class="v">${t} years</span></div>
     ${exportButtons('ciResult', 'compound-interest')}`;
@@ -2058,13 +2096,13 @@ function bmiCalc() {
   const m = h / 100;
   const bmi = w / (m * m);
   let cat, color;
-  if (bmi < 18.5) { cat = 'Underweight'; color = 'var(--warning)'; }
-  else if (bmi < 25) { cat = 'Normal weight'; color = 'var(--success)'; }
-  else if (bmi < 30) { cat = 'Overweight'; color = 'var(--warning)'; }
-  else { cat = 'Obese'; color = 'var(--danger)'; }
+  if (bmi < 18.5) { cat = 'Underweight'; color = '#f59e0b'; }
+  else if (bmi < 25) { cat = 'Normal weight'; color = '#10b981'; }
+  else if (bmi < 30) { cat = 'Overweight'; color = '#f59e0b'; }
+  else { cat = 'Obese'; color = '#ef4444'; }
   document.getElementById('bmiResult').innerHTML = `
     <div class="result-title">BMI Result</div>
-    <div class="result-main" style="color:${color}">${fmtNum(bmi, 1)}</div>
+    <div class="result-main" style="color:${color};-webkit-text-fill-color:${color}">${fmtNum(bmi, 1)}</div>
     <div class="result-sub">${cat}</div>
     <div class="result-row"><span class="k">Weight</span><span class="v">${w} kg</span></div>
     <div class="result-row"><span class="k">Height</span><span class="v">${h} cm</span></div>
@@ -2254,7 +2292,8 @@ function pcCalc() {
     if (o == null || n == null) return;
     if (o === 0) { toast('Original cannot be 0', 'error'); return; }
     const diff = n - o; const pct = diff / o * 100;
-    html = `<div class="result-title">Result</div><div class="result-main" style="color:${pct>=0?'var(--success)':'var(--danger)'}">${pct>=0?'+':''}${fmtNum(pct,2)}%</div><div class="result-sub">${pct>=0?'Increase':'Decrease'} of ${fmtNum(Math.abs(diff),2)}</div>`;
+    const color = pct >= 0 ? '#10b981' : '#ef4444';
+    html = `<div class="result-title">Result</div><div class="result-main" style="color:${color};-webkit-text-fill-color:${color}">${pct>=0?'+':''}${fmtNum(pct,2)}%</div><div class="result-sub">${pct>=0?'Increase':'Decrease'} of ${fmtNum(Math.abs(diff),2)}</div>`;
   } else {
     const p = numVal('pcPart','Part'); const w = numVal('pcWhole','Whole');
     if (p == null || w == null) return;
