@@ -1,7 +1,7 @@
 /* ============================================================
    QUNVERO — EXTRA TOOLS (tools.js)
    FINAL COMPLETE VERSION
-   5 Tools + Ultra HD Downloads + Fixed Print
+   5 Tools + Ultra HD Downloads + Fixed Print + Perfect PDF
    ============================================================ */
 
 console.log('%cQunvero Extra Tools Loading...', 'color:#10b981;font-weight:bold');
@@ -109,6 +109,75 @@ window.openExtraTool = function(toolId) {
 };
 
 /* ============================================================
+   HELPER: Clone & Fix for PDF/Image
+   Dark blue background rows me WHITE TEXT rakhega
+   ============================================================ */
+function prepareCloneForExport(el, options) {
+  options = options || {};
+  const clone = el.cloneNode(true);
+  clone.querySelectorAll('.btn-group, .export-btns, .how-to-use, .no-print').forEach(n => n.remove());
+  clone.style.background = '#ffffff';
+  clone.style.color = '#111111';
+  clone.style.padding = options.padding || '40px';
+  clone.style.width = options.width || '820px';
+  clone.style.boxSizing = 'border-box';
+  clone.style.fontFamily = 'Arial, sans-serif';
+
+  // Fix result-main gradient text
+  clone.querySelectorAll('.result-main').forEach(e => {
+    const c = e.style.color || '#4f46e5';
+    e.style.background = 'none';
+    e.style.webkitTextFillColor = c;
+    e.style.color = c;
+    e.style.fontSize = '36px';
+    e.style.fontWeight = '900';
+  });
+
+  // Fix transparent text
+  clone.querySelectorAll('*').forEach(e => {
+    const cs = window.getComputedStyle(e);
+    if (cs.webkitTextFillColor === 'transparent' || cs.color === 'rgba(0, 0, 0, 0)') {
+      e.style.webkitTextFillColor = '#111111';
+      e.style.color = '#111111';
+      e.style.background = 'none';
+    }
+  });
+
+  // 🎯 FIX DARK BLUE BACKGROUND ROWS → WHITE TEXT (perfect look same as website)
+  clone.querySelectorAll('[style*="var(--surface-2)"]').forEach(row => {
+    row.style.background = '#1c2250';
+    row.style.padding = '12px 14px';
+    row.style.borderRadius = '8px';
+    row.style.marginTop = '10px';
+    row.querySelectorAll('*').forEach(el => {
+      el.style.color = '#ffffff';
+      el.style.webkitTextFillColor = '#ffffff';
+      el.style.fontWeight = '700';
+    });
+  });
+
+  // Fix other colors
+  clone.querySelectorAll('.k, .result-sub, .result-title, .card-title').forEach(e => {
+    if (e.closest('[style*="var(--surface-2)"]')) return;
+    e.style.color = '#555555';
+  });
+  clone.querySelectorAll('.v').forEach(e => {
+    if (e.closest('[style*="var(--surface-2)"]')) return;
+    e.style.color = '#111111';
+  });
+  clone.querySelectorAll('.txn-credit').forEach(e => {
+    if (e.closest('[style*="var(--surface-2)"]')) return;
+    e.style.color = '#ef4444';
+  });
+  clone.querySelectorAll('.txn-payment').forEach(e => {
+    if (e.closest('[style*="var(--surface-2)"]')) return;
+    e.style.color = '#10b981';
+  });
+
+  return clone;
+}
+
+/* ============================================================
    UNIVERSAL ULTRA HD PDF DOWNLOAD (4x resolution)
    ============================================================ */
 window.extraDownloadPDF = function(boxId, filename) {
@@ -119,35 +188,7 @@ window.extraDownloadPDF = function(boxId, filename) {
   }
   if (typeof toast === 'function') toast('Generating Ultra HD PDF...');
 
-  const clone = el.cloneNode(true);
-  clone.querySelectorAll('.btn-group, .export-btns, .how-to-use, .no-print').forEach(n => n.remove());
-  clone.style.background = '#ffffff';
-  clone.style.color = '#111111';
-  clone.style.padding = '40px';
-  clone.style.width = '820px';
-  clone.style.boxSizing = 'border-box';
-  clone.style.fontFamily = 'Arial, sans-serif';
-
-  clone.querySelectorAll('.result-main').forEach(e => {
-    const c = e.style.color || '#4f46e5';
-    e.style.background = 'none';
-    e.style.webkitTextFillColor = c;
-    e.style.color = c;
-    e.style.fontSize = '36px';
-    e.style.fontWeight = '900';
-  });
-  clone.querySelectorAll('*').forEach(e => {
-    const cs = window.getComputedStyle(e);
-    if (cs.webkitTextFillColor === 'transparent' || cs.color === 'rgba(0, 0, 0, 0)') {
-      e.style.webkitTextFillColor = '#111111';
-      e.style.color = '#111111';
-      e.style.background = 'none';
-    }
-  });
-  clone.querySelectorAll('.k, .result-sub, .result-title, .card-title').forEach(e => e.style.color = '#555555');
-  clone.querySelectorAll('.v').forEach(e => e.style.color = '#111111');
-  clone.querySelectorAll('.txn-credit').forEach(e => e.style.color = '#ef4444');
-  clone.querySelectorAll('.txn-payment').forEach(e => e.style.color = '#10b981');
+  const clone = prepareCloneForExport(el, { padding: '40px', width: '820px' });
 
   const header = document.createElement('div');
   header.innerHTML = `
@@ -197,33 +238,7 @@ window.extraDownloadImage = function(boxId, filename) {
   }
   if (typeof toast === 'function') toast('Generating Ultra HD Image...');
 
-  const clone = el.cloneNode(true);
-  clone.querySelectorAll('.btn-group, .export-btns, .how-to-use, .no-print').forEach(n => n.remove());
-  clone.style.background = '#ffffff';
-  clone.style.color = '#111111';
-  clone.style.padding = '40px';
-  clone.style.width = '820px';
-  clone.style.boxSizing = 'border-box';
-  clone.style.fontFamily = 'Arial, sans-serif';
-
-  clone.querySelectorAll('.result-main').forEach(e => {
-    const c = e.style.color || '#4f46e5';
-    e.style.background = 'none';
-    e.style.webkitTextFillColor = c;
-    e.style.color = c;
-    e.style.fontSize = '36px';
-    e.style.fontWeight = '900';
-  });
-  clone.querySelectorAll('*').forEach(e => {
-    const cs = window.getComputedStyle(e);
-    if (cs.webkitTextFillColor === 'transparent' || cs.color === 'rgba(0, 0, 0, 0)') {
-      e.style.webkitTextFillColor = '#111111';
-      e.style.color = '#111111';
-      e.style.background = 'none';
-    }
-  });
-  clone.querySelectorAll('.k, .result-sub, .result-title, .card-title').forEach(e => e.style.color = '#555555');
-  clone.querySelectorAll('.v').forEach(e => e.style.color = '#111111');
+  const clone = prepareCloneForExport(el, { padding: '40px', width: '820px' });
 
   const wrap = document.createElement('div');
   wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#fff;width:820px;padding:0;margin:0;';
@@ -273,8 +288,22 @@ window.extraPrint = function(boxId, title) {
       e.style.background = 'none';
     }
   });
-  clone.querySelectorAll('.k, .result-sub, .result-title, .card-title').forEach(e => e.style.color = '#555555');
-  clone.querySelectorAll('.v').forEach(e => e.style.color = '#111111');
+  // Dark blue rows → white text
+  clone.querySelectorAll('[style*="var(--surface-2)"]').forEach(row => {
+    row.style.background = '#1c2250';
+    row.querySelectorAll('*').forEach(el => {
+      el.style.color = '#ffffff';
+      el.style.webkitTextFillColor = '#ffffff';
+    });
+  });
+  clone.querySelectorAll('.k, .result-sub, .result-title, .card-title').forEach(e => {
+    if (e.closest('[style*="var(--surface-2)"]')) return;
+    e.style.color = '#555555';
+  });
+  clone.querySelectorAll('.v').forEach(e => {
+    if (e.closest('[style*="var(--surface-2)"]')) return;
+    e.style.color = '#111111';
+  });
 
   const header = `<div style="display:flex;justify-content:space-between;padding-bottom:10px;border-bottom:2px solid #6366f1;margin-bottom:14px;font-family:Arial,sans-serif"><div style="font-size:18px;font-weight:900;color:#6366f1">⚡ Qunvero</div><div style="font-size:11px;color:#888">${new Date().toLocaleString('en-IN')}</div></div>${title ? `<div style="font-size:16px;font-weight:700;color:#111;margin-bottom:12px;font-family:Arial,sans-serif">${title}</div>` : ''}`;
 
@@ -533,7 +562,6 @@ window.qrProGenerate = function() {
   const raw = document.getElementById('qrInput').value.trim();
   if (!raw) { toast('Paste URL or text first', 'error'); return; }
 
-  // Auto-detect type
   let data = raw;
   if (/^https?:\/\//i.test(raw)) data = raw;
   else if (/^www\./i.test(raw)) data = 'https://' + raw;
@@ -560,7 +588,6 @@ window.qrProGenerate = function() {
   } catch (e) { console.error(e); toast('QR generation failed', 'error'); return; }
 
   setTimeout(() => {
-    // White padding to preview
     const canvas = container.querySelector('canvas');
     if (canvas) {
       canvas.style.padding = '20px';
@@ -598,7 +625,6 @@ window.qrProDownloadPNG = function() {
   else if (img && img.src) { src = img.src; baseSize = img.naturalWidth || 320; }
   if (!src) { toast('QR not ready', 'error'); return; }
 
-  // ULTRA HD: 6x resolution + white padding
   const SCALE = 6;
   const PADDING_PCT = 0.12;
   const finalSize = baseSize * SCALE;
@@ -914,4 +940,4 @@ window.ipReset = function() {
   toast('Reset done', 'success');
 };
 
-console.log('%c✅ tools.js FINAL loaded — 5 tools ready with Ultra HD download', 'color:#10b981;font-weight:bold;font-size:14px');
+console.log('%c✅ tools.js FINAL loaded — 5 tools ready with Perfect PDF', 'color:#10b981;font-weight:bold;font-size:14px');
