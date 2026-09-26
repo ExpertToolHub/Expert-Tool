@@ -1,6 +1,6 @@
 /* ============================================================
    QUNVERO — EXTRA TOOLS (tools.js)
-   Setup + Card System + Common Functions
+   FINAL VERSION — 5 Working Tools + Ultra HD Download
    ============================================================ */
 
 console.log('%cQunvero Extra Tools Loading...', 'color:#10b981;font-weight:bold');
@@ -9,13 +9,13 @@ console.log('%cQunvero Extra Tools Loading...', 'color:#10b981;font-weight:bold'
    7 TOOLS KA DATA
    ============================================================ */
 const EXTRA_TOOLS = [
-  { id: 'ctc-salary', name: 'CTC → In-Hand Salary', cat: 'finance', icon: '💼', desc: 'Calculate your take-home salary from CTC', howto: 'Enter annual CTC, basic %, HRA %, PF, tax. Click Calculate to see monthly in-hand salary with full breakdown.', kw: ['ctc','salary','in-hand','take home','monthly salary'] },
-  { id: 'attendance-calc', name: 'Attendance Calculator', cat: 'student', icon: '📊', desc: 'Track attendance percentage & required classes', howto: 'Enter total classes, present days, required %. Calculator shows current %, how many more to attend, and how many you can skip.', kw: ['attendance','percentage','classes','college','school'] },
-  { id: 'qr-gen-pro', name: 'QR Code Generator Pro', cat: 'pdf', icon: '📱', desc: 'Generate QR for text, URL, phone, email, WiFi', howto: 'Choose type, enter details, click Generate. Download as PNG or SVG, Print. No duplicate QR generation.', kw: ['qr','qr code','url','wifi','vcard','scan'] },
-  { id: 'image-compressor', name: 'Image Compressor Pro', cat: 'photo', icon: '🗜️', desc: 'Compress & resize images without losing quality', howto: 'Upload image, adjust quality (10-100%), optionally resize. Click Compress. Download compressed image. Original never modified.', kw: ['compress','image','reduce','size','resize','optimize'] },
-  { id: 'image-to-pdf', name: 'Image to PDF Converter', cat: 'pdf', icon: '📄', desc: 'Convert multiple images into a single PDF', howto: 'Upload multiple images, reorder, remove. Choose page size (A4/A5/Letter), orientation. Generate PDF. Download or Print.', kw: ['image','pdf','jpg','png','convert','merge','combine'] },
-  { id: 'pdf-merger', name: 'PDF Merger', cat: 'pdf', icon: '📚', desc: 'Combine multiple PDFs into one document', howto: 'Upload 2+ PDFs, reorder, remove. Click Merge PDF. Download merged document. Pages preserved in order.', kw: ['pdf','merge','combine','join','multiple pdf'] },
-  { id: 'resume-builder', name: 'Resume Builder Pro', cat: 'student', icon: '📝', desc: 'Build professional ATS-friendly resume with live preview', howto: 'Fill personal info, education, experience, skills. Live preview updates. Download as PDF with selectable text. Save locally in browser.', kw: ['resume','cv','builder','ats','job','application'] }
+  { id: 'ctc-salary', name: 'CTC → In-Hand Salary', cat: 'finance', icon: '💼', desc: 'Calculate your take-home salary from CTC', howto: 'Enter annual CTC, basic %, HRA %, PF, tax. Click Calculate to see monthly in-hand salary with full breakdown.', kw: ['ctc','salary','in-hand','take home'] },
+  { id: 'attendance-calc', name: 'Attendance Calculator', cat: 'student', icon: '📊', desc: 'Track attendance percentage & required classes', howto: 'Enter total classes, present days, required %. Calculator shows current %, how many more to attend, and how many you can skip.', kw: ['attendance','percentage','classes'] },
+  { id: 'qr-gen-pro', name: 'QR Code Generator Pro', cat: 'pdf', icon: '📱', desc: 'Generate QR for text, URL, phone, email, WiFi', howto: 'Choose type, enter details, click Generate. Download as Ultra HD PNG or SVG. No duplicate QR generation.', kw: ['qr','qr code','url','wifi'] },
+  { id: 'image-compressor', name: 'Image Compressor Pro', cat: 'photo', icon: '🗜️', desc: 'Compress & resize images without losing quality', howto: 'Upload image, adjust quality (10-100%), optionally resize. Click Compress. Download compressed image. Original never modified.', kw: ['compress','image','reduce','size'] },
+  { id: 'image-to-pdf', name: 'Image to PDF Converter', cat: 'pdf', icon: '📄', desc: 'Convert multiple images into a single PDF', howto: 'Upload multiple images, reorder, remove. Choose page size, orientation. Generate PDF. Download or Print.', kw: ['image','pdf','jpg','png'] },
+  { id: 'pdf-merger', name: 'PDF Merger', cat: 'pdf', icon: '📚', desc: 'Combine multiple PDFs into one document', howto: 'Upload 2+ PDFs, reorder, remove. Click Merge PDF. Download merged document.', kw: ['pdf','merge','combine'] },
+  { id: 'resume-builder', name: 'Resume Builder Pro', cat: 'student', icon: '📝', desc: 'Build professional ATS-friendly resume with live preview', howto: 'Fill personal info, education, experience, skills. Live preview updates. Download as PDF with selectable text.', kw: ['resume','cv','builder'] }
 ];
 
 window.EXTRA_TOOLS = EXTRA_TOOLS;
@@ -42,11 +42,10 @@ function extraToolCardHTML(t) {
     <button class="tool-open-btn">Open Tool →</button>
   </div>`;
 }
-
 window.extraToolCardHTML = extraToolCardHTML;
 
 /* ============================================================
-   AUTO-INJECT CARDS INTO ALL TOOLS GRID
+   AUTO-INJECT CARDS
    ============================================================ */
 function injectExtraTools() {
   const allToolsGrid = document.getElementById('allTools');
@@ -57,14 +56,12 @@ function injectExtraTools() {
       console.log('%c✅ 7 extra tools injected', 'color:#10b981');
     }
   }
-  // Update stats count
   const statTools = document.getElementById('statTools');
   if (statTools && statTools.dataset.count) {
     const old = parseInt(statTools.dataset.count) || 38;
     statTools.dataset.count = String(old + 7);
   }
 }
-
 setTimeout(injectExtraTools, 100);
 
 /* ============================================================
@@ -76,16 +73,13 @@ window.EXTRA_TOOL_INITS = {};
 window.openExtraTool = function(toolId) {
   const tool = EXTRA_TOOLS.find(t => t.id === toolId);
   if (!tool) { if (typeof toast === 'function') toast('Tool not found', 'error'); return; }
-
   const titleEl = document.getElementById('toolTitle');
   const descEl = document.getElementById('toolDesc');
   const howtoEl = document.getElementById('toolHowTo');
   const bodyEl = document.getElementById('toolBody');
-
   if (titleEl) titleEl.textContent = tool.icon + ' ' + tool.name;
   if (descEl) descEl.textContent = tool.desc;
   document.title = tool.name + ' — Qunvero';
-
   const favBtn = document.getElementById('toolFavBtn');
   if (favBtn) {
     favBtn.dataset.tool = toolId;
@@ -94,16 +88,14 @@ window.openExtraTool = function(toolId) {
     favBtn.classList.toggle('active', isFav);
     favBtn.onclick = (e) => { if (typeof toggleFavorite === 'function') toggleFavorite(toolId, e); };
   }
-
   if (howtoEl && tool.howto) {
     howtoEl.style.display = 'block';
     howtoEl.innerHTML = '<strong>📖 How to use:</strong> ' + tool.howto;
   }
-
   const renderer = window.EXTRA_TOOL_RENDERERS[toolId];
   if (bodyEl) {
     if (!renderer) {
-      bodyEl.innerHTML = '<div class="card"><div class="card-title">Loading...</div><p>Is tool ka code next message me aa raha hai. Filhaal baaki tools use karo.</p></div>';
+      bodyEl.innerHTML = '<div class="card">Loading...</div>';
     } else {
       bodyEl.innerHTML = renderer();
       setTimeout(() => {
@@ -111,13 +103,12 @@ window.openExtraTool = function(toolId) {
       }, 50);
     }
   }
-
   if (typeof addRecent === 'function') addRecent(toolId);
   if (typeof switchView === 'function') switchView('toolView');
 };
 
 /* ============================================================
-   UNIVERSAL DOWNLOAD FUNCTIONS (Sab tools ke liye common)
+   UNIVERSAL ULTRA HD PDF DOWNLOAD
    ============================================================ */
 window.extraDownloadPDF = function(boxId, filename) {
   const el = document.getElementById(boxId);
@@ -125,14 +116,14 @@ window.extraDownloadPDF = function(boxId, filename) {
     if (typeof toast === 'function') toast('Calculate first', 'error');
     return;
   }
-  if (typeof toast === 'function') toast('Generating PDF...');
+  if (typeof toast === 'function') toast('Generating Ultra HD PDF...');
 
   const clone = el.cloneNode(true);
   clone.querySelectorAll('.btn-group, .export-btns, .how-to-use, .no-print').forEach(n => n.remove());
   clone.style.background = '#ffffff';
   clone.style.color = '#111111';
-  clone.style.padding = '30px';
-  clone.style.width = '760px';
+  clone.style.padding = '40px';
+  clone.style.width = '820px';
   clone.style.boxSizing = 'border-box';
   clone.style.fontFamily = 'Arial, sans-serif';
 
@@ -141,7 +132,8 @@ window.extraDownloadPDF = function(boxId, filename) {
     e.style.background = 'none';
     e.style.webkitTextFillColor = c;
     e.style.color = c;
-    e.style.fontSize = '32px';
+    e.style.fontSize = '36px';
+    e.style.fontWeight = '900';
   });
   clone.querySelectorAll('*').forEach(e => {
     const cs = window.getComputedStyle(e);
@@ -158,20 +150,20 @@ window.extraDownloadPDF = function(boxId, filename) {
 
   const header = document.createElement('div');
   header.innerHTML = `
-    <div style="display:flex;justify-content:space-between;padding-bottom:12px;border-bottom:2px solid #6366f1;margin-bottom:16px">
-      <div style="font-size:22px;font-weight:900;color:#6366f1">⚡ Qunvero</div>
-      <div style="font-size:12px;color:#888">${new Date().toLocaleString('en-IN')}</div>
+    <div style="display:flex;justify-content:space-between;padding-bottom:16px;border-bottom:3px solid #6366f1;margin-bottom:20px">
+      <div style="font-size:28px;font-weight:900;color:#6366f1">⚡ Qunvero</div>
+      <div style="font-size:14px;color:#888">${new Date().toLocaleString('en-IN')}</div>
     </div>`;
   clone.insertBefore(header, clone.firstChild);
 
   const wrap = document.createElement('div');
-  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#fff;width:760px;padding:0;margin:0;';
+  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#fff;width:820px;padding:0;margin:0;';
   wrap.appendChild(clone);
   document.body.appendChild(wrap);
 
   setTimeout(() => {
     if (!window.htmlToImage) { toast('Library not loaded', 'error'); document.body.removeChild(wrap); return; }
-    htmlToImage.toPng(clone, { quality: 0.98, pixelRatio: 2.5, backgroundColor: '#ffffff' })
+    htmlToImage.toPng(clone, { quality: 1.0, pixelRatio: 4, backgroundColor: '#ffffff' })
       .then(dataUrl => {
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF('p', 'mm', 'a4');
@@ -184,29 +176,32 @@ window.extraDownloadPDF = function(boxId, filename) {
           if (h > ph - 20) { h = ph - 20; w = h * ratio; }
           pdf.addImage(dataUrl, 'PNG', (pw - w) / 2, 10, w, h, undefined, 'FAST');
           pdf.save((filename || 'qunvero') + '.pdf');
-          toast('PDF downloaded ✅', 'success');
+          toast('Ultra HD PDF downloaded ✅', 'success');
         };
         img.src = dataUrl;
       })
       .catch(err => { console.error(err); toast('PDF failed', 'error'); })
       .finally(() => document.body.removeChild(wrap));
-  }, 300);
+  }, 400);
 };
 
+/* ============================================================
+   UNIVERSAL ULTRA HD IMAGE DOWNLOAD
+   ============================================================ */
 window.extraDownloadImage = function(boxId, filename) {
   const el = document.getElementById(boxId);
   if (!el || !el.classList.contains('active')) {
     if (typeof toast === 'function') toast('Calculate first', 'error');
     return;
   }
-  if (typeof toast === 'function') toast('Generating Image...');
+  if (typeof toast === 'function') toast('Generating Ultra HD Image...');
 
   const clone = el.cloneNode(true);
   clone.querySelectorAll('.btn-group, .export-btns, .how-to-use, .no-print').forEach(n => n.remove());
   clone.style.background = '#ffffff';
   clone.style.color = '#111111';
-  clone.style.padding = '30px';
-  clone.style.width = '760px';
+  clone.style.padding = '40px';
+  clone.style.width = '820px';
   clone.style.boxSizing = 'border-box';
   clone.style.fontFamily = 'Arial, sans-serif';
 
@@ -215,7 +210,8 @@ window.extraDownloadImage = function(boxId, filename) {
     e.style.background = 'none';
     e.style.webkitTextFillColor = c;
     e.style.color = c;
-    e.style.fontSize = '32px';
+    e.style.fontSize = '36px';
+    e.style.fontWeight = '900';
   });
   clone.querySelectorAll('*').forEach(e => {
     const cs = window.getComputedStyle(e);
@@ -229,48 +225,108 @@ window.extraDownloadImage = function(boxId, filename) {
   clone.querySelectorAll('.v').forEach(e => e.style.color = '#111111');
 
   const wrap = document.createElement('div');
-  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#fff;width:760px;padding:0;margin:0;';
+  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#fff;width:820px;padding:0;margin:0;';
   wrap.appendChild(clone);
   document.body.appendChild(wrap);
 
   setTimeout(() => {
     if (!window.htmlToImage) { toast('Library not loaded', 'error'); document.body.removeChild(wrap); return; }
-    htmlToImage.toPng(clone, { quality: 1.0, pixelRatio: 3, backgroundColor: '#ffffff' })
+    htmlToImage.toPng(clone, { quality: 1.0, pixelRatio: 4, backgroundColor: '#ffffff' })
       .then(dataUrl => {
         const a = document.createElement('a');
         a.download = (filename || 'qunvero') + '.png';
         a.href = dataUrl;
         document.body.appendChild(a); a.click(); document.body.removeChild(a);
-        toast('Image downloaded ✅', 'success');
+        toast('Ultra HD Image downloaded ✅', 'success');
       })
       .catch(err => { console.error(err); toast('Image failed', 'error'); })
       .finally(() => document.body.removeChild(wrap));
-  }, 300);
+  }, 400);
 };
 
 /* ============================================================
-   COMMON COPY / SHARE HELPERS
+   UNIVERSAL PRINT (Sirf result print)
+   ============================================================ */
+window.extraPrint = function(boxId, title) {
+  const el = document.getElementById(boxId);
+  if (!el || !el.classList.contains('active')) {
+    if (typeof toast === 'function') toast('Calculate first', 'error');
+    return;
+  }
+  const clone = el.cloneNode(true);
+  clone.querySelectorAll('.btn-group, .export-btns, .how-to-use, .no-print').forEach(n => n.remove());
+  clone.querySelectorAll('.result-main').forEach(e => {
+    const c = e.style.color || '#4f46e5';
+    e.style.background = 'none';
+    e.style.webkitTextFillColor = c;
+    e.style.color = c;
+    e.style.fontSize = '28px';
+    e.style.fontWeight = '900';
+  });
+  clone.querySelectorAll('*').forEach(e => {
+    const cs = window.getComputedStyle(e);
+    if (cs.webkitTextFillColor === 'transparent' || cs.color === 'rgba(0, 0, 0, 0)') {
+      e.style.webkitTextFillColor = '#111111';
+      e.style.color = '#111111';
+      e.style.background = 'none';
+    }
+  });
+
+  const header = `<div style="display:flex;justify-content:space-between;padding-bottom:10px;border-bottom:2px solid #6366f1;margin-bottom:14px;font-family:Arial,sans-serif"><div style="font-size:18px;font-weight:900;color:#6366f1">⚡ Qunvero</div><div style="font-size:11px;color:#888">${new Date().toLocaleString('en-IN')}</div></div>${title ? `<div style="font-size:16px;font-weight:700;color:#111;margin-bottom:12px;font-family:Arial,sans-serif">${title}</div>` : ''}`;
+
+  const printWindow = window.open('', '_blank', 'width=800,height=600');
+  const html = `<!DOCTYPE html><html><head><title>Qunvero Print</title><style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,sans-serif;padding:20px;color:#111;background:#fff}
+    .result-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee;font-size:14px;gap:10px}
+    .result-row .k{color:#555;font-weight:500}
+    .result-row .v{color:#111;font-weight:700;text-align:right}
+    .result-main{font-size:28px;font-weight:900;color:#4f46e5;margin-bottom:6px}
+    .result-sub{color:#666;font-size:13px;margin-bottom:14px}
+    .result-title{font-size:12px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px dashed #ccc}
+    .card-title{font-size:13px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.06em;margin:14px 0 8px}
+    .txn-credit{color:#ef4444}.txn-payment{color:#10b981}
+    img{max-width:100%;height:auto;border-radius:8px}
+    @media print{body{padding:10px}}
+  </style></head><body>${header}${clone.outerHTML}</body></html>`;
+
+  if (!printWindow) {
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
+    document.body.appendChild(iframe);
+    const doc = iframe.contentWindow.document;
+    doc.open(); doc.write(html); doc.close();
+    setTimeout(() => {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+      setTimeout(() => document.body.removeChild(iframe), 2000);
+    }, 500);
+    return;
+  }
+  printWindow.document.write(html);
+  printWindow.document.close();
+  setTimeout(() => {
+    printWindow.focus();
+    printWindow.print();
+    setTimeout(() => printWindow.close(), 1000);
+  }, 500);
+};
+
+/* ============================================================
+   COPY & SHARE HELPERS
    ============================================================ */
 window.extraCopy = function(text) {
-  if (!text) { if (typeof toast === 'function') toast('Nothing to copy', 'error'); return; }
-  navigator.clipboard.writeText(text)
-    .then(() => toast('Copied!', 'success'))
-    .catch(() => toast('Copy failed', 'error'));
+  if (!text) { toast('Nothing to copy', 'error'); return; }
+  navigator.clipboard.writeText(text).then(() => toast('Copied!', 'success')).catch(() => toast('Copy failed', 'error'));
 };
-
 window.extraShare = function(title, text) {
   if (!text) return;
-  if (navigator.share) {
-    navigator.share({ title: title || 'Qunvero', text: text }).catch(() => {});
-  } else {
-    window.extraCopy(text);
-  }
+  if (navigator.share) navigator.share({ title: title || 'Qunvero', text }).catch(() => {});
+  else window.extraCopy(text);
 };
 
-console.log('%c✅ Setup loaded — 7 tool cards ready', 'color:#10b981;font-weight:bold;font-size:14px');
-
 /* ============================================================
-   TOOL 1: CTC → IN-HAND SALARY CALCULATOR
+   TOOL 1: CTC → IN-HAND SALARY
    ============================================================ */
 window.EXTRA_TOOL_RENDERERS['ctc-salary'] = () => `
   <div class="card"><div class="card-title">Salary Details</div>
@@ -292,8 +348,7 @@ window.EXTRA_TOOL_RENDERERS['ctc-salary'] = () => `
     <button class="btn btn-primary" onclick="ctcCalculate()">💰 Calculate</button>
     <button class="btn btn-secondary" onclick="ctcReset()">🔄 Reset</button>
   </div>
-  <div class="result-box" id="ctcResult"></div>
-`;
+  <div class="result-box" id="ctcResult"></div>`;
 
 window.EXTRA_TOOL_INITS['ctc-salary'] = () => console.log('%c✅ CTC Salary loaded', 'color:#10b981');
 
@@ -306,7 +361,6 @@ window.ctcCalculate = function() {
   const otherDed = Number(document.getElementById('ctcOtherDed').value) || 0;
   const tax = Number(document.getElementById('ctcTax').value) || 0;
   if (ctc <= 0) { toast('Enter valid CTC', 'error'); return; }
-
   const basic = ctc * basicPct / 100;
   const hra = basic * hraPct / 100;
   const employerPF = basic * 12 / 100;
@@ -319,7 +373,6 @@ window.ctcCalculate = function() {
   const monthlyGross = grossSalary / 12;
   const dedPct = grossSalary > 0 ? (totalDeductions / grossSalary * 100) : 0;
   const fmt = (n) => '₹' + (Number(n) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-
   const box = document.getElementById('ctcResult');
   box.innerHTML = `
     <div class="result-title">Salary Breakdown</div>
@@ -351,7 +404,7 @@ window.ctcCalculate = function() {
     <div class="export-btns no-export no-print" style="margin-top:14px">
       <button class="btn btn-secondary" onclick="extraDownloadPDF('ctcResult','ctc-salary')"><i>📄</i>PDF</button>
       <button class="btn btn-secondary" onclick="extraDownloadImage('ctcResult','ctc-salary')"><i>🖼️</i>Image</button>
-      <button class="btn btn-secondary" onclick="window.print()"><i>🖨️</i>Print</button>
+      <button class="btn btn-secondary" onclick="extraPrint('ctcResult','CTC → In-Hand Salary Report')"><i>🖨️</i>Print</button>
     </div>
     <div class="btn-group" style="margin-top:8px">
       <button class="btn btn-secondary btn-sm" onclick="extraCopy(window._ctcSummary)">📋 Copy</button>
@@ -387,8 +440,7 @@ window.EXTRA_TOOL_RENDERERS['attendance-calc'] = () => `
       <button class="btn btn-secondary" onclick="attReset()">🔄 Reset</button>
     </div>
   </div>
-  <div class="result-box" id="attResult"></div>
-`;
+  <div class="result-box" id="attResult"></div>`;
 
 window.EXTRA_TOOL_INITS['attendance-calc'] = () => console.log('%c✅ Attendance loaded', 'color:#10b981');
 
@@ -399,12 +451,10 @@ window.attCalculate = function() {
   if (total <= 0) { toast('Enter valid total', 'error'); return; }
   if (present < 0 || present > total) { toast('Present must be 0-' + total, 'error'); return; }
   if (required <= 0 || required > 100) { toast('Required % 0-100', 'error'); return; }
-
   const absent = total - present;
   const currentPct = (present / total) * 100;
   const absentPct = (absent / total) * 100;
   let neededClasses = 0, canSkip = 0, status, statusColor;
-
   if (currentPct >= required) {
     status = 'Safe'; statusColor = 'var(--success)';
     canSkip = Math.floor((present * 100 / required) - total);
@@ -415,7 +465,6 @@ window.attCalculate = function() {
     neededClasses = Math.ceil((reqFrac * total - present) / (1 - reqFrac));
     if (neededClasses < 0) neededClasses = 0;
   }
-
   const box = document.getElementById('attResult');
   box.innerHTML = `
     <div class="result-title">Attendance Result</div>
@@ -435,7 +484,7 @@ window.attCalculate = function() {
     <div class="export-btns no-export no-print" style="margin-top:14px">
       <button class="btn btn-secondary" onclick="extraDownloadPDF('attResult','attendance')"><i>📄</i>PDF</button>
       <button class="btn btn-secondary" onclick="extraDownloadImage('attResult','attendance')"><i>🖼️</i>Image</button>
-      <button class="btn btn-secondary" onclick="window.print()"><i>🖨️</i>Print</button>
+      <button class="btn btn-secondary" onclick="extraPrint('attResult','Attendance Report')"><i>🖨️</i>Print</button>
     </div>
     <div class="btn-group" style="margin-top:8px">
       <button class="btn btn-secondary btn-sm" onclick="extraCopy(window._attSummary)">📋 Copy</button>
@@ -455,7 +504,7 @@ window.attReset = function() {
 };
 
 /* ============================================================
-   TOOL 3: QR CODE GENERATOR PRO
+   TOOL 3: QR CODE GENERATOR PRO — ULTRA HD
    ============================================================ */
 window.EXTRA_TOOL_RENDERERS['qr-gen-pro'] = () => `
   <div class="card"><div class="card-title">QR Type</div>
@@ -478,8 +527,7 @@ window.EXTRA_TOOL_RENDERERS['qr-gen-pro'] = () => `
       <button class="btn btn-secondary" onclick="qrProReset()">🔄 Reset</button>
     </div>
   </div>
-  <div class="result-box" id="qrResult"></div>
-`;
+  <div class="result-box" id="qrResult"></div>`;
 
 window.EXTRA_TOOL_INITS['qr-gen-pro'] = () => {
   qrProToggleFields();
@@ -505,13 +553,10 @@ window.qrProGenerate = function() {
   const size = Number(document.getElementById('qrSize').value) || 300;
   const margin = Number(document.getElementById('qrMargin').value) || 4;
   let data = '';
-  if (type === 'text') { data = document.getElementById('qrText').value.trim(); }
-  else if (type === 'url') { 
-    data = document.getElementById('qrUrl').value.trim();
-    if (data && !/^https?:\/\//i.test(data)) data = 'https://' + data;
-  }
-  else if (type === 'phone') { data = 'tel:' + document.getElementById('qrPhone').value.trim(); }
-  else if (type === 'email') { data = 'mailto:' + document.getElementById('qrEmail').value.trim(); }
+  if (type === 'text') data = document.getElementById('qrText').value.trim();
+  else if (type === 'url') { data = document.getElementById('qrUrl').value.trim(); if (data && !/^https?:\/\//i.test(data)) data = 'https://' + data; }
+  else if (type === 'phone') data = 'tel:' + document.getElementById('qrPhone').value.trim();
+  else if (type === 'email') data = 'mailto:' + document.getElementById('qrEmail').value.trim();
   else if (type === 'wifi') {
     const n = document.getElementById('qrWifiName').value.trim();
     const p = document.getElementById('qrWifiPass').value.trim();
@@ -520,69 +565,109 @@ window.qrProGenerate = function() {
     data = `WIFI:T:${s};S:${n};P:${p};;`;
   }
   if (!data) { toast('Enter required details', 'error'); return; }
-
   const box = document.getElementById('qrResult');
   box.innerHTML = '';
   const container = document.createElement('div');
   container.className = 'qr-container';
   box.appendChild(container);
-
   try {
-    new QRCode(container, {
-      text: data,
-      width: size,
-      height: size,
-      colorDark: '#000000',
-      colorLight: '#ffffff',
-      correctLevel: QRCode.CorrectLevel.H
-    });
+    new QRCode(container, { text: data, width: size, height: size, colorDark: '#000000', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
   } catch (e) { console.error(e); toast('QR generation failed', 'error'); return; }
-
   setTimeout(() => {
+    // 🎯 Add white padding to preview
+    const canvas = container.querySelector('canvas');
+    if (canvas) { canvas.style.padding = '16px'; canvas.style.background = '#ffffff'; canvas.style.borderRadius = '8px'; }
+    const img = container.querySelector('img');
+    if (img) { img.style.padding = '16px'; img.style.background = '#ffffff'; img.style.borderRadius = '8px'; }
+
     const actions = document.createElement('div');
     actions.innerHTML = `
       <div class="export-btns no-export no-print" style="margin-top:14px">
-        <button class="btn btn-secondary" onclick="qrProDownloadPNG(${size})"><i>🖼️</i>PNG</button>
-        <button class="btn btn-secondary" onclick="qrProDownloadSVG(${size})"><i>📐</i>SVG</button>
-        <button class="btn btn-secondary" onclick="window.print()"><i>🖨️</i>Print</button>
+        <button class="btn btn-secondary" onclick="qrProDownloadPNG()"><i>🖼️</i>HD PNG</button>
+        <button class="btn btn-secondary" onclick="qrProDownloadSVG()"><i>📐</i>HD SVG</button>
+        <button class="btn btn-secondary" onclick="extraPrint('qrResult','QR Code')"><i>🖨️</i>Print</button>
       </div>`;
     box.appendChild(actions);
     box.classList.add('active');
   }, 100);
 };
 
-window.qrProDownloadPNG = function(size) {
+window.qrProDownloadPNG = function() {
   const container = document.querySelector('#qrResult .qr-container');
   if (!container) { toast('Generate QR first', 'error'); return; }
   const canvas = container.querySelector('canvas');
   const img = container.querySelector('img');
   let src = null;
-  if (canvas) src = canvas.toDataURL('image/png');
-  else if (img && img.src && img.src.startsWith('data:')) src = img.src;
+  let baseSize = 300;
+  if (canvas) { src = canvas.toDataURL('image/png'); baseSize = canvas.width || 300; }
+  else if (img && img.src && img.src.startsWith('data:')) { src = img.src; baseSize = img.naturalWidth || 300; }
   if (!src) { toast('QR not ready', 'error'); return; }
-  const a = document.createElement('a');
-  a.download = 'qunvero-qr.png';
-  a.href = src;
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  toast('QR PNG downloaded ✅', 'success');
+
+  // 🎯 ULTRA HD: 4x resolution + white padding
+  const SCALE = 4;
+  const PADDING_PCT = 0.15;
+  const finalSize = baseSize * SCALE;
+  const hdCanvas = document.createElement('canvas');
+  hdCanvas.width = finalSize;
+  hdCanvas.height = finalSize;
+  const ctx = hdCanvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, finalSize, finalSize);
+
+  const imgEl = new Image();
+  imgEl.onload = () => {
+    const pad = finalSize * PADDING_PCT;
+    const innerSize = finalSize - (2 * pad);
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(imgEl, pad, pad, innerSize, innerSize);
+    const url = hdCanvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.download = 'qunvero-qr-hd-' + Date.now() + '.png';
+    a.href = url;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    toast('Ultra HD QR (' + finalSize + 'px) ✅', 'success');
+  };
+  imgEl.onerror = () => toast('QR download failed', 'error');
+  imgEl.src = src;
 };
 
-window.qrProDownloadSVG = function(size) {
+window.qrProDownloadSVG = function() {
   const container = document.querySelector('#qrResult .qr-container');
   if (!container) { toast('Generate QR first', 'error'); return; }
   const canvas = container.querySelector('canvas');
   if (!canvas) { toast('SVG requires canvas QR', 'error'); return; }
-  const pngData = canvas.toDataURL('image/png');
-  const s = size || canvas.width;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" viewBox="0 0 ${s} ${s}"><image href="${pngData}" width="${s}" height="${s}"/></svg>`;
+
+  // 🎯 ULTRA HD SVG: 6x resolution + white padding
+  const SCALE = 6;
+  const PADDING_PCT = 0.15;
+  const baseSize = canvas.width || 300;
+  const finalSize = baseSize * SCALE;
+  const pad = finalSize * PADDING_PCT;
+  const innerSize = finalSize - (2 * pad);
+
+  const hdCanvas = document.createElement('canvas');
+  hdCanvas.width = finalSize;
+  hdCanvas.height = finalSize;
+  const ctx = hdCanvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, finalSize, finalSize);
+  ctx.imageSmoothingEnabled = false;
+  ctx.drawImage(canvas, pad, pad, innerSize, innerSize);
+  const pngData = hdCanvas.toDataURL('image/png');
+
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${finalSize}" height="${finalSize}" viewBox="0 0 ${finalSize} ${finalSize}">
+    <rect width="${finalSize}" height="${finalSize}" fill="#ffffff"/>
+    <image href="${pngData}" x="${pad}" y="${pad}" width="${innerSize}" height="${innerSize}" preserveAspectRatio="xMidYMid meet"/>
+  </svg>`;
+
   const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.download = 'qunvero-qr.svg';
+  a.download = 'qunvero-qr-hd-' + Date.now() + '.svg';
   a.href = url;
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-  toast('QR SVG downloaded ✅', 'success');
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+  toast('Ultra HD SVG (' + finalSize + 'px) ✅', 'success');
 };
 
 window.qrProReset = function() {
@@ -603,8 +688,8 @@ window.EXTRA_TOOL_RENDERERS['image-compressor'] = () => `
     <div class="field"><label>Select Image (JPG/PNG/WebP)</label><input type="file" id="icFile" accept="image/jpeg,image/jpg,image/png,image/webp" /></div>
     <div class="field"><label>Quality: <span id="icQualityVal">70%</span></label><input type="range" id="icQuality" min="10" max="100" value="70" oninput="document.getElementById('icQualityVal').textContent=this.value+'%'" /></div>
     <div class="field-row">
-      <div class="field"><label>Width (px) — optional</label><input type="number" id="icWidth" min="0" step="1" placeholder="Auto" /></div>
-      <div class="field"><label>Height (px) — optional</label><input type="number" id="icHeight" min="0" step="1" placeholder="Auto" /></div>
+      <div class="field"><label>Width (px)</label><input type="number" id="icWidth" min="0" step="1" placeholder="Auto" /></div>
+      <div class="field"><label>Height (px)</label><input type="number" id="icHeight" min="0" step="1" placeholder="Auto" /></div>
     </div>
     <div class="field"><label><input type="checkbox" id="icLockRatio" checked style="width:auto;margin-right:6px" /> Maintain aspect ratio</label></div>
     <div class="btn-group">
@@ -612,8 +697,7 @@ window.EXTRA_TOOL_RENDERERS['image-compressor'] = () => `
       <button class="btn btn-secondary" onclick="icReset()">🔄 Reset</button>
     </div>
   </div>
-  <div class="result-box" id="icResult"></div>
-`;
+  <div class="result-box" id="icResult"></div>`;
 
 window.EXTRA_TOOL_INITS['image-compressor'] = () => console.log('%c✅ Image Compressor loaded', 'color:#10b981');
 
@@ -624,7 +708,6 @@ window.icCompress = function() {
   const targetW = Number(document.getElementById('icWidth').value) || 0;
   const targetH = Number(document.getElementById('icHeight').value) || 0;
   const lock = document.getElementById('icLockRatio').checked;
-
   toast('Compressing...');
   const reader = new FileReader();
   reader.onload = e => {
@@ -634,10 +717,8 @@ window.icCompress = function() {
       let h = targetH || img.naturalHeight;
       if (lock && targetW && !targetH) h = Math.round(w * img.naturalHeight / img.naturalWidth);
       else if (lock && !targetW && targetH) w = Math.round(h * img.naturalWidth / img.naturalHeight);
-
       const canvas = document.createElement('canvas');
-      canvas.width = w;
-      canvas.height = h;
+      canvas.width = w; canvas.height = h;
       canvas.getContext('2d').drawImage(img, 0, 0, w, h);
       canvas.toBlob(blob => {
         const url = URL.createObjectURL(blob);
@@ -652,12 +733,12 @@ window.icCompress = function() {
           <div class="result-row"><span class="k">Original</span><span class="v">${origKB} KB</span></div>
           <div class="result-row"><span class="k">Compressed</span><span class="v">${newKB} KB</span></div>
           <div class="result-row"><span class="k">Dimensions</span><span class="v">${w} × ${h} px</span></div>
-          <div style="text-align:center;margin:16px 0">
-            <img src="${url}" style="max-height:240px;border-radius:10px" />
-          </div>
+          <div style="text-align:center;margin:16px 0"><img src="${url}" style="max-height:240px;border-radius:10px" /></div>
           <a class="btn btn-primary btn-block" href="${url}" download="compressed-${Date.now()}.jpg">⬇️ Download Compressed</a>
-          <div class="btn-group" style="margin-top:8px">
-            <button class="btn btn-secondary btn-sm" onclick="window.print()">🖨️ Print Preview</button>
+          <div class="export-btns no-export no-print" style="margin-top:14px">
+            <button class="btn btn-secondary" onclick="extraDownloadPDF('icResult','compressed-image')"><i>📄</i>PDF</button>
+            <button class="btn btn-secondary" onclick="extraDownloadImage('icResult','compressed-image')"><i>🖼️</i>Image</button>
+            <button class="btn btn-secondary" onclick="extraPrint('icResult','Compressed Image')"><i>🖨️</i>Print</button>
           </div>`;
         box.classList.add('active');
         toast('Compressed ✅', 'success');
@@ -699,8 +780,7 @@ window.EXTRA_TOOL_RENDERERS['image-to-pdf'] = () => `
       <button class="btn btn-secondary" onclick="ipReset()">🔄 Reset</button>
     </div>
   </div>
-  <div class="result-box" id="ipResult"></div>
-`;
+  <div class="result-box" id="ipResult"></div>`;
 
 window.EXTRA_TOOL_INITS['image-to-pdf'] = () => {
   document.getElementById('ipFiles').addEventListener('change', e => {
@@ -723,20 +803,17 @@ window.ipGenerate = function() {
   const pageSize = document.getElementById('ipPageSize').value;
   const orientation = document.getElementById('ipOrientation').value;
   const margin = Number(document.getElementById('ipMargin').value) || 10;
-
   toast('Generating PDF...');
   const promises = Array.from(files).map(f => new Promise(res => {
     const r = new FileReader();
     r.onload = e => res(e.target.result);
     r.readAsDataURL(f);
   }));
-
   Promise.all(promises).then(async images => {
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF(orientation, 'mm', pageSize);
     const pw = pdf.internal.pageSize.getWidth();
     const ph = pdf.internal.pageSize.getHeight();
-
     for (let i = 0; i < images.length; i++) {
       if (i > 0) pdf.addPage();
       const img = await loadImgHelper(images[i]);
@@ -748,7 +825,6 @@ window.ipGenerate = function() {
       const y = (ph - h) / 2;
       pdf.addImage(images[i], 'JPEG', x, y, w, h, undefined, 'FAST');
     }
-
     const pdfBlob = pdf.output('blob');
     const url = URL.createObjectURL(pdfBlob);
     const box = document.getElementById('ipResult');
@@ -759,9 +835,10 @@ window.ipGenerate = function() {
       <div class="result-row"><span class="k">Page Size</span><span class="v">${pageSize.toUpperCase()} ${orientation === 'p' ? 'Portrait' : 'Landscape'}</span></div>
       <div class="result-row"><span class="k">Images</span><span class="v">${images.length}</span></div>
       <a class="btn btn-primary btn-block" href="${url}" download="images-${Date.now()}.pdf" style="margin-top:14px">⬇️ Download PDF</a>
-      <div class="btn-group" style="margin-top:8px">
-        <button class="btn btn-secondary btn-sm" onclick="window.open('${url}','_blank')">👁️ Preview</button>
-        <button class="btn btn-secondary btn-sm" onclick="window.print()">🖨️ Print</button>
+      <div class="export-btns no-export no-print" style="margin-top:14px">
+        <button class="btn btn-secondary" onclick="window.open('${url}','_blank')"><i>👁️</i>Preview</button>
+        <button class="btn btn-secondary" onclick="extraPrint('ipResult','Image to PDF Result')"><i>🖨️</i>Print</button>
+        <button class="btn btn-secondary" onclick="extraDownloadImage('ipResult','image-to-pdf-result')"><i>🖼️</i>Image</button>
       </div>`;
     box.classList.add('active');
     toast('PDF ready ✅', 'success');
@@ -788,4 +865,4 @@ window.ipReset = function() {
   toast('Reset done', 'success');
 };
 
-console.log('%c✅ Message 2 loaded — 5 tools active (CTC, Attendance, QR, ImageCompressor, ImageToPDF)', 'color:#10b981;font-weight:bold;font-size:14px');
+console.log('%c✅ tools.js loaded — 5 tools with Ultra HD download ready', 'color:#10b981;font-weight:bold;font-size:14px');
