@@ -485,3 +485,411 @@ window.rbRenderRef = function() {
 };
 
 console.log('%c✅ Resume Builder Part A loaded — 13 sections ready', 'color:#8b5cf6;font-weight:bold');
+/* ============================================================
+   PART B: RESUME DATA COLLECTOR
+   ============================================================ */
+window.rbGetData = function() {
+  return {
+    name: document.getElementById('rbName') ? document.getElementById('rbName').value.trim() : '',
+    job: document.getElementById('rbJob') ? document.getElementById('rbJob').value.trim() : '',
+    email: document.getElementById('rbEmail') ? document.getElementById('rbEmail').value.trim() : '',
+    phone: document.getElementById('rbPhone') ? document.getElementById('rbPhone').value.trim() : '',
+    location: document.getElementById('rbLocation') ? document.getElementById('rbLocation').value.trim() : '',
+    country: document.getElementById('rbCountry') ? document.getElementById('rbCountry').value.trim() : '',
+    linkedin: document.getElementById('rbLinkedin') ? document.getElementById('rbLinkedin').value.trim() : '',
+    portfolio: document.getElementById('rbPortfolio') ? document.getElementById('rbPortfolio').value.trim() : '',
+    github: document.getElementById('rbGithub') ? document.getElementById('rbGithub').value.trim() : '',
+    summary: document.getElementById('rbSummary') ? document.getElementById('rbSummary').value.trim() : '',
+    skills: document.getElementById('rbSkills') ? document.getElementById('rbSkills').value.trim() : '',
+    softSkills: document.getElementById('rbSoftSkills') ? document.getElementById('rbSoftSkills').value.trim() : '',
+    langSkills: document.getElementById('rbLangSkills') ? document.getElementById('rbLangSkills').value.trim() : '',
+    interests: document.getElementById('rbInterests') ? document.getElementById('rbInterests').value.trim() : '',
+    customTitle: document.getElementById('rbCustomTitle') ? document.getElementById('rbCustomTitle').value.trim() : '',
+    customContent: document.getElementById('rbCustomContent') ? document.getElementById('rbCustomContent').value.trim() : '',
+    showRef: document.getElementById('rbShowRef') ? document.getElementById('rbShowRef').checked : false,
+    _rbExp: window._rbExp || [],
+    _rbEdu: window._rbEdu || [],
+    _rbProj: window._rbProj || [],
+    _rbCert: window._rbCert || [],
+    _rbIntern: window._rbIntern || [],
+    _rbAch: window._rbAch || [],
+    _rbLang: window._rbLang || [],
+    _rbRef: window._rbRef || [],
+    _rbTemplate: window._rbTemplate || 'modern'
+  };
+};
+
+/* ============================================================
+   RESUME HTML BUILDER (4 TEMPLATES)
+   ============================================================ */
+window.rbBuildHTML = function(d) {
+  const tpl = d._rbTemplate || 'modern';
+  
+  // Template colors
+  const colors = {
+    modern:    { accent: '#4f46e5', headerBg: '#4f46e5', headerText: '#ffffff', sub: '#6366f1' },
+    classic:   { accent: '#1e40af', headerBg: '#1e40af', headerText: '#ffffff', sub: '#1e40af' },
+    minimal:   { accent: '#374151', headerBg: '#ffffff', headerText: '#111827', sub: '#6b7280' },
+    corporate: { accent: '#0f172a', headerBg: '#0f172a', headerText: '#ffffff', sub: '#334155' }
+  };
+  const c = colors[tpl] || colors.modern;
+
+  const contact = [d.email, d.phone, d.location, d.country].filter(Boolean).join(' • ');
+  const links = [d.linkedin, d.portfolio, d.github].filter(Boolean).join(' • ');
+  const techSkills = (d.skills || '').split(',').map(s => s.trim()).filter(Boolean);
+  const softSkills = (d.softSkills || '').split(',').map(s => s.trim()).filter(Boolean);
+  const langSkills = (d.langSkills || '').split(',').map(s => s.trim()).filter(Boolean);
+  const interests = (d.interests || '').split(',').map(s => s.trim()).filter(Boolean);
+
+  const fmtHTML = (text) => rbEsc(text || '').replace(/\n/g, '<br>');
+  const fmtBullets = (text) => {
+    const lines = (text || '').split('\n').map(l => l.trim()).filter(Boolean);
+    if (lines.length <= 1) return rbEsc(text || '');
+    return '<ul style="margin:5px 0 0 18px;padding:0;font-size:12.5px;line-height:1.55;color:#333">' +
+      lines.map(l => `<li style="margin-bottom:2px">${rbEsc(l)}</li>`).join('') + '</ul>';
+  };
+
+  const sectionTitle = (title) => `<div style="font-size:12.5px;font-weight:800;color:${c.accent};text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid ${c.accent};padding-bottom:4px;margin-bottom:10px">${title}</div>`;
+
+  let html = `<div style="font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff;line-height:1.5;font-size:13px;width:100%">`;
+
+  // === HEADER ===
+  if (tpl === 'minimal') {
+    html += `<div style="padding:20px 28px 16px;border-bottom:2px solid ${c.accent}">`;
+    html += `<div style="font-size:26px;font-weight:900;letter-spacing:-0.5px;line-height:1.1;margin-bottom:4px;color:${c.headerText}">${rbEsc(d.name || 'Your Name')}</div>`;
+    if (d.job) html += `<div style="font-size:14px;font-weight:600;color:${c.sub};margin-bottom:8px">${rbEsc(d.job)}</div>`;
+    if (contact) html += `<div style="font-size:12px;color:#555;line-height:1.5">${rbEsc(contact)}</div>`;
+    if (links) html += `<div style="font-size:12px;color:${c.accent};line-height:1.5;margin-top:2px">${rbEsc(links)}</div>`;
+    html += `</div>`;
+  } else {
+    html += `<div style="background:${c.headerBg};color:${c.headerText};padding:22px 28px;border-radius:6px 6px 0 0">`;
+    html += `<div style="font-size:26px;font-weight:900;letter-spacing:-0.5px;line-height:1.1;margin-bottom:4px">${rbEsc(d.name || 'Your Name')}</div>`;
+    if (d.job) html += `<div style="font-size:14.5px;font-weight:600;opacity:0.95;margin-bottom:8px">${rbEsc(d.job)}</div>`;
+    if (contact) html += `<div style="font-size:12px;opacity:0.92;line-height:1.5">${rbEsc(contact)}</div>`;
+    if (links) html += `<div style="font-size:12px;opacity:0.88;line-height:1.5;margin-top:2px">${rbEsc(links)}</div>`;
+    html += `</div>`;
+  }
+
+  html += `<div style="padding:22px 28px">`;
+
+  // === SUMMARY ===
+  if (d.summary) {
+    html += `<div style="margin-bottom:16px">${sectionTitle('Professional Summary')}<div style="font-size:12.5px;line-height:1.6;color:#333">${fmtHTML(d.summary)}</div></div>`;
+  }
+
+  // === EXPERIENCE ===
+  const exp = d._rbExp.filter(e => e.title || e.company);
+  if (exp.length > 0) {
+    html += `<div style="margin-bottom:16px">${sectionTitle('Work Experience')}`;
+    exp.forEach(e => {
+      html += `<div style="margin-bottom:12px">`;
+      html += `<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px;gap:10px"><div style="font-size:13.5px;font-weight:700;color:#111">${rbEsc(e.title || '')}</div>${e.duration ? `<div style="font-size:11px;color:#666;white-space:nowrap">${rbEsc(e.duration)}</div>` : ''}</div>`;
+      if (e.company) html += `<div style="font-size:12px;color:${c.accent};font-weight:600;margin-bottom:4px">${rbEsc(e.company)}${e.location ? ' • ' + rbEsc(e.location) : ''}</div>`;
+      if (e.desc) html += `<div style="font-size:12px;line-height:1.55;color:#333">${fmtBullets(e.desc)}</div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  // === INTERNSHIPS ===
+  const interns = d._rbIntern.filter(i => i.role || i.company);
+  if (interns.length > 0) {
+    html += `<div style="margin-bottom:16px">${sectionTitle('Internships')}`;
+    interns.forEach(it => {
+      html += `<div style="margin-bottom:10px">`;
+      html += `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><div style="font-size:13px;font-weight:700">${rbEsc(it.role || '')}</div>${it.duration ? `<div style="font-size:11px;color:#666;white-space:nowrap">${rbEsc(it.duration)}</div>` : ''}</div>`;
+      if (it.company) html += `<div style="font-size:12px;color:${c.accent};font-weight:600;margin-bottom:3px">${rbEsc(it.company)}</div>`;
+      if (it.desc) html += `<div style="font-size:12px;line-height:1.55;color:#333">${fmtBullets(it.desc)}</div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  // === EDUCATION ===
+  const edu = d._rbEdu.filter(e => e.degree || e.school);
+  if (edu.length > 0) {
+    html += `<div style="margin-bottom:16px">${sectionTitle('Education')}`;
+    edu.forEach(e => {
+      html += `<div style="margin-bottom:10px">`;
+      html += `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><div style="font-size:13px;font-weight:700">${rbEsc(e.degree || '')}</div>${e.duration ? `<div style="font-size:11px;color:#666;white-space:nowrap">${rbEsc(e.duration)}</div>` : ''}</div>`;
+      const line2 = [e.school, e.field].filter(Boolean).join(' • ');
+      if (line2) html += `<div style="font-size:12px;color:#555;margin-top:2px">${rbEsc(line2)}</div>`;
+      if (e.score) html += `<div style="font-size:11.5px;color:${c.accent};font-weight:600;margin-top:2px">Score: ${rbEsc(e.score)}</div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  // === SKILLS ===
+  const hasSkills = techSkills.length > 0 || softSkills.length > 0 || langSkills.length > 0;
+  if (hasSkills) {
+    html += `<div style="margin-bottom:16px">${sectionTitle('Skills')}`;
+    if (techSkills.length) html += `<div style="margin-bottom:6px"><div style="font-size:12px;font-weight:700;color:#333;margin-bottom:4px">Technical</div><div style="display:flex;flex-wrap:wrap;gap:5px">${techSkills.map(s => `<span style="background:#f0f0f5;color:#333;padding:3px 10px;border-radius:12px;font-size:11.5px;font-weight:600">${rbEsc(s)}</span>`).join('')}</div></div>`;
+    if (softSkills.length) html += `<div style="margin-bottom:6px"><div style="font-size:12px;font-weight:700;color:#333;margin-bottom:4px">Soft Skills</div><div style="display:flex;flex-wrap:wrap;gap:5px">${softSkills.map(s => `<span style="background:#f0f0f5;color:#333;padding:3px 10px;border-radius:12px;font-size:11.5px;font-weight:600">${rbEsc(s)}</span>`).join('')}</div></div>`;
+    if (langSkills.length) html += `<div style="margin-bottom:6px"><div style="font-size:12px;font-weight:700;color:#333;margin-bottom:4px">Languages</div><div style="display:flex;flex-wrap:wrap;gap:5px">${langSkills.map(s => `<span style="background:#f0f0f5;color:#333;padding:3px 10px;border-radius:12px;font-size:11.5px;font-weight:600">${rbEsc(s)}</span>`).join('')}</div></div>`;
+    html += `</div>`;
+  }
+
+  // === PROJECTS ===
+  const proj = d._rbProj.filter(p => p.name);
+  if (proj.length > 0) {
+    html += `<div style="margin-bottom:16px">${sectionTitle('Projects')}`;
+    proj.forEach(p => {
+      html += `<div style="margin-bottom:10px">`;
+      html += `<div style="font-size:13px;font-weight:700">${rbEsc(p.name)}</div>`;
+      if (p.tech) html += `<div style="font-size:11.5px;color:${c.accent};font-weight:600;margin:2px 0">Tech: ${rbEsc(p.tech)}</div>`;
+      if (p.desc) html += `<div style="font-size:12px;line-height:1.55;color:#333">${fmtBullets(p.desc)}</div>`;
+      if (p.link) html += `<div style="font-size:11.5px;color:${c.accent};margin-top:2px">🔗 ${rbEsc(p.link)}</div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  // === CERTIFICATIONS ===
+  const certs = d._rbCert.filter(ct => ct.name);
+  if (certs.length > 0) {
+    html += `<div style="margin-bottom:16px">${sectionTitle('Certifications')}`;
+    certs.forEach(ct => {
+      html += `<div style="margin-bottom:7px;font-size:12px">`;
+      html += `<div style="font-weight:700;color:#111">${rbEsc(ct.name)}</div>`;
+      const line2 = [ct.org, ct.date].filter(Boolean).join(' • ');
+      if (line2) html += `<div style="color:#555;font-size:11.5px">${rbEsc(line2)}</div>`;
+      if (ct.id) html += `<div style="color:#888;font-size:11px">ID: ${rbEsc(ct.id)}</div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  // === ACHIEVEMENTS ===
+  const achs = d._rbAch.filter(a => a.title);
+  if (achs.length > 0) {
+    html += `<div style="margin-bottom:16px">${sectionTitle('Achievements & Awards')}`;
+    achs.forEach(a => {
+      html += `<div style="margin-bottom:7px;font-size:12px">`;
+      html += `<div style="font-weight:700;color:#111">${rbEsc(a.title)}</div>`;
+      const line2 = [a.org, a.date].filter(Boolean).join(' • ');
+      if (line2) html += `<div style="color:#555;font-size:11.5px">${rbEsc(line2)}</div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  // === LANGUAGES ===
+  const langs = d._rbLang.filter(l => l.name);
+  if (langs.length > 0) {
+    html += `<div style="margin-bottom:16px">${sectionTitle('Languages')}<div style="display:flex;flex-wrap:wrap;gap:6px">`;
+    langs.forEach(l => {
+      html += `<span style="background:#f0f0f5;color:#333;padding:3px 10px;border-radius:12px;font-size:11.5px;font-weight:600">${rbEsc(l.name)} — ${rbEsc(l.level)}</span>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // === INTERESTS ===
+  if (interests.length > 0) {
+    html += `<div style="margin-bottom:16px">${sectionTitle('Interests & Hobbies')}<div style="font-size:12.5px;color:#333">${interests.map(rbEsc).join(' • ')}</div></div>`;
+  }
+
+  // === CUSTOM SECTION ===
+  if (d.customTitle && d.customContent) {
+    html += `<div style="margin-bottom:16px">${sectionTitle(rbEsc(d.customTitle))}<div style="font-size:12.5px;line-height:1.6;color:#333">${fmtHTML(d.customContent)}</div></div>`;
+  }
+
+  // === REFERENCES ===
+  const refs = d._rbRef.filter(r => r.name);
+  if (d.showRef && refs.length > 0) {
+    html += `<div style="margin-bottom:16px">${sectionTitle('References')}`;
+    refs.forEach(r => {
+      html += `<div style="margin-bottom:7px;font-size:12px">`;
+      html += `<div style="font-weight:700;color:#111">${rbEsc(r.name)}</div>`;
+      const line2 = [r.role, r.company].filter(Boolean).join(' • ');
+      if (line2) html += `<div style="color:#555;font-size:11.5px">${rbEsc(line2)}</div>`;
+      if (r.contact) html += `<div style="color:#666;font-size:11.5px">${rbEsc(r.contact)}</div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  html += `</div></div>`;
+  return html;
+};
+
+/* ============================================================
+   PREVIEW GENERATOR
+   ============================================================ */
+window.rbPreview = function() {
+  const d = rbGetData();
+  if (!d.name) { if (typeof toast === 'function') toast('Enter your name first', 'error'); return; }
+
+  // Auto-save
+  try { rbSaveLocal(true); } catch(e) {}
+
+  const html = rbBuildHTML(d);
+  const box = document.getElementById('rbResult');
+  box.innerHTML = `
+    <div class="result-title">Resume Preview</div>
+    <div id="rbPreviewArea" style="background:#fff;border-radius:8px;overflow:hidden;padding:0;margin-top:8px;box-shadow:0 4px 20px rgba(0,0,0,0.08)">${html}</div>
+    <div class="export-btns no-export no-print" style="margin-top:14px">
+      <button class="btn btn-primary" onclick="rbDownloadPDF()"><i>📄</i>PDF</button>
+      <button class="btn btn-secondary" onclick="rbPrint()"><i>🖨️</i>Print</button>
+      <button class="btn btn-secondary" onclick="rbCopyText()"><i>📋</i>Copy</button>
+    </div>`;
+  box.classList.add('active');
+  if (typeof toast === 'function') toast('Preview ready ✅', 'success');
+
+  setTimeout(() => {
+    const area = document.getElementById('rbPreviewArea');
+    if (area) area.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+};
+
+/* ============================================================
+   ULTRA HD PDF DOWNLOAD
+   ============================================================ */
+window.rbDownloadPDF = function() {
+  const area = document.getElementById('rbPreviewArea');
+  if (!area) { if (typeof toast === 'function') toast('Preview first', 'error'); return; }
+  if (typeof toast === 'function') toast('Generating Ultra HD PDF...');
+
+  const clone = area.cloneNode(true);
+  clone.style.padding = '0';
+  clone.style.width = '820px';
+  clone.style.background = '#fff';
+  clone.style.boxShadow = 'none';
+  clone.style.borderRadius = '0';
+
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#fff;width:820px;padding:0;margin:0;';
+  wrap.appendChild(clone);
+  document.body.appendChild(wrap);
+
+  setTimeout(() => {
+    if (!window.htmlToImage) { if (typeof toast === 'function') toast('Library not loaded', 'error'); document.body.removeChild(wrap); return; }
+    htmlToImage.toPng(clone, { quality: 1.0, pixelRatio: 4, backgroundColor: '#ffffff' })
+      .then(dataUrl => {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pw = pdf.internal.pageSize.getWidth();
+        const ph = pdf.internal.pageSize.getHeight();
+        const img = new Image();
+        img.onload = () => {
+          const ratio = img.width / img.height;
+          let w = pw - 12, h = w / ratio;
+          if (h > ph - 12) { h = ph - 12; w = h * ratio; }
+          pdf.addImage(dataUrl, 'PNG', (pw - w) / 2, 6, w, h, undefined, 'FAST');
+          const name = (document.getElementById('rbName').value || 'resume').replace(/\s+/g, '-').toLowerCase();
+          pdf.save(name + '-resume.pdf');
+          if (typeof toast === 'function') toast('Resume PDF downloaded ✅', 'success');
+        };
+        img.src = dataUrl;
+      })
+      .catch(err => { console.error(err); if (typeof toast === 'function') toast('PDF failed', 'error'); })
+      .finally(() => document.body.removeChild(wrap));
+  }, 400);
+};
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+window.rbPrint = function() {
+  const area = document.getElementById('rbPreviewArea');
+  if (!area) { if (typeof toast === 'function') toast('Preview first', 'error'); return; }
+  const html = `<!DOCTYPE html><html><head><title>Resume — Qunvero</title><style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,Helvetica,sans-serif;background:#fff;padding:0}
+    @media print{@page{margin:6mm}}
+  </style></head><body>${area.outerHTML}</body></html>`;
+  const printWindow = window.open('', '_blank');
+  if (!printWindow) {
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
+    document.body.appendChild(iframe);
+    const doc = iframe.contentWindow.document;
+    doc.open(); doc.write(html); doc.close();
+    setTimeout(() => { iframe.contentWindow.focus(); iframe.contentWindow.print(); setTimeout(() => document.body.removeChild(iframe), 2000); }, 500);
+    return;
+  }
+  printWindow.document.write(html);
+  printWindow.document.close();
+  setTimeout(() => { printWindow.focus(); printWindow.print(); setTimeout(() => printWindow.close(), 1000); }, 500);
+};
+
+/* ============================================================
+   COPY AS TEXT
+   ============================================================ */
+window.rbCopyText = function() {
+  const d = rbGetData();
+  let txt = `${d.name || ''}\n`;
+  if (d.job) txt += `${d.job}\n`;
+  const contact = [d.email, d.phone, d.location, d.country].filter(Boolean).join(' | ');
+  if (contact) txt += `${contact}\n`;
+  const links = [d.linkedin, d.portfolio, d.github].filter(Boolean).join(' | ');
+  if (links) txt += `${links}\n`;
+  txt += '\n';
+
+  if (d.summary) txt += `PROFESSIONAL SUMMARY\n${d.summary}\n\n`;
+
+  const exp = d._rbExp.filter(e => e.title || e.company);
+  if (exp.length) {
+    txt += `WORK EXPERIENCE\n`;
+    exp.forEach(e => {
+      txt += `${e.title || ''}${e.company ? ' at ' + e.company : ''}${e.duration ? ' (' + e.duration + ')' : ''}\n`;
+      if (e.desc) txt += `${e.desc}\n`;
+      txt += '\n';
+    });
+  }
+
+  const edu = d._rbEdu.filter(e => e.degree || e.school);
+  if (edu.length) {
+    txt += `EDUCATION\n`;
+    edu.forEach(e => {
+      txt += `${e.degree || ''}${e.school ? ' - ' + e.school : ''}${e.duration ? ' (' + e.duration + ')' : ''}${e.score ? ' | ' + e.score : ''}\n`;
+    });
+    txt += '\n';
+  }
+
+  if (d.skills) txt += `TECHNICAL SKILLS\n${d.skills}\n\n`;
+  if (d.softSkills) txt += `SOFT SKILLS\n${d.softSkills}\n\n`;
+
+  const proj = d._rbProj.filter(p => p.name);
+  if (proj.length) {
+    txt += `PROJECTS\n`;
+    proj.forEach(p => { txt += `${p.name}${p.tech ? ' (' + p.tech + ')' : ''}: ${p.desc || ''}\n`; });
+    txt += '\n';
+  }
+
+  const certs = d._rbCert.filter(ct => ct.name);
+  if (certs.length) {
+    txt += `CERTIFICATIONS\n`;
+    certs.forEach(ct => txt += `${ct.name}${ct.org ? ' — ' + ct.org : ''}${ct.date ? ' (' + ct.date + ')' : ''}\n`);
+    txt += '\n';
+  }
+
+  const achs = d._rbAch.filter(a => a.title);
+  if (achs.length) {
+    txt += `ACHIEVEMENTS\n`;
+    achs.forEach(a => txt += `${a.title}${a.org ? ' — ' + a.org : ''}${a.date ? ' (' + a.date + ')' : ''}\n`);
+    txt += '\n';
+  }
+
+  const langs = d._rbLang.filter(l => l.name);
+  if (langs.length) {
+    txt += `LANGUAGES\n`;
+    langs.forEach(l => txt += `${l.name} — ${l.level}\n`);
+    txt += '\n';
+  }
+
+  if (d.interests) txt += `INTERESTS\n${d.interests}\n`;
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(txt)
+      .then(() => { if (typeof toast === 'function') toast('Resume text copied ✅', 'success'); })
+      .catch(() => { if (typeof toast === 'function') toast('Copy failed', 'error'); });
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = txt; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    if (typeof toast === 'function') toast('Resume text copied ✅', 'success');
+  }
+};
+
+console.log('%c✅ Resume Builder Part B loaded — Preview + PDF + 4 Templates ready', 'color:#8b5cf6;font-weight:bold');
