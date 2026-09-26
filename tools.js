@@ -1,7 +1,6 @@
 /* ============================================================
    QUNVERO — EXTRA TOOLS (tools.js)
-   FINAL COMPLETE VERSION
-   5 Tools + Ultra HD Downloads + Fixed Print + Perfect PDF
+   FINAL VERSION — 5 Tools with Perfect PDF Layout
    ============================================================ */
 
 console.log('%cQunvero Extra Tools Loading...', 'color:#10b981;font-weight:bold');
@@ -109,19 +108,18 @@ window.openExtraTool = function(toolId) {
 };
 
 /* ============================================================
-   HELPER: Clone & Fix for PDF/Image
-   Dark blue background rows me WHITE TEXT rakhega
+   HELPER: Fix clone for PDF/Image with proper spacing
    ============================================================ */
-function prepareCloneForExport(el, options) {
-  options = options || {};
+function prepareCloneForExport(el) {
   const clone = el.cloneNode(true);
   clone.querySelectorAll('.btn-group, .export-btns, .how-to-use, .no-print').forEach(n => n.remove());
   clone.style.background = '#ffffff';
   clone.style.color = '#111111';
-  clone.style.padding = options.padding || '40px';
-  clone.style.width = options.width || '820px';
+  clone.style.padding = '36px';
+  clone.style.width = '820px';
   clone.style.boxSizing = 'border-box';
-  clone.style.fontFamily = 'Arial, sans-serif';
+  clone.style.fontFamily = 'Arial, Helvetica, sans-serif';
+  clone.style.lineHeight = '1.6';
 
   // Fix result-main gradient text
   clone.querySelectorAll('.result-main').forEach(e => {
@@ -131,6 +129,8 @@ function prepareCloneForExport(el, options) {
     e.style.color = c;
     e.style.fontSize = '36px';
     e.style.fontWeight = '900';
+    e.style.lineHeight = '1.2';
+    e.style.marginBottom = '8px';
   });
 
   // Fix transparent text
@@ -143,28 +143,83 @@ function prepareCloneForExport(el, options) {
     }
   });
 
-  // 🎯 FIX DARK BLUE BACKGROUND ROWS → WHITE TEXT (perfect look same as website)
+  // Fix result rows — no wrap, clean layout
+  clone.querySelectorAll('.result-row').forEach(row => {
+    row.style.display = 'flex';
+    row.style.justifyContent = 'space-between';
+    row.style.alignItems = 'center';
+    row.style.padding = '12px 0';
+    row.style.borderBottom = '1px solid #e5e5e5';
+    row.style.gap = '16px';
+    row.style.fontSize = '15px';
+    row.style.flexWrap = 'nowrap';
+
+    const k = row.querySelector('.k');
+    const v = row.querySelector('.v');
+    if (k) {
+      k.style.color = '#555555';
+      k.style.fontWeight = '500';
+      k.style.whiteSpace = 'nowrap';
+      k.style.overflow = 'visible';
+      k.style.textOverflow = 'clip';
+      k.style.flex = '1';
+      k.style.textAlign = 'left';
+    }
+    if (v) {
+      v.style.color = '#111111';
+      v.style.fontWeight = '700';
+      v.style.whiteSpace = 'nowrap';
+      v.style.flexShrink = '0';
+      v.style.textAlign = 'right';
+    }
+  });
+
+  // Dark blue background rows — white text
   clone.querySelectorAll('[style*="var(--surface-2)"]').forEach(row => {
     row.style.background = '#1c2250';
-    row.style.padding = '12px 14px';
-    row.style.borderRadius = '8px';
+    row.style.padding = '14px 16px';
+    row.style.borderRadius = '10px';
     row.style.marginTop = '10px';
+    row.style.borderBottom = 'none';
     row.querySelectorAll('*').forEach(el => {
       el.style.color = '#ffffff';
       el.style.webkitTextFillColor = '#ffffff';
       el.style.fontWeight = '700';
+      el.style.whiteSpace = 'nowrap';
     });
   });
 
-  // Fix other colors
-  clone.querySelectorAll('.k, .result-sub, .result-title, .card-title').forEach(e => {
-    if (e.closest('[style*="var(--surface-2)"]')) return;
+  // Card titles
+  clone.querySelectorAll('.card-title').forEach(e => {
     e.style.color = '#555555';
+    e.style.fontWeight = '700';
+    e.style.fontSize = '13px';
+    e.style.textTransform = 'uppercase';
+    e.style.letterSpacing = '0.06em';
+    e.style.marginTop = '20px';
+    e.style.marginBottom = '12px';
   });
-  clone.querySelectorAll('.v').forEach(e => {
-    if (e.closest('[style*="var(--surface-2)"]')) return;
-    e.style.color = '#111111';
+
+  // Result title
+  clone.querySelectorAll('.result-title').forEach(e => {
+    e.style.color = '#666666';
+    e.style.fontWeight = '700';
+    e.style.fontSize = '13px';
+    e.style.textTransform = 'uppercase';
+    e.style.letterSpacing = '0.08em';
+    e.style.paddingBottom = '12px';
+    e.style.borderBottom = '1px dashed #cccccc';
+    e.style.marginBottom = '18px';
   });
+
+  // Result sub
+  clone.querySelectorAll('.result-sub').forEach(e => {
+    e.style.color = '#666666';
+    e.style.fontSize = '14px';
+    e.style.marginBottom = '16px';
+  });
+
+  // Credit/payment colors
   clone.querySelectorAll('.txn-credit').forEach(e => {
     if (e.closest('[style*="var(--surface-2)"]')) return;
     e.style.color = '#ef4444';
@@ -178,7 +233,23 @@ function prepareCloneForExport(el, options) {
 }
 
 /* ============================================================
-   UNIVERSAL ULTRA HD PDF DOWNLOAD (4x resolution)
+   HEADER BUILDER (Fix overlap issue)
+   ============================================================ */
+function buildExportHeader() {
+  const div = document.createElement('div');
+  div.style.cssText = 'margin-bottom:32px;width:100%;';
+  div.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:3px solid #6366f1;margin-bottom:0;width:100%;">
+      <div style="font-size:26px;font-weight:900;color:#6366f1;letter-spacing:-0.5px;line-height:1;white-space:nowrap;">⚡ Qunvero</div>
+      <div style="font-size:12px;color:#888;line-height:1.3;text-align:right;white-space:nowrap;">${new Date().toLocaleString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })}</div>
+    </div>
+    <div style="height:1px;"></div>
+  `;
+  return div;
+}
+
+/* ============================================================
+   UNIVERSAL ULTRA HD PDF DOWNLOAD
    ============================================================ */
 window.extraDownloadPDF = function(boxId, filename) {
   const el = document.getElementById(boxId);
@@ -188,15 +259,8 @@ window.extraDownloadPDF = function(boxId, filename) {
   }
   if (typeof toast === 'function') toast('Generating Ultra HD PDF...');
 
-  const clone = prepareCloneForExport(el, { padding: '40px', width: '820px' });
-
-  const header = document.createElement('div');
-  header.innerHTML = `
-    <div style="display:flex;justify-content:space-between;padding-bottom:16px;border-bottom:3px solid #6366f1;margin-bottom:20px">
-      <div style="font-size:28px;font-weight:900;color:#6366f1">⚡ Qunvero</div>
-      <div style="font-size:14px;color:#888">${new Date().toLocaleString('en-IN')}</div>
-    </div>`;
-  clone.insertBefore(header, clone.firstChild);
+  const clone = prepareCloneForExport(el);
+  clone.insertBefore(buildExportHeader(), clone.firstChild);
 
   const wrap = document.createElement('div');
   wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#fff;width:820px;padding:0;margin:0;';
@@ -228,7 +292,7 @@ window.extraDownloadPDF = function(boxId, filename) {
 };
 
 /* ============================================================
-   UNIVERSAL ULTRA HD IMAGE DOWNLOAD (4x resolution)
+   UNIVERSAL ULTRA HD IMAGE DOWNLOAD
    ============================================================ */
 window.extraDownloadImage = function(boxId, filename) {
   const el = document.getElementById(boxId);
@@ -238,7 +302,8 @@ window.extraDownloadImage = function(boxId, filename) {
   }
   if (typeof toast === 'function') toast('Generating Ultra HD Image...');
 
-  const clone = prepareCloneForExport(el, { padding: '40px', width: '820px' });
+  const clone = prepareCloneForExport(el);
+  clone.insertBefore(buildExportHeader(), clone.firstChild);
 
   const wrap = document.createElement('div');
   wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#fff;width:820px;padding:0;margin:0;';
@@ -261,7 +326,7 @@ window.extraDownloadImage = function(boxId, filename) {
 };
 
 /* ============================================================
-   UNIVERSAL PRINT (Sirf result print — clean page)
+   UNIVERSAL PRINT — Clean & Proper
    ============================================================ */
 window.extraPrint = function(boxId, title) {
   const el = document.getElementById(boxId);
@@ -272,6 +337,7 @@ window.extraPrint = function(boxId, title) {
 
   const clone = el.cloneNode(true);
   clone.querySelectorAll('.btn-group, .export-btns, .how-to-use, .no-print').forEach(n => n.remove());
+
   clone.querySelectorAll('.result-main').forEach(e => {
     const c = e.style.color || '#4f46e5';
     e.style.background = 'none';
@@ -288,39 +354,62 @@ window.extraPrint = function(boxId, title) {
       e.style.background = 'none';
     }
   });
+
+  // Fix rows
+  clone.querySelectorAll('.result-row').forEach(row => {
+    row.style.display = 'flex';
+    row.style.justifyContent = 'space-between';
+    row.style.alignItems = 'center';
+    row.style.padding = '11px 0';
+    row.style.borderBottom = '1px solid #e5e5e5';
+    row.style.gap = '16px';
+    row.style.fontSize = '14px';
+    row.style.flexWrap = 'nowrap';
+    const k = row.querySelector('.k');
+    const v = row.querySelector('.v');
+    if (k && !k.closest('[style*="var(--surface-2)"]')) { k.style.color = '#555555'; k.style.whiteSpace = 'nowrap'; k.style.flex = '1'; }
+    if (v && !v.closest('[style*="var(--surface-2)"]')) { v.style.color = '#111111'; v.style.whiteSpace = 'nowrap'; v.style.flexShrink = '0'; }
+  });
+
   // Dark blue rows → white text
   clone.querySelectorAll('[style*="var(--surface-2)"]').forEach(row => {
     row.style.background = '#1c2250';
+    row.style.padding = '12px 14px';
+    row.style.borderRadius = '8px';
+    row.style.marginTop = '10px';
+    row.style.borderBottom = 'none';
     row.querySelectorAll('*').forEach(el => {
       el.style.color = '#ffffff';
       el.style.webkitTextFillColor = '#ffffff';
+      el.style.whiteSpace = 'nowrap';
     });
   });
-  clone.querySelectorAll('.k, .result-sub, .result-title, .card-title').forEach(e => {
-    if (e.closest('[style*="var(--surface-2)"]')) return;
-    e.style.color = '#555555';
-  });
-  clone.querySelectorAll('.v').forEach(e => {
-    if (e.closest('[style*="var(--surface-2)"]')) return;
-    e.style.color = '#111111';
-  });
 
-  const header = `<div style="display:flex;justify-content:space-between;padding-bottom:10px;border-bottom:2px solid #6366f1;margin-bottom:14px;font-family:Arial,sans-serif"><div style="font-size:18px;font-weight:900;color:#6366f1">⚡ Qunvero</div><div style="font-size:11px;color:#888">${new Date().toLocaleString('en-IN')}</div></div>${title ? `<div style="font-size:16px;font-weight:700;color:#111;margin-bottom:12px;font-family:Arial,sans-serif">${title}</div>` : ''}`;
+  const headerHtml = `
+    <div style="margin-bottom:28px;width:100%">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:3px solid #6366f1;width:100%">
+        <div style="font-size:24px;font-weight:900;color:#6366f1;letter-spacing:-0.5px;line-height:1;white-space:nowrap">⚡ Qunvero</div>
+        <div style="font-size:11px;color:#888;line-height:1.3;text-align:right;white-space:nowrap">${new Date().toLocaleString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })}</div>
+      </div>
+    </div>
+    ${title ? `<div style="font-size:16px;font-weight:700;color:#111;margin-bottom:16px;font-family:Arial,sans-serif;line-height:1.4">${title}</div>` : ''}
+  `;
 
   const html = `<!DOCTYPE html><html><head><title>Qunvero Print</title><style>
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Arial,sans-serif;padding:20px;color:#111;background:#fff}
-    .result-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee;font-size:14px;gap:10px}
-    .result-row .k{color:#555;font-weight:500}
-    .result-row .v{color:#111;font-weight:700;text-align:right}
-    .result-main{font-size:28px;font-weight:900;color:#4f46e5;margin-bottom:6px}
+    body{font-family:Arial,Helvetica,sans-serif;padding:24px;color:#111;background:#fff;line-height:1.6}
+    .result-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #e5e5e5;font-size:14px;gap:16px;flex-wrap:nowrap}
+    .result-row .k{color:#555;font-weight:500;white-space:nowrap;flex:1}
+    .result-row .v{color:#111;font-weight:700;text-align:right;white-space:nowrap;flex-shrink:0}
+    .result-main{font-size:28px;font-weight:900;color:#4f46e5;margin-bottom:6px;line-height:1.2}
     .result-sub{color:#666;font-size:13px;margin-bottom:14px}
     .result-title{font-size:12px;font-weight:700;color:#666;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px dashed #ccc}
-    .card-title{font-size:13px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.06em;margin:14px 0 8px}
-    .txn-credit{color:#ef4444}.txn-payment{color:#10b981}
-    img{max-width:100%;height:auto;border-radius:8px}
-    @media print{body{padding:10px}}
-  </style></head><body>${header}${clone.outerHTML}</body></html>`;
+    .card-title{font-size:13px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.06em;margin:18px 0 10px}
+    .txn-credit{color:#ef4444}
+    .txn-payment{color:#10b981}
+    img{max-width:100%;height:auto;border-radius:8px;display:block}
+    @media print{body{padding:12px}}
+  </style></head><body>${headerHtml}${clone.outerHTML}</body></html>`;
 
   const printWindow = window.open('', '_blank');
   if (!printWindow) {
@@ -419,7 +508,7 @@ window.ctcCalculate = function() {
       <div class="result-row"><span class="k">HRA (${hraPct}%)</span><span class="v">${fmt(hra)}</span></div>
       <div class="result-row"><span class="k">Special Allowance</span><span class="v">${fmt(specialAllowance)}</span></div>
       <div class="result-row"><span class="k">Employer PF</span><span class="v">${fmt(employerPF)}</span></div>
-      <div class="result-row" style="background:var(--surface-2);padding:10px 8px;margin-top:8px;border-radius:8px"><span class="k" style="font-weight:700">Annual Gross</span><span class="v">${fmt(grossSalary)}</span></div>
+      <div class="result-row" style="background:var(--surface-2);padding:12px 14px;margin-top:10px;border-radius:8px"><span class="k" style="font-weight:700">Annual Gross</span><span class="v">${fmt(grossSalary)}</span></div>
     </div>
     <div style="margin-top:20px">
       <div class="card-title" style="margin-bottom:10px">Deductions (Annual)</div>
@@ -427,7 +516,7 @@ window.ctcCalculate = function() {
       <div class="result-row"><span class="k">Professional Tax</span><span class="v txn-credit">− ${fmt(profTax)}</span></div>
       <div class="result-row"><span class="k">Other</span><span class="v txn-credit">− ${fmt(otherDed)}</span></div>
       <div class="result-row"><span class="k">Income Tax</span><span class="v txn-credit">− ${fmt(tax)}</span></div>
-      <div class="result-row" style="background:var(--surface-2);padding:10px 8px;margin-top:8px;border-radius:8px"><span class="k" style="font-weight:700">Total Deductions</span><span class="v">${fmt(totalDeductions)} (${dedPct.toFixed(1)}%)</span></div>
+      <div class="result-row" style="background:var(--surface-2);padding:12px 14px;margin-top:10px;border-radius:8px"><span class="k" style="font-weight:700">Total Deductions</span><span class="v">${fmt(totalDeductions)} (${dedPct.toFixed(1)}%)</span></div>
     </div>
     <div style="margin-top:20px">
       <div class="card-title" style="margin-bottom:10px">In-Hand Summary</div>
@@ -539,7 +628,7 @@ window.attReset = function() {
 };
 
 /* ============================================================
-   TOOL 3: QR CODE GENERATOR — SIMPLE URL ONLY
+   TOOL 3: QR CODE GENERATOR
    ============================================================ */
 window.EXTRA_TOOL_RENDERERS['qr-gen-pro'] = () => `
   <div class="card">
@@ -577,29 +666,14 @@ window.qrProGenerate = function() {
   box.appendChild(container);
 
   try {
-    new QRCode(container, {
-      text: data,
-      width: 320,
-      height: 320,
-      colorDark: '#000000',
-      colorLight: '#ffffff',
-      correctLevel: QRCode.CorrectLevel.H
-    });
+    new QRCode(container, { text: data, width: 320, height: 320, colorDark: '#000000', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
   } catch (e) { console.error(e); toast('QR generation failed', 'error'); return; }
 
   setTimeout(() => {
     const canvas = container.querySelector('canvas');
-    if (canvas) {
-      canvas.style.padding = '20px';
-      canvas.style.background = '#ffffff';
-      canvas.style.borderRadius = '12px';
-    }
+    if (canvas) { canvas.style.padding = '20px'; canvas.style.background = '#ffffff'; canvas.style.borderRadius = '12px'; }
     const img = container.querySelector('img');
-    if (img) {
-      img.style.padding = '20px';
-      img.style.background = '#ffffff';
-      img.style.borderRadius = '12px';
-    }
+    if (img) { img.style.padding = '20px'; img.style.background = '#ffffff'; img.style.borderRadius = '12px'; }
 
     const actions = document.createElement('div');
     actions.innerHTML = `
@@ -646,7 +720,7 @@ window.qrProDownloadPNG = function() {
     a.download = 'qunvero-qr-' + finalSize + 'px.png';
     a.href = url;
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    toast('Ultra HD QR downloaded (' + finalSize + 'px) ✅', 'success');
+    toast('Ultra HD QR (' + finalSize + 'px) ✅', 'success');
   };
   imgEl.onerror = () => toast('QR download failed', 'error');
   imgEl.src = src;
@@ -687,7 +761,7 @@ window.qrProDownloadSVG = function() {
   a.href = url;
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   setTimeout(() => URL.revokeObjectURL(url), 1500);
-  toast('Ultra HD SVG downloaded (' + finalSize + 'px) ✅', 'success');
+  toast('Ultra HD SVG (' + finalSize + 'px) ✅', 'success');
 };
 
 window.qrProPrint = function() {
@@ -707,8 +781,8 @@ window.qrProPrint = function() {
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:Arial,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:30px;background:#fff}
   .header{display:flex;justify-content:space-between;align-items:center;width:100%;max-width:600px;padding-bottom:14px;border-bottom:3px solid #6366f1;margin-bottom:24px}
-  .brand{font-size:24px;font-weight:900;color:#6366f1}
-  .date{font-size:12px;color:#888}
+  .brand{font-size:24px;font-weight:900;color:#6366f1;white-space:nowrap}
+  .date{font-size:12px;color:#888;text-align:right;white-space:nowrap}
   .qr-wrap{background:#fff;padding:24px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center}
   .qr-wrap img{width:420px;height:420px;image-rendering:pixelated;display:block}
   .footer{margin-top:24px;font-size:12px;color:#888;text-align:center}
@@ -719,7 +793,7 @@ window.qrProPrint = function() {
 <body>
   <div class="header">
     <div class="brand">⚡ Qunvero</div>
-    <div class="date">${new Date().toLocaleString('en-IN')}</div>
+    <div class="date">${new Date().toLocaleString('en-IN', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })}</div>
   </div>
   <div class="qr-wrap"><img src="${src}" alt="QR Code" /></div>
   <div class="footer">Generated by Qunvero — qunvero.vercel.app</div>
@@ -733,20 +807,12 @@ window.qrProPrint = function() {
     document.body.appendChild(iframe);
     const doc = iframe.contentWindow.document;
     doc.open(); doc.write(printHtml); doc.close();
-    setTimeout(() => {
-      iframe.contentWindow.focus();
-      iframe.contentWindow.print();
-      setTimeout(() => document.body.removeChild(iframe), 2000);
-    }, 600);
+    setTimeout(() => { iframe.contentWindow.focus(); iframe.contentWindow.print(); setTimeout(() => document.body.removeChild(iframe), 2000); }, 600);
     return;
   }
   printWindow.document.write(printHtml);
   printWindow.document.close();
-  setTimeout(() => {
-    printWindow.focus();
-    printWindow.print();
-    setTimeout(() => printWindow.close(), 1200);
-  }, 600);
+  setTimeout(() => { printWindow.focus(); printWindow.print(); setTimeout(() => printWindow.close(), 1200); }, 600);
 };
 
 window.qrProReset = function() {
@@ -940,4 +1006,4 @@ window.ipReset = function() {
   toast('Reset done', 'success');
 };
 
-console.log('%c✅ tools.js FINAL loaded — 5 tools ready with Perfect PDF', 'color:#10b981;font-weight:bold;font-size:14px');
+console.log('%c✅ tools.js FINAL loaded — 5 tools with perfect PDF layout', 'color:#10b981;font-weight:bold;font-size:14px');
