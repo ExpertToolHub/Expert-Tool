@@ -1,21 +1,22 @@
 /* ============================================================
    QUNVERO — EXTRA TOOLS (tools.js)
-   FINAL VERSION — 5 Working Tools + Ultra HD Download
+   FINAL COMPLETE VERSION
+   5 Tools + Ultra HD Downloads + Fixed Print
    ============================================================ */
 
 console.log('%cQunvero Extra Tools Loading...', 'color:#10b981;font-weight:bold');
 
 /* ============================================================
-   7 TOOLS KA DATA
+   TOOLS DATA
    ============================================================ */
 const EXTRA_TOOLS = [
   { id: 'ctc-salary', name: 'CTC → In-Hand Salary', cat: 'finance', icon: '💼', desc: 'Calculate your take-home salary from CTC', howto: 'Enter annual CTC, basic %, HRA %, PF, tax. Click Calculate to see monthly in-hand salary with full breakdown.', kw: ['ctc','salary','in-hand','take home'] },
   { id: 'attendance-calc', name: 'Attendance Calculator', cat: 'student', icon: '📊', desc: 'Track attendance percentage & required classes', howto: 'Enter total classes, present days, required %. Calculator shows current %, how many more to attend, and how many you can skip.', kw: ['attendance','percentage','classes'] },
-  { id: 'qr-gen-pro', name: 'QR Code Generator Pro', cat: 'pdf', icon: '📱', desc: 'Generate QR for text, URL, phone, email, WiFi', howto: 'Choose type, enter details, click Generate. Download as Ultra HD PNG or SVG. No duplicate QR generation.', kw: ['qr','qr code','url','wifi'] },
-  { id: 'image-compressor', name: 'Image Compressor Pro', cat: 'photo', icon: '🗜️', desc: 'Compress & resize images without losing quality', howto: 'Upload image, adjust quality (10-100%), optionally resize. Click Compress. Download compressed image. Original never modified.', kw: ['compress','image','reduce','size'] },
-  { id: 'image-to-pdf', name: 'Image to PDF Converter', cat: 'pdf', icon: '📄', desc: 'Convert multiple images into a single PDF', howto: 'Upload multiple images, reorder, remove. Choose page size, orientation. Generate PDF. Download or Print.', kw: ['image','pdf','jpg','png'] },
-  { id: 'pdf-merger', name: 'PDF Merger', cat: 'pdf', icon: '📚', desc: 'Combine multiple PDFs into one document', howto: 'Upload 2+ PDFs, reorder, remove. Click Merge PDF. Download merged document.', kw: ['pdf','merge','combine'] },
-  { id: 'resume-builder', name: 'Resume Builder Pro', cat: 'student', icon: '📝', desc: 'Build professional ATS-friendly resume with live preview', howto: 'Fill personal info, education, experience, skills. Live preview updates. Download as PDF with selectable text.', kw: ['resume','cv','builder'] }
+  { id: 'qr-gen-pro', name: 'QR Code Generator Pro', cat: 'pdf', icon: '📱', desc: 'Paste URL or text and generate QR instantly', howto: 'Paste any URL, text, phone number or email. Click Generate QR. Download as Ultra HD PNG or SVG. Print works perfectly.', kw: ['qr','qr code','url','link'] },
+  { id: 'image-compressor', name: 'Image Compressor Pro', cat: 'photo', icon: '🗜️', desc: 'Compress & resize images without losing quality', howto: 'Upload image, adjust quality, optionally resize. Click Compress. Download compressed image.', kw: ['compress','image','reduce','size'] },
+  { id: 'image-to-pdf', name: 'Image to PDF Converter', cat: 'pdf', icon: '📄', desc: 'Convert multiple images into a single PDF', howto: 'Upload multiple images, choose page size & orientation. Generate PDF. Download or Print.', kw: ['image','pdf','jpg','png'] },
+  { id: 'pdf-merger', name: 'PDF Merger', cat: 'pdf', icon: '📚', desc: 'Combine multiple PDFs into one document', howto: 'Upload 2+ PDFs. Click Merge. Download merged document.', kw: ['pdf','merge','combine'] },
+  { id: 'resume-builder', name: 'Resume Builder Pro', cat: 'student', icon: '📝', desc: 'Build professional ATS-friendly resume', howto: 'Fill details, live preview updates. Download as PDF.', kw: ['resume','cv','builder'] }
 ];
 
 window.EXTRA_TOOLS = EXTRA_TOOLS;
@@ -108,7 +109,7 @@ window.openExtraTool = function(toolId) {
 };
 
 /* ============================================================
-   UNIVERSAL ULTRA HD PDF DOWNLOAD
+   UNIVERSAL ULTRA HD PDF DOWNLOAD (4x resolution)
    ============================================================ */
 window.extraDownloadPDF = function(boxId, filename) {
   const el = document.getElementById(boxId);
@@ -186,7 +187,7 @@ window.extraDownloadPDF = function(boxId, filename) {
 };
 
 /* ============================================================
-   UNIVERSAL ULTRA HD IMAGE DOWNLOAD
+   UNIVERSAL ULTRA HD IMAGE DOWNLOAD (4x resolution)
    ============================================================ */
 window.extraDownloadImage = function(boxId, filename) {
   const el = document.getElementById(boxId);
@@ -245,7 +246,7 @@ window.extraDownloadImage = function(boxId, filename) {
 };
 
 /* ============================================================
-   UNIVERSAL PRINT (Sirf result print)
+   UNIVERSAL PRINT (Sirf result print — clean page)
    ============================================================ */
 window.extraPrint = function(boxId, title) {
   const el = document.getElementById(boxId);
@@ -253,6 +254,7 @@ window.extraPrint = function(boxId, title) {
     if (typeof toast === 'function') toast('Calculate first', 'error');
     return;
   }
+
   const clone = el.cloneNode(true);
   clone.querySelectorAll('.btn-group, .export-btns, .how-to-use, .no-print').forEach(n => n.remove());
   clone.querySelectorAll('.result-main').forEach(e => {
@@ -271,10 +273,11 @@ window.extraPrint = function(boxId, title) {
       e.style.background = 'none';
     }
   });
+  clone.querySelectorAll('.k, .result-sub, .result-title, .card-title').forEach(e => e.style.color = '#555555');
+  clone.querySelectorAll('.v').forEach(e => e.style.color = '#111111');
 
   const header = `<div style="display:flex;justify-content:space-between;padding-bottom:10px;border-bottom:2px solid #6366f1;margin-bottom:14px;font-family:Arial,sans-serif"><div style="font-size:18px;font-weight:900;color:#6366f1">⚡ Qunvero</div><div style="font-size:11px;color:#888">${new Date().toLocaleString('en-IN')}</div></div>${title ? `<div style="font-size:16px;font-weight:700;color:#111;margin-bottom:12px;font-family:Arial,sans-serif">${title}</div>` : ''}`;
 
-  const printWindow = window.open('', '_blank', 'width=800,height=600');
   const html = `<!DOCTYPE html><html><head><title>Qunvero Print</title><style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:Arial,sans-serif;padding:20px;color:#111;background:#fff}
@@ -290,6 +293,7 @@ window.extraPrint = function(boxId, title) {
     @media print{body{padding:10px}}
   </style></head><body>${header}${clone.outerHTML}</body></html>`;
 
+  const printWindow = window.open('', '_blank');
   if (!printWindow) {
     const iframe = document.createElement('iframe');
     iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
@@ -313,10 +317,10 @@ window.extraPrint = function(boxId, title) {
 };
 
 /* ============================================================
-   COPY & SHARE HELPERS
+   COPY & SHARE
    ============================================================ */
 window.extraCopy = function(text) {
-  if (!text) { toast('Nothing to copy', 'error'); return; }
+  if (!text) { if (typeof toast === 'function') toast('Nothing to copy', 'error'); return; }
   navigator.clipboard.writeText(text).then(() => toast('Copied!', 'success')).catch(() => toast('Copy failed', 'error'));
 };
 window.extraShare = function(title, text) {
@@ -361,6 +365,7 @@ window.ctcCalculate = function() {
   const otherDed = Number(document.getElementById('ctcOtherDed').value) || 0;
   const tax = Number(document.getElementById('ctcTax').value) || 0;
   if (ctc <= 0) { toast('Enter valid CTC', 'error'); return; }
+
   const basic = ctc * basicPct / 100;
   const hra = basic * hraPct / 100;
   const employerPF = basic * 12 / 100;
@@ -373,6 +378,7 @@ window.ctcCalculate = function() {
   const monthlyGross = grossSalary / 12;
   const dedPct = grossSalary > 0 ? (totalDeductions / grossSalary * 100) : 0;
   const fmt = (n) => '₹' + (Number(n) || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
   const box = document.getElementById('ctcResult');
   box.innerHTML = `
     <div class="result-title">Salary Breakdown</div>
@@ -504,92 +510,80 @@ window.attReset = function() {
 };
 
 /* ============================================================
-   TOOL 3: QR CODE GENERATOR PRO — ULTRA HD
+   TOOL 3: QR CODE GENERATOR — SIMPLE URL ONLY
    ============================================================ */
 window.EXTRA_TOOL_RENDERERS['qr-gen-pro'] = () => `
-  <div class="card"><div class="card-title">QR Type</div>
-    <div class="field"><label>Choose Type</label>
-      <select id="qrType" onchange="qrProToggleFields()">
-        <option value="text">Plain Text</option>
-        <option value="url">URL / Website</option>
-        <option value="phone">Phone Number</option>
-        <option value="email">Email</option>
-        <option value="wifi">WiFi Network</option>
-      </select>
-    </div>
-    <div id="qrFields"></div>
-    <div class="field-row">
-      <div class="field"><label>Size (px)</label><input type="number" id="qrSize" min="100" max="800" step="10" value="300" /></div>
-      <div class="field"><label>Margin</label><input type="number" id="qrMargin" min="0" max="20" step="1" value="4" /></div>
+  <div class="card">
+    <div class="card-title">QR Code Generator</div>
+    <div class="field">
+      <label>Paste URL or Text</label>
+      <textarea id="qrInput" placeholder="https://example.com ya koi bhi text paste karo..." rows="3" style="font-size:15px"></textarea>
+      <div class="hint">URL, text, phone number, email — kuch bhi paste karo, QR ban jayega</div>
     </div>
     <div class="btn-group">
-      <button class="btn btn-primary" onclick="qrProGenerate()">📱 Generate</button>
-      <button class="btn btn-secondary" onclick="qrProReset()">🔄 Reset</button>
+      <button class="btn btn-primary" onclick="qrProGenerate()" style="flex:2">📱 Generate QR</button>
+      <button class="btn btn-secondary" onclick="qrProReset()" style="flex:1">🔄 Reset</button>
     </div>
   </div>
   <div class="result-box" id="qrResult"></div>`;
 
-window.EXTRA_TOOL_INITS['qr-gen-pro'] = () => {
-  qrProToggleFields();
-  console.log('%c✅ QR Pro loaded', 'color:#10b981');
-};
-
-window.qrProToggleFields = function() {
-  const type = document.getElementById('qrType').value;
-  const f = document.getElementById('qrFields');
-  let html = '';
-  if (type === 'text') html = `<div class="field"><label>Text</label><textarea id="qrText" placeholder="Enter text" rows="3"></textarea></div>`;
-  else if (type === 'url') html = `<div class="field"><label>URL</label><input type="url" id="qrUrl" placeholder="https://example.com" /></div>`;
-  else if (type === 'phone') html = `<div class="field"><label>Phone Number</label><input type="tel" id="qrPhone" placeholder="+91 9876543210" /></div>`;
-  else if (type === 'email') html = `<div class="field"><label>Email</label><input type="email" id="qrEmail" placeholder="hello@example.com" /></div>`;
-  else if (type === 'wifi') html = `<div class="field"><label>WiFi Name (SSID)</label><input type="text" id="qrWifiName" placeholder="MyWiFi" /></div>
-    <div class="field"><label>Password</label><input type="text" id="qrWifiPass" placeholder="password" /></div>
-    <div class="field"><label>Security</label><select id="qrWifiSec"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="nopass">None</option></select></div>`;
-  f.innerHTML = html;
-};
+window.EXTRA_TOOL_INITS['qr-gen-pro'] = () => console.log('%c✅ QR Pro loaded', 'color:#10b981');
 
 window.qrProGenerate = function() {
-  const type = document.getElementById('qrType').value;
-  const size = Number(document.getElementById('qrSize').value) || 300;
-  const margin = Number(document.getElementById('qrMargin').value) || 4;
-  let data = '';
-  if (type === 'text') data = document.getElementById('qrText').value.trim();
-  else if (type === 'url') { data = document.getElementById('qrUrl').value.trim(); if (data && !/^https?:\/\//i.test(data)) data = 'https://' + data; }
-  else if (type === 'phone') data = 'tel:' + document.getElementById('qrPhone').value.trim();
-  else if (type === 'email') data = 'mailto:' + document.getElementById('qrEmail').value.trim();
-  else if (type === 'wifi') {
-    const n = document.getElementById('qrWifiName').value.trim();
-    const p = document.getElementById('qrWifiPass').value.trim();
-    const s = document.getElementById('qrWifiSec').value;
-    if (!n) { toast('Enter WiFi name', 'error'); return; }
-    data = `WIFI:T:${s};S:${n};P:${p};;`;
-  }
-  if (!data) { toast('Enter required details', 'error'); return; }
+  const raw = document.getElementById('qrInput').value.trim();
+  if (!raw) { toast('Paste URL or text first', 'error'); return; }
+
+  // Auto-detect type
+  let data = raw;
+  if (/^https?:\/\//i.test(raw)) data = raw;
+  else if (/^www\./i.test(raw)) data = 'https://' + raw;
+  else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(raw)) data = 'mailto:' + raw;
+  else if (/^\+?[\d\s\-()]{10,}$/.test(raw)) data = 'tel:' + raw.replace(/[^\d+]/g, '');
+  else data = raw;
+
   const box = document.getElementById('qrResult');
   box.innerHTML = '';
   const container = document.createElement('div');
   container.className = 'qr-container';
+  container.style.background = '#ffffff';
   box.appendChild(container);
+
   try {
-    new QRCode(container, { text: data, width: size, height: size, colorDark: '#000000', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
+    new QRCode(container, {
+      text: data,
+      width: 320,
+      height: 320,
+      colorDark: '#000000',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
   } catch (e) { console.error(e); toast('QR generation failed', 'error'); return; }
+
   setTimeout(() => {
-    // 🎯 Add white padding to preview
+    // White padding to preview
     const canvas = container.querySelector('canvas');
-    if (canvas) { canvas.style.padding = '16px'; canvas.style.background = '#ffffff'; canvas.style.borderRadius = '8px'; }
+    if (canvas) {
+      canvas.style.padding = '20px';
+      canvas.style.background = '#ffffff';
+      canvas.style.borderRadius = '12px';
+    }
     const img = container.querySelector('img');
-    if (img) { img.style.padding = '16px'; img.style.background = '#ffffff'; img.style.borderRadius = '8px'; }
+    if (img) {
+      img.style.padding = '20px';
+      img.style.background = '#ffffff';
+      img.style.borderRadius = '12px';
+    }
 
     const actions = document.createElement('div');
     actions.innerHTML = `
       <div class="export-btns no-export no-print" style="margin-top:14px">
         <button class="btn btn-secondary" onclick="qrProDownloadPNG()"><i>🖼️</i>HD PNG</button>
         <button class="btn btn-secondary" onclick="qrProDownloadSVG()"><i>📐</i>HD SVG</button>
-        <button class="btn btn-secondary" onclick="extraPrint('qrResult','QR Code')"><i>🖨️</i>Print</button>
+        <button class="btn btn-secondary" onclick="qrProPrint()"><i>🖨️</i>Print</button>
       </div>`;
     box.appendChild(actions);
     box.classList.add('active');
-  }, 100);
+  }, 150);
 };
 
 window.qrProDownloadPNG = function() {
@@ -598,14 +592,15 @@ window.qrProDownloadPNG = function() {
   const canvas = container.querySelector('canvas');
   const img = container.querySelector('img');
   let src = null;
-  let baseSize = 300;
-  if (canvas) { src = canvas.toDataURL('image/png'); baseSize = canvas.width || 300; }
-  else if (img && img.src && img.src.startsWith('data:')) { src = img.src; baseSize = img.naturalWidth || 300; }
+  let baseSize = 320;
+  if (canvas) { src = canvas.toDataURL('image/png'); baseSize = canvas.width || 320; }
+  else if (img && img.src && img.src.startsWith('data:')) { src = img.src; baseSize = img.naturalWidth || 320; }
+  else if (img && img.src) { src = img.src; baseSize = img.naturalWidth || 320; }
   if (!src) { toast('QR not ready', 'error'); return; }
 
-  // 🎯 ULTRA HD: 4x resolution + white padding
-  const SCALE = 4;
-  const PADDING_PCT = 0.15;
+  // ULTRA HD: 6x resolution + white padding
+  const SCALE = 6;
+  const PADDING_PCT = 0.12;
   const finalSize = baseSize * SCALE;
   const hdCanvas = document.createElement('canvas');
   hdCanvas.width = finalSize;
@@ -622,10 +617,10 @@ window.qrProDownloadPNG = function() {
     ctx.drawImage(imgEl, pad, pad, innerSize, innerSize);
     const url = hdCanvas.toDataURL('image/png');
     const a = document.createElement('a');
-    a.download = 'qunvero-qr-hd-' + Date.now() + '.png';
+    a.download = 'qunvero-qr-' + finalSize + 'px.png';
     a.href = url;
     document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    toast('Ultra HD QR (' + finalSize + 'px) ✅', 'success');
+    toast('Ultra HD QR downloaded (' + finalSize + 'px) ✅', 'success');
   };
   imgEl.onerror = () => toast('QR download failed', 'error');
   imgEl.src = src;
@@ -637,10 +632,9 @@ window.qrProDownloadSVG = function() {
   const canvas = container.querySelector('canvas');
   if (!canvas) { toast('SVG requires canvas QR', 'error'); return; }
 
-  // 🎯 ULTRA HD SVG: 6x resolution + white padding
-  const SCALE = 6;
-  const PADDING_PCT = 0.15;
-  const baseSize = canvas.width || 300;
+  const SCALE = 8;
+  const PADDING_PCT = 0.12;
+  const baseSize = canvas.width || 320;
   const finalSize = baseSize * SCALE;
   const pad = finalSize * PADDING_PCT;
   const innerSize = finalSize - (2 * pad);
@@ -663,18 +657,74 @@ window.qrProDownloadSVG = function() {
   const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
-  a.download = 'qunvero-qr-hd-' + Date.now() + '.svg';
+  a.download = 'qunvero-qr-' + finalSize + 'px.svg';
   a.href = url;
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   setTimeout(() => URL.revokeObjectURL(url), 1500);
-  toast('Ultra HD SVG (' + finalSize + 'px) ✅', 'success');
+  toast('Ultra HD SVG downloaded (' + finalSize + 'px) ✅', 'success');
+};
+
+window.qrProPrint = function() {
+  const container = document.querySelector('#qrResult .qr-container');
+  if (!container) { toast('Generate QR first', 'error'); return; }
+
+  const canvas = container.querySelector('canvas');
+  const img = container.querySelector('img');
+  let src = null;
+  if (canvas) src = canvas.toDataURL('image/png');
+  else if (img && img.src) src = img.src;
+  if (!src) { toast('QR not ready', 'error'); return; }
+
+  const printHtml = `<!DOCTYPE html>
+<html><head><title>Qunvero QR Print</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Arial,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:30px;background:#fff}
+  .header{display:flex;justify-content:space-between;align-items:center;width:100%;max-width:600px;padding-bottom:14px;border-bottom:3px solid #6366f1;margin-bottom:24px}
+  .brand{font-size:24px;font-weight:900;color:#6366f1}
+  .date{font-size:12px;color:#888}
+  .qr-wrap{background:#fff;padding:24px;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:center}
+  .qr-wrap img{width:420px;height:420px;image-rendering:pixelated;display:block}
+  .footer{margin-top:24px;font-size:12px;color:#888;text-align:center}
+  @media print{body{padding:15px}.qr-wrap{box-shadow:none;padding:16px}.qr-wrap img{width:100%;max-width:480px;height:auto}}
+  @media (max-width:600px){.qr-wrap img{width:280px;height:280px}}
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="brand">⚡ Qunvero</div>
+    <div class="date">${new Date().toLocaleString('en-IN')}</div>
+  </div>
+  <div class="qr-wrap"><img src="${src}" alt="QR Code" /></div>
+  <div class="footer">Generated by Qunvero — qunvero.vercel.app</div>
+</body>
+</html>`;
+
+  const printWindow = window.open('', '_blank');
+  if (!printWindow) {
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
+    document.body.appendChild(iframe);
+    const doc = iframe.contentWindow.document;
+    doc.open(); doc.write(printHtml); doc.close();
+    setTimeout(() => {
+      iframe.contentWindow.focus();
+      iframe.contentWindow.print();
+      setTimeout(() => document.body.removeChild(iframe), 2000);
+    }, 600);
+    return;
+  }
+  printWindow.document.write(printHtml);
+  printWindow.document.close();
+  setTimeout(() => {
+    printWindow.focus();
+    printWindow.print();
+    setTimeout(() => printWindow.close(), 1200);
+  }, 600);
 };
 
 window.qrProReset = function() {
-  document.getElementById('qrType').value = 'text';
-  document.getElementById('qrSize').value = 300;
-  document.getElementById('qrMargin').value = 4;
-  qrProToggleFields();
+  document.getElementById('qrInput').value = '';
   const box = document.getElementById('qrResult');
   box.classList.remove('active'); box.innerHTML = '';
   toast('Reset done', 'success');
@@ -736,7 +786,6 @@ window.icCompress = function() {
           <div style="text-align:center;margin:16px 0"><img src="${url}" style="max-height:240px;border-radius:10px" /></div>
           <a class="btn btn-primary btn-block" href="${url}" download="compressed-${Date.now()}.jpg">⬇️ Download Compressed</a>
           <div class="export-btns no-export no-print" style="margin-top:14px">
-            <button class="btn btn-secondary" onclick="extraDownloadPDF('icResult','compressed-image')"><i>📄</i>PDF</button>
             <button class="btn btn-secondary" onclick="extraDownloadImage('icResult','compressed-image')"><i>🖼️</i>Image</button>
             <button class="btn btn-secondary" onclick="extraPrint('icResult','Compressed Image')"><i>🖨️</i>Print</button>
           </div>`;
@@ -865,4 +914,4 @@ window.ipReset = function() {
   toast('Reset done', 'success');
 };
 
-console.log('%c✅ tools.js loaded — 5 tools with Ultra HD download ready', 'color:#10b981;font-weight:bold;font-size:14px');
+console.log('%c✅ tools.js FINAL loaded — 5 tools ready with Ultra HD download', 'color:#10b981;font-weight:bold;font-size:14px');
