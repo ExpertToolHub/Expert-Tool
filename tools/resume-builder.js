@@ -893,3 +893,213 @@ window.rbCopyText = function() {
 };
 
 console.log('%c✅ Resume Builder Part B loaded — Preview + PDF + 4 Templates ready', 'color:#8b5cf6;font-weight:bold');
+
+/* ============================================================
+   PART C: SAVE / LOAD / RESET
+   ============================================================ */
+
+/* ============================================================
+   SAVE TO LOCALSTORAGE
+   ============================================================ */
+window.rbSaveLocal = function(silent) {
+  try {
+    const d = rbGetData();
+    if (typeof DB !== 'undefined' && DB.set) {
+      DB.set('resume_data', d);
+    } else {
+      localStorage.setItem('qunvero_resume_data', JSON.stringify(d));
+    }
+    if (!silent && typeof toast === 'function') toast('💾 Resume saved locally', 'success');
+  } catch (e) {
+    console.error('Save failed:', e);
+    if (!silent && typeof toast === 'function') toast('Save failed', 'error');
+  }
+};
+
+/* ============================================================
+   LOAD FROM LOCALSTORAGE
+   ============================================================ */
+window.rbLoadLocal = function(silent) {
+  try {
+    let d = null;
+    if (typeof DB !== 'undefined' && DB.get) {
+      d = DB.get('resume_data', null);
+    }
+    if (!d) {
+      try { d = JSON.parse(localStorage.getItem('qunvero_resume_data') || 'null'); } catch(e) {}
+    }
+    if (!d) {
+      if (!silent && typeof toast === 'function') toast('No saved resume found', 'error');
+      return;
+    }
+
+    // Fill basic fields
+    const fields = {
+      rbName: d.name, rbJob: d.job, rbEmail: d.email, rbPhone: d.phone,
+      rbLocation: d.location, rbCountry: d.country, rbLinkedin: d.linkedin,
+      rbPortfolio: d.portfolio, rbGithub: d.github, rbSummary: d.summary,
+      rbSkills: d.skills, rbSoftSkills: d.softSkills, rbLangSkills: d.langSkills,
+      rbInterests: d.interests, rbCustomTitle: d.customTitle, rbCustomContent: d.customContent
+    };
+    Object.keys(fields).forEach(id => {
+      const el = document.getElementById(id);
+      if (el && fields[id] !== undefined && fields[id] !== null) el.value = fields[id];
+    });
+
+    // Show references if saved
+    const showRefEl = document.getElementById('rbShowRef');
+    if (showRefEl) {
+      showRefEl.checked = !!d.showRef;
+      const wrap = document.getElementById('rbRefWrap');
+      if (wrap) wrap.style.display = d.showRef ? 'block' : 'none';
+    }
+
+    // Fill dynamic arrays
+    window._rbExp = d._rbExp || [];
+    window._rbEdu = d._rbEdu || [];
+    window._rbProj = d._rbProj || [];
+    window._rbCert = d._rbCert || [];
+    window._rbIntern = d._rbIntern || [];
+    window._rbAch = d._rbAch || [];
+    window._rbLang = d._rbLang || [];
+    window._rbRef = d._rbRef || [];
+    window._rbTemplate = d._rbTemplate || 'modern';
+
+    // Re-render all sections
+    rbRenderExp();
+    rbRenderEdu();
+    rbRenderProj();
+    rbRenderCert();
+    rbRenderIntern();
+    rbRenderAch();
+    rbRenderLang();
+    rbRenderRef();
+
+    // Update template chip
+    document.querySelectorAll('#toolBody .chip[data-tpl]').forEach(c => {
+      c.classList.toggle('active', c.dataset.tpl === window._rbTemplate);
+    });
+
+    // Update character counter
+    if (typeof rbCountChar === 'function' && d.summary) {
+      rbCountChar('rbSummary', 'rbSummaryCount', 800);
+    }
+
+    if (!silent && typeof toast === 'function') toast('📂 Resume loaded', 'success');
+  } catch (e) {
+    console.error('Load failed:', e);
+    if (!silent && typeof toast === 'function') toast('Load failed', 'error');
+  }
+};
+
+/* ============================================================
+   CLEAR SAVED DATA
+   ============================================================ */
+window.rbClearLocal = function() {
+  if (!confirm('Delete saved resume? This cannot be undone.')) return;
+  try {
+    if (typeof DB !== 'undefined' && DB.set) {
+      DB.set('resume_data', null);
+    }
+    localStorage.removeItem('qunvero_resume_data');
+    if (typeof toast === 'function') toast('🗑️ Saved resume cleared', 'success');
+  } catch (e) {
+    if (typeof toast === 'function') toast('Clear failed', 'error');
+  }
+};
+
+/* ============================================================
+   RESET FORM
+   ============================================================ */
+window.rbReset = function() {
+  if (!confirm('Reset the entire form? Saved data will also be cleared.')) return;
+
+  // Clear text inputs
+  const textFields = ['rbName','rbJob','rbEmail','rbPhone','rbLocation','rbCountry','rbLinkedin','rbPortfolio','rbGithub','rbSummary','rbSkills','rbSoftSkills','rbLangSkills','rbInterests','rbCustomTitle','rbCustomContent'];
+  textFields.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+
+  // Clear checkbox
+  const showRefEl = document.getElementById('rbShowRef');
+  if (showRefEl) {
+    showRefEl.checked = false;
+    const wrap = document.getElementById('rbRefWrap');
+    if (wrap) wrap.style.display = 'none';
+  }
+
+  // Clear arrays
+  window._rbExp = [];
+  window._rbEdu = [];
+  window._rbProj = [];
+  window._rbCert = [];
+  window._rbIntern = [];
+  window._rbAch = [];
+  window._rbLang = [];
+  window._rbRef = [];
+  window._rbTemplate = 'modern';
+
+  // Re-render
+  rbRenderExp();
+  rbRenderEdu();
+  rbRenderProj();
+  rbRenderCert();
+  rbRenderIntern();
+  rbRenderAch();
+  rbRenderLang();
+  rbRenderRef();
+
+  // Reset template chips
+  document.querySelectorAll('#toolBody .chip[data-tpl]').forEach(c => {
+    c.classList.toggle('active', c.dataset.tpl === 'modern');
+  });
+
+  // Clear preview
+  const box = document.getElementById('rbResult');
+  if (box) {
+    box.classList.remove('active');
+    box.innerHTML = '';
+  }
+
+  // Update character counter
+  const countEl = document.getElementById('rbSummaryCount');
+  if (countEl) countEl.textContent = '0';
+
+  // Clear saved data
+  try {
+    if (typeof DB !== 'undefined' && DB.set) DB.set('resume_data', null);
+    localStorage.removeItem('qunvero_resume_data');
+  } catch(e) {}
+
+  if (typeof toast === 'function') toast('🔄 Form reset', 'success');
+};
+
+/* ============================================================
+   AUTO-SAVE ON INPUT CHANGE
+   ============================================================ */
+(function setupAutoSave() {
+  // Ye function har 3 seconds baad auto-save karega agar form khula hai
+  let autoSaveTimer = null;
+  const originalInit = window.EXTRA_TOOL_INITS['resume-builder'];
+  if (originalInit) {
+    window.EXTRA_TOOL_INITS['resume-builder'] = function() {
+      originalInit();
+      // Setup auto-save on input
+      setTimeout(() => {
+        const form = document.getElementById('toolBody');
+        if (form) {
+          form.addEventListener('input', () => {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(() => {
+              try { rbSaveLocal(true); } catch(e) {}
+            }, 2000);
+          }, true);
+        }
+      }, 500);
+    };
+  }
+})();
+
+console.log('%c✅ Resume Builder Part C loaded — Save/Load/Reset ready', 'color:#8b5cf6;font-weight:bold');
+console.log('%c🎉 RESUME BUILDER COMPLETE — All features ready!', 'color:#10b981;font-weight:bold;font-size:15px');
