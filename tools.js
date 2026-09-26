@@ -1007,3 +1007,586 @@ window.ipReset = function() {
 };
 
 console.log('%c✅ tools.js FINAL loaded — 5 tools with perfect PDF layout', 'color:#10b981;font-weight:bold;font-size:14px');
+
+
+/* ============================================================
+   TOOL 6: PDF MERGER
+   ============================================================ */
+window.EXTRA_TOOL_RENDERERS['pdf-merger'] = () => `
+  <div class="card"><div class="card-title">Upload PDFs</div>
+    <div class="field">
+      <label>Select PDF Files (2 or more)</label>
+      <input type="file" id="pmFiles" accept="application/pdf,.pdf" multiple />
+      <div class="hint">Multiple PDF files select karo — 2 ya zyada</div>
+    </div>
+    <div id="pmList" style="margin-top:14px"></div>
+  </div>
+  <div class="btn-group">
+    <button class="btn btn-primary" onclick="pmMerge()" style="flex:2">📚 Merge PDFs</button>
+    <button class="btn btn-secondary" onclick="pmReset()" style="flex:1">🔄 Reset</button>
+  </div>
+  <div class="result-box" id="pmResult"></div>`;
+
+window.EXTRA_TOOL_INITS['pdf-merger'] = () => {
+  const input = document.getElementById('pmFiles');
+  if (input) {
+    input.addEventListener('change', async e => {
+      const files = Array.from(e.target.files);
+      window._pmFiles = files;
+      await pmRenderList();
+    });
+  }
+  console.log('%c✅ PDF Merger loaded', 'color:#10b981');
+};
+
+window.pmRenderList = async function() {
+  const list = document.getElementById('pmList');
+  if (!list) return;
+  const files = window._pmFiles || [];
+  if (files.length === 0) { list.innerHTML = ''; return; }
+
+  list.innerHTML = files.map((f, i) => `
+    <div class="pm-item" data-idx="${i}" style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--surface-2);border-radius:12px;margin-bottom:8px">
+      <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#ef4444,#f97316);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📄</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:700;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${(f.name || '').replace(/</g,'&lt;')}</div>
+        <div style="font-size:11.5px;color:var(--text-3);margin-top:2px">
+          <span class="pm-pages" data-idx="${i}">Calculating...</span> • ${(f.size/1024).toFixed(1)} KB
+        </div>
+      </div>
+      <div style="display:flex;gap:4px;flex-shrink:0">
+        <button onclick="pmMove(${i}, -1)" ${i===0?'disabled style="opacity:.3"':''} style="width:30px;height:30px;border-radius:8px;background:var(--surface);font-size:14px">↑</button>
+        <button onclick="pmMove(${i}, 1)" ${i===files.length-1?'disabled style="opacity:.3"':''} style="width:30px;height:30px;border-radius:8px;background:var(--surface);font-size:14px">↓</button>
+        <button onclick="pmRemove(${i})" style="width:30px;height:30px;border-radius:8px;background:rgba(239,68,68,0.15);color:var(--danger);font-size:14px">✕</button>
+      </div>
+    </div>
+  `).join('');
+
+  // Page counts
+  for (let i = 0; i < files.length; i++) {
+    try {
+      const buf = await files[i].arrayBuffer();
+      const { PDFDocument } = PDFLib;
+      const pdf = await PDFDocument.load(buf, { ignoreEncryption: true });
+      const el = document.querySelector(`.pm-pages[data-idx="${i}"]`);
+      if (el) el.textContent = pdf.getPageCount() + ' pages';
+    } catch (err) {
+      const el = document.querySelector(`.pm-pages[data-idx="${i}"]`);
+      if (el) el.textContent = 'pages: ?';
+    }
+  }
+};
+
+window.pmMove = function(idx, dir) {
+  const files = window._pmFiles || [];
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= files.length) return;
+  const temp = files[idx];
+  files[idx] = files[newIdx];
+  files[newIdx] = temp;
+  pmRenderList();
+};
+
+window.pmRemove = function(idx) {
+  window._pmFiles = (window._pmFiles || []).filter((_, i) => i !== idx);
+  pmRenderList();
+};
+
+window.pmMerge = async function() {
+  const files = window._pmFiles || [];
+  if (files.length < 2) { toast('Select at least 2 PDF files', 'error'); return; }
+
+  toast('Merging PDFs...');
+  const box = document.getElementById('pmResult');
+  box.innerHTML = '<div class="result-title">Merging...</div><div class="result-sub">Please wait...</div>';
+  box.classList.add('active');
+
+  try {
+    const { PDFDocument } = PDFLib;
+    const merged = await PDFDocument.create();
+    let totalPages = 0;
+
+    for (let i = 0; i < files.length; i++) {
+      try {
+        const buf = await files[i].arrayBuffer();
+        const src = await PDFDocument.load(buf, { ignoreEncryption: true });
+        const pages = await merged.copyPages(src, src.getPageIndices());
+        pages.forEach(p => merged.addPage(p));
+        totalPages += pages.length;
+      } catch (err) {
+        console.error('Error loading PDF:', files[i].name, err);
+        toast('Error in: ' + files[i].name, 'error');
+      }
+    }
+
+    if (totalPages === 0) { toast('No pages to merge', 'error'); box.innerHTML = ''; box.classList.remove('active'); return; }
+
+    const pdfBytes = await merged.save();
+    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+    const url = URL.createObjectURL(blob);
+
+    box.innerHTML = `
+      <div class="result-title">Merged PDF</div>
+      <div class="result-main">${totalPages} page${totalPages > 1 ? 's' : ''}</div>
+      <div class="result-sub">Combined from ${files.length} files • ${(blob.size/1024).toFixed(1)} KB</div>
+      <div class="result-row"><span class="k">Total Files</span><span class="v">${files.length}</span></div>
+      <div class="result-row"><span class="k">Total Pages</span><span class="v">${totalPages}</span></div>
+      <div class="result-row"><span class="k">File Size</span><span class="v">${(blob.size/1024).toFixed(1)} KB</span></div>
+      <a class="btn btn-primary btn-block" href="${url}" download="merged-${Date.now()}.pdf" style="margin-top:14px">⬇️ Download Merged PDF</a>
+      <div class="export-btns no-export no-print" style="margin-top:14px">
+        <button class="btn btn-secondary" onclick="window.open('${url}','_blank')"><i>👁️</i>Preview</button>
+        <button class="btn btn-secondary" onclick="extraPrint('pmResult','Merged PDF Result')"><i>🖨️</i>Print</button>
+        <button class="btn btn-secondary" onclick="extraCopy('Merged PDF: ${files.length} files, ${totalPages} pages, ${(blob.size/1024).toFixed(1)} KB')"><i>📋</i>Copy Info</button>
+      </div>`;
+    toast('Merged successfully ✅', 'success');
+  } catch (err) {
+    console.error('Merge failed:', err);
+    toast('Merge failed', 'error');
+    box.innerHTML = '<div class="result-title">Merge Failed</div><div class="result-sub">Please check your PDFs and try again.</div>';
+  }
+};
+
+window.pmReset = function() {
+  window._pmFiles = [];
+  const input = document.getElementById('pmFiles');
+  if (input) input.value = '';
+  const list = document.getElementById('pmList');
+  if (list) list.innerHTML = '';
+  const box = document.getElementById('pmResult');
+  box.classList.remove('active');
+  box.innerHTML = '';
+  toast('Reset done', 'success');
+};
+
+/* ============================================================
+   TOOL 7: RESUME BUILDER
+   ============================================================ */
+window.EXTRA_TOOL_RENDERERS['resume-builder'] = () => `
+  <div class="card"><div class="card-title">Personal Information</div>
+    <div class="field-row">
+      <div class="field"><label>Full Name *</label><input type="text" id="rbName" placeholder="Rahul Kumar" /></div>
+      <div class="field"><label>Job Title</label><input type="text" id="rbJob" placeholder="Software Engineer" /></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Email</label><input type="email" id="rbEmail" placeholder="rahul@example.com" /></div>
+      <div class="field"><label>Phone</label><input type="tel" id="rbPhone" placeholder="+91 9876543210" /></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Location</label><input type="text" id="rbLocation" placeholder="Mumbai, India" /></div>
+      <div class="field"><label>LinkedIn / Portfolio</label><input type="text" id="rbLinkedin" placeholder="linkedin.com/in/rahul" /></div>
+    </div>
+    <div class="field"><label>Professional Summary</label><textarea id="rbSummary" placeholder="2-3 lines about yourself..." rows="3"></textarea></div>
+  </div>
+
+  <div class="card"><div class="card-title">Experience</div>
+    <div id="rbExpList"></div>
+    <button class="btn btn-secondary btn-sm mt-8" onclick="rbAddExp()">+ Add Experience</button>
+  </div>
+
+  <div class="card"><div class="card-title">Education</div>
+    <div id="rbEduList"></div>
+    <button class="btn btn-secondary btn-sm mt-8" onclick="rbAddEdu()">+ Add Education</button>
+  </div>
+
+  <div class="card"><div class="card-title">Skills</div>
+    <div class="field"><label>Skills (comma separated)</label><input type="text" id="rbSkills" placeholder="JavaScript, HTML, CSS, React, Node.js" /></div>
+  </div>
+
+  <div class="card"><div class="card-title">Projects</div>
+    <div id="rbProjList"></div>
+    <button class="btn btn-secondary btn-sm mt-8" onclick="rbAddProj()">+ Add Project</button>
+  </div>
+
+  <div class="card"><div class="card-title">Certifications / Awards (optional)</div>
+    <div class="field"><label>Certifications (one per line)</label><textarea id="rbCert" placeholder="AWS Certified Developer&#10;Google Analytics Certified" rows="3"></textarea></div>
+  </div>
+
+  <div class="btn-group" style="margin-bottom:14px">
+    <button class="btn btn-primary" onclick="rbPreview()" style="flex:2">👁️ Preview Resume</button>
+    <button class="btn btn-secondary" onclick="rbReset()" style="flex:1">🔄 Reset</button>
+  </div>
+
+  <div class="card"><div class="card-title">Template</div>
+    <div class="chips-wrap">
+      <div class="chip active" data-tpl="modern" onclick="rbSetTemplate('modern', this)">Modern</div>
+      <div class="chip" data-tpl="classic" onclick="rbSetTemplate('classic', this)">Classic</div>
+      <div class="chip" data-tpl="minimal" onclick="rbSetTemplate('minimal', this)">Minimal</div>
+    </div>
+    <div class="hint">Template preview me apply hoga</div>
+  </div>
+
+  <div class="result-box" id="rbResult"></div>`;
+
+window.EXTRA_TOOL_INITS['resume-builder'] = () => {
+  window._rbTemplate = 'modern';
+  // Load saved data
+  const saved = (typeof DB !== 'undefined' && DB.get) ? DB.get('resume_data', null) : null;
+  if (saved) {
+    try {
+      const fields = ['rbName','rbJob','rbEmail','rbPhone','rbLocation','rbLinkedin','rbSummary','rbSkills','rbCert'];
+      fields.forEach(id => { const el = document.getElementById(id); if (el && saved[id]) el.value = saved[id]; });
+      window._rbExp = saved._rbExp || [];
+      window._rbEdu = saved._rbEdu || [];
+      window._rbProj = saved._rbProj || [];
+    } catch(e) {}
+  } else {
+    window._rbExp = [];
+    window._rbEdu = [];
+    window._rbProj = [];
+  }
+  rbRenderExp();
+  rbRenderEdu();
+  rbRenderProj();
+  console.log('%c✅ Resume Builder loaded', 'color:#10b981');
+};
+
+window.rbSetTemplate = function(tpl, el) {
+  window._rbTemplate = tpl;
+  document.querySelectorAll('#toolBody .chip').forEach(c => c.classList.remove('active'));
+  if (el) el.classList.add('active');
+};
+
+window.rbAddExp = function() {
+  window._rbExp = window._rbExp || [];
+  window._rbExp.push({ title:'', company:'', duration:'', desc:'' });
+  rbRenderExp();
+};
+
+window.rbRemoveExp = function(i) {
+  window._rbExp.splice(i, 1);
+  rbRenderExp();
+};
+
+window.rbRenderExp = function() {
+  const wrap = document.getElementById('rbExpList');
+  if (!wrap) return;
+  wrap.innerHTML = (window._rbExp || []).map((e, i) => `
+    <div style="padding:12px;background:var(--surface-2);border-radius:12px;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong style="font-size:13px">Experience #${i+1}</strong>
+        <button onclick="rbRemoveExp(${i})" style="width:28px;height:28px;border-radius:8px;background:rgba(239,68,68,0.15);color:var(--danger);font-size:14px">✕</button>
+      </div>
+      <div class="field-row">
+        <input type="text" placeholder="Job Title" value="${esc(e.title||'')}" oninput="window._rbExp[${i}].title=this.value" style="padding:10px 12px;background:var(--surface);border:1.5px solid var(--border-strong);border-radius:10px;font-size:13.5px;width:100%;color:var(--text);outline:none;margin-bottom:6px" />
+        <input type="text" placeholder="Company" value="${esc(e.company||'')}" oninput="window._rbExp[${i}].company=this.value" style="padding:10px 12px;background:var(--surface);border:1.5px solid var(--border-strong);border-radius:10px;font-size:13.5px;width:100%;color:var(--text);outline:none;margin-bottom:6px" />
+      </div>
+      <input type="text" placeholder="Duration (e.g. Jan 2020 – Dec 2022)" value="${esc(e.duration||'')}" oninput="window._rbExp[${i}].duration=this.value" style="padding:10px 12px;background:var(--surface);border:1.5px solid var(--border-strong);border-radius:10px;font-size:13.5px;width:100%;color:var(--text);outline:none;margin-bottom:6px" />
+      <textarea placeholder="Description (one point per line)" rows="3" oninput="window._rbExp[${i}].desc=this.value" style="padding:10px 12px;background:var(--surface);border:1.5px solid var(--border-strong);border-radius:10px;font-size:13.5px;width:100%;color:var(--text);outline:none;font-family:inherit;resize:vertical">${esc(e.desc||'')}</textarea>
+    </div>
+  `).join('');
+};
+
+window.rbAddEdu = function() {
+  window._rbEdu = window._rbEdu || [];
+  window._rbEdu.push({ degree:'', school:'', year:'' });
+  rbRenderEdu();
+};
+window.rbRemoveEdu = function(i) { window._rbEdu.splice(i, 1); rbRenderEdu(); };
+window.rbRenderEdu = function() {
+  const wrap = document.getElementById('rbEduList');
+  if (!wrap) return;
+  wrap.innerHTML = (window._rbEdu || []).map((e, i) => `
+    <div style="padding:12px;background:var(--surface-2);border-radius:12px;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong style="font-size:13px">Education #${i+1}</strong>
+        <button onclick="rbRemoveEdu(${i})" style="width:28px;height:28px;border-radius:8px;background:rgba(239,68,68,0.15);color:var(--danger);font-size:14px">✕</button>
+      </div>
+      <input type="text" placeholder="Degree (e.g. B.Tech Computer Science)" value="${esc(e.degree||'')}" oninput="window._rbEdu[${i}].degree=this.value" style="padding:10px 12px;background:var(--surface);border:1.5px solid var(--border-strong);border-radius:10px;font-size:13.5px;width:100%;color:var(--text);outline:none;margin-bottom:6px" />
+      <div class="field-row">
+        <input type="text" placeholder="School / University" value="${esc(e.school||'')}" oninput="window._rbEdu[${i}].school=this.value" style="padding:10px 12px;background:var(--surface);border:1.5px solid var(--border-strong);border-radius:10px;font-size:13.5px;width:100%;color:var(--text);outline:none;margin-bottom:6px" />
+        <input type="text" placeholder="Year (e.g. 2020 – 2024)" value="${esc(e.year||'')}" oninput="window._rbEdu[${i}].year=this.value" style="padding:10px 12px;background:var(--surface);border:1.5px solid var(--border-strong);border-radius:10px;font-size:13.5px;width:100%;color:var(--text);outline:none;margin-bottom:6px" />
+      </div>
+    </div>
+  `).join('');
+};
+
+window.rbAddProj = function() {
+  window._rbProj = window._rbProj || [];
+  window._rbProj.push({ name:'', desc:'' });
+  rbRenderProj();
+};
+window.rbRemoveProj = function(i) { window._rbProj.splice(i, 1); rbRenderProj(); };
+window.rbRenderProj = function() {
+  const wrap = document.getElementById('rbProjList');
+  if (!wrap) return;
+  wrap.innerHTML = (window._rbProj || []).map((p, i) => `
+    <div style="padding:12px;background:var(--surface-2);border-radius:12px;margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <strong style="font-size:13px">Project #${i+1}</strong>
+        <button onclick="rbRemoveProj(${i})" style="width:28px;height:28px;border-radius:8px;background:rgba(239,68,68,0.15);color:var(--danger);font-size:14px">✕</button>
+      </div>
+      <input type="text" placeholder="Project Name" value="${esc(p.name||'')}" oninput="window._rbProj[${i}].name=this.value" style="padding:10px 12px;background:var(--surface);border:1.5px solid var(--border-strong);border-radius:10px;font-size:13.5px;width:100%;color:var(--text);outline:none;margin-bottom:6px" />
+      <textarea placeholder="Description" rows="2" oninput="window._rbProj[${i}].desc=this.value" style="padding:10px 12px;background:var(--surface);border:1.5px solid var(--border-strong);border-radius:10px;font-size:13.5px;width:100%;color:var(--text);outline:none;font-family:inherit;resize:vertical">${esc(p.desc||'')}</textarea>
+    </div>
+  `).join('');
+};
+
+window.rbGetData = function() {
+  return {
+    rbName: document.getElementById('rbName').value.trim(),
+    rbJob: document.getElementById('rbJob').value.trim(),
+    rbEmail: document.getElementById('rbEmail').value.trim(),
+    rbPhone: document.getElementById('rbPhone').value.trim(),
+    rbLocation: document.getElementById('rbLocation').value.trim(),
+    rbLinkedin: document.getElementById('rbLinkedin').value.trim(),
+    rbSummary: document.getElementById('rbSummary').value.trim(),
+    rbSkills: document.getElementById('rbSkills').value.trim(),
+    rbCert: document.getElementById('rbCert').value.trim(),
+    _rbExp: window._rbExp || [],
+    _rbEdu: window._rbEdu || [],
+    _rbProj: window._rbProj || [],
+    _rbTemplate: window._rbTemplate || 'modern'
+  };
+};
+
+window.rbBuildHTML = function(d) {
+  const tpl = d._rbTemplate || 'modern';
+  const name = d.rbName || 'Your Name';
+  const job = d.rbJob || '';
+  const contact = [d.rbEmail, d.rbPhone, d.rbLocation, d.rbLinkedin].filter(Boolean).join(' • ');
+  const skills = (d.rbSkills || '').split(',').map(s => s.trim()).filter(Boolean);
+  const certs = (d.rbCert || '').split('\n').map(s => s.trim()).filter(Boolean);
+
+  const accentColor = tpl === 'classic' ? '#1e40af' : tpl === 'minimal' ? '#374151' : '#4f46e5';
+  const headerBg = tpl === 'classic' ? '#1e40af' : tpl === 'minimal' ? '#f3f4f6' : '#4f46e5';
+  const headerText = tpl === 'minimal' ? '#111827' : '#ffffff';
+
+  let html = `<div style="font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff;line-height:1.5;font-size:13px">`;
+  
+  // Header
+  html += `<div style="background:${headerBg};color:${headerText};padding:24px 28px;border-radius:8px 8px 0 0">`;
+  html += `<div style="font-size:26px;font-weight:900;letter-spacing:-0.5px;line-height:1.1;margin-bottom:4px">${esc(name)}</div>`;
+  if (job) html += `<div style="font-size:15px;font-weight:600;opacity:0.95;margin-bottom:8px">${esc(job)}</div>`;
+  if (contact) html += `<div style="font-size:12px;opacity:0.9;line-height:1.5">${esc(contact)}</div>`;
+  html += `</div>`;
+
+  html += `<div style="padding:24px 28px">`;
+
+  // Summary
+  if (d.rbSummary) {
+    html += `<div style="margin-bottom:18px">`;
+    html += `<div style="font-size:13px;font-weight:800;color:${accentColor};text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid ${accentColor};padding-bottom:5px;margin-bottom:10px">Professional Summary</div>`;
+    html += `<div style="font-size:13px;line-height:1.6;color:#333">${esc(d.rbSummary)}</div>`;
+    html += `</div>`;
+  }
+
+  // Experience
+  if (d._rbExp && d._rbExp.length > 0) {
+    html += `<div style="margin-bottom:18px">`;
+    html += `<div style="font-size:13px;font-weight:800;color:${accentColor};text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid ${accentColor};padding-bottom:5px;margin-bottom:10px">Experience</div>`;
+    d._rbExp.forEach(e => {
+      if (!e.title && !e.company) return;
+      html += `<div style="margin-bottom:12px">`;
+      html += `<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px;gap:10px">`;
+      html += `<div style="font-size:14px;font-weight:700">${esc(e.title||'')}</div>`;
+      if (e.duration) html += `<div style="font-size:11.5px;color:#666;white-space:nowrap">${esc(e.duration)}</div>`;
+      html += `</div>`;
+      if (e.company) html += `<div style="font-size:12.5px;color:${accentColor};font-weight:600;margin-bottom:5px">${esc(e.company)}</div>`;
+      if (e.desc) {
+        const points = e.desc.split('\n').filter(p => p.trim());
+        if (points.length > 1) {
+          html += `<ul style="margin:5px 0 0 18px;padding:0;font-size:12.5px;line-height:1.55;color:#333">`;
+          points.forEach(p => html += `<li style="margin-bottom:2px">${esc(p.trim())}</li>`);
+          html += `</ul>`;
+        } else {
+          html += `<div style="font-size:12.5px;line-height:1.55;color:#333;margin-top:3px">${esc(e.desc)}</div>`;
+        }
+      }
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  // Education
+  if (d._rbEdu && d._rbEdu.length > 0) {
+    html += `<div style="margin-bottom:18px">`;
+    html += `<div style="font-size:13px;font-weight:800;color:${accentColor};text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid ${accentColor};padding-bottom:5px;margin-bottom:10px">Education</div>`;
+    d._rbEdu.forEach(e => {
+      if (!e.degree && !e.school) return;
+      html += `<div style="margin-bottom:10px">`;
+      html += `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">`;
+      html += `<div style="font-size:13.5px;font-weight:700">${esc(e.degree||'')}</div>`;
+      if (e.year) html += `<div style="font-size:11.5px;color:#666;white-space:nowrap">${esc(e.year)}</div>`;
+      html += `</div>`;
+      if (e.school) html += `<div style="font-size:12.5px;color:#555;margin-top:2px">${esc(e.school)}</div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  // Skills
+  if (skills.length > 0) {
+    html += `<div style="margin-bottom:18px">`;
+    html += `<div style="font-size:13px;font-weight:800;color:${accentColor};text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid ${accentColor};padding-bottom:5px;margin-bottom:10px">Skills</div>`;
+    html += `<div style="display:flex;flex-wrap:wrap;gap:6px">`;
+    skills.forEach(s => {
+      html += `<span style="background:#f0f0f5;color:#333;padding:4px 11px;border-radius:14px;font-size:12px;font-weight:600">${esc(s)}</span>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Projects
+  if (d._rbProj && d._rbProj.length > 0) {
+    html += `<div style="margin-bottom:18px">`;
+    html += `<div style="font-size:13px;font-weight:800;color:${accentColor};text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid ${accentColor};padding-bottom:5px;margin-bottom:10px">Projects</div>`;
+    d._rbProj.forEach(p => {
+      if (!p.name) return;
+      html += `<div style="margin-bottom:10px">`;
+      html += `<div style="font-size:13px;font-weight:700;margin-bottom:3px">${esc(p.name)}</div>`;
+      if (p.desc) html += `<div style="font-size:12.5px;line-height:1.55;color:#333">${esc(p.desc)}</div>`;
+      html += `</div>`;
+    });
+    html += `</div>`;
+  }
+
+  // Certifications
+  if (certs.length > 0) {
+    html += `<div style="margin-bottom:8px">`;
+    html += `<div style="font-size:13px;font-weight:800;color:${accentColor};text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid ${accentColor};padding-bottom:5px;margin-bottom:10px">Certifications</div>`;
+    html += `<ul style="margin:0 0 0 18px;padding:0;font-size:12.5px;line-height:1.6;color:#333">`;
+    certs.forEach(c => html += `<li>${esc(c)}</li>`);
+    html += `</ul></div>`;
+  }
+
+  html += `</div></div>`;
+  return html;
+};
+
+window.rbPreview = function() {
+  const d = rbGetData();
+  if (!d.rbName) { toast('Enter your name first', 'error'); return; }
+
+  // Save to localStorage
+  try { if (typeof DB !== 'undefined' && DB.set) DB.set('resume_data', d); } catch(e) {}
+
+  const html = rbBuildHTML(d);
+  const box = document.getElementById('rbResult');
+  box.innerHTML = `
+    <div class="result-title">Resume Preview</div>
+    <div id="rbPreviewArea" style="background:#fff;border-radius:8px;overflow:hidden;padding:0;margin-top:8px">${html}</div>
+    <div class="export-btns no-export no-print" style="margin-top:14px">
+      <button class="btn btn-primary" onclick="rbDownloadPDF()"><i>📄</i>PDF</button>
+      <button class="btn btn-secondary" onclick="rbPrint()"><i>🖨️</i>Print</button>
+      <button class="btn btn-secondary" onclick="rbCopyText()"><i>📋</i>Copy</button>
+    </div>`;
+  box.classList.add('active');
+  toast('Preview ready ✅', 'success');
+
+  setTimeout(() => {
+    const area = document.getElementById('rbPreviewArea');
+    if (area) area.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+};
+
+window.rbDownloadPDF = function() {
+  const area = document.getElementById('rbPreviewArea');
+  if (!area) { toast('Preview first', 'error'); return; }
+  toast('Generating PDF...');
+
+  const clone = area.cloneNode(true);
+  clone.style.padding = '0';
+  clone.style.width = '820px';
+  clone.style.background = '#fff';
+
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:fixed;left:-99999px;top:0;background:#fff;width:820px;padding:0;margin:0;';
+  wrap.appendChild(clone);
+  document.body.appendChild(wrap);
+
+  setTimeout(() => {
+    if (!window.htmlToImage) { toast('Library not loaded', 'error'); document.body.removeChild(wrap); return; }
+    htmlToImage.toPng(clone, { quality: 1.0, pixelRatio: 4, backgroundColor: '#ffffff' })
+      .then(dataUrl => {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pw = pdf.internal.pageSize.getWidth();
+        const ph = pdf.internal.pageSize.getHeight();
+        const img = new Image();
+        img.onload = () => {
+          const ratio = img.width / img.height;
+          let w = pw - 16, h = w / ratio;
+          let finalH = h;
+          if (h > ph - 16) { finalH = ph - 16; }
+          pdf.addImage(dataUrl, 'PNG', (pw - w) / 2, 8, w, Math.min(h, finalH), undefined, 'FAST');
+          const name = (document.getElementById('rbName').value || 'resume').replace(/\s+/g, '-').toLowerCase();
+          pdf.save(name + '-resume.pdf');
+          toast('Resume PDF downloaded ✅', 'success');
+        };
+        img.src = dataUrl;
+      })
+      .catch(err => { console.error(err); toast('PDF failed', 'error'); })
+      .finally(() => document.body.removeChild(wrap));
+  }, 400);
+};
+
+window.rbPrint = function() {
+  const area = document.getElementById('rbPreviewArea');
+  if (!area) { toast('Preview first', 'error'); return; }
+  const html = `<!DOCTYPE html><html><head><title>Resume</title><style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Arial,Helvetica,sans-serif;background:#fff;padding:0}
+    @media print{@page{margin:8mm}}
+  </style></head><body>${area.outerHTML}</body></html>`;
+  const printWindow = window.open('', '_blank');
+  if (!printWindow) {
+    const iframe = document.createElement('iframe');
+    iframe.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
+    document.body.appendChild(iframe);
+    const doc = iframe.contentWindow.document;
+    doc.open(); doc.write(html); doc.close();
+    setTimeout(() => { iframe.contentWindow.focus(); iframe.contentWindow.print(); setTimeout(() => document.body.removeChild(iframe), 2000); }, 500);
+    return;
+  }
+  printWindow.document.write(html);
+  printWindow.document.close();
+  setTimeout(() => { printWindow.focus(); printWindow.print(); setTimeout(() => printWindow.close(), 1000); }, 500);
+};
+
+window.rbCopyText = function() {
+  const d = rbGetData();
+  let txt = `${d.rbName || ''}\n`;
+  if (d.rbJob) txt += `${d.rbJob}\n`;
+  const contact = [d.rbEmail, d.rbPhone, d.rbLocation, d.rbLinkedin].filter(Boolean).join(' | ');
+  if (contact) txt += `${contact}\n`;
+  txt += '\n';
+  if (d.rbSummary) txt += `SUMMARY\n${d.rbSummary}\n\n`;
+  if (d._rbExp && d._rbExp.length) {
+    txt += `EXPERIENCE\n`;
+    d._rbExp.forEach(e => {
+      if (!e.title && !e.company) return;
+      txt += `${e.title||''}${e.company?' at '+e.company:''}${e.duration?' ('+e.duration+')':''}\n`;
+      if (e.desc) txt += `${e.desc}\n`;
+      txt += '\n';
+    });
+  }
+  if (d._rbEdu && d._rbEdu.length) {
+    txt += `EDUCATION\n`;
+    d._rbEdu.forEach(e => {
+      txt += `${e.degree||''}${e.school?' - '+e.school:''}${e.year?' ('+e.year+')':''}\n`;
+    });
+    txt += '\n';
+  }
+  if (d.rbSkills) txt += `SKILLS\n${d.rbSkills}\n\n`;
+  if (d._rbProj && d._rbProj.length) {
+    txt += `PROJECTS\n`;
+    d._rbProj.forEach(p => { if (p.name) txt += `${p.name}: ${p.desc||''}\n`; });
+    txt += '\n';
+  }
+  if (d.rbCert) txt += `CERTIFICATIONS\n${d.rbCert}\n`;
+  navigator.clipboard.writeText(txt).then(() => toast('Resume text copied ✅', 'success')).catch(() => toast('Copy failed', 'error'));
+};
+
+window.rbReset = function() {
+  if (!confirm('Reset resume form? All data will be cleared.')) return;
+  ['rbName','rbJob','rbEmail','rbPhone','rbLocation','rbLinkedin','rbSummary','rbSkills','rbCert'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.value = '';
+  });
+  window._rbExp = []; window._rbEdu = []; window._rbProj = [];
+  rbRenderExp(); rbRenderEdu(); rbRenderProj();
+  const box = document.getElementById('rbResult');
+  box.classList.remove('active'); box.innerHTML = '';
+  try { if (typeof DB !== 'undefined' && DB.set) DB.set('resume_data', null); } catch(e) {}
+  toast('Reset done', 'success');
+};
+
+console.log('%c✅ Message 3 loaded — PDF Merger + Resume Builder ready', 'color:#10b981;font-weight:bold;font-size:14px');
